@@ -15,9 +15,6 @@
     <comment-list
       v-bind="$attrs">
     </comment-list>
-    
-    <load-more>
-    </load-more>
   </div>
 </template>
 
@@ -33,6 +30,8 @@ export default {
 
 <style lang="scss">
 .section-comment {
+  min-height: 300px;
+  
   &__refresh {
     display: flex;
     align-items: center;

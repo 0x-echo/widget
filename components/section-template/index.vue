@@ -37,7 +37,7 @@ const props = defineProps({
     color: $text-secondary;
     
     strong {
-      font-weight: 600;
+      font-weight: bold;
     }
   }
   
