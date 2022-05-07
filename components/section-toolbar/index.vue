@@ -4,17 +4,11 @@
     <div
       class="section-toolbar__left">
       <toolbar-item
-        active
-        icon="ri-thumb-up-line"
-        :count="123">
-      </toolbar-item>
-      
-      <toolbar-item
-        icon="ri-thumb-down-line">
-      </toolbar-item>
-      
-      <toolbar-item
-        icon="ri-money-dollar-circle-line">
+        v-for="item in config"
+        :key="item.value"
+        :active="item.active"
+        :icon="item.icon"
+        :count="item.count">
       </toolbar-item>
     </div>
     
@@ -65,6 +59,10 @@ import MenuItem from './menu-item'
 import ToolbarItem from './toolbar-item'
 
 const props = defineProps({
+  config: {
+    type: Array,
+    required: true
+  },
   user: {
     type: Object
   }

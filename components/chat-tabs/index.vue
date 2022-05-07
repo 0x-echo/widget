@@ -9,10 +9,7 @@
       v-for="item in tabs"
       :key="item.value"
       @click="activeTab = item.value">
-      <slot
-        :name="item.value">
-        {{ item.label }}
-      </slot>
+      <template v-if="item.count">{{ item.count }}</template> {{ item.label }}
     </div>
   </div>
 </template>
