@@ -1,22 +1,15 @@
 <template>
-  <div
-    class="section-vote">
-    <div
-      class="section-vote__value">
-      Total voting value: <strong>${{ value }}</strong>
-    </div>
-    
-    <div
-      class="section-vote__list">
-      <user-item
-        v-for="item in data"
-        :key="item.id"
-        :avatar="item.avatar"
-        :label="`$${item.asset}`"
-        :value="item.name">
-      </user-item>
-    </div>
-  </div>
+  <section-template
+    label="Total voting value"
+    :value="value">
+    <user-item
+      v-for="item in data"
+      :key="item.id"
+      :avatar="item.avatar"
+      :label="`$${item.asset}`"
+      :value="item.name">
+    </user-item>
+  </section-template>
 </template>
 
 <script setup>
