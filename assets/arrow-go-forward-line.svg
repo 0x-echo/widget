@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>arrow-go-forward-line</title>
+    <desc>Created with Sketch.</desc>
+    <g id="arrow-go-forward-line" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M13.379,7.4625 L8,7.4625 C5.51471863,7.4625 3.5,9.47721863 3.5,11.9625 C3.5,14.4477814 2,15.2762085 2,11.9625 C2,8.6487915 4.6862915,5.9625 8,5.9625 L13.379,5.9625 L11.477,4.0605 L12.5375,3 L16.25,6.7125 L12.5375,10.425 L11.477,9.3645 L13.379,7.4625 Z" id="Path" fill="#929AB2" fill-rule="nonzero" transform="translate(9.125000, 8.574053) scale(1, -1) translate(-9.125000, -8.574053) "></path>
+    </g>
+</svg>

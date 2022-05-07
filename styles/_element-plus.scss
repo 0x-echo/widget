@@ -1,0 +1,53 @@
+.el-button {
+  border-radius: $border-radius;
+  transition: all .3s ease;
+  
+  &--primary {
+    border-color: $primary;
+    background: $primary;
+  }
+  
+  &--info {
+    &,
+    &:focus:not(.el-button:hover) {
+      border-color: $bg-color;
+      background: $bg-color;
+      color: $text-secondary;
+    }
+    
+    &:hover,
+    &:focus {
+      border-color: $bg-color;
+      background: $bg-color;
+      color: $primary;
+    }
+    
+    &.el-button--icon {
+      &.active {
+        &,
+        &:focus:not(.el-button:hover) {
+          border-color: $primary;
+          background: $primary;
+          color: white;
+        }
+      }
+    }
+  }
+  
+  &--icon {
+    padding-left: 11px;
+    padding-right: 11px;
+    font-size: 16px;
+  }
+}
+
+.el-textarea {
+  &__inner {
+    border-radius: $border-radius;
+    border-color: #E2E8ED;
+    
+    &:focus {
+      box-shadow: 0 0 0 1px $primary inset;
+    }
+  }
+}

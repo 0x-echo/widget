@@ -1,0 +1,54 @@
+<template>
+  <div
+    class="section-vote">
+    <div
+      class="section-vote__value">
+      Total donations: <strong>${{ value }}</strong>
+    </div>
+    
+    <div
+      class="section-vote__list">
+      <user-item
+        v-for="item in data"
+        :key="item.id"
+        :avatar="item.avatar"
+        :label="item.created_at"
+        :value="item.name">
+      </user-item>
+    </div>
+  </div>
+</template>
+
+<script setup>
+const props = defineProps({
+  data: {
+    type: Array,
+    required: true
+  },
+  value: {
+    type: String,
+    required: true
+  }
+})
+</script>
+
+<style lang="scss">
+.section-vote {
+  padding: 0 30px;
+  
+  &__value {
+    margin-bottom: 30px;
+    font-size: 14px;
+    color: $text-secondary;
+    
+    strong {
+      font-weight: 600;
+    }
+  }
+  
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+</style>
