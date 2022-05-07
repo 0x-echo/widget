@@ -11,7 +11,7 @@
     <div
       class="user-item__body">
       <div
-        class="uesr-item__title">
+        class="user-item__title">
         {{ value }}
       </div>
       
