@@ -9,20 +9,32 @@
     </chat-avatar>
     
     <div
-      class="reply-form__box">
+      class="reply-form__box"
+      :class="{
+        'is-expanded': isExpanded
+      }">
       <el-input
         class="reply-form__input"
         v-model="reply"
         placeholder="Type something..."
         resize="none"
-        type="textarea">
+        :rows="isExpanded ? 3 : 1"
+        type="textarea"
+        @focus="isExpanded = true">
       </el-input>
       
-      <el-button
-        class="reply-form__send-button"
-        type="primary">
-        Send
-      </el-button>
+      <transition
+        name="slide-down">
+        <div
+          class="reply-form__toolbar"
+          v-if="isExpanded">
+          <el-button
+            class="reply-form__send-button"
+            type="primary">
+            Send
+          </el-button>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -32,6 +44,10 @@ import { ElButton, ElInput } from 'element-plus/dist/index.full'
 import { ref } from 'vue'
 
 const props = defineProps({
+  isExpanded: {
+    type: Boolean,
+    default: false
+  },
   user: {
     type: Object,
     default () {
@@ -66,23 +82,51 @@ export default {
   }
   
   &__box {
-    position: relative;
     flex: 1;
+    height: 48px;
+    border: 1px solid #E2E8ED;
+    border-radius: $border-radius;
+    background: white;
+    transition: all .3s ease;
+    
+    &.is-expanded {
+      height: 143px;
+    }
+    
+    &:hover,
+    &:focus-within {
+      border-color: $primary;
+    }
   }
   
   &__input {
     .el-textarea__inner {
-      height: 100px;
-      padding: 12px 12px 54px;
+      padding: 10px 15px 0 15px;
+      box-shadow: none;
       font-size: 15px;
+      line-height: 24px;
     }
   }
   
-  &__send-button {
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
-    width: 90px;
+  &__toolbar {
+    padding: 12px 15px 15px;
+    text-align: right;
   }
+  
+  &__send-button {
+    width: 90px;
+    border-radius: 8px;
+  }
+}
+
+.slide-down-enter-from,
+.slide-down-leave-to {
+  opacity: 0;
+  transform: translateY(-72px);
+}
+
+.slide-down-enter-active,
+.slide-down-leave-active {
+  transition: all .3s ease;
 }
 </style>
