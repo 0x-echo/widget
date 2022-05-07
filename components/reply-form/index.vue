@@ -15,10 +15,11 @@
       }">
       <el-input
         class="reply-form__input"
+        ref="replyInput"
         v-model="reply"
         placeholder="Type something..."
         resize="none"
-        :rows="isExpanded ? 3 : 1"
+        :rows="isExpanded ? 2 : 1"
         type="textarea"
         @focus="isExpanded = true">
       </el-input>
@@ -27,10 +28,12 @@
         name="slide-down">
         <div
           class="reply-form__toolbar"
-          v-if="isExpanded">
+          v-if="isExpanded"
+          @click="onClickToolbar">
           <el-button
             class="reply-form__send-button"
-            type="primary">
+            type="primary"
+            @click.stop>
             Send
           </el-button>
         </div>
@@ -62,6 +65,11 @@ const reply = ref('')
 <script>
 export default {
   // inheritAttrs: false
+  methods: {
+    onClickToolbar () {
+      this.$refs.replyInput.focus()
+    }
+  }
 }
 </script>
 
@@ -90,7 +98,7 @@ export default {
     transition: all .3s ease;
     
     &.is-expanded {
-      height: 143px;
+      height: 119px;
     }
     
     &:hover,
