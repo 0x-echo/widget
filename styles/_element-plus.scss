@@ -51,3 +51,10 @@
     }
   }
 }
+
+.el-popover.el-popper {
+  min-width: 136px;
+  border: 0;
+  border-radius: $border-radius;
+  box-shadow: 0 10px 10px rgba(black, .05);
+}
