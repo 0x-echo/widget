@@ -23,6 +23,7 @@
     </toolbar-item> -->
     
     <el-popover
+      :offset="0"
       placement="bottom"
       :show-arrow="false"
       trigger="click"
@@ -49,19 +50,19 @@
       
       <template 
         #default>
-        <div>
-          <i
-            class="ri-logout-circle-r-line">
-          </i>
-        </div>
+        <menu-item
+          icon="ri-logout-circle-r-line"
+          label="Logout">
+        </menu-item>
       </template>
     </el-popover>
   </div>
 </template>
 
 <script setup>
-import ToolbarItem from './toolbar-item'
 import { ElPopover } from 'element-plus/dist/index.full'
+import MenuItem from './menu-item'
+import ToolbarItem from './toolbar-item'
 
 const props = defineProps({
   user: {
