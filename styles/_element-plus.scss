@@ -53,10 +53,21 @@
 
 .el-textarea {
   &__inner {
-    border-radius: $border-radius;
-    border-color: #E2E8ED;
+    box-shadow: 0 0 0 1px #E2E8ED inset;
     
     &:focus {
+      box-shadow: 0 0 0 1px $primary inset;
+    }
+  }
+}
+
+.el-input {
+  &__wrapper {
+    border-radius: $border-radius;
+    box-shadow: 0 0 0 1px #E2E8ED inset;
+    
+    &.is-focus,
+    &:hover {
       box-shadow: 0 0 0 1px $primary inset;
     }
   }
