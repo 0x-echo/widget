@@ -79,3 +79,17 @@
   border-radius: $border-radius;
   box-shadow: 0 10px 10px rgba(black, .05);
 }
+
+.el-dialog {
+  border-radius: 20px;
+  
+  &__header {
+    padding: 35px 35px 0;
+    margin-right: 0;
+  }
+  
+  &__body {
+    padding: 30px 35px 50px;
+    color: $text-primary;
+  }
+}
