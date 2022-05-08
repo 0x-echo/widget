@@ -1,5 +1,6 @@
 .el-button {
   border-radius: $border-radius;
+  font-family: $font-family;
   transition: all .3s ease;
   
   &--primary {
@@ -35,9 +36,18 @@
   }
   
   &--icon {
-    padding-left: 11px;
-    padding-right: 11px;
+    &.el-button--large {
+      padding-left: 11px;
+      padding-right: 11px;
+    }
+  }
+  
+  &--large {
     font-size: 16px;
+  }
+  
+  &--xlarge {
+    height: 48px;
   }
 }
 
