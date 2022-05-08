@@ -1,6 +1,6 @@
 <template>
   <div
-    class="template-tabs">
+    class="chat-widget__container template-tabs">
     <section-toolbar
       :config="toolbarConfig">
     </section-toolbar>
@@ -115,7 +115,4 @@ const toolbarConfig = computed(() => {
 </script>
 
 <style lang="scss">
-.template-tabs {
-  max-width: 800px;
-}
 </style>

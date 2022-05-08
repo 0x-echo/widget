@@ -119,6 +119,7 @@ export default {
   &__toolbar {
     padding: 12px 15px 15px;
     text-align: right;
+    cursor: text;
   }
   
   &__send-button {
