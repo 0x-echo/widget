@@ -7,6 +7,24 @@
       :data="data">
     </template-tabs>
     
+    <div
+      class="chat-widget__container"
+      v-if="config.modules.length === 1  && config.modules[0] === 'comment'">
+      <reply-form
+        class="chat-widget__reply">
+      </reply-form>
+    
+      <section-comment
+        :data="data.comments">
+      </section-comment>
+    </div>
+    
+    <template-list
+      v-if="config.modules.length === 1 && config.modules[0] !== 'comment'"
+      :data="data"
+      :module="config.modules[0]">
+    </template-list>
+    
     <chat-footer>
     </chat-footer>
   </div>
@@ -17,6 +35,9 @@ export default {
   data () {
     return {
       data: {
+        name: 'hello.bit',
+        bio: 'Hello world, hello world',
+        avatar: '',
         comments: [{
           id: '1',
           avatar: '',
@@ -107,7 +128,11 @@ export default {
 <style lang="scss">
 .chat-widget {
   width: 100%;
-  padding: 20px;
+  padding: 30px;
+  
+  &__container {
+    max-width: 800px;
+  }
   
   &__reply {
     margin-bottom: 30px;
