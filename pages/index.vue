@@ -27,6 +27,14 @@
     
     <chat-footer>
     </chat-footer>
+    
+    <dialog-connect
+      v-model="connectDialogVisible">
+    </dialog-connect>
+    
+    <dialog-donate
+      v-model="donateDialogVisible">
+    </dialog-donate>
   </div>
 </template>
 
@@ -34,6 +42,8 @@
 export default {
   data () {
     return {
+      connectDialogVisible: false,
+      donateDialogVisible: false,
       data: {
         name: 'hello.bit',
         bio: 'Hello world, hello world',
