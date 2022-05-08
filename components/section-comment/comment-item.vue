@@ -157,7 +157,7 @@ export default {
   &__byline {
     display: flex;
     align-items: center;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
   }
   
@@ -200,7 +200,7 @@ export default {
   }
   
   &__content {
-    font-size: 15px;
+    font-size: 14px;
     line-height: 24px;
     color: $text-primary;
   }

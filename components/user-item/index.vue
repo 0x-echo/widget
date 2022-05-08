@@ -58,7 +58,8 @@ const props = defineProps({
   }
   
   &__title {
-    font-size: 15px;
+    font-size: 14px;
+    font-weight: 500;
     color: $text-primary;
   }
   

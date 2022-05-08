@@ -40,7 +40,7 @@ export default {
     margin-bottom: 30px;
     border-radius: 10px;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
     background: $primary-light;
     color: $primary;
     cursor: pointer;

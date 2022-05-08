@@ -63,7 +63,7 @@ const props = defineProps({
     margin-left: 6px;
     border-radius: 50%;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 500;
     background: $bg-color;
     color: $text-secondary;
   }
