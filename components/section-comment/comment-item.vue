@@ -97,6 +97,7 @@
 <script setup>
 import { ref } from 'vue'
 import CommentAction from './comment-action'
+const { $bus } = useNuxtApp()
 
 
 const props = defineProps({
@@ -122,7 +123,11 @@ const reply = () => {
   })
 }
 
+$bus.on('reset-reply-comment', (data) => {
+  if (props.data.id === data.id) {
+    message.value = ''
   }
+})
 </script>
 
 <style lang="scss">
