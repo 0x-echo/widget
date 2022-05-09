@@ -115,6 +115,12 @@ const emits = defineEmits([
 const showReply = ref(false)
 let message = ref('')
 
+const reply = () => {
+  emits('reply-comment', {
+    message: message.value,
+    data: props.data
+  })
+}
 
   }
 </script>
