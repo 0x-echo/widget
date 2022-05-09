@@ -98,7 +98,6 @@
 import { ref } from 'vue'
 import CommentAction from './comment-action'
 
-import { ref } from 'vue'
 
 const props = defineProps({
   data: {
@@ -114,18 +113,10 @@ const emits = defineEmits([
 ])
 
 const showReply = ref(false)
-</script>
 let message = ref('')
 
 
-<script>
-export default {
-  data () {
-    return {
-      
-    }
   }
-}
 </script>
 
 <style lang="scss">
