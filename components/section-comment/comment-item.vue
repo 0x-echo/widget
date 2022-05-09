@@ -67,11 +67,13 @@
         <comment-action
           active
           :count="1"
-          icon="ri-thumb-up-line">
+          icon="ri-thumb-up-line"
+          @click="$emit('upvote-comment', data)">
         </comment-action>
         
         <comment-action
-          icon="ri-thumb-down-line">
+          icon="ri-thumb-down-line"
+          @click="$emit('downvote-comment', data)">
         </comment-action>
         
         <comment-action
@@ -83,6 +85,7 @@
       <reply-form
         v-if="showReply"
         v-model="message"
+        @reply="reply">
       </reply-form>
       
       <slot>
@@ -103,6 +106,12 @@ const props = defineProps({
     required: true
   }
 })
+
+const emits = defineEmits([
+  'downvote-comment',
+  'reply-comment',
+  'upvote-comment'
+])
 
 const showReply = ref(false)
 </script>
