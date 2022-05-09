@@ -41,7 +41,6 @@ const props = defineProps({
   align-items: center;
   width: 50px;
   color: $text-muted;
-  cursor: pointer;
   
   & + & {
     margin-left: 20px;
@@ -54,6 +53,7 @@ const props = defineProps({
   
   &__icon {
     font-size: 16px;
+    cursor: pointer;
   }
   
   &__count {

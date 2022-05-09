@@ -111,7 +111,7 @@ export default {
     .el-textarea__inner {
       padding: 10px 15px 0 15px;
       box-shadow: none;
-      font-size: 15px;
+      font-size: 14px;
       line-height: 24px;
     }
   }
