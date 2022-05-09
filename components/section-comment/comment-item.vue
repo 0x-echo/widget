@@ -82,7 +82,7 @@
       
       <reply-form
         v-if="showReply"
-        v-bind="$attrs">
+        v-model="message"
       </reply-form>
       
       <slot>
@@ -92,6 +92,7 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import CommentAction from './comment-action'
 
 import { ref } from 'vue'
@@ -105,6 +106,7 @@ const props = defineProps({
 
 const showReply = ref(false)
 </script>
+let message = ref('')
 
 
 <script>
