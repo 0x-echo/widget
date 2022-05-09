@@ -2,7 +2,8 @@
   <div
     class="section-comment">
     <div
-      class="section-comment__refresh">
+      class="section-comment__refresh"
+      @click="$emit('refresh-comments')">
       <i
         class="ri-refresh-line section-comment__refresh-icon">
       </i>
