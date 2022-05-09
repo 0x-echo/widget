@@ -20,7 +20,7 @@
         v-for="item in list"
         :key="item.value"
         :data="item"
-        @click="connect(item)">
+        @click="connectWallet(item)">
       </wallet-item>
     </div>
     
@@ -69,7 +69,7 @@ const close = () => {
   emits('update:modelValue', false)
 }
 
-const connect = (item) => {
+const connectWallet = (item) => {
   emits('connect-wallet', item)
 }
 </script>
