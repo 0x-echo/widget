@@ -34,7 +34,7 @@
           <el-button
             class="reply-form__send-button"
             type="primary"
-            @click.stop>
+            @click.stop="$emit('reply')">
             Send
           </el-button>
         </div>
@@ -60,6 +60,10 @@ const props = defineProps({
 })
 
 const reply = ref('')
+const emits = defineEmits([
+  'reply'
+])
+
 let isExpanded = ref(false)
 </script>
 
