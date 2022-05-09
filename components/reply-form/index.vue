@@ -1,6 +1,7 @@
 <template>
   <div
-    class="reply-form">
+    class="reply-form"
+    :class="customClass">
     <chat-avatar
       class="reply-form__avatar"
       :alt="user.name || 'Avatar'"
@@ -50,6 +51,8 @@ const props = defineProps({
   isExpanded: {
     type: Boolean,
     default: false
+  customClass: {
+    type: String
   },
   user: {
     type: Object,
