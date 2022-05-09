@@ -2,11 +2,13 @@
   <div
     class="chat-widget__container template-tabs">
     <section-toolbar
+      v-bind="$attrs"
       :config="toolbarConfig">
     </section-toolbar>
     
     <reply-form
-      class="chat-widget__reply">
+      custom-class="chat-widget__reply"
+      v-bind="$attrs">
     </reply-form>
     
     <chat-tabs
@@ -17,6 +19,7 @@
     
     <section-comment
       v-show="activeTab === 'comment'"
+      v-bind="$attrs"
       :data="data.comments">
     </section-comment>
     

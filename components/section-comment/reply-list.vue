@@ -2,6 +2,7 @@
   <div
     class="reply-list">
     <comment-item
+      v-bind="$attrs"
       v-for="item in replies"
       :key="item.id"
       :data="item">
