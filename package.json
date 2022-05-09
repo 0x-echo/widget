@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "element-plus": "^2.1.11",
+    "mitt": "^3.0.0",
     "remixicon": "^2.5.0"
   }
 }
