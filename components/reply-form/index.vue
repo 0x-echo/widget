@@ -17,7 +17,7 @@
       <el-input
         class="reply-form__input"
         ref="replyInput"
-        v-model="reply"
+        v-bind="$attrs"
         placeholder="Type something..."
         resize="none"
         :rows="isExpanded ? 2 : 1"
@@ -33,6 +33,7 @@
           @click="onClickToolbar">
           <el-button
             class="reply-form__send-button"
+            :disabled="!$attrs.modelValue"
             type="primary"
             @click.stop="$emit('reply')">
             Send
@@ -59,7 +60,6 @@ const props = defineProps({
   }
 })
 
-const reply = ref('')
 const emits = defineEmits([
   'reply'
 ])
@@ -69,7 +69,7 @@ let isExpanded = ref(false)
 
 <script>
 export default {
-  // inheritAttrs: false
+  inheritAttrs: false,
   methods: {
     onClickToolbar () {
       this.$refs.replyInput.focus()
