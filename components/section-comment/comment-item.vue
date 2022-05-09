@@ -78,7 +78,7 @@
         
         <comment-action
           icon="ri-reply-line"
-          @click="showReply = !showReply">
+          @click="toggleReplyForm">
         </comment-action>
       </div>
       
@@ -118,6 +118,13 @@ const emits = defineEmits([
 
 const showReply = ref(false)
 let message = ref('')
+
+const toggleReplyForm = () => {
+  showReply.value = !showReply.value
+  if (!showReply.value) {
+    message.value = ''
+  }
+}
 
 const reply = () => {
   emits('reply-comment', {
