@@ -99,6 +99,9 @@ import { ref } from 'vue'
 import CommentAction from './comment-action'
 const { $bus } = useNuxtApp()
 
+onBeforeUnmount(() => {
+  $bus.off('reset-reply-comment')
+})
 
 const props = defineProps({
   data: {
