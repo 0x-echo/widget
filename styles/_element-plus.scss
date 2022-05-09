@@ -53,6 +53,7 @@
 
 .el-textarea {
   &__inner {
+    border-radius: $border-radius;
     box-shadow: 0 0 0 1px #E2E8ED inset;
     
     &:focus {
