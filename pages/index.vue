@@ -4,18 +4,35 @@
     <template-tabs
       v-if="config.modules.length > 1"
       :config="config"
-      :data="data">
+      :data="data"
+      v-model="message"
+      @connect-wallet="connectDialogVisible = true"
+      @donate="donate"
+      @downvote="downvote"
+      @downvote-comment="downvoteComment"
+      @logout="logout"
+      @refresh-comments="refreshComments"
+      @reply="reply"
+      @reply-comment="replyComment"
+      @upvote="upvote"
+      @upvote-comment="upvoteComment">
     </template-tabs>
     
     <div
       class="chat-widget__container"
       v-if="config.modules.length === 1  && config.modules[0] === 'comment'">
       <reply-form
-        class="chat-widget__reply">
+        custom-class="chat-widget__reply"
+        v-model="message"
+        @reply="reply">
       </reply-form>
     
       <section-comment
-        :data="data.comments">
+        :data="data.comments"
+        @downvote-comment="downvoteComment"
+        @refresh-comments="refreshComments"
+        @reply-comment="replyComment"
+        @upvote-comment="upvoteComment">
       </section-comment>
     </div>
     
@@ -29,7 +46,8 @@
     </chat-footer>
     
     <dialog-connect
-      v-model="connectDialogVisible">
+      v-model="connectDialogVisible"
+      @connect-wallet="connectWallet">
     </dialog-connect>
     
     <dialog-donate
@@ -38,12 +56,64 @@
   </div>
 </template>
 
+<script setup>
+import { ref } from 'vue'
+const { $bus } = useNuxtApp()
+
+const connectDialogVisible = ref(false)
+const donateDialogVisible = ref(false)
+let message = ref('')
+
+// connect wallet / disconnect wallet
+const connectWallet =  () => {
+  console.log('connect-wallet')
+}
+
+const logout = () => {
+  console.log('logout')
+}
+
+// upvote
+const upvote = () => {
+  console.log('upvote')
+}
+const upvoteComment = (data) => {
+  console.log(data)
+}
+
+// downvote
+const downvote = () => {
+  console.log('downvote')
+}
+    
+const downvoteComment = (data) => {
+  console.log(data)
+}
+
+// donate
+const donate = () => {
+  console.log('donate')
+}
+
+// comment
+const reply = () => {
+  console.log(message.value)
+  message.value = ''
+}
+
+const replyComment = (data) => {
+  $bus.emit('reset-reply-comment', data.data)
+}
+
+const refreshComments = () => {
+  console.log('refresh-comments')
+}
+</script>
+
 <script>
 export default {
   data () {
     return {
-      connectDialogVisible: false,
-      donateDialogVisible: false,
       data: {
         name: 'hello.bit',
         bio: 'Hello world, hello world',
@@ -128,7 +198,7 @@ export default {
         }]
       },
       config: {
-        modules: ['comment', 'upvote']
+        modules: ['downvote', 'comment', 'upvote']
       }
     }
   }
