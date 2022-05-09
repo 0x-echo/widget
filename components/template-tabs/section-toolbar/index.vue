@@ -8,12 +8,14 @@
         :key="item.value"
         :active="item.active"
         :icon="item.icon"
-        :count="item.count">
+        :count="item.count"
+        @on-click="$emit(item.value)">
       </toolbar-item>
     </div>
     
     <!-- <toolbar-item
-      icon="ri-wallet-3-line">
+      icon="ri-wallet-3-line"
+      @click="$emit('connect-wallet')">
     </toolbar-item> -->
     
     <el-popover
@@ -46,7 +48,8 @@
         #default>
         <menu-item
           icon="ri-logout-circle-r-line"
-          label="Logout">
+          label="Logout"
+          @click="$emit('logout')">
         </menu-item>
       </template>
     </el-popover>
@@ -67,6 +70,14 @@ const props = defineProps({
     type: Object
   }
 })
+
+const emits = defineEmits([
+  'connect-wallet',
+  'donate',
+  'downvote',
+  'logout',
+  'upvote'
+])
 </script>
 
 <style lang="scss">
