@@ -7,7 +7,8 @@
         'active': active
       }"
       size="large"
-      type="info">
+      type="info"
+      @click="$emit('on-click')">
       <i
         :class="icon">
       </i>
@@ -36,6 +37,10 @@ const props = defineProps({
     type: String
   }
 })
+
+const emits = defineEmits([
+  'on-click'
+])
 </script>
 
 <style lang="scss">
@@ -54,7 +59,6 @@ const props = defineProps({
   &__count {
     margin-left: 8px;
     font-size: 14px;
-    font-weight: 500;
     color: $text-primary;
   }
 }
