@@ -48,9 +48,6 @@ import { ElButton, ElInput } from 'element-plus/dist/index.full'
 import { ref } from 'vue'
 
 const props = defineProps({
-  isExpanded: {
-    type: Boolean,
-    default: false
   customClass: {
     type: String
   },
@@ -63,6 +60,7 @@ const props = defineProps({
 })
 
 const reply = ref('')
+let isExpanded = ref(false)
 </script>
 
 <script>
