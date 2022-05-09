@@ -13,6 +13,8 @@
 </template>
 
 <script setup>
+import SectionTemplate from '../section-template'
+
 const props = defineProps({
   data: {
     type: Array,

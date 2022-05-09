@@ -42,6 +42,9 @@
 
 <script setup>
 import { computed, ref } from 'vue'
+import SectionDonate from './section-donate'
+import SectionToolbar from './section-toolbar'
+import SectionVote from './section-vote'
 
 const props = defineProps({
   config: {
