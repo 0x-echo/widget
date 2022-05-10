@@ -9,8 +9,8 @@
     </comment-item>
     
     <comment-collapse
-      v-if="data.length && !showAllReplies"
-      :data="data.filter((item, index) => { return index >= maxDisplayReply })"
+      v-if="collapsedList.length && !showAllReplies"
+      :data="collapsedList"
       @toggle="showAllReplies = !showAllReplies">
     </comment-collapse>
   </div>
@@ -37,6 +37,10 @@ const replies = computed(() => {
   } else {
     return props.data.filter((item, index) => { return index < maxDisplayReply.value })
   }
+})
+
+const collapsedList = computed(() => {
+  return props.data.filter((item, index) => { return index >= maxDisplayReply.value })
 })
 </script>
 
