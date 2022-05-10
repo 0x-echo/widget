@@ -16,13 +16,15 @@
     </template>
     
     <section-user
-      :data="data">
+      :data="user">
     </section-user>
     
-    <section-network>
+    <section-network
+      v-model="data.network">
     </section-network>
     
-    <section-amount>
+    <section-amount
+      v-model="data.amount">
     </section-amount>
     
     <div
@@ -34,8 +36,10 @@
       
       <el-button
         class="dialog-donate__next-button"
+        :disabled="!(data.network && data.amount)"
         size="large"
-        type="primary">
+        type="primary"
+        @click="goNext">
         Next
       </el-button>
     </div>
@@ -43,6 +47,7 @@
 </template>
 
 <script setup>
+import { reactive } from 'vue'
 import { ElButton, ElDialog } from 'element-plus/dist/index.full'
 import SectionAmount from './section-amount'
 import SectionNetwork from './section-network'
@@ -56,7 +61,7 @@ const close = () => {
   emits('update:modelValue', false)
 }
 
-const data = {
+const user = {
   name: 'hello.bit',
   bio: 'Hello world, hello world',
   wallet: [{
@@ -67,6 +72,11 @@ const data = {
     address: '0x1323232424243456'
   }]
 }
+
+const data = reactive({
+  network: '',
+  amount: ''
+})
 </script>
 
 <script>
