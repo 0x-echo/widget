@@ -54,7 +54,8 @@
     </dialog-connect>
     
     <dialog-donate
-      v-model="donateDialogVisible">
+      v-model="donateDialogVisible"
+      @go-next="donateLogin">
     </dialog-donate>
   </div>
 </template>
@@ -95,7 +96,12 @@ const downvoteComment = (data) => {
 
 // donate
 const donate = () => {
-  console.log('donate')
+  donateDialogVisible.value = true
+}
+
+const donateLogin = (data) => {
+  console.log(data)
+  connectDialogVisible.value = true
 }
 
 // comment
