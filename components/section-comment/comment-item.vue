@@ -2,7 +2,9 @@
   <div
     class="comment-item">
     <div
-      class="comment-item__avatar">
+      class="comment-item__avatar"
+      @mouseenter="moreMenuVisible = true"
+      @mouseleave="moreMenuVisible = false">
       <chat-avatar
         class="comment-item__avatar-image"
         :alt="data.name"
@@ -14,79 +16,117 @@
     <div
       class="comment-item__body">
       <div
-        class="comment-item__header">
+        @mouseenter="moreMenuVisible = true"
+        @mouseleave="moreMenuVisible = false">
         <div
-          class="comment-item__byline">
-          <span
-            class="comment-item__author"
-            :title="data.name">
-            {{ data.name }}
-          </span>
-          
-          <!-- <chat-tag
-            class="comment-item__tag">
-            Author
-          </chat-tag> -->
-          
-          <i
-            class="ri-file-copy-line comment-item__copy-icon">
-          </i>
-        </div>
-          
-        <div
-          class="comment-item__meta">
-          <template
-            v-if="data.reply_to">
-            <span>
-              Replying to 
+          class="comment-item__header">
+          <div
+            class="comment-item__header-content">
+            <div
+              class="comment-item__byline">
               <span
-                class="comment-item__meta-reply">
-                @{{ data.reply_to }}
+                class="comment-item__author"
+                :title="data.name">
+                {{ data.name }}
               </span>
-            </span>
-            
-            <span
-              class="comment-item__meta-divider">
-              ·
-            </span>
-          </template>
+              
+              <!-- <chat-tag
+                class="comment-item__tag">
+                Author
+              </chat-tag> -->
+              
+              <i
+                class="ri-file-copy-line comment-item__copy-icon">
+              </i>
+            </div>
+              
+            <div
+              class="comment-item__meta">
+              <template
+                v-if="data.reply_to">
+                <span>
+                  Replying to 
+                  <span
+                    class="comment-item__meta-reply">
+                    @{{ data.reply_to }}
+                  </span>
+                </span>
+                
+                <span
+                  class="comment-item__meta-divider">
+                  ·
+                </span>
+              </template>
+              
+              <span>
+                {{ $formatDate(data.created_at) }}
+              </span>
+            </div>
+          </div>
           
-          <span>
-            {{ $formatDate(data.created_at) }}
-          </span>
+          <el-popover
+            :offset="0"
+            placement="bottom-end"
+            :show-arrow="false"
+            trigger="click"
+            :width="166">
+            <template 
+              #reference>
+              <el-button
+                class="el-button--icon comment-item__more-button"
+                :class="{
+                  'show': moreMenuVisible
+                }">
+                <i
+                  class="ri-more-fill">
+                </i>
+              </el-button>
+            </template>
+            
+            <template 
+              #default>
+              <menu-item
+                v-for="item in moreMenu"
+                :key="item.value"
+                :icon="item.icon"
+                :label="item.label"
+                @click="$emit(item.value, data)">
+              </menu-item>
+            </template>
+          </el-popover>
         </div>
-      </div>
-      
-      <div
-        class="comment-item__content">
-        {{ data.content }}
-      </div>
-      
-      <div
-        class="comment-item__control-bar">
-        <comment-action
-          active
-          :count="1"
-          icon="ri-thumb-up-line"
-          @click="$emit('upvote-comment', data)">
-        </comment-action>
         
-        <comment-action
-          icon="ri-thumb-down-line"
-          @click="$emit('downvote-comment', data)">
-        </comment-action>
+        <div
+          class="comment-item__content">
+          {{ data.content }}
+        </div>
         
-        <comment-action
-          icon="ri-reply-line"
-          @click="toggleReplyForm">
-        </comment-action>
+        <div
+          class="comment-item__control-bar">
+          <comment-action
+            active
+            :count="1"
+            icon="ri-thumb-up-line"
+            @click="$emit('upvote-comment', data)">
+          </comment-action>
+          
+          <comment-action
+            icon="ri-thumb-down-line"
+            @click="$emit('downvote-comment', data)">
+          </comment-action>
+          
+          <comment-action
+            icon="ri-reply-line"
+            @click="toggleReplyForm">
+          </comment-action>
+        </div>
+        
+        <reply-form
+          v-if="showReply"
+          v-model="message"
+          @reply="reply">
+        </reply-form>
       </div>
-      
-      <reply-form
-        v-if="showReply"
-        v-model="message"
-        @reply="reply">
-      </reply-form>
       
       <slot>
       </slot>
@@ -96,6 +136,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { ElButton, ElPopover } from 'element-plus/dist/index.full'
 import CommentAction from './comment-action'
 const { $bus } = useNuxtApp()
 
@@ -113,8 +154,21 @@ const props = defineProps({
 const emits = defineEmits([
   'downvote-comment',
   'reply-comment',
-  'upvote-comment'
+  'report',
+  'upvote-comment',
+  'view-arweave-info'
 ])
+
+const moreMenuVisible = ref(false)
+const moreMenu = [{
+  icon: 'ri-information-line',
+  label: 'Arweave TX',
+  value: 'view-arweave-info'
+}, {
+  icon: 'ri-alert-line',
+  label: 'Report',
+  value: 'report'
+}]
 
 const showReply = ref(false)
 let message = ref('')
@@ -174,7 +228,15 @@ $bus.on('reset-reply-comment', (data) => {
   }
   
   &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 6px;
+  }
+  
+  &__header-content {
+    flex: 1;
+    margin-right: 10px;
   }
   
   &__byline {
@@ -220,6 +282,24 @@ $bus.on('reset-reply-comment', (data) => {
   
   &__meta-divider {
     margin: 0 5px;
+  }
+  
+  &__more-button {
+    border-color: white;
+    opacity: 0;
+    transition: all .3s ease;
+    
+    &.active,
+    &:hover,
+    &:focus {
+      border-color: $bg-color;
+      background: $bg-color;
+      color: $text-secondary;
+    }
+    
+    &.show {
+      opacity: 1;
+    }
   }
   
   &__content {
