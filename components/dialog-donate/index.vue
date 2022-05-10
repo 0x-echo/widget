@@ -54,6 +54,7 @@ import SectionNetwork from './section-network'
 import SectionUser from './section-user'
 
 const emits = defineEmits([
+  'go-next',
   'update:modelValue'
 ])
 
@@ -77,6 +78,11 @@ const data = reactive({
   network: '',
   amount: ''
 })
+
+const goNext = () => {
+  close()
+  emits('go-next', data)
+} 
 </script>
 
 <script>
