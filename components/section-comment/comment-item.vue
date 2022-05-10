@@ -125,8 +125,9 @@
         </div>
         
         <reply-form
-          v-if="showReply"
+          v-show="showReply"
           v-model="message"
+          :is-focus="showReply"
           @reply="reply">
         </reply-form>
       </div>

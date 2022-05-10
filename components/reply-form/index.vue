@@ -30,7 +30,7 @@
         <div
           class="reply-form__toolbar"
           v-if="isExpanded"
-          @click="onClickToolbar">
+          @click="focusInput">
           <el-button
             class="reply-form__send-button"
             :disabled="!$attrs.modelValue"
@@ -45,12 +45,16 @@
 </template>
 
 <script setup>
+import { ref, watch } from 'vue'
 import { ElButton, ElInput } from 'element-plus/dist/index.full'
-import { ref } from 'vue'
 
 const props = defineProps({
   customClass: {
     type: String
+  },
+  isFocus: {
+    type: Boolean,
+    default: false
   },
   user: {
     type: Object,
@@ -65,16 +69,24 @@ const emits = defineEmits([
 ])
 
 let isExpanded = ref(false)
+
+const replyInput = ref(null)
+const focusInput = () => {
+  replyInput.value.focus()
+}
+
+watch(() => props.isFocus, (val) => {
+  if (val) {
+    replyInput.value.focus()
+  } else {
+    isExpanded.value = false
+  }
+})
 </script>
 
 <script>
 export default {
-  inheritAttrs: false,
-  methods: {
-    onClickToolbar () {
-      this.$refs.replyInput.focus()
-    }
-  }
+  inheritAttrs: false
 }
 </script>
 
