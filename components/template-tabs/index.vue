@@ -60,7 +60,7 @@ const props = defineProps({
   }
 })
 
-const activeTab = ref('comment')
+const activeTab = ref(props.config.modules[0])
 
 const tabs = computed(() => {
   const list = [{
