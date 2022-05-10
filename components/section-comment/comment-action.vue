@@ -39,11 +39,11 @@ const props = defineProps({
 .comment-action {
   display: flex;
   align-items: center;
-  width: 50px;
+  width: 55px;
   color: $text-muted;
   
   & + & {
-    margin-left: 20px;
+    margin-left: 10px;
   }
   
   &:hover,
@@ -52,13 +52,13 @@ const props = defineProps({
   }
   
   &__icon {
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
   }
   
   &__count {
     margin-left: 8px;
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 </style>
