@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 export default defineNuxtPlugin(() => {
   return {
     provide: {
@@ -10,6 +12,12 @@ export default defineNuxtPlugin(() => {
         }
         
         return str
+      },
+      formatDate: (date, format = 'YYYY-MM-DD HH:mm:ss') => {
+        if (!date) {
+          return date
+        }
+        return dayjs(date).format(format)
       }
     }
   }
