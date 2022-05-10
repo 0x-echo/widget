@@ -24,7 +24,7 @@
     <div
       class="comment-collapse__more"
       @click="$emit('toggle')">
-      View {{ data.length }} more replies
+      View {{ data.length }} more {{ data.length === 1 ? 'reply' : 'replies' }}
     </div>
   </div>
 </template>
