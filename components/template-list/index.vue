@@ -1,14 +1,16 @@
 <template>
   <div
-    class="chat-widget__container template-list">
+    class="template-list">
     <div
       class="template-list__user">
-      <chat-avatar
-        class="template-list__user-avatar"
-        :alt="data.name"
-        :size="80"
-        :src="data.avatar">
-      </chat-avatar>
+      <div
+        class="template-list__avatar">
+        <chat-avatar
+          :alt="data.name"
+          :size="80"
+          :src="data.avatar">
+        </chat-avatar>
+      </div>
       
       <div
         class="template-list__user-name">
@@ -16,22 +18,26 @@
       </div>
       
       <div
-        class="template-list__user-bio">
+        class="template-list__bio">
         {{ data.bio }}
       </div>
     </div>
     
     <div
-      class="template-list__action-bar">
+      class="template-list__action">
       <el-button
         class="el-button--xlarge el-button--icon template-list__action-button"
-        type="primary">
+        @click="$emit(module)">
         <i
-          class="ri-thumb-up-line">
+          class="ri-thumb-up-fill template-list__action-icon">
         </i>
         
         <span>
-          123
+          <template
+            v-if="length">
+            {{ length }} 
+          </template>
+          {{ length ? `${module}s` : module }}
         </span>
       </el-button>
     </div>
@@ -66,6 +72,8 @@ const props = defineProps({
     required: true
   }
 })
+
+const length = props.data[`${props.module}s`].length
 </script>
 
 <style lang="scss">
@@ -79,25 +87,72 @@ const props = defineProps({
     justify-content: center;
   }
   
-  &__user-name {
-    margin-top: 12px;
-    font-size: 18px;
-    font-weight: 500;
+  &__avatar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: $bg-color;
+    }
+    
+    &::before {
+      margin-right: 30px;
+    }
+    
+    &::after {
+      margin-left: 30px;
+    }
   }
   
-  &__user-bio {
+  &__user-name {
+    margin-top: 12px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  &__bio {
     margin-top: 2px;
     font-size: 14px;
     color: $text-muted;
   }
   
-  &__action-bar {
+  &__action {
     margin-top: 30px;
     text-align: center;
   }
   
   &__action-button {
-    width: 200px;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-weight: 600;
+    
+    text-transform: uppercase;
+    
+    &,
+    &:focus:not(.el-button:hover) {
+      border-color: #e9effe;
+      background: #e9effe;
+      color: $primary;
+    }
+    
+    &.active,
+    &:hover,
+    &:focus {
+      border-color: $primary;
+      background: $primary;
+      color: white;
+    }
+  }
+  
+  &__action-icon {
+    margin-right: 10px;
+    font-size: 18px;
+    font-weight: 400;
   }
   
   &__content {
