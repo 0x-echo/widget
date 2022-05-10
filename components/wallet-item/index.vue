@@ -1,6 +1,9 @@
 <template>
   <div
-    class="wallet-item">
+    class="wallet-item"
+    :class="{
+      'active': active
+    }">
     <img 
       class="wallet-item__logo"
       :alt="data.label"
@@ -16,6 +19,10 @@
 
 <script setup>
 const props = defineProps({
+  active: {
+    type: Boolean,
+    default: false
+  },
   data: {
     type: Object,
     required: true
@@ -53,6 +60,7 @@ const props = defineProps({
   &__label {
     margin-top: 6px;
     font-size: 14px;
+    font-weight: 500;
     color: $text-secondary;
   }
 }
