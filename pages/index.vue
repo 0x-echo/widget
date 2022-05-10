@@ -69,7 +69,7 @@ let message = ref('')
 
 // connect wallet / disconnect wallet
 const connectWallet =  () => {
-  console.log('connect-wallet')
+  connectDialogVisible.value = true
 }
 
 const logout = () => {
