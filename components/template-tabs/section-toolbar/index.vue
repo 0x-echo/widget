@@ -9,6 +9,7 @@
         :active="item.active"
         :icon="item.icon"
         :count="item.count"
+        :value="item.value"
         @on-click="$emit(item.value)">
       </toolbar-item>
     </div>

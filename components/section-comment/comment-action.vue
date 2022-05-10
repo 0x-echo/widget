@@ -4,11 +4,11 @@
     :class="{
       'active': active
     }"
-    role="button"
-    title="">
+    role="button">
     <i
       class="comment-action__icon"
-      :class="icon">
+      :class="icon"
+      :title="value">
     </i>
     
     <span
@@ -31,6 +31,9 @@ const props = defineProps({
   icon: {
     type: String,
     required: true
+  },
+  value: {
+    type: String
   }
 })
 </script>

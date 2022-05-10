@@ -7,6 +7,7 @@
         'active': active
       }"
       size="large"
+      :title="value"
       type="info"
       @click="$emit('on-click')">
       <i
@@ -34,6 +35,9 @@ const props = defineProps({
     type: [Number, String]
   },
   icon: {
+    type: String
+  },
+  value: {
     type: String
   }
 })
