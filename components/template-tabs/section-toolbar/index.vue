@@ -58,7 +58,6 @@
 
 <script setup>
 import { ElPopover } from 'element-plus/dist/index.full'
-import MenuItem from './menu-item'
 import ToolbarItem from './toolbar-item'
 
 const props = defineProps({
