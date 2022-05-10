@@ -14,7 +14,9 @@
           class="section-network__item"
           v-for="item in list"
           :key="item.value"
-          :data="item">
+          :active="item.value === activeOption"
+          :data="item"
+          @click="changeOption(item)">
         </wallet-item>
       </div>
       
@@ -32,6 +34,29 @@
 <script setup>
 import { ElButton } from 'element-plus/dist/index.full'
 import iconMatemask from '@/assets/metamask.svg'
+
+const props = defineProps({
+  modelValue: {
+    type: String
+  }
+})
+
+const emits = defineEmits([
+  'update:modelValue'
+])
+
+const activeOption = computed({
+  get: () => {
+    return props.modelValue
+  },
+  set: (val) => {
+    emits('update:modelValue', val)
+  }
+})
+
+const changeOption = (item) => {
+  activeOption.value = item.value
+}
 
 const list = [{
   label: 'Ethereum',
