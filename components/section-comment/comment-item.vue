@@ -52,7 +52,7 @@
           </template>
           
           <span>
-            {{ data.created_at }}
+            {{ $formatDate(data.created_at) }}
           </span>
         </div>
       </div>
