@@ -35,7 +35,7 @@
             
           <span
             class="section-toolbar__user-name">
-            0x12...3456
+            {{ $ellipsisInMiddle('0x1243353533456') }}
           </span>
           
           <i
