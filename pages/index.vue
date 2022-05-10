@@ -39,7 +39,10 @@
     <template-list
       v-if="config.modules.length === 1 && config.modules[0] !== 'comment'"
       :data="data"
-      :module="config.modules[0]">
+      :module="config.modules[0]"
+      @downvote="downvote"
+      @donate="donate"
+      @upvote="upvote">
     </template-list>
     
     <chat-footer>
