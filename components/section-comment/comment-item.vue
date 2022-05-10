@@ -107,19 +107,19 @@
             active
             :count="1"
             icon="ri-thumb-up-line"
-            title="upvote"
+            value="upvote"
             @click="$emit('upvote-comment', data)">
           </comment-action>
           
           <comment-action
             icon="ri-thumb-down-line"
-            title="downvote"
+            value="downvote"
             @click="$emit('downvote-comment', data)">
           </comment-action>
           
           <comment-action
             icon="ri-reply-line"
-            title="reply"
+            value="reply"
             @click="toggleReplyForm">
           </comment-action>
         </div>
