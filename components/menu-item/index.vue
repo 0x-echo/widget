@@ -28,10 +28,14 @@ const props = defineProps({
 .menu-item {
   display: flex;
   align-items: center;
-  justify-content: center;
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 10px;
   cursor: pointer;
   
   &:hover {
+    background: $primary-light;
+    
     .menu-item__icon,
     .menu-item__label {
       color: $primary;
