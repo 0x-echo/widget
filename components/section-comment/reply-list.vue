@@ -1,12 +1,15 @@
 <template>
   <div
     class="reply-list">
-    <comment-item
-      v-bind="$attrs"
-      v-for="item in replies"
-      :key="item.id"
-      :data="item">
-    </comment-item>
+    <transition-group
+      name="list">
+      <comment-item
+        v-bind="$attrs"
+        v-for="item in replies"
+        :key="item.id"
+        :data="item">
+      </comment-item>
+    </transition-group>
     
     <comment-collapse
       v-if="collapsedList.length && !showAllReplies"
