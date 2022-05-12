@@ -5,6 +5,9 @@
       class="section-user__info">
       <i
         class="ri-arrow-right-s-line section-user__arrow-icon"
+        :class="{
+          'active': showMore
+        }"
         @click="showMore = !showMore">
       </i>
       
@@ -73,29 +76,29 @@ const showMore = ref(false)
 
 <style lang="scss">
 .section-user {
-  padding: 10px;
   border-radius: $border-radius;
   background: $bg-color;
   
   &__info {
     display: flex;
     align-items: center;
-    padding: 5px 10px;
-    
-    & + .section-user__more {
-      margin-top: 10px;
-    }
+    padding: 15px 20px;
   }
   
   &__arrow-icon {
     margin-right: 10px;
     font-size: 18px; 
     color: $text-muted;
+    opacity: .8;
     cursor: pointer;
     transition: all .3s ease;
     
     &:hover {
-      color: $primary;
+      opacity: 1;
+    }
+    
+    &.active {
+      transform: rotate(90deg);
     }
   }
   
@@ -110,7 +113,7 @@ const showMore = ref(false)
   }
   
   &__name {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
   }
   
@@ -121,8 +124,11 @@ const showMore = ref(false)
   }
   
   &__more {
-    padding: 15px 20px 15px 18px;
-    margin-left: 28px;
+    padding: 0 10px 10px;
+  }
+  
+  &__more-wrapper {
+    padding: 15px 12px;
     border-radius: 10px;
     background: white;
   }
@@ -137,9 +143,10 @@ const showMore = ref(false)
   }
   
   &__wallet-icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 12px;
+    width: 14px;
+    height: 14px;
+    margin-right: 8px;
+    object-fit: contain;
   }
   
   &__address {
