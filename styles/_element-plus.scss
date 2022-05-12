@@ -4,8 +4,21 @@
   transition: all .3s ease;
   
   &--primary {
-    border-color: $primary;
-    background: $primary;
+    &,
+    &:focus:not(.el-button:hover) {
+      border-color: $primary;
+      background: $primary;
+    }
+    
+    &.is-disabled {
+      &,
+      &:hover,
+      &:focus {
+        border-color: $primary-disabled;
+        background: $primary-disabled;
+      }
+    }
+    
   }
   
   &--info {
@@ -18,8 +31,8 @@
     
     &:hover,
     &:focus {
-      border-color: $bg-color;
-      background: $bg-color;
+      border-color: $primary-light;
+      background: $primary-light;
       color: $primary;
     }
     
@@ -31,11 +44,20 @@
           background: $primary;
           color: white;
         }
+        
+        &:hover,
+      &:focus {
+          border-color: $primary-dark;
+          background: $primary-dark;
+        }  
       }
     }
   }
   
   &--icon {
+    padding-left: 8px;
+    padding-right: 8px;
+    
     &.el-button--large {
       padding-left: 11px;
       padding-right: 11px;
