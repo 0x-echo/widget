@@ -117,3 +117,34 @@
     color: $text-primary;
   }
 }
+
+.el-message {
+  min-width: 0;
+  padding: 12px 20px 12px 15px;
+  border-radius: $border-radius;
+  border-color: white;
+  background-color: white;
+  box-shadow: 0 10px 10px rgba(black, .08);
+
+  &--success {
+    color: $success;
+  }
+
+  &--warning {
+    color: $warning;
+  }
+
+  &--error {
+    color: $danger;
+  }
+
+  &__content {
+    font-weight: 700;
+    line-height: 20px;
+  }
+  
+  &__icon {
+    margin-right: 8px;
+    font-size: 20px;
+  }
+}
