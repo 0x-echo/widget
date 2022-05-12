@@ -135,8 +135,8 @@ const length = props.data[`${props.module}s`].length
     
     &,
     &:focus:not(.el-button:hover) {
-      border-color: #e9effe;
-      background: #e9effe;
+      border-color: $primary-light;
+      background: $primary-light;
       color: $primary;
     }
     

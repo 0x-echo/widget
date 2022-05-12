@@ -92,7 +92,7 @@ const onChangeInput = (value) => {
     width: calc((100% - 60px) / 5);
     height: 50px;
     margin-bottom: 15px;
-    border: 1px solid #E2E8ED;
+    border: 1px solid $border-color;
     border-radius: $border-radius;
     cursor: pointer;
     transition: all .3s ease;

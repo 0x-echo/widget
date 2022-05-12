@@ -41,7 +41,7 @@ const props = defineProps({
   margin-bottom: 15px;
   border-radius: 12px;
   background: white;
-  border: 1px solid #E2E8ED;
+  border: 1px solid $border-color;
   cursor: pointer;
   transition: all .3s ease;
   

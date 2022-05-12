@@ -109,7 +109,7 @@ export default {
   &__box {
     flex: 1;
     height: 48px;
-    border: 1px solid #E2E8ED;
+    border: 1px solid $border-color;
     border-radius: $border-radius;
     background: white;
     transition: all .3s ease;

@@ -17,7 +17,7 @@
   padding: 0 6px;
   border-radius: 6px;
   font-size: 12px;
-  background: #EAEFFC;
+  background: $primary-light;
   color: $primary;
 }
 </style>

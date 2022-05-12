@@ -34,7 +34,7 @@ const props = defineProps({
   cursor: pointer;
   
   &:hover {
-    background: $primary-light;
+    background: $primary-lighter;
     
     .menu-item__icon,
     .menu-item__label {
