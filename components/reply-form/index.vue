@@ -94,10 +94,6 @@ export default {
 .reply-form {
   display: flex;
   
-  .comment-item__control-bar + & {
-    margin-top: 25px;
-  }
-  
   &__avatar {
     flex-shrink: 0;
     
@@ -143,16 +139,5 @@ export default {
     width: 90px;
     border-radius: 8px;
   }
-}
-
-.slide-down-enter-from,
-.slide-down-leave-to {
-  opacity: 0;
-  transform: translateY(-72px);
-}
-
-.slide-down-enter-active,
-.slide-down-leave-active {
-  transition: all .3s ease;
 }
 </style>

@@ -254,15 +254,13 @@ $bus.on('reset-reply-comment', (data) => {
   }
   
   &__byline {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     font-size: 15px;
     font-weight: 600;
-  }
-  
-  &__author {
+    
     &:hover {
-      & + .comment-item__copy-icon {
+      .comment-item__copy-icon {
         opacity: 1;
       }
     }
@@ -320,6 +318,12 @@ $bus.on('reset-reply-comment', (data) => {
     display: flex;
     align-items: center;
     margin-top: 6px;
+  }
+  
+  &__reply {
+    .reply-form {
+      padding-top: 25px;
+    }
   }
 }
 </style>  
