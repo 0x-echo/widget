@@ -70,13 +70,15 @@
             placement="bottom-end"
             :show-arrow="false"
             trigger="click"
-            :width="166">
+            :width="166"
+            @before-leave="moreMenuActive = false"
+            @show="moreMenuActive = true">
             <template 
               #reference>
               <el-button
                 class="el-button--icon comment-item__more-button"
                 :class="{
-                  'show': moreMenuVisible
+                  'show': moreMenuVisible || moreMenuActive
                 }">
                 <i
                   class="ri-more-fill">
@@ -165,6 +167,7 @@ const emits = defineEmits([
 ])
 
 const moreMenuVisible = ref(false)
+const moreMenuActive = ref(false)
 const moreMenu = [{
   icon: 'ri-information-line',
   label: 'Arweave TX',
