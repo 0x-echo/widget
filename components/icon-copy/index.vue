@@ -1,0 +1,42 @@
+<template>
+  <i
+    class="ri-file-copy-line icon-copy"
+    title="copy"
+    v-clipboard:copy="value"
+    v-clipboard:success="onSuccess"
+    v-clipboard:error="onError">
+  </i>
+</template>
+
+<script setup>
+import { ElMessage } from 'element-plus'
+
+const props = defineProps({
+  value: {
+    type: [String, Number],
+    required: true
+  }
+})
+
+const onError = () => {
+  ElMessage.error({
+    message: 'Opps! Something went wrong!'
+  }) 
+}
+const onSuccess = () => {
+  ElMessage.success({
+    message: 'Copied!'
+  })
+}
+</script>
+
+<style lang="scss">
+.icon-copy {
+  color: rgba($text-muted, .8);
+  cursor: pointer;
+  
+  &:hover {
+    color: $primary;
+  }
+}
+</style>

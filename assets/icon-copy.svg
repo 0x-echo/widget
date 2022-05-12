@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>copy</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.497791109">
+        <g id="comments" transform="translate(-219.000000, -247.000000)" fill="#FFFFFF" stroke="#8E97A0" stroke-width="2">
+            <g id="copy" transform="translate(220.000000, 248.000000)">
+                <path d="M7,11 L2,11 C0.8954305,11 1.3527075e-16,10.1045695 0,9 L0,4" id="Path" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M4.48216858,0 L9,0 C10.1045695,-2.02906125e-16 11,0.8954305 11,2 L10.99999,6.51783853 C10.99999,7.42106265 10.3946075,8.21219499 9.52278661,8.44829291 C6.33610879,9.31127755 4.16184659,9.16184659 3,8 C1.83815467,6.83815467 1.68872277,4.66389591 2.5517043,1.47722372 L2.55169267,1.47722057 C2.78779288,0.605389663 3.57893415,1.65921473e-16 4.48216858,0 Z" id="Rectangle"></path>
+            </g>
+        </g>
+    </g>
+</svg>

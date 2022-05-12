@@ -35,9 +35,10 @@
                 Author
               </chat-tag> -->
               
-              <i
-                class="ri-file-copy-line comment-item__copy-icon">
-              </i>
+              <icon-copy
+                class="comment-item__copy-icon"
+                :value="data.name">
+              </icon-copy>
             </div>
               
             <div
@@ -265,13 +266,7 @@ $bus.on('reset-reply-comment', (data) => {
   &__copy-icon {
     margin-left: 6px;
     font-size: 12px;
-    color: $text-muted;
     opacity: 0;
-    cursor: pointer;
-    
-    &:hover {
-      color: $primary;
-    }
   }
   
   &__meta {
