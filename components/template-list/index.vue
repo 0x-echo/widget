@@ -43,6 +43,11 @@
     </div>
     
     <div
+      class="template-list__stat">
+      Voting Power: $123
+    </div>
+    
+    <div
       class="template-list__content">
       <div
         class="template-list__item"
@@ -130,7 +135,6 @@ const length = props.data[`${props.module}s`].length
     padding-left: 30px;
     padding-right: 30px;
     font-weight: 600;
-    
     text-transform: uppercase;
     
     &,
@@ -153,6 +157,31 @@ const length = props.data[`${props.module}s`].length
     margin-right: 10px;
     font-size: 18px;
     font-weight: 400;
+  }
+  
+  &__stat {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    font-size: 12px;
+    color: $text-secondary;
+    
+    &::before,
+    &::after {
+      content: '';
+      width: 50px;
+      height: 1px;
+      background: $bg-color;
+    }
+    
+    &::before {
+      margin-right: 15px;
+    }
+    
+    &::after {
+      margin-left: 15px;
+    }
   }
   
   &__content {
