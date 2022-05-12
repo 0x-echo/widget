@@ -127,12 +127,18 @@
           </comment-action>
         </div>
         
-        <reply-form
-          v-show="showReply"
-          v-model="message"
-          :is-focus="showReply"
-          @reply="reply">
-        </reply-form>
+        <el-collapse-transition>
+          <div
+            class="comment-item__reply"
+            v-show="showReply">
+            <reply-form
+              v-model="message"
+              is-expanded
+              :is-focused="showReply"
+              @reply="reply">
+            </reply-form>
+          </div>
+        </el-collapse-transition>
       </div>
       
       <slot>
@@ -143,7 +149,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { ElButton, ElPopover } from 'element-plus/dist/index.full'
+import { ElButton, ElCollapseTransition, ElPopover } from 'element-plus/dist/index.full'
 import CommentAction from './comment-action'
 const { $bus } = useNuxtApp()
 
