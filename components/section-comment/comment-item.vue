@@ -119,7 +119,7 @@
           </comment-action>
           
           <comment-action
-            icon="ri-reply-line"
+            icon="ri-chat-3-line"
             value="reply"
             @click="toggleReplyForm">
           </comment-action>
