@@ -29,30 +29,37 @@
       </div>
     </div>
     
-    <div
-      class="section-user__more"
-      v-show="showMore">
+    <el-collapse-transition>
       <div
-        class="section-user__more-item"
-        v-for="item in data.wallet"
-        :key="item.type">
-        <img 
-          class="section-user__wallet-icon"
-          :alt="item.type"
-          src="@/assets/default-avatar.svg">
-          
-        <span
-          class="section-user__address">
-          {{ item.address }}
-        </span>
+        v-show="showMore">
+        <div
+          class="section-user__more">
+          <div
+            class="section-user__more-wrapper">
+            <div
+              class="section-user__more-item"
+              v-for="item in data.wallet"
+              :key="item.type">
+              <img 
+                class="section-user__wallet-icon"
+                :alt="item.type"
+                src="@/assets/default-avatar.svg">
+                
+              <span
+                class="section-user__address">
+                {{ item.address }}
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </el-collapse-transition>
   </section>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { ElCollapse } from 'element-plus/dist/index.full'
+import { ElCollapseTransition } from 'element-plus/dist/index.full'
 
 const props = defineProps({
   data: {
