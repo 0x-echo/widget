@@ -9,7 +9,9 @@
     <div
       class="section-network__content">
       <div
-        class="section-network__content-wrapper">
+        class="section-network__content-wrapper"
+        ref="networkBox"
+        @scroll="handleScroll">
         <wallet-item
           class="section-network__item"
           v-for="item in list"
@@ -22,7 +24,9 @@
       
       <el-button
         class="section-network__arrow-button"
-        size="small">
+        v-if="scrollButtonVisible"
+        size="small"
+        @click="scollToRight">
         <i
           class="ri-arrow-right-s-line">
         </i>
@@ -32,6 +36,7 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { ElButton } from 'element-plus/dist/index.full'
 import iconMatemask from '@/assets/metamask.svg'
 
@@ -71,10 +76,31 @@ const list = [{
   icon: iconMatemask,
   value: 'binance'
 }, {
-  label: 'Ethereum',
+  label: 'Ethereum1',
   icon: iconMatemask,
   value: 'ethereum1'
+}, {
+  label: 'Ethereu2',
+  icon: iconMatemask,
+  value: 'ethereum2'
 }]
+
+const networkBox = ref(null)
+const scrollButtonVisible = ref(true)
+const scollToRight = () => {
+  networkBox.value.scrollLeft += 175
+  if (networkBox.value.scrollLeft + networkBox.value.clientWidth === networkBox.value.scrollWidth) {
+    scrollButtonVisible.value = false
+  }
+}
+
+const handleScroll = (el) => {
+  if (el.srcElement.scrollLeft + el.srcElement.clientWidth < el.srcElement.scrollWidth) {
+    scrollButtonVisible.value = true
+  } else {
+    scrollButtonVisible.value = false
+  }
+}
 </script>
 
 <style lang="scss">
