@@ -12,7 +12,7 @@
     <div
       class="reply-form__box"
       :class="{
-        'is-expanded': isExpanded
+        'is-expanded': isExpandedValue
       }">
       <el-input
         class="reply-form__input"
@@ -20,16 +20,16 @@
         v-bind="$attrs"
         placeholder="Type something..."
         resize="none"
-        :rows="isExpanded ? 2 : 1"
+        :rows="isExpandedValue ? 2 : 1"
         type="textarea"
-        @focus="isExpanded = true">
+        @focus="isExpandedValue = true">
       </el-input>
       
       <transition
         name="slide-down">
         <div
           class="reply-form__toolbar"
-          v-if="isExpanded"
+          v-show="isExpandedValue"
           @click="focusInput">
           <el-button
             class="reply-form__send-button"
@@ -53,6 +53,10 @@ const props = defineProps({
     type: String
   },
   isFocus: {
+  isExpanded: {
+    type: Boolean,
+    default: false
+  },
     type: Boolean,
     default: false
   },
@@ -68,7 +72,7 @@ const emits = defineEmits([
   'reply'
 ])
 
-let isExpanded = ref(false)
+let isExpandedValue = ref(props.isExpanded)
 
 const replyInput = ref(null)
 const focusInput = () => {
