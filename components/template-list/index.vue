@@ -122,7 +122,7 @@ const length = props.data[`${props.module}s`].length
   }
   
   &__action {
-    margin-top: 30px;
+    margin-top: 15px;
     text-align: center;
   }
   
@@ -159,13 +159,12 @@ const length = props.data[`${props.module}s`].length
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 45px;
+    width: 416px;
+    margin: 20px auto 0;
   }
   
   &__item {
-    & + & {
-      margin-left: 15px;
-    }
+    margin: 0 8px;
   }
   
   &__item-avatar {
