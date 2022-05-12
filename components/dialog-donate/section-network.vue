@@ -134,9 +134,22 @@ const handleScroll = (el) => {
     right: -12px;
     padding-left: 4px;
     padding-right: 4px;
-    border-color: white; 
     font-size: 16px;
     box-shadow: 0 0 10px rgba(black, .1);
+    
+    &,
+    &:focus:not(.el-button:hover) {
+      border-color: white; 
+      background: white;
+      color: $text-primary;
+    }
+    
+    &:hover,
+    &:focus {
+      border-color: $primary;
+      background: $primary;
+      color: white;
+    }
   }
 }
 </style>
