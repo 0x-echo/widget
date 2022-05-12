@@ -52,11 +52,11 @@ const props = defineProps({
   customClass: {
     type: String
   },
-  isFocus: {
   isExpanded: {
     type: Boolean,
     default: false
   },
+  isFocused: {
     type: Boolean,
     default: false
   },
@@ -79,11 +79,11 @@ const focusInput = () => {
   replyInput.value.focus()
 }
 
-watch(() => props.isFocus, (val) => {
+watch(() => props.isFocused, (val) => {
   if (val) {
-    replyInput.value.focus()
-  } else {
-    isExpanded.value = false
+    setTimeout(() => {
+      focusInput()
+    }, 150)
   }
 })
 </script>
