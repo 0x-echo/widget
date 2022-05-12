@@ -42,12 +42,13 @@ export default {
     border-radius: 10px;
     font-size: 14px;
     font-weight: 500;
-    background: $primary-light;
-    color: $primary;
+    background: rgba($danger, .05);
+    color: $danger;
     cursor: pointer;
+    transition: all .3s ease;
     
     &:hover {
-      
+      background: rgba($danger, .08);
     }
   }
   
