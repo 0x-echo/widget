@@ -1,21 +1,26 @@
 <template>
-  <div
-    class="section-template">
+  <template-skeleton
+    v-bind="$attrs">
     <div
-      class="section-template__value"
-      v-if="value">
-      {{ label }}: <strong>${{ value }}</strong>
+      class="section-template">
+      <div
+        class="section-template__value"
+        v-if="value">
+        {{ label }}: <strong>${{ value }}</strong>
+      </div>
+      
+      <div
+        class="section-template__list">
+        <slot>
+        </slot>
+      </div>
     </div>
-    
-    <div
-      class="section-template__list">
-      <slot>
-      </slot>
-    </div>
-  </div>
+  </template-skeleton>
 </template>
 
 <script setup>
+import TemplateSkeleton from './skeleton'
+
 const props = defineProps({
   label: {
     type: String
