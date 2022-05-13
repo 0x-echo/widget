@@ -1,4 +1,7 @@
 <template>
+  <toolbar-skeleton
+    v-bind="$attrs"
+    :config="toolbarConfig">
     <div
       class="section-toolbar">
       <div
@@ -59,12 +62,14 @@
         </el-popover> -->
       </template>
     </div>
+  </toolbar-skeleton>
 </template>
 
 <script setup>
 import { computed } from 'vue'
 import { ElPopover } from 'element-plus/dist/index.full'
 import ToolbarItem from './toolbar-item'
+import ToolbarSkeleton from './skeleton'
 
 const props = defineProps({
   config: {
