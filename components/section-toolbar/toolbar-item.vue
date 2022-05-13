@@ -15,11 +15,17 @@
       </i>
     </el-button>
     
-    <span
-      class="toolbar-item__count"
-      v-if="count">
-      {{ count }}
-    </span>
+    <transition
+      name="slide-fade"
+      mode="out-in">
+      <span
+        class="toolbar-item__count"
+        v-if="hasCount"
+        v-show="count"
+        :key="count">
+        {{ count }}
+      </span>
+    </transition>
   </div>
 </template>
 
@@ -33,6 +39,10 @@ const props = defineProps({
   },
   count: {
     type: [Number, String]
+  },
+  hasCount: {
+    type: Boolean,
+    default: true
   },
   icon: {
     type: String
@@ -53,14 +63,11 @@ const emits = defineEmits([
   align-items: center;
   
   & + & {
-    margin-left: 20px;
-  }
-  
-  &__button {
-    
+    margin-left: 10px;
   }
   
   &__count {
+    width: 40px;
     margin-left: 8px;
     font-size: 14px;
     color: $text-primary;
