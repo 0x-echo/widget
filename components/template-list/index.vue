@@ -29,7 +29,8 @@
         class="el-button--xlarge el-button--icon template-list__action-button"
         @click="$emit(module)">
         <i
-          class="ri-thumb-up-fill template-list__action-icon">
+          class="template-list__action-icon"
+          :class="currentModule.icon">
         </i>
         
         <span>
@@ -79,6 +80,23 @@ const props = defineProps({
 })
 
 const length = props.data[`${props.module}s`].length
+
+const currentModule = computed(() => {
+  const list = [{
+    icon: 'ri-thumb-up-fill',
+    value: 'upvote'
+  }, {
+    icon: 'ri-thumb-down-fill',
+    value: 'downvote'
+  }, {
+    icon: 'ri-dollar-circle-fill',
+    value: 'donate'
+  }]
+  
+  return list.find(item => {
+    return item.value === props.module
+  })
+})
 </script>
 
 <style lang="scss">
