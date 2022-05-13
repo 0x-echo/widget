@@ -148,3 +148,35 @@
     font-size: 20px;
   }
 }
+
+.el-skeleton {  
+  --el-skeleton-color: #F4F5FA;
+  --el-skeleton-to-color: #F8FAFF;
+  
+  &__item {
+    display: block;
+    border-radius: 6px;
+  }
+  
+  &__button {
+    width: 40px;
+    height: 40px;
+    border-radius: $border-radius;
+  }
+  
+  &__circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    
+    &--large {
+      width: 80px;
+      height: 80px;
+    }
+    
+    &--small {
+      width: 36px;
+      height: 36px;
+    }
+  }
+}
