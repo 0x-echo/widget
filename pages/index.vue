@@ -1,26 +1,38 @@
 <template>
   <div
     class="chat-widget">
-    <template-tabs
-      v-if="config.modules.length > 1"
+    <template
+      v-if="widgetType === 'mix-widget'">
+      <template-tabs
+        :config="config"
+        :data="data"
+        v-model="message"
+        @connect-wallet="connectDialogVisible = true"
+        @donate="donate"
+        @downvote="downvote"
+        @downvote-comment="downvoteComment"
+        @logout="logout"
+        @refresh-comments="refreshComments"
+        @reply="reply"
+        @reply-comment="replyComment"
+        @upvote="upvote"
+        @upvote-comment="upvoteComment">
+      </template-tabs>
+    </template>
+    
+    <section-toolbar
+      v-if="widgetType === 'lite-only'"
       :config="config"
-      :data="data"
-      v-model="message"
       @connect-wallet="connectDialogVisible = true"
       @donate="donate"
       @downvote="downvote"
-      @downvote-comment="downvoteComment"
       @logout="logout"
-      @refresh-comments="refreshComments"
-      @reply="reply"
-      @reply-comment="replyComment"
-      @upvote="upvote"
-      @upvote-comment="upvoteComment">
-    </template-tabs>
+      @upvote="upvote">
+    </section-toolbar>
     
     <div
       class="chat-widget__container"
-      v-if="config.modules.length === 1  && config.modules[0] === 'comment'">
+      v-if="widgetType === 'comment-only'">
       <reply-form
         custom-class="chat-widget__reply"
         v-model="message"
@@ -37,7 +49,7 @@
     </div>
     
     <template-list
-      v-if="config.modules.length === 1 && config.modules[0] !== 'comment'"
+      v-if="['upvote-only', 'downvote-only', 'donate-only'].includes(widgetType)"
       :data="data"
       :module="config.modules[0]"
       @downvote="downvote"
@@ -66,6 +78,10 @@ const { $bus } = useNuxtApp()
 
 const connectDialogVisible = ref(false)
 const donateDialogVisible = ref(false)
+// data
+const config = reactive({
+  modules: ['upvote', 'downvote']
+})
 let message = ref('')
 
 // connect wallet / disconnect wallet
@@ -117,6 +133,26 @@ const replyComment = (data) => {
 const refreshComments = () => {
   console.log('refresh-comments')
 }
+
+const widgetType = computed(() => {
+  const modules = config.modules
+  let liteCount = 0
+  modules.forEach(item => {
+    if (item.endsWith('lite')) {
+      liteCount++
+    }
+  })
+  
+  if (modules.length === liteCount) {
+    return 'lite-only'
+  } else {
+    if (modules.length === 1) {
+      return `${modules[0]}-only`
+    } else {
+      return 'mix-widget'
+    }
+  }
+})
 </script>
 
 <script>
