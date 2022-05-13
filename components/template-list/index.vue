@@ -132,8 +132,7 @@ const length = props.data[`${props.module}s`].length
   }
   
   &__action-button {
-    padding-left: 30px;
-    padding-right: 30px;
+    width: 200px;
     font-weight: 600;
     text-transform: uppercase;
     
