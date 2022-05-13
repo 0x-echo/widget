@@ -46,7 +46,6 @@
 <script setup>
 import { computed, ref } from 'vue'
 import SectionDonate from './section-donate'
-import SectionToolbar from './section-toolbar'
 import SectionVote from './section-vote'
 
 const props = defineProps({
@@ -90,34 +89,12 @@ const tabs = computed(() => {
   
   return newList
 })
+</script>
 
-const toolbarConfig = computed(() => {
-  const list = [{
-    active: true,
-    icon: 'ri-thumb-up-line',
-    value: 'upvote',
-    count: 123
-  }, {
-    active: false,
-    icon: 'ri-thumb-down-line',
-    value: 'downvote',
-    count: 123
-  }, {
-    active: false,
-    icon: 'ri-money-dollar-circle-line',
-    value: 'donate',
-    count: 123
-  }]
-  
-  let newList = []
-  list.forEach(item => {
-    if (props.config.modules.includes(item.value)) {
-      newList.push(item)
-    }
-  })
-  
-  return newList
-})
+<script>
+export default {
+  inheritAttrs: false
+}
 </script>
 
 <style lang="scss">
