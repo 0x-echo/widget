@@ -1,52 +1,57 @@
 <template>
-  <div
-    class="reply-form"
+  <form-skeleton
+    v-bind="$attrs"
     :class="customClass">
-    <chat-avatar
-      class="reply-form__avatar"
-      :alt="user.name || 'Avatar'"
-      :size="48"
-      :src="user.avatar">
-    </chat-avatar>
-    
     <div
-      class="reply-form__box"
-      :class="{
-        'is-expanded': isExpandedValue
-      }">
-      <el-input
-        class="reply-form__input"
-        ref="replyInput"
-        v-bind="$attrs"
-        placeholder="Type something..."
-        resize="none"
-        :rows="isExpandedValue ? 2 : 1"
-        type="textarea"
-        @focus="isExpandedValue = true">
-      </el-input>
+      class="reply-form"
+      :class="customClass">
+      <chat-avatar
+        class="reply-form__avatar"
+        :alt="user.name || 'Avatar'"
+        :size="48"
+        :src="user.avatar">
+      </chat-avatar>
       
-      <transition
-        name="slide-down">
-        <div
-          class="reply-form__toolbar"
-          v-show="isExpandedValue"
-          @click="focusInput">
-          <el-button
-            class="reply-form__send-button"
-            :disabled="!$attrs.modelValue"
-            type="primary"
-            @click.stop="$emit('reply')">
-            Send
-          </el-button>
-        </div>
-      </transition>
+      <div
+        class="reply-form__box"
+        :class="{
+          'is-expanded': isExpandedValue
+        }">
+        <el-input
+          class="reply-form__input"
+          ref="replyInput"
+          v-bind="$attrs"
+          placeholder="Type something..."
+          resize="none"
+          :rows="isExpandedValue ? 2 : 1"
+          type="textarea"
+          @focus="isExpandedValue = true">
+        </el-input>
+        
+        <transition
+          name="slide-down">
+          <div
+            class="reply-form__toolbar"
+            v-show="isExpandedValue"
+            @click="focusInput">
+            <el-button
+              class="reply-form__send-button"
+              :disabled="!$attrs.modelValue"
+              type="primary"
+              @click.stop="$emit('reply')">
+              Send
+            </el-button>
+          </div>
+        </transition>
+      </div>
     </div>
-  </div>
+  </form-skeleton>
 </template>
 
 <script setup>
 import { ref, watch } from 'vue'
 import { ElButton, ElInput } from 'element-plus/dist/index.full'
+import FormSkeleton from './skeleton'
 
 const props = defineProps({
   customClass: {
