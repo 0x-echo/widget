@@ -6,6 +6,7 @@
       <template-tabs
         :config="config"
         :data="data"
+        :loading="loading"
         v-model="message"
         @connect-wallet="connectDialogVisible = true"
         @donate="donate"
@@ -20,12 +21,14 @@
       </template-tabs>
       
       <chat-footer
+        v-if="!loading">
       </chat-footer>
     </template>
     
     <section-toolbar
       v-if="widgetType === 'lite-only'"
       :config="config"
+      :loading="loading"
       @connect-wallet="connectDialogVisible = true"
       @donate="donate"
       @downvote="downvote"
@@ -38,12 +41,14 @@
       v-if="widgetType === 'comment-only'">
       <reply-form
         custom-class="chat-widget__reply"
+        :loading="loading"
         v-model="message"
         @reply="reply">
       </reply-form>
     
       <section-comment
         :data="data.comments"
+        :loading="loading"
         @downvote-comment="downvoteComment"
         @refresh-comments="refreshComments"
         @reply-comment="replyComment"
@@ -79,6 +84,9 @@ const { $bus } = useNuxtApp()
 const config = reactive({
   modules: ['upvote', 'downvote']
 })
+
+// internal data
+let loading = ref(false)
 let message = ref('')
 
 // connect wallet / disconnect wallet
