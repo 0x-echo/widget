@@ -1,26 +1,36 @@
 <template>
-  <div
-    class="section-comment">
+  <comment-skeleton
+    :loading="loading">
     <div
-      class="section-comment__refresh"
-      @click="$emit('refresh-comments')">
-      <i
-        class="ri-refresh-line section-comment__refresh-icon">
-      </i>
+      class="section-comment">
+      <div
+        class="section-comment__refresh"
+        @click="$emit('refresh-comments')">
+        <i
+          class="ri-refresh-line section-comment__refresh-icon">
+        </i>
+        
+        <span>
+          2 New Replies
+        </span>
+      </div>
       
-      <span>
-        2 New Replies
-      </span>
+      <comment-list
+        v-bind="$attrs">
+      </comment-list>
     </div>
-    
-    <comment-list
-      v-bind="$attrs">
-    </comment-list>
-  </div>
+  </comment-skeleton>
 </template>
 
 <script setup>
 import CommentList from './comment-list'
+import CommentSkeleton from './skeleton'
+
+const props = defineProps({
+  loading: {
+    type: Boolean
+  }
+})
 </script>
 
 <script>
