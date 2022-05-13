@@ -1,72 +1,76 @@
 <template>
-  <div
-    class="template-list">
+  <list-skeleton
+    v-bind="$attrs">
     <div
-      class="template-list__user">
+      class="template-list">
       <div
-        class="template-list__avatar">
-        <chat-avatar
-          :alt="data.name"
-          :size="80"
-          :src="data.avatar">
-        </chat-avatar>
-      </div>
-      
-      <div
-        class="template-list__user-name">
-        {{ data.name }}
-      </div>
-      
-      <div
-        class="template-list__bio">
-        {{ data.bio }}
-      </div>
-    </div>
-    
-    <div
-      class="template-list__action">
-      <el-button
-        class="el-button--xlarge el-button--icon template-list__action-button"
-        @click="$emit(module)">
-        <i
-          class="template-list__action-icon"
-          :class="currentModule.icon">
-        </i>
+        class="template-list__user">
+        <div
+          class="template-list__avatar">
+          <chat-avatar
+            :alt="data.name"
+            :size="80"
+            :src="data.avatar">
+          </chat-avatar>
+        </div>
         
-        <span>
-          <template
-            v-if="length">
-            {{ length }} 
-          </template>
-          {{ length ? `${module}s` : module }}
-        </span>
-      </el-button>
-    </div>
-    
-    <div
-      class="template-list__stat">
-      Voting Power: $123
-    </div>
-    
-    <div
-      class="template-list__content">
+        <div
+          class="template-list__user-name">
+          {{ data.name }}
+        </div>
+        
+        <div
+          class="template-list__bio">
+          {{ data.bio }}
+        </div>
+      </div>
+      
       <div
-        class="template-list__item"
-        v-for="item in data[`${module}s`]"
-        :key="item.id">
-        <chat-avatar
-          class="template-list__item-avatar"
-          :alt="item.name"
-          :size="36"
-          :src="item.avatar">
-        </chat-avatar>
+        class="template-list__action">
+        <el-button
+          class="el-button--xlarge el-button--icon template-list__action-button"
+          @click="$emit(module)">
+          <i
+            class="template-list__action-icon"
+            :class="currentModule.icon">
+          </i>
+          
+          <span>
+            <template
+              v-if="length">
+              {{ length }} 
+            </template>
+            {{ length ? `${module}s` : module }}
+          </span>
+        </el-button>
+      </div>
+      
+      <div
+        class="template-list__stat">
+        Voting Power: $123
+      </div>
+      
+      <div
+        class="template-list__content">
+        <div
+          class="template-list__item"
+          v-for="item in data[`${module}s`]"
+          :key="item.id">
+          <chat-avatar
+            class="template-list__item-avatar"
+            :alt="item.name"
+            :size="36"
+            :src="item.avatar">
+          </chat-avatar>
+        </div>
       </div>
     </div>
-  </div>
+  </list-skeleton>
 </template>
 
 <script setup>
 import { ElButton } from 'element-plus/dist/index.full'
+import ListSkeleton from './skeleton'
 
 const props = defineProps({
   data: {
