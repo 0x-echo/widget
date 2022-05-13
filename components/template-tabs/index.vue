@@ -7,6 +7,7 @@
     </section-toolbar>
     
     <reply-form
+      v-if="config.modules.includes('comment')"
       custom-class="chat-widget__reply"
       :loading="loading">
     </reply-form>
