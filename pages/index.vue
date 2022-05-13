@@ -18,6 +18,9 @@
         @upvote="upvote"
         @upvote-comment="upvoteComment">
       </template-tabs>
+      
+      <chat-footer
+      </chat-footer>
     </template>
     
     <section-toolbar
@@ -56,9 +59,6 @@
       @donate="donate"
       @upvote="upvote">
     </template-list>
-    
-    <chat-footer>
-    </chat-footer>
     
     <dialog-connect
       v-model="connectDialogVisible"
