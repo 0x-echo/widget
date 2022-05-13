@@ -73,11 +73,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
 const { $bus } = useNuxtApp()
 
-const connectDialogVisible = ref(false)
-const donateDialogVisible = ref(false)
 // data
 const config = reactive({
   modules: ['upvote', 'downvote']
@@ -85,6 +82,7 @@ const config = reactive({
 let message = ref('')
 
 // connect wallet / disconnect wallet
+const connectDialogVisible = ref(false)
 const connectWallet =  () => {
   connectDialogVisible.value = true
 }
@@ -97,6 +95,7 @@ const logout = () => {
 const upvote = () => {
   console.log('upvote')
 }
+
 const upvoteComment = (data) => {
   console.log(data)
 }
@@ -111,6 +110,8 @@ const downvoteComment = (data) => {
 }
 
 // donate
+const donateDialogVisible = ref(false)
+
 const donate = () => {
   donateDialogVisible.value = true
 }
@@ -241,9 +242,6 @@ export default {
           name: 'hello.bit',
           asset: '120k'
         }]
-      },
-      config: {
-        modules: ['downvote', 'comment', 'upvote']
       }
     }
   }
