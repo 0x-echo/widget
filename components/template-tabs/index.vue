@@ -15,31 +15,41 @@
       v-if="config.modules.length > 1"
       v-model="activeTab"
       :tabs="tabs">
+      <chat-tab-pane
+        value="comment">
+        <section-comment
+          :data="data.comments"
+          :loading="loading">
+        </section-comment>
+      </chat-tab-pane>
+      
+      <chat-tab-pane
+        value="upvote">
+        <section-vote
+          :data="data.upvotes"
+          :loading="loading"
+          value="1.22B">
+        </section-vote>
+      </chat-tab-pane>
+      
+      <chat-tab-pane
+        value="downvote">
+        <section-vote
+          :data="data.downvotes"
+          :loading="loading"
+          value="1.22B">
+        </section-vote>
+      </chat-tab-pane>
+      
+      <chat-tab-pane
+        value="donation">
+        <section-donate
+          :data="data.donations"
+          :loading="loading"
+          value="1.22B">
+        </section-donate>
+      </chat-tab-pane>
     </chat-tabs>
-    
-    <section-comment
-      v-show="activeTab === 'comment'"
-      v-bind="$attrs"
-      :data="data.comments">
-    </section-comment>
-    
-    <section-vote
-      v-show="activeTab === 'upvote'"
-      :data="data.upvotes"
-      value="1.22B">
-    </section-vote>
-    
-    <section-vote
-      v-show="activeTab === 'downvote'"
-      :data="data.downvotes"
-      value="1.22B">
-    </section-vote>
-    
-    <section-donate
-      v-show="activeTab === 'donation'"
-      :data="data.donations"
-      value="1.22B">
-    </section-donate>
   </div>
 </template>
 
