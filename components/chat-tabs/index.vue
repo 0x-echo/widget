@@ -1,20 +1,33 @@
 <template>
   <div
     class="chat-tabs">
+    <tabs-skeleton
+      v-bind="$attrs">
+      <div
+        class="chat-tabs__header">
+        <div
+          class="chat-tabs__item"
+          :class="{
+            'active': item.value === activeTab
+          }"
+          v-for="item in tabs"
+          :key="item.value"
+          @click="activeTab = item.value">
+          <template v-if="item.count">{{ item.count }}</template> {{ item.label }}
+        </div>
+      </div>
+    </tabs-skeleton>
+    
     <div
-      class="chat-tabs__item"
-      :class="{
-        'active': item.value === activeTab
-      }"
-      v-for="item in tabs"
-      :key="item.value"
-      @click="activeTab = item.value">
-      <template v-if="item.count">{{ item.count }}</template> {{ item.label }}
+      class="chat-tabs__content">
+      <slot></slot>
     </div>
   </div>
 </template>
 
 <script setup>
+import TabsSkeleton from './skeleton'
+
 const props = defineProps({
   modelValue: {
     type: String
@@ -37,22 +50,26 @@ const activeTab = computed({
     emits('update:modelValue', val)
   }
 })
+
+provide('tabProps', props)
 </script>
 
 <style lang="scss">
 .chat-tabs {
-  position: relative;
-  display: flex; 
-  margin-bottom: 30px;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: $bg-color;
+  &__header {
+    position: relative;
+    display: flex; 
+    margin-bottom: 30px;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: $bg-color;
+    }
   }
   
   &__item {
