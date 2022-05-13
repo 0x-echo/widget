@@ -2,18 +2,19 @@
   <div
     class="chat-widget__container template-tabs">
     <section-toolbar
-      v-bind="$attrs"
-      :config="toolbarConfig">
+      :config="config"
+      :loading="loading">
     </section-toolbar>
     
     <reply-form
       custom-class="chat-widget__reply"
-      v-bind="$attrs">
+      :loading="loading">
     </reply-form>
     
     <chat-tabs
       v-if="config.modules.length > 1"
       v-model="activeTab"
+      :loading="loading"
       :tabs="tabs">
       <chat-tab-pane
         value="comment">
@@ -66,6 +67,9 @@ const props = defineProps({
   data: {
     type: Object,
     required: true
+  },
+  loading: {
+    type: Boolean
   }
 })
 
