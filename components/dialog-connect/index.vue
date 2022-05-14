@@ -4,7 +4,7 @@
     :close-on-click-modal="false"
     custom-class="dialog-connect"
     :show-close="false"
-    width="485px">
+    width="90%">
     <template
       #title>
       <dialog-header
@@ -83,8 +83,8 @@ export default {
 
 <style lang="scss">
 .dialog-connect {
-  .el-dialog {
-    max-width: 432px;
+  &.el-dialog {
+    max-width: 485px;
   }
   
   &__list {
