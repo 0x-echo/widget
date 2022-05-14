@@ -40,7 +40,7 @@
               v-if="length">
               {{ length }} 
             </template>
-            {{ length ? `${module}s` : module }}
+            {{ length === 1 ? module : `${module}s` }}
           </span>
         </el-button>
       </div>
