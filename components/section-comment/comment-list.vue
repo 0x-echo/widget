@@ -10,6 +10,7 @@
       :key="item.id"
       :data="item">
       <reply-list
+        v-if="item.replies.length"
         :data="item.replies">
       </reply-list>
     </comment-item>
@@ -35,5 +36,4 @@ export default {
 </script>
 
 <style lang="scss">
-
 </style>
