@@ -124,7 +124,7 @@ const currentModule = computed(() => {
       content: '';
       flex: 1;
       height: 1px;
-      background: $bg-color;
+      background: $border-color;
     }
     
     &::before {
@@ -145,7 +145,7 @@ const currentModule = computed(() => {
   &__bio {
     margin-top: 2px;
     font-size: 14px;
-    color: $text-muted;
+    color: $text-secondary;
   }
   
   &__action {
@@ -186,22 +186,21 @@ const currentModule = computed(() => {
     justify-content: center;
     margin-top: 30px;
     font-size: 12px;
-    color: $text-secondary;
+    color: $text-muted;
     
     &::before,
     &::after {
       content: '';
-      width: 50px;
-      height: 1px;
-      background: $bg-color;
+      width: 15px;
+      border-top: 1px dashed $border-color;
     }
     
     &::before {
-      margin-right: 15px;
+      margin-right: 10px;
     }
     
     &::after {
-      margin-left: 15px;
+      margin-left: 10px;
     }
   }
   
@@ -209,12 +208,13 @@ const currentModule = computed(() => {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    width: 416px;
-    margin: 20px auto 0;
+    width: 100%;
+    max-width: 416px;
+    margin: 7px auto 0;
   }
   
   &__item {
-    margin: 0 8px;
+    margin: 8px;
   }
   
   &__item-avatar {
