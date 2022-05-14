@@ -79,12 +79,12 @@
 </template>
 
 <script setup>
+import configParser from '../libs/config-parser'
+
 const { $bus } = useNuxtApp()
 
 // data
-const config = reactive({
-  modules: ['upvote', 'downvote']
-})
+const config = reactive(configParser())
 
 // internal data
 let loading = ref(false)
