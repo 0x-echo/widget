@@ -134,6 +134,7 @@
               v-model="message"
               is-expanded
               :is-focused="showReply"
+              :loading="false"
               @reply="reply">
             </reply-form>
           </div>
@@ -239,7 +240,7 @@ $bus.on('reset-reply-comment', (data) => {
   
   &__header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 6px;
   }

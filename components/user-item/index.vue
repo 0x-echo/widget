@@ -43,7 +43,7 @@ const props = defineProps({
 .user-item {
   display: flex;
   align-items: center;
-  margin-right: 50px;
+  margin: 8px 50px 8px 0;
   
   &__avatar {
     flex-shrink: 0;

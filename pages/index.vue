@@ -59,6 +59,7 @@
     <template-list
       v-if="['upvote-only', 'downvote-only', 'donate-only'].includes(widgetType)"
       :data="data"
+      :loading="loading"
       :module="config.modules[0]"
       @downvote="downvote"
       @donate="donate"
