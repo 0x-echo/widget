@@ -152,4 +152,20 @@ const handleScroll = (el) => {
     }
   }
 }
+
+@media screen and (max-width: #{$tablet-width - 1px}) {
+  .section-network {
+    &__item {
+      width: auto;
+      
+      & + & {
+        margin-left: 10px;
+      }
+    }
+    
+    &__arrow-button {
+      top: 13px;
+    }
+  }
+}
 </style>
