@@ -94,7 +94,7 @@ const currentModule = computed(() => {
     value: 'downvote'
   }, {
     icon: 'ri-dollar-circle-fill',
-    value: 'donate'
+    value: 'tip'
   }]
   
   return list.find(item => {

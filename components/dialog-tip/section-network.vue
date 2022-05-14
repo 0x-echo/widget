@@ -2,7 +2,7 @@
   <section
     class="section-network">
     <h3
-      class="dialog-donate__section-title">
+      class="dialog-tip__section-title">
       Choose Network
     </h3>
     
@@ -141,13 +141,13 @@ const handleScroll = (el) => {
     &:focus:not(.el-button:hover) {
       border-color: white; 
       background: white;
-      color: $text-primary;
+      color: var(--text-color-primary);
     }
     
     &:hover,
     &:focus {
-      border-color: $primary;
-      background: $primary;
+      border-color: var(--color-primary);
+      background: var(--color-primary);
       color: white;
     }
   }

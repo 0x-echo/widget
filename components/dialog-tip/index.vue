@@ -2,7 +2,7 @@
   <el-dialog
     v-bind="$attrs"
     :close-on-click-modal="false"
-    custom-class="dialog-donate"
+    custom-class="dialog-tip"
     :show-close="false"
     top="10vh"
     width="90%">
@@ -10,7 +10,7 @@
       #title>
       <dialog-header
         icon="ri-hand-heart-line"
-        title="Donate"
+        title="Tip"
         @close="close">
       </dialog-header>
     </template>
@@ -28,14 +28,14 @@
     </section-amount>
     
     <div
-      class="dialog-donate__footer">
+      class="dialog-tip__footer">
       <div
-        class="dialog-donate__tip">
+        class="dialog-tip__tip">
         * non-refundable donation
       </div>
       
       <el-button
-        class="dialog-donate__next-button"
+        class="dialog-tip__next-button"
         :disabled="!(data.network && data.amount)"
         size="large"
         type="primary"
@@ -93,7 +93,7 @@ export default {
 
 
 <style lang="scss">
-.dialog-donate {
+.dialog-tip {
   &.el-dialog {
     max-width: 580px;
   }
@@ -124,13 +124,13 @@ export default {
     margin-bottom: 15px;
     border-radius: 12px;
     background: white;
-    border: 1px solid $border-color;
+    border: 1px solid var(--border-color);
     cursor: pointer;
     transition: all .3s ease;
     
     &:hover {
-      border-color: $primary;
-      box-shadow: 0 0 4px rgba($primary, .5);
+      border-color: var(--color-primary);
+      box-shadow: 0 0 4px rgba(var(--color-primary-rgb), .5);
     }
   }
   
@@ -144,7 +144,7 @@ export default {
     margin-top: 6px;
     font-size: 14px;
     font-weight: 500;
-    color: $text-secondary;
+    color: var(--text-color-secondary);
   }
   
   &__item-tag {
@@ -161,7 +161,7 @@ export default {
   &__tip {
     font-size: 12px;
     text-align: left;
-    color: $text-muted;
+    color: var(--text-color-muted);
   }
   
   &__next-button {

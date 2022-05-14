@@ -9,7 +9,7 @@
         :loading="loading"
         v-model="message"
         @connect-wallet="connectDialogVisible = true"
-        @donate="donate"
+        @tip="tip"
         @downvote="downvote"
         @downvote-comment="downvoteComment"
         @logout="logout"
@@ -30,7 +30,7 @@
       :config="config"
       :loading="loading"
       @connect-wallet="connectDialogVisible = true"
-      @donate="donate"
+      @tip="tip"
       @downvote="downvote"
       @logout="logout"
       @upvote="upvote">
@@ -57,12 +57,12 @@
     </div>
     
     <template-list
-      v-if="['upvote-only', 'downvote-only', 'donate-only'].includes(widgetType)"
+      v-if="['upvote-only', 'downvote-only', 'tip-only'].includes(widgetType)"
       :data="data"
       :loading="loading"
       :module="config.modules[0]"
       @downvote="downvote"
-      @donate="donate"
+      @tip="tip"
       @upvote="upvote">
     </template-list>
     
@@ -71,10 +71,10 @@
       @connect-wallet="connectWallet">
     </dialog-connect>
     
-    <dialog-donate
-      v-model="donateDialogVisible"
-      @go-next="donateLogin">
-    </dialog-donate>
+    <dialog-tip
+      v-model="tipDialogVisible"
+      @go-next="tipLogin">
+    </dialog-tip>
   </div>
 </template>
 
@@ -118,14 +118,14 @@ const downvoteComment = (data) => {
   console.log(data)
 }
 
-// donate
-const donateDialogVisible = ref(false)
+// tip
+const tipDialogVisible = ref(true)
 
-const donate = () => {
-  donateDialogVisible.value = true
+const tip = () => {
+  tipDialogVisible.value = true
 }
 
-const donateLogin = (data) => {
+const tipLogin = (data) => {
   console.log(data)
   connectDialogVisible.value = true
 }

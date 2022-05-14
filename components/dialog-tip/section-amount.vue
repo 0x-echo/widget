@@ -2,7 +2,7 @@
   <section
     class="section-amount">
     <h3
-      class="dialog-donate__section-title">
+      class="dialog-tip__section-title">
       Choose Amount
     </h3>
     
@@ -91,15 +91,15 @@ const onChangeInput = (value) => {
     width: calc((100% - 60px) / 5);
     height: 50px;
     margin-bottom: 15px;
-    border: 1px solid $border-color;
-    border-radius: $border-radius;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
     cursor: pointer;
     transition: all .3s ease;
     
     &:hover,
     &.active {
-      border-color: $primary;
-      box-shadow: 0 0 4px rgba($primary, .5);
+      border-color: var(--color-primary);
+      box-shadow: 0 0 4px rgba(var(--color-primary-rgb), .5);
     }
   }
   
@@ -109,13 +109,13 @@ const onChangeInput = (value) => {
     
     &.active {
       .el-input__wrapper {
-        box-shadow: inset 0 0 0 1px $primary;
+        box-shadow: inset 0 0 0 1px var(--color-primary);
       }
     }
     
     .el-input__inner,
     .el-input__prefix-inner {
-      color: $text-primary;
+      color: var(--text-color-primary);
     }
   }
 }

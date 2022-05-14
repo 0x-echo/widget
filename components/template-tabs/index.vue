@@ -48,11 +48,11 @@
       
       <chat-tab-pane
         value="donation">
-        <section-donate
+        <section-tip
           :data="data.donations"
           :loading="loading"
           value="1.22B">
-        </section-donate>
+        </section-tip>
       </chat-tab-pane>
     </chat-tabs>
   </div>
@@ -60,7 +60,7 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import SectionDonate from './section-donate'
+import SectionTip from './section-tip'
 import SectionVote from './section-vote'
 
 const props = defineProps({
@@ -93,8 +93,8 @@ const tabs = computed(() => {
     value: 'downvote',
     count: 1
   }, {
-    label: 'Donations',
-    value: 'donation',
+    label: 'Tips',
+    value: 'tip',
     count: 1
   }]
   

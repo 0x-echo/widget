@@ -76,8 +76,8 @@ const showMore = ref(false)
 
 <style lang="scss">
 .section-user {
-  border-radius: $border-radius;
-  background: $bg-color;
+  border-radius: var(--border-radius);
+  background: var(--bg-color);
   
   &__info {
     display: flex;
@@ -88,7 +88,7 @@ const showMore = ref(false)
   &__arrow-icon {
     margin-right: 10px;
     font-size: 18px; 
-    color: $text-muted;
+    color: var(--text-color-muted);
     opacity: .8;
     cursor: pointer;
     transition: all .3s ease;
@@ -120,7 +120,7 @@ const showMore = ref(false)
   &__bio {
     margin-top: 4px;
     font-size: 12px;
-    color: $text-muted;
+    color: var(--text-color-muted);
   }
   
   &__more {
@@ -151,7 +151,7 @@ const showMore = ref(false)
   
   &__address {
     font-size: 12px;
-    color: $text-secondary;
+    color: var(--text-color-secondary);
   }
 }
 

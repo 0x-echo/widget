@@ -83,7 +83,7 @@ const props = defineProps({
 
 const emits = defineEmits([
   'connect-wallet',
-  'donate',
+  'tip',
   'downvote',
   'logout',
   'upvote'
@@ -103,7 +103,7 @@ const toolbarConfig = computed(() => {
   }, {
     active: false,
     icon: 'ri-money-dollar-circle-line',
-    value: 'donate',
+    value: 'tip',
     count: 123
   }]
   
