@@ -39,7 +39,7 @@ const props = defineProps({
   &__value {
     margin-bottom: 30px;
     font-size: 14px;
-    color: $text-secondary;
+    color: var(--text-color-secondary);
     
     strong {
       font-weight: bold;

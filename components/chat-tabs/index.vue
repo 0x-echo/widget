@@ -69,7 +69,7 @@ provide('tabProps', props)
       left: 0;
       width: 100%;
       height: 1px;
-      background: $bg-color;
+      background: var(--bg-color);
     }
     
     &::-webkit-scrollbar {
@@ -85,7 +85,7 @@ provide('tabProps', props)
     height: 40px;
     padding: 0 20px;
     font-size: 14px;
-    color: $text-muted;
+    color: var(--text-color-muted);
     cursor: pointer;
     transition: all .3s ease;
     
@@ -96,7 +96,7 @@ provide('tabProps', props)
       left: 0;
       width: 100%;
       height: 2px;
-      background: $primary;
+      background: var(--color-primary);
       opacity: 0;
       transform: scale3d(0, 1, 1);
       transition: all .3s ease;
@@ -104,7 +104,7 @@ provide('tabProps', props)
     }
     
     &.active {
-      color: $text-primary;
+      color: var(--text-color-primary);
       
       &::after {
         opacity: 1;
@@ -113,7 +113,7 @@ provide('tabProps', props)
     }
     
     &:hover {
-      color: $text-primary;
+      color: var(--text-color-primary);
     }
   }
 }

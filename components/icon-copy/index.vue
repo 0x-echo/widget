@@ -32,11 +32,11 @@ const onSuccess = () => {
 
 <style lang="scss">
 .icon-copy {
-  color: rgba($text-muted, .8);
+  color: rgba(var(--text-color-muted), .8);
   cursor: pointer;
   
   &:hover {
-    color: $primary;
+    color: var(--color-primary);
   }
 }
 </style>

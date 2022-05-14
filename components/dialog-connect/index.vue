@@ -97,7 +97,7 @@ export default {
     margin-top: 15px;
     font-size: 12px;
     text-align: center;
-    color: $text-secondary;
+    color: var(--text-color-secondary);
   }
 }
 </style>

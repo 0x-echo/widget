@@ -34,17 +34,17 @@ const props = defineProps({
   cursor: pointer;
   
   &:hover {
-    background: $primary-lighter;
+    background: var(--menu-item-bg-color);
     
     .menu-item__icon,
     .menu-item__label {
-      color: $primary;
+      color: var(--color-primary);
     }
   }
   
   &__icon {
     font-size: 16px;
-    color: $text-muted;
+    color: var(--text-color-muted);
     transition: all .3s ease;
     
     & + .menu-item__label {
@@ -54,7 +54,7 @@ const props = defineProps({
   
   &__label {
     font-size: 12px;
-    color: $text-secondary;
+    color: var(--text-color-secondary);
     transition: all .3s ease;
   }
 }

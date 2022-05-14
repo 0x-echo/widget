@@ -111,9 +111,9 @@ export default {
   &__box {
     flex: 1;
     height: 48px;
-    border: 1px solid $border-color;
-    border-radius: $border-radius;
-    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: var(--fill-color-blank);
     transition: all .3s ease;
     
     &.is-expanded {
@@ -122,7 +122,7 @@ export default {
     
     &:hover,
     &:focus-within {
-      border-color: $primary;
+      border-color: var(--color-primary);
     }
   }
   
@@ -132,6 +132,8 @@ export default {
       box-shadow: none;
       font-size: 14px;
       line-height: 24px;
+      background: none;
+      color: var(--text-color-primary);
     }
   }
   

@@ -28,7 +28,7 @@ import { ElSkeleton, ElSkeletonItem } from 'element-plus/dist/index.full'
   display: flex;
   align-items: center;
   margin-bottom: 30px;
-  border-bottom: 1px solid $bg-color;
+  border-bottom: 1px solid var(--bg-color);
   
   &__item {
     width: 100px;

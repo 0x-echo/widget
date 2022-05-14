@@ -221,7 +221,7 @@ $bus.on('reset-reply-comment', (data) => {
       left: 24px;
       width: 1px;
       height: calc(100% - 42px);
-      background: $bg-color;
+      background: var(--bg-color);
     }
   }
   
@@ -275,12 +275,12 @@ $bus.on('reset-reply-comment', (data) => {
   
   &__meta {
     font-size: 12px;
-    color: $text-muted;
+    color: var(--text-color-muted);
     margin-top: 2px;
   }
   
   &__meta-reply {
-    color: $text-secondary;
+    color: var(--text-color-secondary);
   }
   
   &__meta-divider {
@@ -288,16 +288,24 @@ $bus.on('reset-reply-comment', (data) => {
   }
   
   &__more-button {
-    border-color: white;
     opacity: 0;
     transition: all .3s ease;
     
     &.active,
     &:hover,
     &:focus {
-      border-color: $bg-color;
-      background: $bg-color;
-      color: $text-secondary;
+      border-color: var(--bg-color);
+      background: var(--bg-color);
+      color: var(--text-color-secondary);
+    }
+    
+    .dark & {
+      &.active,
+      &:hover,
+      &:focus {
+        color: white;
+        background-clip: padding-box;
+      }
     }
     
     &.show {
@@ -308,7 +316,7 @@ $bus.on('reset-reply-comment', (data) => {
   &__content {
     font-size: 14px;
     line-height: 24px;
-    color: $text-primary;
+    color: var(--text-color-primary);
   }
   
   &__control-bar {

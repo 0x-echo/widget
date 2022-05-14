@@ -148,8 +148,8 @@ const hasLogin = computed(() => {
     width: 136px;
     height: 40px;
     padding: 0 8px 0 12px;
-    border-radius: $border-radius;
-    background: $bg-color;
+    border-radius: var(--border-radius);
+    background: var(--bg-color);
     cursor: pointer;
   }
   
@@ -163,11 +163,11 @@ const hasLogin = computed(() => {
     flex: 1;
     margin: 0 6px 0 10px;
     font-size: 12px;
-    color: $text-primary;
+    color: var(--text-color-primary);
   }
   
   &__user-arrow-icon {
-    color: $text-muted;
+    color: var(--text-color-muted);
   }
 }
 </style>

@@ -1,0 +1,39 @@
+:root {
+  --theme-bg-color: white;
+  --color-primary-rgb: 78,117,246;
+  --color-danger-rgb: 255,72,56;
+  --color-primary: #4E75F6;
+  --color-primary-light: #E9EFFE;
+  --color-primary-lighter: #F8FAFF;
+  --color-primary-dark: #3864F5;
+  --color-primary-disabled: #94B1FC;
+  --color-success: #83BF1C;
+  --color-warning: #FFAA02;
+  --color-danger: #FF4838;
+  --text-color-primary: #16171C;
+  --text-color-secondary: #4C545D;
+  --text-color-muted: #929AB2;
+  --bg-color: #F4F5FA;
+  --border-color: #E6E8ED;
+  --border-radius: 12px;
+  --border-radius-small: 6px;
+  --border-radius-large: 20px;
+  --popover-box-shadow: 0 10px 10px rgba(0, 0, 0, .08);
+  --font-family: 'Work Sans',Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
+  --fill-color-blank: white;
+  
+  --menu-item-bg-color: var(--color-primary-lighter);
+  
+  /* element plus */
+  --el-color-primary: var(--color-primary);
+  --el-color-success: var(--color-success);
+  --el-color-warning: var(--color-warning);
+  --el-color-danger: var(--color-danger);
+  --el-border-color: var(--border-color);
+  --el-border-color-hover: var(--el-color-primary);
+  --el-border-radius-base: var(--border-radius);
+  --el-fill-color-blank: var(--fill-color-blank);
+  --el-popover-border-radius: var(--border-radius);
+  
+  --el-font-family: var(--font-family);
+}

@@ -70,7 +70,7 @@ const emits = defineEmits([
     width: 40px;
     margin-left: 8px;
     font-size: 14px;
-    color: $text-primary;
+    color: var(--text-color-primary);
   }
 }
 </style>

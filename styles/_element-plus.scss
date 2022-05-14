@@ -1,54 +1,53 @@
 .el-button {
-  border-radius: $border-radius;
-  font-family: $font-family;
+  --el-button-border-color: var(--fill-color-blank);
+  --el-button-text-color: var(--text-color-secondary);
+  background-clip: padding-box;
   transition: all .3s ease;
   
   &--primary {
-    &,
+    --el-button-hover-bg-color: var(--color-primary-dark);
+    --el-button-hover-border-color: var(--color-primary-dark);
+    --el-button-disabled-border-color: var(--color-primary-disabled);
+    --el-button-disabled-bg-color: var(--color-primary-disabled);
+  
     &:focus:not(.el-button:hover) {
-      border-color: $primary;
-      background: $primary;
+      border-color: var(--color-primary);
+      background-color: var(--color-primary);
     }
-    
-    &.is-disabled {
-      &,
-      &:hover,
-      &:focus {
-        border-color: $primary-disabled;
-        background: $primary-disabled;
-      }
-    }
-    
   }
   
   &--info {
-    &,
-    &:focus:not(.el-button:hover) {
-      border-color: $bg-color;
-      background: $bg-color;
-      color: $text-secondary;
+    --el-button-hover-bg-color: var(--color-primary-light);
+    --el-button-hover-border-color: var(--color-primary-light);
+    --el-button-hover-text-color: var(--color-primary);
+    
+    .dark & {
+      --el-button-hover-bg-color: rgba(255, 255, 255, .25);
+      --el-button-hover-border-color: rgba(255, 255, 255, .25);
+      --el-button-hover-text-color: white;
     }
     
-    &:hover,
-    &:focus {
-      border-color: $primary-light;
-      background: $primary-light;
-      color: $primary;
+    &,
+    &:focus:not(.el-button:hover) {
+      border-color: var(--bg-color);
+      background: var(--bg-color);
+      color: var(--text-color-secondary);
+      background-clip: padding-box;
     }
     
     &.el-button--icon {
       &.active {
         &,
         &:focus:not(.el-button:hover) {
-          border-color: $primary;
-          background: $primary;
+          border-color: var(--color-primary);
+          background: var(--color-primary);
           color: white;
         }
         
         &:hover,
-      &:focus {
-          border-color: $primary-dark;
-          background: $primary-dark;
+        &:focus {
+          border-color: var(--color-primary-dark);
+          background: var(--color-primary-dark);
         }  
       }
     }
@@ -74,38 +73,29 @@
   }
 }
 
+.el-input,
 .el-textarea {
-  &__inner {
-    border-radius: $border-radius;
-    box-shadow: 0 0 0 1px $border-color inset;
-    
-    &:focus {
-      box-shadow: 0 0 0 1px $primary inset;
-    }
-  }
+  --el-input-placeholder-color: var(--text-color-muted);
+  --el-input-border-color: var(--border-color);
 }
 
-.el-input {
-  &__wrapper {
-    border-radius: $border-radius;
-    box-shadow: 0 0 0 1px $border-color inset;
-    
-    &.is-focus,
-    &:hover {
-      box-shadow: 0 0 0 1px $primary inset;
-    }
+.el-popover {
+  --el-box-shadow-light: var(--popover-box-shadow);
+  
+  &.el-popper {
+    min-width: 136px;
+    border: 0;
+    background-color: var(--theme-bg-color);
   }
-}
-
-.el-popover.el-popper {
-  min-width: 136px;
-  border: 0;
-  border-radius: $border-radius;
-  box-shadow: 0 10px 10px rgba(black, .08);
 }
 
 .el-dialog {
-  border-radius: 20px;
+  --el-dialog-bg-color: var(--theme-bg-color);
+  --el-dialog-border-radius: var(--border-radius-large);
+  
+  .dark & {
+    --el-dialog-box-shadow: 0 0 10px rgba(255, 255, 255, .08);
+  }
   
   &__header {
     padding: 35px 35px 0;
@@ -114,29 +104,17 @@
   
   &__body {
     padding: 30px 35px 50px;
-    color: $text-primary;
+    color: var(--text-color-primary);
   }
 }
 
 .el-message {
   min-width: 0;
   padding: 12px 20px 12px 15px;
-  border-radius: $border-radius;
-  border-color: white;
-  background-color: white;
-  box-shadow: 0 10px 10px rgba(black, .08);
-
-  &--success {
-    color: $success;
-  }
-
-  &--warning {
-    color: $warning;
-  }
-
-  &--error {
-    color: $danger;
-  }
+  border-radius: var(--border-radius);
+  border-color: var(--theme-bg-color);
+  background-color: var(--theme-bg-color);
+  box-shadow: var(--popover-box-shadow);
 
   &__content {
     font-weight: 700;
@@ -155,13 +133,13 @@
   
   &__item {
     display: block;
-    border-radius: 6px;
+    border-radius: var(--border-radius-small);
   }
   
   &__button {
     width: 40px;
     height: 40px;
-    border-radius: $border-radius;
+    border-radius: var(--border-radius);
   }
   
   &__circle {

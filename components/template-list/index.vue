@@ -124,7 +124,7 @@ const currentModule = computed(() => {
       content: '';
       flex: 1;
       height: 1px;
-      background: $border-color;
+      background: var(--border-color);
     }
     
     &::before {
@@ -145,7 +145,7 @@ const currentModule = computed(() => {
   &__bio {
     margin-top: 2px;
     font-size: 14px;
-    color: $text-secondary;
+    color: var(--text-color-secondary);
   }
   
   &__action {
@@ -160,16 +160,16 @@ const currentModule = computed(() => {
     
     &,
     &:focus:not(.el-button:hover) {
-      border-color: $primary-light;
-      background: $primary-light;
-      color: $primary;
+      border-color: var(--color-primary-light);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
     }
     
     &.active,
     &:hover,
     &:focus {
-      border-color: $primary;
-      background: $primary;
+      border-color: var(--color-primary);
+      background: var(--color-primary);
       color: white;
     }
   }
@@ -186,13 +186,13 @@ const currentModule = computed(() => {
     justify-content: center;
     margin-top: 30px;
     font-size: 12px;
-    color: $text-muted;
+    color: var(--text-color-muted);
     
     &::before,
     &::after {
       content: '';
       width: 15px;
-      border-top: 1px dashed $border-color;
+      border-top: 1px dashed var(--border-color);
     }
     
     &::before {

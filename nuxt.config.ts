@@ -34,7 +34,8 @@ export default defineNuxtConfig({
     '@/styles/_element-plus.scss',
     '@/styles/_base.scss',
     '@/styles/_reset.scss',
-    '@/styles/_transition.scss'
+    '@/styles/_transition.scss',
+    '@/styles/themes/_default.scss',
   ],
   vite: {
     css: {

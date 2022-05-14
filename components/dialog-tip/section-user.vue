@@ -130,7 +130,7 @@ const showMore = ref(false)
   &__more-wrapper {
     padding: 15px 12px;
     border-radius: 10px;
-    background: white;
+    background: var(--fill-color-blank);
   }
   
   &__more-item {

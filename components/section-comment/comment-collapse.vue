@@ -64,19 +64,19 @@ const props = defineProps({
     border-radius: 50%;
     font-size: 12px;
     font-weight: 500;
-    background: $bg-color;
-    color: $text-secondary;
+    background: var(--bg-color);
+    color: var(--text-color-secondary);
   }
   
   &__more {
     margin-left: 12px;
     font-size: 12px;
-    color: $text-secondary;
+    color: var(--text-color-secondary);
     cursor: pointer;
     transition: all .3s ease;
     
     &:hover {
-      color: $primary;
+      color: var(--color-primary);
     }
   }
 }

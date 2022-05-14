@@ -52,13 +52,13 @@ export default {
     border-radius: 10px;
     font-size: 14px;
     font-weight: 500;
-    background: rgba($danger, .05);
-    color: $danger;
+    background: rgba(var(--color-danger-rgb), .05);
+    color: var(--color-danger);
     cursor: pointer;
     transition: all .3s ease;
     
     &:hover {
-      background: rgba($danger, .08);
+      background: rgba(var(--color-danger-rgb), .08);
     }
   }
   

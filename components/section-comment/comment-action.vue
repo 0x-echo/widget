@@ -43,7 +43,7 @@ const props = defineProps({
   display: flex;
   align-items: center;
   width: 55px;
-  color: $text-muted;
+  color: var(--text-color-muted);
   
   & + & {
     margin-left: 10px;
@@ -51,7 +51,7 @@ const props = defineProps({
   
   &:hover,
   &.active {
-    color: $primary;
+    color: var(--color-primary);
   }
   
   &__icon {

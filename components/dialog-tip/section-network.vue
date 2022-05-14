@@ -112,6 +112,8 @@ const handleScroll = (el) => {
   &__content-wrapper {
     display: flex;
     overflow-x: auto;
+    padding: 2px;
+    margin: 0 -2px;
     
     &::-webkit-scrollbar {
       display: none;
@@ -132,15 +134,16 @@ const handleScroll = (el) => {
     position: absolute;
     top: 27px;
     right: -12px;
-    padding-left: 4px;
-    padding-right: 4px;
+    padding-left: 3px;
+    padding-right: 3px;
     font-size: 16px;
+    border-radius: 50%;
     box-shadow: 0 0 10px rgba(black, .1);
     
     &,
     &:focus:not(.el-button:hover) {
       border-color: white; 
-      background: white;
+      background: var(--fill-color-blank);
       color: var(--text-color-primary);
     }
     

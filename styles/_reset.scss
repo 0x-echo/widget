@@ -10,11 +10,11 @@
 
 a {
   text-decoration: none;
-  color: $primary;
+  color: var(--color-primary);
   transition: color .3s;
   
   &:hover {
-    color: $primary;
+    color: var(--color-primary);
   }
 }
 
@@ -23,9 +23,9 @@ li {
 }
 
 body {
-  background: white;
-  color: $text-primary;
-  font-family: $font-family;
+  background: var(--theme-bg-color);
+  color: var(--text-color-primary);
+  font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   line-height: 1.5;
 }

@@ -60,12 +60,12 @@ const props = defineProps({
   &__title {
     font-size: 14px;
     font-weight: 500;
-    color: $text-primary;
+    color: var(--text-color-primary);
   }
   
   &__subtitle {
     font-size: 12px;
-    color: $text-muted;
+    color: var(--text-color-muted);
   }
 }
 </style>

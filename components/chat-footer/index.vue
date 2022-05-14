@@ -25,13 +25,13 @@
   align-items: center;
   justify-content: space-between;
   padding: 15px 0;
-  margin-top: 30px;
-  border-top: 1px solid $bg-color;
+  margin-top: 60px;
+  border-top: 1px solid var(--bg-color);
   font-size: 12px;
-  color: $text-muted;
+  color: var(--text-color-muted);
   
   &__link {
-    color: $text-muted;
+    color: var(--text-color-muted);
   }
 }
 </style>

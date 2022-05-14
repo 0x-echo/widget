@@ -40,15 +40,15 @@ const props = defineProps({
   padding: 15px 15px 12px;
   margin-bottom: 15px;
   border-radius: 12px;
-  background: white;
-  border: 1px solid $border-color;
+  border: 1px solid var(--border-color);
+  background: var(--fill-color-blank);
   cursor: pointer;
   transition: all .3s ease;
   
   &.active,
   &:hover {
-    border-color: $primary;
-    box-shadow: 0 0 4px rgba($primary, .5);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 4px rgba(var(--color-primary-rgb), .5);
   }
   
   &__logo {
@@ -62,7 +62,7 @@ const props = defineProps({
     font-size: 14px;
     font-weight: 500;
     text-align: center;
-    color: $text-secondary;
+    color: var(--text-color-secondary);
   }
 }
 
