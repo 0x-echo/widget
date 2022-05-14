@@ -24,7 +24,8 @@
           resize="none"
           :rows="isExpandedValue ? 2 : 1"
           type="textarea"
-          @focus="isExpandedValue = true">
+          @focus="isExpandedValue = true"
+          @keyup.enter="$emit('reply')">
         </el-input>
         
         <transition
