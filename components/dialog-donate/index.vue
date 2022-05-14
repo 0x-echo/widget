@@ -5,7 +5,7 @@
     custom-class="dialog-donate"
     :show-close="false"
     top="10vh"
-    width="580px">
+    width="90%">
     <template
       #title>
       <dialog-header
@@ -94,6 +94,10 @@ export default {
 
 <style lang="scss">
 .dialog-donate {
+  &.el-dialog {
+    max-width: 580px;
+  }
+  
   section + section {
     margin-top: 30px;
   }
@@ -156,7 +160,7 @@ export default {
   
   &__tip {
     font-size: 12px;
-    text-align: center;
+    text-align: left;
     color: $text-muted;
   }
   
