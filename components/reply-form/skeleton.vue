@@ -37,11 +37,22 @@ const props = defineProps({
   display: flex;
   align-items: center;
   
+  &__avatar {
+    margin-right: 16px;
+  }
+  
   &__input {
     flex: 1;
     height: 48px;
-    margin-left: 16px;
     border-radius: 12px;
+  }
+}
+
+@media screen and (max-width: #{$tablet-width - 1px}) {
+  .form-skeleton {
+    &__avatar {
+      display: none;
+    }
   }
 }
 </style>

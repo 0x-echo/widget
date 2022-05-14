@@ -14,7 +14,7 @@
       <chat-avatar
         class="section-user__avatar"
         :alt="data.name"
-        :size="36"
+        size="small"
         :src="data.avatar">
       </chat-avatar>
       
@@ -152,6 +152,18 @@ const showMore = ref(false)
   &__address {
     font-size: 12px;
     color: $text-secondary;
+  }
+}
+
+@media screen and (max-width: #{$tablet-width - 1px}) {
+  .section-user {
+    &__info {
+      padding: 10px;
+    }
+    
+    &__bio {
+      display: none;
+    }
   }
 }
 </style>

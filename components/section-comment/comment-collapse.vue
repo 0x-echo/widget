@@ -80,4 +80,16 @@ const props = defineProps({
     }
   }
 }
+
+@media screen and (max-width: #{$tablet-width - 1px}) {
+  .comment-collapse {
+    &__avatar {
+      display: none;
+      
+      & + .comment-collapse__more {
+        margin-left: 0;
+      }
+    }
+  }
+}
 </style>

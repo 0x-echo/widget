@@ -70,4 +70,16 @@ const close = () => {
     font-size: 18px;
   }
 }
+
+@media screen and (max-width: #{$tablet-width - 1px}) {
+  .dialog-header {
+    &__icon {
+      font-size: 20px;
+    }
+    
+    &__title {
+      font-size: 16px;
+    }
+  }
+}
 </style>

@@ -64,4 +64,22 @@ const props = defineProps({
     color: $text-secondary;
   }
 }
+
+@media screen and (max-width: #{$tablet-width - 1px}) {
+  .wallet-item {
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 12px 20px;
+    
+    &__logo {
+      margin-right: 10px;
+    }
+    
+    &__label {
+      margin-top: 0;
+      font-size: 12px;
+    }
+  }
+}
 </style>

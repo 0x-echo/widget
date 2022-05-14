@@ -180,3 +180,31 @@
     }
   }
 }
+
+.el-avatar {
+  --el-avatar-size: 48px;
+  
+  &--small {
+    --el-avatar-size: 36px;
+  }
+}
+
+@media screen and (max-width: #{$tablet-width - 1px}) {
+  .el-avatar {
+    --el-avatar-size: 30px;
+    
+    &--small {
+      --el-avatar-size: 24px;
+    }
+  }
+  
+  .el-dialog {
+    &__header {
+      padding: 25px 20px 0;
+    }
+    
+    &__body {
+      padding: 20px 20px 30px; 
+    }
+  }
+}

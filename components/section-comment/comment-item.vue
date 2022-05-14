@@ -8,7 +8,6 @@
       <chat-avatar
         class="comment-item__avatar-image"
         :alt="data.name"
-        :size="48"
         :src="data.avatar">
       </chat-avatar>
     </div>
@@ -231,10 +230,7 @@ $bus.on('reset-reply-comment', (data) => {
   
   &__avatar {
     flex-shrink: 0;
-    
-    & + .comment-item__body {
-      margin-left: 16px;
-    }
+    margin-right: 16px;
   }
   
   &__body {
@@ -323,6 +319,26 @@ $bus.on('reset-reply-comment', (data) => {
   &__reply {
     .reply-form {
       padding-top: 25px;
+    }
+  }
+}
+
+@media screen and (max-width: #{$tablet-width - 1px}) {
+  .comment-item {
+    &.has-replies {
+      &::before {
+        height: calc(100% - 24px);
+        top: 42px;
+        left: 14px;
+      }
+    }
+    
+    &__avatar {
+      margin-right: 10px;
+    }
+    
+    &__more-button {
+      opacity: 1;
     }
   }
 }

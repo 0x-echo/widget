@@ -8,7 +8,6 @@
       <chat-avatar
         class="reply-form__avatar"
         :alt="user.name || 'Avatar'"
-        :size="48"
         :src="user.avatar">
       </chat-avatar>
       
@@ -105,10 +104,7 @@ export default {
   
   &__avatar {
     flex-shrink: 0;
-    
-    & + .reply-form__box {
-      margin-left: 16px;
-    }
+    margin-right: 16px;
   }
   
   &__box {
@@ -147,6 +143,14 @@ export default {
   &__send-button {
     width: 90px;
     border-radius: 8px;
+  }
+}
+
+@media screen and (max-width: #{$tablet-width - 1px}) {
+  .reply-form {
+    &__avatar {
+      display: none;
+    }
   }
 }
 </style>

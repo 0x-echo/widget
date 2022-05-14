@@ -269,4 +269,10 @@ export default {
     margin-bottom: 30px;
   }
 }
+
+@media screen and (max-width: #{$tablet-width - 1px}) {
+  .chat-widget {
+    padding: 30px 20px;
+  }
+}
 </style>

@@ -55,9 +55,12 @@ import { ElSkeleton, ElSkeletonItem } from 'element-plus/dist/index.full'
     }
   }
   
+  &__avatar {
+    margin-right: 16px;
+  }
+  
   &__body {
     flex: 1;
-    margin-left: 16px;
   }
   
   &__author {
@@ -79,6 +82,16 @@ import { ElSkeleton, ElSkeletonItem } from 'element-plus/dist/index.full'
     width: 185px;
     height: 21px;
     margin-top: 6px;
+  }
+}
+
+@media screen and (max-width: #{$tablet-width - 1px}) {
+  .comment-skeleton {
+    &__avatar {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
   }
 }
 </style>
