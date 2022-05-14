@@ -60,6 +60,7 @@ provide('tabProps', props)
     position: relative;
     display: flex; 
     margin-bottom: 30px;
+    overflow-x: auto;
     
     &::after {
       content: '';
@@ -70,10 +71,15 @@ provide('tabProps', props)
       height: 1px;
       background: $bg-color;
     }
+    
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
   
   &__item {
     position: relative;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     height: 40px;
