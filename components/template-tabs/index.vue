@@ -2,12 +2,14 @@
   <div
     class="chat-widget__container template-tabs">
     <section-toolbar
+      v-bind="$attrs"
       :config="config"
       :loading="loading">
     </section-toolbar>
     
     <reply-form
       v-if="config.modules.includes('comment')"
+      v-bind="$attrs"
       custom-class="chat-widget__reply"
       :loading="loading">
     </reply-form>
@@ -20,6 +22,7 @@
       <chat-tab-pane
         value="comment">
         <section-comment
+          v-bind="$attrs"
           :data="data.comments"
           :loading="loading">
         </section-comment>
