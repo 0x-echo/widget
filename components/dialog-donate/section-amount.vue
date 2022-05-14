@@ -77,11 +77,10 @@ const onChangeInput = (value) => {
 
 <style lang="scss">
 .section-amount {
-  
   &__content {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
   }
   
@@ -117,6 +116,19 @@ const onChangeInput = (value) => {
     .el-input__inner,
     .el-input__prefix-inner {
       color: $text-primary;
+    }
+  }
+}
+
+@media screen and (max-width: #{$tablet-width - 1px}) {
+  .section-amount {
+    &__item {
+      width: calc((100% - 30px) / 4);
+    }
+    
+    &__input {
+      flex: 1;
+      margin-left: 10px;
     }
   }
 }
