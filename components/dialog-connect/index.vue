@@ -26,7 +26,7 @@
     
     <div
       class="dialog-connect__tip">
-      By connecting your wallet and signing a message, you agree to <br>third.chat's 
+      By connecting your wallet and signing a message, you agree to third.chat's
       <a
         href="/tos" 
         target="_blank">
