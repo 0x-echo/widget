@@ -36,6 +36,7 @@ export default defineNuxtConfig({
     '@/styles/_reset.scss',
     '@/styles/_transition.scss',
     '@/styles/themes/_default.scss',
+    '@/styles/themes/_dark.scss'
   ],
   vite: {
     css: {

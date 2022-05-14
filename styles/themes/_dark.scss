@@ -1,0 +1,14 @@
+body.dark {
+  --theme-bg-color: #0d0f17;
+  --text-color-primary: rgba(255, 255, 255, .9);
+  --text-color-secondary: rgba(255, 255, 255, .7);
+  --text-color-muted: rgba(255, 255, 255, .4);
+  --bg-color: rgba(255, 255, 255, .1);
+  --border-color: rgba(255, 255, 255, .1);
+  --fill-color-blank: var(--bg-color);
+  
+  --menu-item-bg-color: var(--bg-color);
+  
+  /* element plus */
+  --el-fill-color-blank: var(--bg-color);
+}
