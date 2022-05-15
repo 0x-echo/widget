@@ -204,6 +204,7 @@ const reply = () => {
 $bus.on('reset-reply-comment', (data) => {
   if (props.data.id === data.id) {
     message.value = ''
+    showReply.value = false
   }
 })
 </script>
