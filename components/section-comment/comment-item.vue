@@ -148,8 +148,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { ElButton, ElCollapseTransition, ElPopover } from 'element-plus/dist/index.full'
+import { ElButton, ElCollapseTransition, ElPopover } from 'element-plus'
 import CommentAction from './comment-action'
 const { $bus } = useNuxtApp()
 import { Timeago } from 'vue2-timeago'

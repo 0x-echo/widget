@@ -36,8 +36,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { ElButton } from 'element-plus/dist/index.full'
+import { ElButton } from 'element-plus'
 import iconMatemask from '@/assets/metamask.svg'
 
 const props = defineProps({

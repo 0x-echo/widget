@@ -61,8 +61,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { ElCollapseTransition } from 'element-plus/dist/index.full'
+import { ElCollapseTransition } from 'element-plus'
 
 const props = defineProps({
   data: {

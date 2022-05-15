@@ -59,7 +59,6 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
 import SectionTip from './section-tip'
 import SectionVote from './section-vote'
 

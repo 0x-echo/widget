@@ -42,7 +42,7 @@
 </template>
 
 <script setup>
-import { ElDialog } from 'element-plus/dist/index.full'
+import { ElDialog } from 'element-plus'
 import iconMatemask from '@/assets/metamask.svg'
 
 const emits = defineEmits([

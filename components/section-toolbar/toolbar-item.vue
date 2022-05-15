@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { ElButton } from 'element-plus/dist/index.full'
+import { ElButton } from 'element-plus'
 
 const props = defineProps({
   active: {

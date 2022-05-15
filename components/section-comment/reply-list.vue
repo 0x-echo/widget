@@ -20,7 +20,6 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
 import CommentCollapse from './comment-collapse'
 import CommentItem from './comment-item'
 

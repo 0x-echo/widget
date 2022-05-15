@@ -48,7 +48,7 @@
 
 <script setup>
 import { reactive } from 'vue'
-import { ElButton, ElDialog } from 'element-plus/dist/index.full'
+import { ElButton, ElDialog } from 'element-plus'
 import SectionAmount from './section-amount'
 import SectionNetwork from './section-network'
 import SectionUser from './section-user'

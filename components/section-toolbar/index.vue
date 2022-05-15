@@ -66,8 +66,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { ElPopover } from 'element-plus/dist/index.full'
+import { ElPopover } from 'element-plus'
 import ToolbarItem from './toolbar-item'
 import ToolbarSkeleton from './skeleton'
 

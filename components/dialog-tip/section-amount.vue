@@ -37,8 +37,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { ElInput } from 'element-plus/dist/index.full'
+import { ElInput } from 'element-plus'
 
 const props = defineProps({
   modelValue: {

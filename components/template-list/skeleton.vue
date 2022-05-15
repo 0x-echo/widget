@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-import { ElSkeleton, ElSkeletonItem } from 'element-plus/dist/index.full'
+import { ElSkeleton, ElSkeletonItem } from 'element-plus'
 </script>
 
 <style lang="scss">

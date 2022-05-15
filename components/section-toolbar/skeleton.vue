@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { ElSkeleton, ElSkeletonItem } from 'element-plus/dist/index.full'
+import { ElSkeleton, ElSkeletonItem } from 'element-plus'
 
 const props = defineProps({
   config: {

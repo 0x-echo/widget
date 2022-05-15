@@ -49,8 +49,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
-import { ElButton, ElInput } from 'element-plus/dist/index.full'
+import { ElButton, ElInput } from 'element-plus'
 import FormSkeleton from './skeleton'
 
 const props = defineProps({

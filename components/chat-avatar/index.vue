@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { ElAvatar } from 'element-plus/dist/index.full'
+import { ElAvatar } from 'element-plus'
 
 const props = defineProps({
   alt: {
