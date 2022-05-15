@@ -21,7 +21,7 @@
   --popover-box-shadow: 0 10px 10px rgba(0, 0, 0, .08);
   --font-family: 'Work Sans',Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
   --fill-color-blank: white;
-  
+  --skeleton-to-color: var(--color-primary-lighter);
   --menu-item-bg-color: var(--color-primary-lighter);
   
   /* element plus */
@@ -34,6 +34,5 @@
   --el-border-radius-base: var(--border-radius);
   --el-fill-color-blank: var(--fill-color-blank);
   --el-popover-border-radius: var(--border-radius);
-  
   --el-font-family: var(--font-family);
 }
