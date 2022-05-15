@@ -52,7 +52,7 @@
         @dislike-comment="dislikeComment"
         @refresh-comments="refreshComments"
         @reply-comment="replyComment"
-        @upvote-comment="upvoteComment">
+        @like-comment="likeComment">
       </section-comment>
     </div>
     
