@@ -108,15 +108,15 @@
             active
             :count="data.like_counts"
             icon="ri-thumb-up-line"
-            value="upvote"
-            @click="$emit('upvote-comment', data)">
+            value="like"
+            @click="$emit('like-comment', data)">
           </comment-action>
           
           <comment-action
             :count="data.dislike_counts"
             icon="ri-thumb-down-line"
-            value="downvote"
-            @click="$emit('downvote-comment', data)">
+            value="dislike"
+            @click="$emit('dislike-comment', data)">
           </comment-action>
           
           <comment-action
@@ -165,10 +165,10 @@ const props = defineProps({
 })
 
 const emits = defineEmits([
-  'downvote-comment',
+  'dislike-comment',
   'reply-comment',
   'report',
-  'upvote-comment',
+  'like-comment',
   'view-arweave-info'
 ])
 

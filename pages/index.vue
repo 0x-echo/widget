@@ -10,14 +10,14 @@
         v-model="message"
         @connect-wallet="connectDialogVisible = true"
         @tip="tip"
-        @downvote="downvote"
-        @downvote-comment="downvoteComment"
+        @dislike="dislike"
+        @dislike-comment="dislikeComment"
         @logout="logout"
         @refresh-comments="refreshComments"
         @reply="reply"
         @reply-comment="replyComment"
-        @upvote="upvote"
-        @upvote-comment="upvoteComment">
+        @like="like"
+        @like-comment="likeComment">
       </template-tabs>
       
       <chat-footer
@@ -31,9 +31,9 @@
       :loading="loading"
       @connect-wallet="connectDialogVisible = true"
       @tip="tip"
-      @downvote="downvote"
+      @dislike="dislike"
       @logout="logout"
-      @upvote="upvote">
+      @like="like">
     </section-toolbar>
     
     <div
@@ -49,7 +49,7 @@
       <section-comment
         :data="summary.comments"
         :loading="loading"
-        @downvote-comment="downvoteComment"
+        @dislike-comment="dislikeComment"
         @refresh-comments="refreshComments"
         @reply-comment="replyComment"
         @upvote-comment="upvoteComment">
@@ -57,13 +57,13 @@
     </div>
     
     <template-list
-      v-if="['upvote-only', 'downvote-only', 'tip-only'].includes(widgetType)"
+      v-if="['like-only', 'dislike-only', 'tip-only'].includes(widgetType)"
       :data="data"
       :loading="loading"
       :module="config.modules[0]"
-      @downvote="downvote"
+      @dislike="dislike"
       @tip="tip"
-      @upvote="upvote">
+      @like="like">
     </template-list>
     
     <dialog-connect
@@ -106,24 +106,24 @@ const logout = () => {
   console.log('logout')
 }
 
-// upvote
-const upvote = async () => {
+// like
+const like = async () => {
   await doReact('like')
   console.log('like')
 }
 
-const upvoteComment = async (data) => {
+const likeComment = async (data) => {
   await doReact('like', data.id)
   console.log(data)
 }
 
-// downvote
-const downvote = async () => {
+// dislike
+const dislike = async () => {
   await doReact('dislike')
-  console.log('downvote')
+  console.log('dislike')
 }
     
-const downvoteComment = async (data) => {
+const dislikeComment = async (data) => {
   await doReact('dislike', data.id)
   console.log(data)
 }

@@ -29,18 +29,18 @@
       </chat-tab-pane>
       
       <chat-tab-pane
-        value="upvote">
+        value="like">
         <section-vote
-          :data="data.upvotes"
+          :data="data.likes"
           :loading="loading"
           value="1.22B">
         </section-vote>
       </chat-tab-pane>
       
       <chat-tab-pane
-        value="downvote">
+        value="dislike">
         <section-vote
-          :data="data.downvotes"
+          :data="data.dislikes"
           :loading="loading"
           value="1.22B">
         </section-vote>
@@ -84,12 +84,12 @@ const tabs = computed(() => {
     value: 'comment',
     count: 0
   }, {
-    label: 'Upvotes',
-    value: 'upvote',
+    label: 'Likes',
+    value: 'like',
     count: 1
   }, {
-    label: 'Downvotes',
-    value: 'downvote',
+    label: 'Dislikes',
+    value: 'dislike',
     count: 1
   }, {
     label: 'Tips',

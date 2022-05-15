@@ -88,10 +88,10 @@ const length = props.data[`${props.module}s`].length
 const currentModule = computed(() => {
   const list = [{
     icon: 'ri-thumb-up-fill',
-    value: 'upvote'
+    value: 'like'
   }, {
     icon: 'ri-thumb-down-fill',
-    value: 'downvote'
+    value: 'dislike'
   }, {
     icon: 'ri-dollar-circle-fill',
     value: 'tip'

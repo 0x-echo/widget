@@ -83,21 +83,21 @@ const props = defineProps({
 const emits = defineEmits([
   'connect-wallet',
   'tip',
-  'downvote',
+  'dislike',
   'logout',
-  'upvote'
+  'like'
 ])
 
 const toolbarConfig = computed(() => {
   const list = [{
     active: true,
     icon: 'ri-thumb-up-line',
-    value: 'upvote',
+    value: 'like',
     count: 123
   }, {
     active: false,
     icon: 'ri-thumb-down-line',
-    value: 'downvote',
+    value: 'dislike',
     count: 123
   }, {
     active: false,
