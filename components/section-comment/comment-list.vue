@@ -11,6 +11,7 @@
       :data="item">
       <reply-list
         v-if="item.replies.length"
+        v-bind="$attrs"
         :data="item.replies">
       </reply-list>
     </comment-item>
