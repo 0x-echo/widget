@@ -3,7 +3,7 @@
     class="comment-list">
     <comment-item
       :class="{
-        'has-replies': item.replies.length
+        'has-replies': item.replies && item.replies.length
       }"
       v-bind="$attrs"
       v-for="item in data"

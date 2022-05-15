@@ -1,6 +1,8 @@
 import { defineNuxtConfig } from 'nuxt'
 
-// https://v3.nuxtjs.org/api/configuration/nuxt.config
+const baseURL = 'http://95.216.99.122:9000'
+// const baseURL = 'http://127.0.0.1:9000'
+
 export default defineNuxtConfig({
   meta: {
     title: 'Third.chat',
@@ -27,6 +29,20 @@ export default defineNuxtConfig({
       rel: 'stylesheet',
       href: 'https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap'
     }]
+  },
+  runtimeConfig: {
+    public:  {
+      common: {
+        PROTOCOL_VERSION: '0.0.1'
+      },
+      api: {
+        GET_POST: baseURL + '/api/v1/posts',
+        CREATE_POST: baseURL + '/api/v1/posts'
+      },
+      types: {
+        COMMENT: 'comment'
+      }
+    }
   },
   css: [
     'remixicon/fonts/remixicon.css',

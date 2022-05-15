@@ -7,7 +7,7 @@
       @mouseleave="moreMenuVisible = false">
       <chat-avatar
         class="comment-item__avatar-image"
-        :alt="data.name"
+        :alt="data.author.display_name"
         :src="data.avatar">
       </chat-avatar>
     </div>
@@ -25,8 +25,8 @@
               class="comment-item__byline">
               <span
                 class="comment-item__author"
-                :title="data.name">
-                {{ data.name }}
+                :title="data.author.display_name">
+                {{ data.author.display_name }}
               </span>
               
               <!-- <chat-tag
@@ -36,7 +36,8 @@
               
               <icon-copy
                 class="comment-item__copy-icon"
-                :value="data.name">
+                :value="data.author.wallet"
+                title="copy address">
               </icon-copy>
             </div>
               
@@ -57,10 +58,8 @@
                   ·
                 </span>
               </template>
-              
-              <span>
-                {{ $formatDate(data.created_at) }}
-              </span>
+            
+              <Timeago :datetime="data.posted_at" />
             </div>
           </div>
           
@@ -99,21 +98,22 @@
         </div>
         
         <div
-          class="comment-item__content">
-          {{ data.content }}
+          class="comment-item__content" v-html="data.content">
+         
         </div>
         
         <div
           class="comment-item__control-bar">
           <comment-action
             active
-            :count="1"
+            :count="data.like_counts"
             icon="ri-thumb-up-line"
             value="upvote"
             @click="$emit('upvote-comment', data)">
           </comment-action>
           
           <comment-action
+            :count="data.dislike_counts"
             icon="ri-thumb-down-line"
             value="downvote"
             @click="$emit('downvote-comment', data)">
@@ -152,6 +152,7 @@ import { ref } from 'vue'
 import { ElButton, ElCollapseTransition, ElPopover } from 'element-plus/dist/index.full'
 import CommentAction from './comment-action'
 const { $bus } = useNuxtApp()
+import { Timeago } from 'vue2-timeago'
 
 onBeforeUnmount(() => {
   $bus.off('reset-reply-comment')

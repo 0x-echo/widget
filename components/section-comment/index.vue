@@ -4,6 +4,7 @@
     <div
       class="section-comment">
       <div
+        v-if="showMore"
         class="section-comment__refresh"
         @click="$emit('refresh-comments')">
         <i
@@ -29,6 +30,10 @@ import CommentSkeleton from './skeleton'
 const props = defineProps({
   loading: {
     type: Boolean
+  },
+  showMore: {
+    type: Boolean,
+    default: false
   }
 })
 </script>

@@ -1,7 +1,7 @@
 <template>
   <i
     class="ri-file-copy-line icon-copy"
-    title="copy"
+    :title="title"
     v-clipboard:copy="value"
     v-clipboard:success="onSuccess"
     v-clipboard:error="onError">
@@ -13,8 +13,12 @@ import { ElMessage } from 'element-plus'
 
 const props = defineProps({
   value: {
-    type: [String, Number],
+    type: String,
     required: true
+  },
+  title: {
+    type: String,
+    default: 'copy'
   }
 })
 

@@ -14,8 +14,12 @@
     "@soerenmartius/vue3-clipboard": "^0.1.2",
     "dayjs": "^1.11.2",
     "element-plus": "^2.1.11",
+    "md5": "^2.3.0",
     "mitt": "^3.0.0",
     "query-string": "^7.1.1",
-    "remixicon": "^2.5.0"
+    "remixicon": "^2.5.0",
+    "uuid": "^8.3.2",
+    "vue2-timeago": "^3.0.2",
+    "xss": "^1.0.11"
   }
 }

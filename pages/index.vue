@@ -5,7 +5,7 @@
       v-if="widgetType === 'mix-widget'">
       <template-tabs
         :config="config"
-        :data="data"
+        :data="summary"
         :loading="loading"
         v-model="message"
         @connect-wallet="connectDialogVisible = true"
@@ -47,7 +47,7 @@
       </reply-form>
     
       <section-comment
-        :data="data.comments"
+        :data="summary.comments"
         :loading="loading"
         @downvote-comment="downvoteComment"
         @refresh-comments="refreshComments"
@@ -80,6 +80,12 @@
 
 <script setup>
 import configParser from '../libs/config-parser'
+import { v4 as uuidv4 } from 'uuid'
+import { ElMessage } from 'element-plus'
+import xss from 'xss'
+
+const { public: { api, common }} = useRuntimeConfig()
+const TARGET_URI = 'hello3'
 
 const { $bus } = useNuxtApp()
 
@@ -101,25 +107,29 @@ const logout = () => {
 }
 
 // upvote
-const upvote = () => {
-  console.log('upvote')
+const upvote = async () => {
+  await doReact('like')
+  console.log('like')
 }
 
-const upvoteComment = (data) => {
+const upvoteComment = async (data) => {
+  await doReact('like', data.id)
   console.log(data)
 }
 
 // downvote
-const downvote = () => {
+const downvote = async () => {
+  await doReact('dislike')
   console.log('downvote')
 }
     
-const downvoteComment = (data) => {
+const downvoteComment = async (data) => {
+  await doReact('dislike', data.id)
   console.log(data)
 }
 
 // tip
-const tipDialogVisible = ref(true)
+const tipDialogVisible = ref(false)
 
 const tip = () => {
   tipDialogVisible.value = true
@@ -130,13 +140,84 @@ const tipLogin = (data) => {
   connectDialogVisible.value = true
 }
 
+const getList = async () => {
+  console.log('get list')
+  const { data: rs }= await $fetch(api.GET_POST, {
+    params: {
+      target_uri: TARGET_URI
+    }
+  })
+  console.log('rs', rs)
+  comments = rs.list
+  summary.comments = comments
+}
+
+const doReply = async (content, parentId) => {
+   try {
+    const rs = await $fetch(api.CREATE_POST, {
+      method: 'POST',
+      body: {
+        type: 'comment',
+        target_uri: TARGET_URI,
+        parent_id: parentId,
+        content: xss(content, {
+          whiteList: {}, // empty, means filter out all tags
+          stripIgnoreTag: true, // filter out all HTML not in the whitelist
+          stripIgnoreTagBody: ["script"], // the script tag is a special case, we need
+        }),
+        protocol_version: common.PROTOCOL_VERSION,
+        created_by: 'eth/1/0xFEA384b1cf76C495FA44D6f54F5702F778e00000',
+        id: uuidv4()
+      }
+    })
+    ElMessage.success({
+      message: 'Sent!'
+    })
+    getList()
+  } catch (e) {
+    console.log(e)
+    console.log('res', e.response._data)
+  }
+}
+
+
+const doReact = async (subType, id) => {
+   try {
+    const rs = await $fetch(api.CREATE_POST, {
+      method: 'POST',
+      body: {
+        type: 'reaction',
+        sub_type: subType,
+        target_uri: TARGET_URI,
+        parent_id: id,
+        protocol_version: common.PROTOCOL_VERSION,
+        created_by: 'eth/1/0xFEA384b1cf76C495FA44D6f54F5702F778e00000',
+        id: uuidv4()
+      }
+    })
+    ElMessage.success({
+      message: 'Done!'
+    })
+    getList()
+  } catch (e) {
+    console.log(e)
+    console.log('res', e.response._data)
+  }
+}
+
 // comment
-const reply = () => {
+const reply = async () => {
   console.log(message.value)
+  console.log($fetch)
+  await doReply(message.value)
+  
+  // console.log(rs)
   message.value = ''
 }
 
-const replyComment = (data) => {
+const replyComment = async (data) => {
+  console.log('data', data)
+  await doReply(data.message, data.data.id)
   $bus.emit('reset-reply-comment', data.data)
 }
 
@@ -163,6 +244,11 @@ const widgetType = computed(() => {
     }
   }
 })
+
+let summary = reactive({})
+let comments = reactive([])
+
+getList()
 </script>
 
 <script>
@@ -173,7 +259,7 @@ export default {
         name: 'hello.bit',
         bio: 'Hello world, hello world',
         avatar: '',
-        comments: [{
+        comments_2: [{
           id: '1',
           avatar: '',
           name: 'hello.bit',
