@@ -46,7 +46,7 @@
               <img 
                 class="section-user__wallet-icon"
                 :alt="item.type"
-                src="@/assets/default-avatar.svg">
+                src="">
                 
               <span
                 class="section-user__address">
