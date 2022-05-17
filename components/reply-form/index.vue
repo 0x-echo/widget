@@ -12,28 +12,25 @@
       </chat-avatar>
       
       <div
-        class="reply-form__box"
-        :class="{
-          'is-expanded': isExpandedValue
-        }">
+        class="reply-form__box">
         <el-input
           class="reply-form__input"
           ref="replyInput"
           v-bind="$attrs"
+          autosize
           placeholder="Type something..."
           resize="none"
-          :rows="isExpandedValue ? 2 : 1"
+          :rows="1"
           type="textarea"
-          @focus="isExpandedValue = true"
-          @keyup.enter="$emit('reply')">
+          @focus="showToolbarValue = true"
+          @keyup.ctrl.enter="$emit('reply')">
         </el-input>
         
         <transition
           name="slide-down">
           <div
             class="reply-form__toolbar"
-            v-show="isExpandedValue"
-            @click="focusInput">
+            v-show="showToolbarValue">
             <el-button
               class="reply-form__send-button"
               :disabled="!$attrs.modelValue"
@@ -56,7 +53,7 @@ const props = defineProps({
   customClass: {
     type: String
   },
-  isExpanded: {
+  showToolbar: {
     type: Boolean,
     default: false
   },
@@ -76,7 +73,7 @@ const emits = defineEmits([
   'reply'
 ])
 
-let isExpandedValue = ref(props.isExpanded)
+let showToolbarValue = ref(props.showToolbar)
 
 const replyInput = ref(null)
 const focusInput = () => {
@@ -109,26 +106,11 @@ export default {
   
   &__box {
     flex: 1;
-    height: 48px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    background: var(--fill-color-blank);
-    transition: all .3s ease;
-    
-    &.is-expanded {
-      height: 119px;
-    }
-    
-    &:hover,
-    &:focus-within {
-      border-color: var(--color-primary);
-    }
   }
   
   &__input {
     .el-textarea__inner {
-      padding: 10px 15px 0 15px;
-      box-shadow: none;
+      padding: 12px 15px;
       font-size: 14px;
       line-height: 24px;
       background: none;
@@ -137,9 +119,8 @@ export default {
   }
   
   &__toolbar {
-    padding: 12px 15px 15px;
+    margin-top: 12px;
     text-align: right;
-    cursor: text;
   }
   
   &__send-button {

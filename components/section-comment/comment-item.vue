@@ -132,9 +132,9 @@
             v-show="showReply">
             <reply-form
               v-model="message"
-              is-expanded
               :is-focused="showReply"
               :loading="false"
+              show-toolbar
               @reply="reply">
             </reply-form>
           </div>
