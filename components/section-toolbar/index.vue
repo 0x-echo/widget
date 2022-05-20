@@ -186,7 +186,7 @@ const hasLogin = computed(() => {
   
   &__user-name {
     flex: 1;
-    margin: 0 6px 0 10px;
+    margin: 0 6px 0 8px;
     font-size: 12px;
     color: var(--text-color-primary);
   }

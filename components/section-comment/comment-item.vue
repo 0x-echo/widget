@@ -281,7 +281,7 @@ $bus.on('reset-reply-comment', (data) => {
     display: inline-flex;
     align-items: center;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 500;
     
     &:hover {
       .comment-item__copy-icon {

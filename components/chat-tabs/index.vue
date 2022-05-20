@@ -89,6 +89,7 @@ provide('tabProps', props)
     height: 40px;
     padding: 0 20px;
     font-size: 14px;
+    font-weight: 500;
     color: var(--text-color-muted);
     cursor: pointer;
     transition: all .3s ease;
