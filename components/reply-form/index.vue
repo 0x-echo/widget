@@ -23,7 +23,7 @@
           :rows="1"
           type="textarea"
           @focus="showToolbarValue = true"
-          @keyup.ctrl.enter="$emit('reply')">
+          @keydown.enter="enter">
         </el-input>
         
         <transition
@@ -81,6 +81,12 @@ const props = defineProps({
 const emits = defineEmits([
   'reply'
 ])
+
+const enter = (e) => {
+  if (e.metaKey) {
+    emits('reply')
+  }
+}
 
 let showToolbarValue = ref(props.showToolbar)
 
