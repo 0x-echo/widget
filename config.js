@@ -16,5 +16,15 @@ export default {
 	},
 	types: {
 		COMMENT: 'comment'
-	}
+	},
+  report: {
+    reasons: [ // refer to Youtube report reasons.
+      `Unwanted commercial content or spam`,
+      `Abuse or harmful`,
+      `Pornography or sexually explicit material`,
+      `Suicide or self injury`,
+      'Misinformation',
+      'Other'
+    ]
+  }
 }

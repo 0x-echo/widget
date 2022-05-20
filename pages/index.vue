@@ -99,13 +99,12 @@ import { v4 as uuidv4 } from 'uuid'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 import { parseContent } from '../libs/content-parser'
-import { setColorTheme, getDraft, setDraft } from '../libs/helper'
+import { setColorTheme, getDraft, setDraft, setBodyClass } from '../libs/helper'
 
 const { public: { api, common }} = useRuntimeConfig()
 import useStore from '~~/store';
 
 console.log('ethereum', window.ethereum)
-
 
 const { $bus } = useNuxtApp()
 const store = useStore()
@@ -127,7 +126,7 @@ const beforePost = () => {
     connectDialogVisible.value = true
     throw new Error('PLEASE LOGIN FIRST')
   }
-  console.log('store balance', store.balance, store.balance === 0x0, store.balance === 0, store.balance.toString())
+
   if (store.balance.toString() === '0x0') {
     ElMessage.error({
       message: 'Sorry. Please make sure your balance is greater than 0.'
@@ -210,6 +209,8 @@ if (config['color-theme'] === 'auto') {
   setColorTheme(config['color-theme'])
 }
 
+setBodyClass('has-h-padding', config['has-h-padding'])
+
 const TARGET_URI = config.target_uri || 'demo'
 
 // internal data
@@ -220,8 +221,6 @@ let page = 1
 let onFetch = false
 let totalPage = 1
 let limit = 20
-
-// store.setLogined(true)
 
 {
   try {
@@ -301,7 +300,7 @@ const login = async () => {
 
       setTimeout(async () => {
         await store.getScreenName()
-      }, 100)
+      }, 10)
     } catch (e) {
       console.log(e)
     }
@@ -329,15 +328,17 @@ const logout = () => {
   console.log('logout')
 }
 
-// report 
+// report
+let currentReportPost = null
 const reportDialogVisible = ref(false)
-const goReport = (data) => {
-  console.log(data)
+const goReport = async (data) => {
+  currentReportPost = data
   reportDialogVisible.value = true
 }
 
-const report = (reason) => {
-  console.log(reason)
+const report = async (reason) => {
+  await doReport(reason, null, currentReportPost.id, null)
+  reportDialogVisible.value = false
 }
 
 // like
@@ -448,13 +449,13 @@ const getList = async (page = 1, since) => {
   onFetch = false
 }
 
-const doReply = async (content, parentId, directParentId, successCallback) => {
+const doReply = async (content, parentId, directParentId, successCallback, type = 'comment') => {
    try {
-     beforePost()
+    beforePost()
     const rs = await $fetch(api.CREATE_POST, {
       method: 'POST',
       body: {
-        type: 'comment',
+        type,
         target_uri: TARGET_URI,
         parent_id: parentId,
         direct_parent_id: directParentId,
@@ -471,6 +472,38 @@ const doReply = async (content, parentId, directParentId, successCallback) => {
       successCallback()
     }
     getList()
+  } catch (e) {
+    console.log(e)
+    if (e.response && e.response._data) {
+      ElMessage.error({
+        message: e.response._data.msg
+      })
+    }
+  }
+}
+
+const doReport = async (content, parentId, directParentId, successCallback) => {
+   try {
+    beforePost()
+    const rs = await $fetch(api.CREATE_POST, {
+      method: 'POST',
+      body: {
+        type: 'report',
+        target_uri: TARGET_URI,
+        parent_id: parentId,
+        direct_parent_id: directParentId,
+        content: parseContent(content, false),
+        protocol_version: common.PROTOCOL_VERSION,
+        id: uuidv4()
+      },
+      headers: getCommonHeader()
+    })
+    ElMessage.success({
+      message: 'Thank you for your feedback!'
+    })
+    if (successCallback) {
+      successCallback()
+    }
   } catch (e) {
     console.log(e)
     if (e.response && e.response._data) {
@@ -524,7 +557,7 @@ const reply = async () => {
 
 const replyComment = async (data) => {
   console.log('data', data)
-  await doReply(data.message, null, data.data.id)
+  await doReply(data.message, null, data.data.id, null)
   $bus.emit('reset-reply-comment', data.data)
 }
 

@@ -35,6 +35,7 @@
       </el-button>
       
       <el-button
+        :disabled="!reason"
         size="large"
         type="primary"
         @click="submit">
@@ -46,8 +47,8 @@
 
 <script setup>
 import { ElButton, ElDialog, ElSelect, ElOption } from 'element-plus'
-import iconMatemask from '@/assets/metamask.svg'
 
+const { public: { report }} = useRuntimeConfig()
 
 const emits = defineEmits([
   'submit',
@@ -56,13 +57,7 @@ const emits = defineEmits([
 
 const reason = ref('')
 
-const options = [{
-  label: 'hello',
-  value: '1'
-}, {
-  label: 'world',
-  value: '2'
-}]
+const options = report.reasons.map(one => ({ label: one, value: one }))
 
 const close = () => {
   emits('update:modelValue', false)

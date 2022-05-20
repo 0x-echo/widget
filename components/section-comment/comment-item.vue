@@ -37,7 +37,7 @@
               
               <icon-copy
                 class="comment-item__copy-icon"
-                :value="data.author.wallet"
+                :value="data.author.address"
                 title="copy address">
               </icon-copy>
             </div>
@@ -185,22 +185,30 @@ const emits = defineEmits([
 
 const moreMenuVisible = ref(false)
 const moreMenuActive = ref(false)
-const moreMenu = [{
-  icon: 'ri-information-line',
-  isLink: true,
-  label: 'Arweave TX',
-  url: 'https://viewblock.io/arweave/tx/',
-  value: 'view-arweave-info'
-}, {
-  icon: 'ri-alert-line',
-  label: 'Report',
-  value: 'report'
-}, {
-  danger: true,
-  icon: 'ri-close-circle-line',
-  label: 'Delete',
-  value: 'delete-comment'
-}]
+const moreMenu = computed(() => {
+  const menus = [{
+    icon: 'ri-information-line',
+    isLink: true,
+    label: 'Arweave TX',
+    url: 'https://viewblock.io/arweave/tx/',
+    value: 'view-arweave-info'
+  }, {
+    icon: 'ri-alert-line',
+    label: 'Report',
+    value: 'report'
+  }]
+
+if (props.data.can_delete) {
+    menus.push({
+      danger: true,
+      icon: 'ri-close-circle-line',
+      label: 'Delete',
+      value: 'delete-comment',
+      permission: 'can_delete'
+    })
+  }
+  return menus
+})
 
 const showReply = ref(false)
 let message = ref('')
