@@ -1,8 +1,14 @@
 .el-button {
   --el-button-text-color: var(--text-color-secondary);
-  --el-button-border-color: var(--fill-color-blank);
+  --el-button-hover-bg-color: transparent;
+  --el-button-hover-border-color: var(--color-primary); 
   background-clip: padding-box;
   transition: all .3s ease;
+  
+  &:focus:not(.el-button:hover) {
+    border-color: var(--border-color);
+    color: var(--text-color-secondary);
+  }
   
   &--primary {
     --el-button-hover-bg-color: var(--color-primary-dark);
@@ -85,16 +91,24 @@
   --el-box-shadow-light: var(--popover-box-shadow);
   
   &.el-popper {
-    min-width: 136px;
-    border: 0;
+    min-width: 120px;
+    border-color: white;
     border-radius: var(--border-radius);
     background-color: var(--theme-bg-color);
+    
+    .dark & {
+      border-color: var(--border-color);
+    }
   }
 }
 
 .el-dialog {
   --el-dialog-bg-color: var(--theme-bg-color);
   --el-dialog-border-radius: var(--border-radius-large);
+  
+  .dark & {
+    box-shadow: 0 0 0 1px rgba(white, .2);
+  }
   
   &__header {
     padding: 35px 35px 0;
@@ -161,6 +175,20 @@
   
   &--small {
     --el-avatar-size: 36px;
+  }
+}
+
+.el-popper__arrow {
+  display: none;
+}
+
+.el-select-dropdown {
+  padding: 4px 10px;
+  
+  &__item {
+    height: 36px;
+    line-height: 36px;
+    border-radius: var(--border-radius-small);
   }
 }
 

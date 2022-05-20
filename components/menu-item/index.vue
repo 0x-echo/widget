@@ -5,7 +5,8 @@
       'is-danger': danger,
       'is-disabled': disabled
     }"
-    v-if="!isLink">
+    v-if="!isLink"
+    @click="$emit('on-click')">
     <menu-item-inner
       v-bind="$attrs">
     </menu-item-inner>
@@ -43,9 +44,13 @@ const props = defineProps({
     default: false
   },
   url: {
-    type: String
+    default: ''
   }
 })
+
+const emits = defineEmits([
+  'on-click'
+])
 </script>
 
 <style lang="scss">

@@ -18,7 +18,8 @@
         @reply="reply"
         @reply-comment="replyComment"
         @like="like"
-        @like-comment="likeComment">
+        @like-comment="likeComment"
+        @report="reportDialogVisible = true">
       </template-tabs>
       
       <chat-footer
@@ -76,6 +77,11 @@
       v-model="tipDialogVisible"
       @go-next="tipLogin">
     </dialog-tip>
+    
+    <dialog-report
+      v-model="reportDialogVisible"
+      @submit="report">
+    </dialog-report>
   </div>
 </template>
 
@@ -313,6 +319,12 @@ const logout = () => {
   })
   localStorage.removeItem('login_info')
   console.log('logout')
+}
+
+// report 
+const reportDialogVisible = ref(false)
+const report = (data) => {
+  console.log(data)
 }
 
 // like

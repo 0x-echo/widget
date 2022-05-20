@@ -34,6 +34,7 @@
             <el-button
               class="reply-form__send-button"
               :disabled="!$attrs.modelValue"
+              size="large"
               type="primary"
               @click.stop="$emit('reply')">
               Send
@@ -132,8 +133,7 @@ export default {
   }
   
   &__send-button {
-    width: 90px;
-    border-radius: 8px;
+    width: 120px;
   }
 }
 

@@ -95,7 +95,7 @@
                 :is-link="item.isLink"
                 :label="item.label"
                 :url="item.url + data.ar_tx_id"
-                @click="$emit(item.value, data)">
+                @on-click="$emit(item.value, data)">
               </menu-item>
             </template>
           </el-popover>
@@ -176,11 +176,11 @@ const props = defineProps({
 })
 
 const emits = defineEmits([
+  'delete',
   'dislike-comment',
   'reply-comment',
   'report',
-  'like-comment',
-  'view-arweave-info'
+  'like-comment'
 ])
 
 const moreMenuVisible = ref(false)
@@ -307,6 +307,7 @@ $bus.on('reset-reply-comment', (data) => {
   }
   
   &__more-button {
+    border-color: var(--fill-color-blank);
     opacity: 0;
     transition: all .3s ease;
     
