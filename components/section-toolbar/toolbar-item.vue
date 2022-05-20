@@ -22,7 +22,7 @@
         class="toolbar-item__count"
         v-if="hasCount"
         :key="count">
-        {{ count }}
+        {{ count || '' }}
       </span>
     </transition>
   </div>

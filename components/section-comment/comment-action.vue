@@ -14,7 +14,7 @@
     <span
       class="comment-action__count"
       v-if="count">
-      {{ count }}
+      {{ count || '' }}
     </span>
   </div>
 </template>

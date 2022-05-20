@@ -34,7 +34,7 @@ const setDarkMode = function () {
   color: var(--text-color-muted);
   
   &__beta-tag {
-    padding: 2px 5px;
+    padding: 1px 3px;
     margin-left: 2px;
     border-radius: 4px;
     font-size: 8px;

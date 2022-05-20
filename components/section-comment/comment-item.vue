@@ -90,8 +90,11 @@
               <menu-item
                 v-for="item in moreMenu"
                 :key="item.value"
+                :danger="item.danger"
                 :icon="item.icon"
+                :is-link="item.isLink"
                 :label="item.label"
+                :url="item.url + data.ar_tx_id"
                 @click="$emit(item.value, data)">
               </menu-item>
             </template>
@@ -99,7 +102,8 @@
         </div>
         
         <div
-          class="comment-item__content" v-html="parseContent(data.content)">
+          class="comment-item__content" 
+          v-html="parseContent(data.content)">
         </div>
         
         <div
@@ -183,16 +187,19 @@ const moreMenuVisible = ref(false)
 const moreMenuActive = ref(false)
 const moreMenu = [{
   icon: 'ri-information-line',
+  isLink: true,
   label: 'Arweave TX',
+  url: 'https://viewblock.io/arweave/tx/',
   value: 'view-arweave-info'
 }, {
   icon: 'ri-alert-line',
   label: 'Report',
   value: 'report'
 }, {
-  icon: 'ri-delete-bin-line',
+  danger: true,
+  icon: 'ri-close-circle-line',
   label: 'Delete',
-  value: 'delete' // @todo 样式红色 // @todo 支持 disabled 灰色
+  value: 'delete'
 }]
 
 const showReply = ref(false)
