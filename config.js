@@ -16,5 +16,13 @@ export default {
 	},
 	types: {
 		COMMENT: 'comment'
-	}
+	},
+  report: {
+    reasons: [
+      `It's suspicious or spam`,
+      `It's abusive or harmful`,
+      `It expresses intentions of self-harm or suicide`,
+      'Other'
+    ]
+  }
 }
