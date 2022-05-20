@@ -639,7 +639,9 @@ export default {
 
 @media screen and (max-width: #{$tablet-width - 1px}) {
   .chat-widget {
-    padding: 30px 20px;
+    .has-h-padding & {
+      padding: 30px 20px;
+    }
   }
 }
 </style>
