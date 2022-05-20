@@ -331,13 +331,13 @@ const logout = () => {
 
 // report 
 const reportDialogVisible = ref(false)
-const goReport = (data) => {
-  console.log(data)
+const goReport = async (data) => {
   reportDialogVisible.value = true
 }
 
-const report = (reason) => {
-  console.log(reason)
+const report = async (reason) => {
+  await doReply(data.message, null, data.data.id, null, 'report')
+  console.log(data)
 }
 
 // like
@@ -448,13 +448,13 @@ const getList = async (page = 1, since) => {
   onFetch = false
 }
 
-const doReply = async (content, parentId, directParentId, successCallback) => {
+const doReply = async (content, parentId, directParentId, successCallback, type = 'comment') => {
    try {
-     beforePost()
+    beforePost()
     const rs = await $fetch(api.CREATE_POST, {
       method: 'POST',
       body: {
-        type: 'comment',
+        type,
         target_uri: TARGET_URI,
         parent_id: parentId,
         direct_parent_id: directParentId,
@@ -524,7 +524,7 @@ const reply = async () => {
 
 const replyComment = async (data) => {
   console.log('data', data)
-  await doReply(data.message, null, data.data.id)
+  await doReply(data.message, null, data.data.id, null)
   $bus.emit('reset-reply-comment', data.data)
 }
 
