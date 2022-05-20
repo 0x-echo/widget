@@ -37,7 +37,7 @@
               
               <icon-copy
                 class="comment-item__copy-icon"
-                :value="data.author.wallet"
+                :value="data.author.address"
                 title="copy address">
               </icon-copy>
             </div>
