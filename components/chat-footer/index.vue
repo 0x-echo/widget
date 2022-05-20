@@ -2,7 +2,7 @@
   <footer
     class="chat-footer">
     <div>
-      Powered by third.chat
+      Powered by third.chat <span class="chat-footer__beta-tag">beta</span>
     </div>
     
     <div>
@@ -32,6 +32,18 @@ const setDarkMode = function () {
   border-top: 1px solid var(--bg-color);
   font-size: 12px;
   color: var(--text-color-muted);
+  
+  &__beta-tag {
+    padding: 2px 5px;
+    margin-left: 2px;
+    border-radius: 4px;
+    font-size: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: var(--color-primary);
+    color: white;
+    line-height: 1;
+  }
   
   &__link {
     color: var(--text-color-muted);
