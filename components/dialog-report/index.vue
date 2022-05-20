@@ -35,6 +35,7 @@
       </el-button>
       
       <el-button
+        :disabled="!reason"
         size="large"
         type="primary"
         @click="submit">

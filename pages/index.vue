@@ -106,7 +106,6 @@ import useStore from '~~/store';
 
 console.log('ethereum', window.ethereum)
 
-
 const { $bus } = useNuxtApp()
 const store = useStore()
 
@@ -329,15 +328,17 @@ const logout = () => {
   console.log('logout')
 }
 
-// report 
+// report
+let currentReportPost = null
 const reportDialogVisible = ref(false)
 const goReport = async (data) => {
+  currentReportPost = data
   reportDialogVisible.value = true
 }
 
 const report = async (reason) => {
-  await doReply(data.message, null, data.data.id, null, 'report')
-  console.log(data)
+  await doReport(reason, null, currentReportPost.id, null)
+  reportDialogVisible.value = false
 }
 
 // like
@@ -471,6 +472,38 @@ const doReply = async (content, parentId, directParentId, successCallback, type 
       successCallback()
     }
     getList()
+  } catch (e) {
+    console.log(e)
+    if (e.response && e.response._data) {
+      ElMessage.error({
+        message: e.response._data.msg
+      })
+    }
+  }
+}
+
+const doReport = async (content, parentId, directParentId, successCallback) => {
+   try {
+    beforePost()
+    const rs = await $fetch(api.CREATE_POST, {
+      method: 'POST',
+      body: {
+        type: 'report',
+        target_uri: TARGET_URI,
+        parent_id: parentId,
+        direct_parent_id: directParentId,
+        content: parseContent(content, false),
+        protocol_version: common.PROTOCOL_VERSION,
+        id: uuidv4()
+      },
+      headers: getCommonHeader()
+    })
+    ElMessage.success({
+      message: 'Thank you for your feedback!'
+    })
+    if (successCallback) {
+      successCallback()
+    }
   } catch (e) {
     console.log(e)
     if (e.response && e.response._data) {
