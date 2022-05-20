@@ -18,10 +18,12 @@ export default {
 		COMMENT: 'comment'
 	},
   report: {
-    reasons: [
-      `It's suspicious or spam`,
-      `It's abusive or harmful`,
-      `It expresses intentions of self-harm or suicide`,
+    reasons: [ // refer to Youtube report reasons.
+      `Unwanted commercial content or spam`,
+      `Abuse or harmful`,
+      `Pornography or sexually explicit material`,
+      `Suicide or self injury`,
+      'Misinformation',
       'Other'
     ]
   }
