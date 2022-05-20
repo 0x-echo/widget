@@ -96,7 +96,7 @@
 <script setup>
 import configParser from '../libs/config-parser'
 import { v4 as uuidv4 } from 'uuid'
-import { ElMessage, ElMessageBox } from 'element-plus'
+import { ElMessage } from 'element-plus'
 
 import { parseContent } from '../libs/content-parser'
 import { setColorTheme, getDraft, setDraft, setBodyClass } from '../libs/helper'
@@ -546,6 +546,13 @@ const doReact = async (subType, id) => {
 
 // comment
 const reply = async () => {
+  if (!message.value) {
+    ElMessage.error({
+      message: 'Please type something'
+    }) 
+    
+    return
+  }
   console.log(message.value)
   console.log($fetch)
   await doReply(message.value, null, null, function () {
@@ -556,6 +563,14 @@ const reply = async () => {
 }
 
 const replyComment = async (data) => {
+  if (!message.value) {
+    ElMessage.error({
+      message: 'Please type something'
+    }) 
+    
+    return
+  }
+  
   console.log('data', data)
   await doReply(data.message, null, data.data.id, null)
   $bus.emit('reset-reply-comment', data.data)

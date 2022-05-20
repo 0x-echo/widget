@@ -33,8 +33,6 @@
             v-show="showToolbarValue">
             <el-button
               class="reply-form__send-button"
-              :disabled="!$attrs.modelValue"
-              loading
               size="large"
               type="primary"
               @click.stop="$emit('reply')">
