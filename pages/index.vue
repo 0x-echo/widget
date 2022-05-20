@@ -10,16 +10,16 @@
         :loading="loading"
         v-model="message"
         @connect-wallet="goConnectWallet"
-        @tip="tip"
         @dislike="dislike"
         @dislike-comment="dislikeComment"
+        @like="like"
+        @like-comment="likeComment"
         @logout="logout"
         @refresh-comments="refreshComments"
         @reply="reply"
         @reply-comment="replyComment"
-        @like="like"
-        @like-comment="likeComment"
-        @report="reportDialogVisible = true">
+        @report="goReport"
+        @tip="tip">
       </template-tabs>
       
       <chat-footer
@@ -55,7 +55,7 @@
         @refresh-comments="refreshComments"
         @reply-comment="replyComment"
         @like-comment="likeComment"
-        @report="reportDialogVisible = true">
+        @report="goReport">
       </section-comment>
     </div>
     
@@ -324,8 +324,13 @@ const logout = () => {
 
 // report 
 const reportDialogVisible = ref(false)
-const report = (data) => {
+const goReport = (data) => {
   console.log(data)
+  reportDialogVisible.value = true
+}
+
+const report = (reason) => {
+  console.log(reason)
 }
 
 // like
