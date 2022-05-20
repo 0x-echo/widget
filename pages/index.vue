@@ -54,7 +54,8 @@
         @dislike-comment="dislikeComment"
         @refresh-comments="refreshComments"
         @reply-comment="replyComment"
-        @like-comment="likeComment">
+        @like-comment="likeComment"
+        @report="reportDialogVisible = true">
       </section-comment>
     </div>
     
