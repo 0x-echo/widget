@@ -4,7 +4,8 @@
     :close-on-click-modal="false"
     custom-class="dialog-report"
     :show-close="false"
-    width="90%">
+    width="90%"
+    @close="reason = ''">
     <template
       #title>
       <dialog-header
@@ -16,6 +17,7 @@
     
     <el-select
       class="dialog-report__select"
+      :key="new Date()"
       v-model="reason"
       placeholder="Please select reason"
       size="large">
