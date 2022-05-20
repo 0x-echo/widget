@@ -18,6 +18,9 @@
       <comment-list
         v-bind="$attrs">
       </comment-list>
+      
+      <!-- <pulse-loader>
+      </pulse-loader> -->
     </div>
   </comment-skeleton>
 </template>
