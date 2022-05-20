@@ -9,6 +9,7 @@
         :data="summary"
         :loading="loading"
         v-model="message"
+        @delete-comment="goDeleteComment"
         @connect-wallet="goConnectWallet"
         @dislike="dislike"
         @dislike-comment="dislikeComment"
@@ -51,6 +52,7 @@
       <section-comment
         :data="summary.comments"
         :loading="loading"
+        @delete-comment="goDeleteComment"
         @dislike-comment="dislikeComment"
         @refresh-comments="refreshComments"
         @reply-comment="replyComment"
@@ -83,13 +85,18 @@
       v-model="reportDialogVisible"
       @submit="report">
     </dialog-report>
+    
+    <dialog-delete
+      v-model="deleteDialogVisible"
+      @submit="deleteComment">
+    </dialog-delete>
   </div>
 </template>
 
 <script setup>
 import configParser from '../libs/config-parser'
 import { v4 as uuidv4 } from 'uuid'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 import { parseContent } from '../libs/content-parser'
 import { setColorTheme, getDraft, setDraft } from '../libs/helper'
@@ -369,6 +376,15 @@ const tipLogin = (data) => {
   connectDialogVisible.value = true
 }
 
+// delete comment 
+const deleteDialogVisible = ref(false)
+const goDeleteComment = (data) => {
+  console.log(data)
+  deleteDialogVisible.value = true
+}
+const deleteComment = () => {
+}
+
 const getSummary = async () => {
   const { data: counts } = await $fetch(api.GET_TARGET_SUMMARY, {
     params: {
@@ -644,10 +660,6 @@ export default {
   
   .has-h-padding & {
     padding: 30px;
-  }
-  
-  &__container {
-    max-width: 800px;
   }
   
   &__reply {

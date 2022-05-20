@@ -14,6 +14,6 @@ body.dark {
   /* element plus */
   --el-fill-color-blank: var(--bg-color);
   --el-fill-color-light: var(--bg-color);
-  --el-bg-color-overlay: #25282d;
+  --el-bg-color-overlay: var(--theme-bg-color);
   --el-border-color-light: var(--border-color);
 }

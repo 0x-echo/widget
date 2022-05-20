@@ -1,5 +1,6 @@
 .el-button {
   --el-button-text-color: var(--text-color-secondary);
+  --el-button-border-color: var(--border-color);
   --el-button-hover-bg-color: transparent;
   --el-button-hover-border-color: var(--color-primary); 
   background-clip: padding-box;
@@ -139,6 +140,33 @@
   }
 }
 
+.el-message-box {
+  padding: 0;
+  border-radius: var(--border-radius);
+  background-color: var(--theme-bg-color);
+  
+  .dark & {
+    border-color: rgba(white, .2);
+  }
+  
+  &__header {
+    padding: 35px 35px 0;
+  }
+  
+  &__title {
+    color: var(--text-color-primary);
+  }
+  
+  &__content {
+    padding: 15px 35px 35px;
+    color: var(--text-color-secondary);
+  }
+  
+  &__btns {
+    padding: 0 35px 35px;
+  }
+}
+
 .el-skeleton {  
   --el-skeleton-color: var(--bg-color);
   --el-skeleton-to-color: var(--skeleton-to-color);
@@ -182,6 +210,12 @@
   display: none;
 }
 
+.el-select {
+  .el-input__inner {
+    color: var(--text-color-primary); 
+  }
+}
+
 .el-select-dropdown {
   padding: 4px 10px;
   
@@ -189,6 +223,7 @@
     height: 36px;
     line-height: 36px;
     border-radius: var(--border-radius-small);
+    color: var(--text-color-secondary);
   }
 }
 

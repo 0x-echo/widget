@@ -176,7 +176,7 @@ const props = defineProps({
 })
 
 const emits = defineEmits([
-  'delete',
+  'delete-comment',
   'dislike-comment',
   'reply-comment',
   'report',
@@ -199,7 +199,7 @@ const moreMenu = [{
   danger: true,
   icon: 'ri-close-circle-line',
   label: 'Delete',
-  value: 'delete'
+  value: 'delete-comment'
 }]
 
 const showReply = ref(false)
