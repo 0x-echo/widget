@@ -54,7 +54,7 @@ const props = defineProps({
     }
   }
   
-  &__cound {
+  &__count {
     display: flex;
     align-items: center;
     justify-content: center;
