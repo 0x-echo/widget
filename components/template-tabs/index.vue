@@ -26,6 +26,9 @@
           :data="data.comments"
           :loading="loading">
         </section-comment>
+        
+        <!-- <empty-placeholder>
+        </empty-placeholder> -->
       </chat-tab-pane>
       
       <chat-tab-pane
@@ -35,6 +38,10 @@
           :loading="loading"
           value="1.22B">
         </section-vote>
+        
+        <!-- <empty-placeholder
+          v-if="!data.likes.length">
+        </empty-placeholder> -->
       </chat-tab-pane>
       
       <chat-tab-pane
@@ -44,15 +51,23 @@
           :loading="loading"
           value="1.22B">
         </section-vote>
+        
+        <!-- <empty-placeholder
+          v-if="!data.dislikes.length">
+        </empty-placeholder> -->
       </chat-tab-pane>
       
       <chat-tab-pane
-        value="donation">
+        value="tip">
         <section-tip
-          :data="data.donations"
+          :data="data.tips"
           :loading="loading"
           value="1.22B">
         </section-tip>
+        
+        <!-- <empty-placeholder
+          v-if="!data.tips.length">
+        </empty-placeholder> -->
       </chat-tab-pane>
     </chat-tabs>
   </div>

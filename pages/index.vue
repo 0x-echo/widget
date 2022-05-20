@@ -609,7 +609,7 @@ export default {
           content: 'Hi, May I ask if you interested to sell your Bzuki to me? Someone scammed my pfp and I lost it, so happened that you are holding almost the same traits with mine..',
           replies: []
         }],
-        donations: [{
+        tips: [{
           id: '1',
           avatar: '',
           name: 'hello.bit',

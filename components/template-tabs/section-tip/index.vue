@@ -1,6 +1,6 @@
 <template>
   <section-template
-    label="Total donations"
+    label="Total tips"
     :value="value">
     <user-item
       v-for="item in data"

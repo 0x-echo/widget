@@ -31,7 +31,7 @@
       class="dialog-tip__footer">
       <div
         class="dialog-tip__tip">
-        * non-refundable donation
+        * non-refundable tip
       </div>
       
       <el-button
