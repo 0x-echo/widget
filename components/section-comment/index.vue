@@ -4,15 +4,14 @@
     <div
       class="section-comment">
       <div
-        v-if="showMore"
+        v-if="newPosts > 0"
         class="section-comment__refresh"
         @click="$emit('refresh-comments')">
         <i
           class="ri-refresh-line section-comment__refresh-icon">
         </i>
-        
         <span>
-          2 New Replies
+          {{ newPosts }} New {{ newPosts > 1 ? 'Comments' : 'Comment' }}
         </span>
       </div>
       
@@ -26,6 +25,10 @@
 <script setup>
 import CommentList from './comment-list'
 import CommentSkeleton from './skeleton'
+import useStore from '~~/store'
+
+const store = useStore();
+const newPosts = computed(() => store.new_posts)
 
 const props = defineProps({
   loading: {

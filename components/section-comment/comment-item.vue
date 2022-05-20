@@ -7,8 +7,8 @@
       @mouseleave="moreMenuVisible = false">
       <chat-avatar
         class="comment-item__avatar-image"
-        :alt="data.author.display_name"
-        :src="data.avatar">
+        :alt="data.author.screen_name"
+        :src="data.author.avatar">
       </chat-avatar>
     </div>
     
@@ -25,14 +25,15 @@
               class="comment-item__byline">
               <span
                 class="comment-item__author"
-                :title="data.author.display_name">
-                {{ data.author.display_name }}
+                :title="data.author.screen_name">
+                {{ data.author.screen_name }}
               </span>
               
-              <!-- <chat-tag
+              <chat-tag
+                v-if="data.is_author"
                 class="comment-item__tag">
                 Author
-              </chat-tag> -->
+              </chat-tag>
               
               <icon-copy
                 class="comment-item__copy-icon"
@@ -44,12 +45,12 @@
             <div
               class="comment-item__meta">
               <template
-                v-if="data.reply_to">
+                v-if="data.replied_to">
                 <span>
                   Replying to 
                   <span
                     class="comment-item__meta-reply">
-                    @{{ data.reply_to }}
+                    @{{ data.replied_to.screen_name }}
                   </span>
                 </span>
                 
@@ -59,7 +60,7 @@
                 </span>
               </template>
             
-              <Timeago :datetime="data.posted_at" />
+              <Timeago :datetime="data.posted_at" :title="$formatDate(data.posted_at)" />
             </div>
           </div>
           
@@ -98,14 +99,13 @@
         </div>
         
         <div
-          class="comment-item__content" v-html="data.content">
-         
+          class="comment-item__content" v-html="parseContent(data.content)">
         </div>
         
         <div
           class="comment-item__control-bar">
           <comment-action
-            active
+            :active="data.has_liked && hasLogined"
             :count="data.like_counts"
             icon="ri-thumb-up-line"
             value="like"
@@ -113,6 +113,7 @@
           </comment-action>
           
           <comment-action
+            :active="data.has_disliked && hasLogined"
             :count="data.dislike_counts"
             icon="ri-thumb-down-line"
             value="dislike"
@@ -134,6 +135,7 @@
               v-model="message"
               :is-focused="showReply"
               :loading="false"
+              :placeholder="`Reply to ${data.author.screen_name}`"
               show-toolbar
               @reply="reply">
             </reply-form>
@@ -152,6 +154,11 @@ import { ElButton, ElCollapseTransition, ElPopover } from 'element-plus'
 import CommentAction from './comment-action'
 const { $bus } = useNuxtApp()
 import { Timeago } from 'vue2-timeago'
+import { parseContent } from '../../libs/content-parser'
+import useStore from '~~/store'
+
+const store = useStore()
+const hasLogined = computed(() => store.hasLogined)
 
 onBeforeUnmount(() => {
   $bus.off('reset-reply-comment')
@@ -182,6 +189,10 @@ const moreMenu = [{
   icon: 'ri-alert-line',
   label: 'Report',
   value: 'report'
+}, {
+  icon: 'ri-delete-bin-line',
+  label: 'Delete',
+  value: 'delete' // @todo 样式红色 // @todo 支持 disabled 灰色
 }]
 
 const showReply = ref(false)

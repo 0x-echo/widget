@@ -13,7 +13,7 @@
       custom-class="chat-widget__reply"
       :loading="loading">
     </reply-form>
-    
+
     <chat-tabs
       v-if="config.modules.length > 1"
       v-model="activeTab"
@@ -61,6 +61,10 @@
 <script setup>
 import SectionTip from './section-tip'
 import SectionVote from './section-vote'
+import useStore from '~~/store'
+
+const store = useStore()
+const counts = computed(() => store.counts)
 
 const props = defineProps({
   config: {
@@ -80,21 +84,25 @@ const activeTab = ref(props.config.modules[0])
 
 const tabs = computed(() => {
   const list = [{
-    label: 'Comments',
+    label: 'Comment',
+    plurLabel: 'Comments',
     value: 'comment',
     count: 0
   }, {
-    label: 'Likes',
+    label: 'Like',
+    plurLabel: 'Likes',
     value: 'like',
-    count: 1
+    count: 0
   }, {
-    label: 'Dislikes',
+    label: 'Dislike',
+    plurLabel: 'Dislikes',
     value: 'dislike',
-    count: 1
+    count: 0
   }, {
-    label: 'Tips',
+    label: 'Tip',
+    plurLabel: 'Tips',
     value: 'tip',
-    count: 1
+    count: 0
   }]
   
   let newList = []

@@ -21,7 +21,6 @@
       <span
         class="toolbar-item__count"
         v-if="hasCount"
-        v-show="count"
         :key="count">
         {{ count }}
       </span>

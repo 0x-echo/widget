@@ -17,6 +17,9 @@
 </template>
 
 <script setup>
+const setDarkMode = function () {
+  document.body.classList.add('dark')
+}
 </script>
 
 <style lang="scss">

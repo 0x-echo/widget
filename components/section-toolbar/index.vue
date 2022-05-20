@@ -9,23 +9,25 @@
         <toolbar-item
           v-for="item in toolbarConfig"
           :key="item.value"
-          :active="item.active"
+          :active="counts[`has_${item.value}d`] && hasLogined"
           :icon="item.icon"
-          :count="item.count"
+          :count="counts[item.value + '_counts']"
           :value="item.value"
-          @on-click="$emit(item.value)">
+          @on-click="$emit(item.value, counts[`has_${item.value}d`])">
         </toolbar-item>
       </div>
+
+      <toolbar-item
+        v-if="!hasLogined"
+        :has-count="false"
+        icon="ri-wallet-3-line"
+        title="connect wallet"
+        @click="$emit('connect-wallet')">
+      </toolbar-item>
       
       <template
-        v-if="hasLogin">
-        <toolbar-item
-          :has-count="false"
-          icon="ri-wallet-3-line"
-          @click="$emit('connect-wallet')">
-        </toolbar-item>
-        
-        <!-- <el-popover
+        v-if="hasLogined">
+        <el-popover
           :offset="0"
           placement="bottom"
           :show-arrow="false"
@@ -37,12 +39,11 @@
               class="section-toolbar__user">
               <img
                 class="section-toolbar__user-wallet-icon" 
-                src="@/assets/metamask.svg" 
-                alt="metamask">
-                
+                :src="logoMap[loginInfo.chain]" 
+                :alt="logoMap[loginInfo.chain] ? loginInfo.address : ''">
               <span
                 class="section-toolbar__user-name">
-                {{ $ellipsisInMiddle('0x1243353533456') }}
+                {{ $ellipsisInMiddle(loginInfo.screen_name || loginInfo.address) }}
               </span>
               
               <i
@@ -59,7 +60,7 @@
               @click="$emit('logout')">
             </menu-item>
           </template>
-        </el-popover> -->
+        </el-popover>
       </template>
     </div>
   </toolbar-skeleton>
@@ -69,6 +70,31 @@
 import { ElPopover } from 'element-plus'
 import ToolbarItem from './toolbar-item'
 import ToolbarSkeleton from './skeleton'
+import useStore from '~~/store'
+
+import ethLogo from '~~/assets/chains/ethereum.png'
+import polygonLogo from '~~/assets/chains/polygon.png'
+import optimismLogo from '~~/assets/chains/optimism.svg'
+import moonbeamLogo from '~~/assets/chains/moonbeam.png'
+import arbitrumLogo from '~~/assets/chains/arbitrum.png'
+
+const logoMap = {
+  'EVM/1': ethLogo,
+  'EVM/137': polygonLogo,
+  'EVM/10': optimismLogo,
+  'EVM/1284': moonbeamLogo
+}
+
+const store = useStore();
+const counts = computed(() => store.counts)
+const hasLogined = computed(() => store.hasLogined)
+const loginInfo = computed(() => {
+  return {
+    chain: store.chain,
+    address: store.address,
+    screen_name: store.screen_name
+  }
+})
 
 const props = defineProps({
   config: {
@@ -93,17 +119,17 @@ const toolbarConfig = computed(() => {
     active: true,
     icon: 'ri-thumb-up-line',
     value: 'like',
-    count: 123
+    count: 0
   }, {
     active: false,
     icon: 'ri-thumb-down-line',
     value: 'dislike',
-    count: 123
+    count: 0
   }, {
     active: false,
     icon: 'ri-money-dollar-circle-line',
     value: 'tip',
-    count: 123
+    count: 0
   }]
   
   let newList = []
@@ -144,7 +170,7 @@ const hasLogin = computed(() => {
   &__user {
     display: flex;
     align-items: center;
-    width: 136px;
+    width: 140px;
     height: 40px;
     padding: 0 8px 0 12px;
     border-radius: var(--border-radius);

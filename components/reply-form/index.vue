@@ -8,7 +8,7 @@
       <chat-avatar
         class="reply-form__avatar"
         :alt="user.name || 'Avatar'"
-        :src="user.avatar">
+        :src="avatar || user.avatar">
       </chat-avatar>
       
       <div
@@ -18,7 +18,7 @@
           ref="replyInput"
           v-bind="$attrs"
           autosize
-          placeholder="Type something..."
+          :placeholder="placeholder"
           resize="none"
           :rows="1"
           type="textarea"
@@ -48,6 +48,10 @@
 <script setup>
 import { ElButton, ElInput } from 'element-plus'
 import FormSkeleton from './skeleton'
+import useStore from '~~/store'
+
+const store = useStore()
+const avatar = computed(() => store.avatar)
 
 const props = defineProps({
   customClass: {
@@ -60,6 +64,10 @@ const props = defineProps({
   isFocused: {
     type: Boolean,
     default: false
+  },
+  placeholder: {
+    type: String,
+    default: 'Type something...'
   },
   user: {
     type: Object,

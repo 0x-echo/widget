@@ -29,7 +29,7 @@
         class="template-list__action">
         <el-button
           class="el-button--xlarge el-button--icon template-list__action-button"
-          @click="$emit(module)">
+          @click="$emit(module, data)">
           <i
             class="template-list__action-icon"
             :class="currentModule.icon">

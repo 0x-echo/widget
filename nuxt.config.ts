@@ -1,7 +1,5 @@
 import { defineNuxtConfig } from 'nuxt'
-
-const baseURL = 'http://95.216.99.122:9000'
-// const baseURL = 'http://127.0.0.1:9000'
+import config from './config'
 
 export default defineNuxtConfig({
   meta: {
@@ -31,19 +29,11 @@ export default defineNuxtConfig({
     }]
   },
   runtimeConfig: {
-    public:  {
-      common: {
-        PROTOCOL_VERSION: '0.0.1'
-      },
-      api: {
-        GET_POST: baseURL + '/api/v1/posts',
-        CREATE_POST: baseURL + '/api/v1/posts'
-      },
-      types: {
-        COMMENT: 'comment'
-      }
-    }
+    public: config
   },
+  buildModules: [
+    '@pinia/nuxt',
+  ],
   css: [
     'remixicon/fonts/remixicon.css',
     'element-plus/dist/index.css',
