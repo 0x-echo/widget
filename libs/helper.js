@@ -6,6 +6,14 @@ export function setColorTheme (theme) {
   }
 }
 
+export function setBodyClass (className, value) {
+  if (value) {
+    document.body.classList.add(className)
+  } else {
+    document.body.classList.remove(className)
+  }
+}
+
 export function setDraft (targetUri, content) {
   try {
     return localStorage.setItem(targetUri, content)

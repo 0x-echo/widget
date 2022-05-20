@@ -99,7 +99,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 import { parseContent } from '../libs/content-parser'
-import { setColorTheme, getDraft, setDraft } from '../libs/helper'
+import { setColorTheme, getDraft, setDraft, setBodyClass } from '../libs/helper'
 
 const { public: { api, common }} = useRuntimeConfig()
 import useStore from '~~/store';
@@ -209,6 +209,8 @@ if (config['color-theme'] === 'auto') {
 } else {
   setColorTheme(config['color-theme'])
 }
+
+setBodyClass('has-h-padding', config['has-h-padding'])
 
 const TARGET_URI = config.target_uri || 'demo'
 
