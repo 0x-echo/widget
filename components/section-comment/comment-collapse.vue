@@ -10,7 +10,7 @@
       class="comment-collapse__avatar"
       v-for="item in data.filter((item, index) => { return index < 3 })"
       :key="item.id"
-      :alt="item.name"
+      :alt="item.author.screen_name"
       :size="24"
       :src="item.avatar">
     </chat-avatar>
