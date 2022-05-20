@@ -127,7 +127,7 @@ const beforePost = () => {
     connectDialogVisible.value = true
     throw new Error('PLEASE LOGIN FIRST')
   }
-  console.log('store balance', store.balance, store.balance === 0x0, store.balance === 0, store.balance.toString())
+
   if (store.balance.toString() === '0x0') {
     ElMessage.error({
       message: 'Sorry. Please make sure your balance is greater than 0.'
@@ -223,8 +223,6 @@ let onFetch = false
 let totalPage = 1
 let limit = 20
 
-// store.setLogined(true)
-
 {
   try {
     const info = localStorage.getItem('login_info')
@@ -303,7 +301,7 @@ const login = async () => {
 
       setTimeout(async () => {
         await store.getScreenName()
-      }, 100)
+      }, 10)
     } catch (e) {
       console.log(e)
     }
