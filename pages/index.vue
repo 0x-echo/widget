@@ -122,8 +122,10 @@ const getCommonHeader = () => {
   }
 }
 
-const loadChildren = async (id) => {
-  await getList(1, null, id)
+const loadChildren = async (id, parentPost) => {
+  parentPost.current_reply_page++
+  await getList(parentPost.current_reply_page, null, id)
+  parentPost.is_expanded = true
 }
 
 const beforePost = () => {
@@ -132,11 +134,13 @@ const beforePost = () => {
     throw new Error('PLEASE LOGIN FIRST')
   }
 
-  if (store.balance.toString() === '0x0') {
-    ElMessage.error({
-      message: 'Sorry. Please make sure your balance is greater than 0.'
-    })
-    throw new Error('BALANCE SHOULD NOT BE ZERO')
+  if (process.env.NODE_ENV === 'production') {
+    if (store.balance.toString() === '0x0') {
+      ElMessage.error({
+        message: 'Sorry. Please make sure your balance is greater than 0.'
+      })
+      throw new Error('BALANCE SHOULD NOT BE ZERO')
+    }
   }
 }
 
@@ -420,44 +424,57 @@ const getList = async (page = 1, since, parentId) => {
   }
 
   try {
-  const { data: rs }= await $fetch(api.GET_POST, {
-    params,
-    headers: getCommonHeader()
-  })
-  
-  if (!parentId) {
-    if (since) {
-      for (let i in rs.list) {
-        comments = [...rs.list, ...summary.comments]
+    const { data: rs }= await $fetch(api.GET_POST, {
+      params,
+      headers: getCommonHeader()
+    })
+    
+    if (!parentId) {
+      if (since) {
+        for (let i in rs.list) {
+          comments = [...rs.list, ...summary.comments]
+        }
+      } else {
+        if (page === 1) {
+          comments = rs.list
+        } else {
+          comments = [...summary.comments, ...rs.list]
+        }
+      }
+
+      // add stat to replies
+      comments.forEach(one => {
+        if (!one.current_reply_page) {
+          one.current_reply_page = 0
+          one.is_expanded = false
+        }
+      })
+
+      summary.comments = comments
+      summary.counts = rs.target_summary
+
+      store.setCounts(rs.target_summary)
+      if (page === 1) {
+        totalPage = Math.ceil(rs.total / limit)
+        store.setLastGotTime(new Date().getTime())
+        store.setNewPost(0)
       }
     } else {
-      if (page === 1) {
-        comments = rs.list
-      } else {
-        comments = [...summary.comments, ...rs.list]
-      }
+      summary.comments.forEach(one => {
+        if (one.id === parentId) {
+          if (page === 1) {
+            one.replies = rs.list
+          } else {
+            one.replies = [...one.replies, ...rs.list]
+          }
+        }
+      })
     }
-    summary.comments = comments
-    summary.counts = rs.target_summary
 
-    store.setCounts(rs.target_summary)
-    if (page === 1) {
-      totalPage = Math.ceil(rs.total / limit)
-      store.setLastGotTime(new Date().getTime())
-      store.setNewPost(0)
+    if (!hasLoaded.value) {
+      hasLoaded.value = true
+      loading.value = false
     }
-  } else {
-    summary.comments.forEach(one => {
-      if (one.id === parentId) {
-        one.replies = rs.list
-      }
-    })
-  }
-
-  if (!hasLoaded.value) {
-    hasLoaded.value = true
-    loading.value = false
-  }
   } catch (e) {
     console.log(e)
     ElMessage.error({
@@ -489,7 +506,12 @@ const doReply = async (content, parentId, directParentId, successCallback, type 
     if (successCallback) {
       successCallback()
     }
-    getList()
+    // getList()
+    if (!directParentId) {
+      summary.comments.unshift(rs.data.post)
+    } else {
+      summary.comments.find(one => one.id === rs.data.post.parent_id).replies.push(rs.data.post)
+    }
   } catch (e) {
     console.log(e)
     if (e.response && e.response._data) {

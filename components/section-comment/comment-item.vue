@@ -50,7 +50,7 @@
                   Replying to 
                   <span
                     class="comment-item__meta-reply">
-                    @{{ data.replied_to.screen_name }}
+                    @{{ $formatScreenName(data.replied_to.screen_name) }}
                   </span>
                 </span>
                 
@@ -139,7 +139,7 @@
               v-model="message"
               :is-focused="showReply"
               :loading="false"
-              :placeholder="`Reply to ${data.author.screen_name}`"
+              :placeholder="`Reply to ${ $formatScreenName(data.author.screen_name) }`"
               show-toolbar
               @reply="reply">
             </reply-form>

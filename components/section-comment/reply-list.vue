@@ -11,9 +11,9 @@
       </comment-item>
     </transition-group>
 
-    <!-- when total page === 1 -->
+    <!-- when total page === 1  and has not loaded replies -->
     <comment-collapse
-      v-if="total - maxDisplayReply > 0"
+      v-if="total - maxDisplayReply > 0 && Math.ceil(parentPost.reply_counts / 10) === 1 && parentPost.current_reply_page === 0"
       :data="collapsedList"
       has-avatar
       :label="`View ${total - maxDisplayReply} more ${ total - maxDisplayReply === 1 ? 'reply' : 'replies'}`"
@@ -26,7 +26,9 @@
     
     <!-- when current page >= 1 and has more replies-->
     <comment-collapse
-      label="Show more replies">
+      v-if="total - maxDisplayReply > 0 && Math.ceil(parentPost.reply_counts / 10) > 1 && parentPost.current_reply_page < Math.ceil(parentPost.reply_counts / 10)"
+      label="Show more replies"
+      @click="toggle">
     </comment-collapse>
   </div>
 </template>
@@ -39,6 +41,9 @@ const props = defineProps({
   total: {
     type: Number,
     default: 0
+  },
+  parentPost: {
+    type: Object
   },
   data: {
     type: Array,
@@ -68,7 +73,7 @@ const collapsedList = computed(() => {
 
 const toggle = () => {
   showAllReplies.value = !showAllReplies.value
-  emits('load-children', props.data[0].direct_parent_id)
+  emits('load-children', props.data[0].direct_parent_id, props.parentPost)
 }
 </script>
 

@@ -12,6 +12,7 @@
       <reply-list
         v-if="item.replies.length"
         v-bind="$attrs"
+        :parent-post="item"
         :total="item.reply_counts"
         :data="item.replies">
       </reply-list>
