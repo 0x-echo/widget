@@ -57,7 +57,7 @@
             <menu-item
               icon="ri-logout-circle-r-line"
               label="Logout"
-              @click="$emit('logout')">
+              @on-click="$emit('logout')">
             </menu-item>
           </template>
         </el-popover>

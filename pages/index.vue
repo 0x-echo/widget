@@ -330,7 +330,9 @@ const logout = () => {
     screen_name: ''
   })
   localStorage.removeItem('login_info')
-  console.log('logout')
+  ElMessage.success({
+    message: 'Logout successfully!'
+  })
 }
 
 // report
@@ -744,9 +746,7 @@ export default {
 
 @media screen and (max-width: #{$tablet-width - 1px}) {
   .chat-widget {
-    .has-h-padding & {
-      padding: 30px 20px;
-    }
+    padding: 30px 20px;
   }
 }
 </style>
