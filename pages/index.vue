@@ -553,6 +553,10 @@ const doReact = async (subType, data) => {
         data[i] = rs.data.parent_summary[i]
       }
     }
+
+    if (!data && rs.data.target_summary) {
+      store.setCounts(rs.data.target_summary)
+    }
     // ElMessage.success({
     //   message: 'Done!'
     // })
