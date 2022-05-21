@@ -7,7 +7,7 @@
       @mouseleave="moreMenuVisible = false">
       <chat-avatar
         class="comment-item__avatar-image"
-        :alt="data.author.screen_name"
+        :alt="data.author.address"
         :src="data.author.avatar">
       </chat-avatar>
     </div>

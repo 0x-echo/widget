@@ -12,7 +12,7 @@
         class="comment-collapse__avatar"
         v-for="item in data"
         :key="item.id"
-        :alt="item.author.screen_name"
+        :alt="item.author.address"
         :size="24"
         :src="item.avatar">
       </chat-avatar>
