@@ -13,6 +13,7 @@
           :icon="item.icon"
           :count="counts[item.value + '_counts']"
           :value="item.value"
+          :show-label="item.showLabel"
           @on-click="$emit(item.value, counts[`has_${item.value}d`])">
         </toolbar-item>
       </div>
@@ -119,6 +120,7 @@ const toolbarConfig = computed(() => {
     active: true,
     icon: 'ri-thumb-up-line',
     value: 'like',
+    showLabel: !props.config.modules.includes('dislike') && !props.config.modules.includes('dislike-like'),
     count: 0
   }, {
     active: false,

@@ -23,6 +23,7 @@
         v-if="hasCount"
         :key="count">
         {{ count ? $formatNumber(count) : '' }}
+        {{ showLabel && value === 'like' && count > 0 ? (count > 1 ? 'likes' : 'like') : '' }}
       </span>
     </transition>
   </div>
@@ -33,6 +34,10 @@ import { ElButton } from 'element-plus'
 
 const props = defineProps({
   active: {
+    type: Boolean,
+    default: false
+  },
+  showLabel: {
     type: Boolean,
     default: false
   },
@@ -66,7 +71,7 @@ const emits = defineEmits([
   }
   
   &__count {
-    width: 40px;
+    min-width: 40px;
     margin-left: 8px;
     font-size: 14px;
     color: var(--text-color-primary);
