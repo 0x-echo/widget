@@ -18,7 +18,8 @@
       v-if="config.modules.length > 1"
       v-model="activeTab"
       :loading="loading"
-      :tabs="tabs">
+      :tabs="tabs"
+      @on-change-tab="$emit('on-change-tab')">
       <chat-tab-pane
         value="comment">
         <section-comment
@@ -96,6 +97,10 @@ const props = defineProps({
     type: Boolean
   }
 })
+
+const emits = defineEmits([
+  'on-change-tab'
+])
 
 const activeTab = ref(props.config.modules[0])
 

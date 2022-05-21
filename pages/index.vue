@@ -16,6 +16,7 @@
         @like="like"
         @like-comment="likeComment"
         @logout="logout"
+        @on-change-tab="onChangeTab"
         @refresh-comments="refreshComments"
         @reply="reply"
         @reply-comment="replyComment"
@@ -662,6 +663,10 @@ let comments = reactive([])
 
 if (config.modules.includes('comment')) {
   getList()
+}
+
+const onChangeTab = () => {
+  console.log('change tab')
 }
 </script>
 

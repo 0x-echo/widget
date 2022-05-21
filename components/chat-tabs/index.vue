@@ -12,7 +12,7 @@
           }"
           v-for="item in tabs"
           :key="item.value"
-          @click="activeTab = item.value">
+          @click="onChangeTab(item.value)">
           <template v-if="counts[item.value + '_counts']">{{ $formatNumber(counts[item.value + '_counts']) }}</template> {{ counts[item.value + '_counts'] !== 1 ? item.plurLabel : item.label }}
         </div>
       </div>
@@ -43,10 +43,11 @@ const props = defineProps({
 })
 
 const emits = defineEmits([
+  'on-change-tab',
   'update:modelValue'
 ])
 
-const activeTab = computed({
+let activeTab = computed({
   get: () => {
     return props.modelValue
   },
@@ -56,6 +57,11 @@ const activeTab = computed({
 })
 
 provide('tabProps', props)
+
+const onChangeTab = (value) => {
+  activeTab.value = value
+  emits('on-change-tab')
+}
 </script>
 
 <style lang="scss">
