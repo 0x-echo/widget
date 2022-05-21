@@ -1,8 +1,13 @@
 import dayjs from 'dayjs'
 
+const numberFormatter = Intl.NumberFormat('en', { notation: 'compact' });
+
 export default defineNuxtPlugin(() => {
   return {
     provide: {
+      formatNumber: (number) => {
+        return numberFormatter.format(number)
+      },
       ellipsisInMiddle: (str, length = 4) => {
         if (!str) {
           return str
