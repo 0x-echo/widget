@@ -112,6 +112,8 @@ const store = useStore()
 
 const CHECK_INTERVAL = 60 * 1000
 
+let localUpdateCommentIds = []
+
 // connect wallet / disconnect wallet
 let connectDialogVisible = ref(false)
 
@@ -168,7 +170,8 @@ onMounted(async () => {
         const { data } = await $fetch(api.CHECK_POST, {
           params: {
             target_uri: TARGET_URI,
-            since: store.last_got_time
+            since: store.last_got_time,
+            exclude_ids: localUpdateCommentIds.join(',')
           },
           headers: getCommonHeader()
         })
@@ -458,6 +461,7 @@ const getList = async (page = 1, since, parentId) => {
         totalPage = Math.ceil(rs.total / limit)
         store.setLastGotTime(new Date().getTime())
         store.setNewPost(0)
+        localUpdateCommentIds = []
       }
     } else {
       summary.comments.forEach(one => {
@@ -508,6 +512,7 @@ const doReply = async (content, parentId, directParentId, successCallback, type 
     }
     // getList()
     if (!directParentId) {
+      localUpdateCommentIds.push(rs.data.post.id)
       summary.comments.unshift(rs.data.post)
     } else {
       summary.comments.find(one => one.id === rs.data.post.parent_id).replies.push(rs.data.post)
