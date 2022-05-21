@@ -26,7 +26,7 @@
               <span
                 class="comment-item__author"
                 :title="data.author.screen_name">
-                {{ data.author.screen_name }}
+                {{ $formatScreenName(data.author.screen_name) }}
               </span>
               
               <chat-tag
@@ -37,7 +37,7 @@
               
               <icon-copy
                 class="comment-item__copy-icon"
-                :value="data.author.address"
+                :value="$formatAddress(data.author.address)"
                 title="copy address">
               </icon-copy>
             </div>

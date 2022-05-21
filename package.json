@@ -18,6 +18,7 @@
     "crop-url": "^4.0.1",
     "dayjs": "^1.11.2",
     "element-plus": "^2.1.11",
+    "ethers": "^5.6.6",
     "linkify-html": "^3.0.5",
     "linkifyjs": "^3.0.5",
     "md5": "^2.3.0",
