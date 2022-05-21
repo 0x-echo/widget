@@ -154,11 +154,29 @@ const config = reactive(Object.assign(defaultConfig, configParser()))
 
 let checkInterval = null
 
+let onHandlingStorageChange = false
+const handleStorageChange = () => {
+  console.log('storage change val')
+  if (onHandlingStorageChange) {
+    return
+  }
+  onHandlingStorageChange = true
+  try {
+    const loginInfo = localStorage.getItem('login_info')
+    if (loginInfo) {
+      tryAutoLogin()
+    } else {
+      logout(true)
+    }
+  } catch (e) {
+    console.log(e)
+  }
+  onHandlingStorageChange = false
+}
+
 onMounted(async () => {
 
-  window.addEventListener('storage', function () {
-    console.log('storage change val')
-  })
+  window.addEventListener('storage', handleStorageChange)
 
   if (config.modules.includes('comment')) {
     const draft = getDraft(TARGET_URI)
@@ -207,6 +225,7 @@ const handleScroll = async (e) => {
 
 onBeforeUnmount(() => {
   checkInterval && clearInterval(checkInterval)
+  window.removeEventListener('storage', handleStorageChange)
 })
 
 if (config['color-theme'] === 'auto') {
@@ -235,7 +254,7 @@ let onFetch = false
 let totalPage = 1
 let limit = 20
 
-{
+const tryAutoLogin = () => {
   try {
     const info = localStorage.getItem('login_info')
     const _info = JSON.parse(info)
@@ -256,6 +275,8 @@ let limit = 20
   } catch (e) {}
 }
 
+tryAutoLogin()
+
 let message = ref('')
 
 watch(message, (val) => {
@@ -269,6 +290,12 @@ var url = (window.location != window.parent.location)
 console.log('origin', window.location.ancestorOrigins[0])
 
 const login = async () => {
+  if (!window.ethereum) {
+    ElMessage.error({
+      message: 'Please install MetaMask first.'
+    })
+    return
+  }
   console.log('go connect wallet')
   console.log('network', window.ethereum.networkVersion)
   let account
@@ -330,17 +357,21 @@ const goConnectWallet = async () => {
 }
 
 
-const logout = () => {
+const logout = (silent = false) => {
   store.setLogined(false)
   store.setLoginInfo({
     chain: '',
     address: '',
-    screen_name: ''
+    screen_name: '',
+    avatar: '',
+    balance: ''
   })
   localStorage.removeItem('login_info')
-  ElMessage.success({
-    message: 'Logout successfully!'
-  })
+  if (!silent) {
+    ElMessage.success({
+      message: 'Logout successfully!'
+    })
+  } 
 }
 
 // report

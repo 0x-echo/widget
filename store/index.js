@@ -53,7 +53,9 @@ const useStore = defineStore('global', {
         this[i] = val[i]
       }
       try {
-        localStorage.setItem('login_info', JSON.stringify(val))
+        if (val.address) {
+          localStorage.setItem('login_info', JSON.stringify(val))
+        }
       } catch (e) {}
     },
     async getScreenName () {
