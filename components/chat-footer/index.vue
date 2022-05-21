@@ -34,7 +34,7 @@ const setDarkMode = function () {
   color: var(--text-color-muted);
   
   &__beta-tag {
-    padding: 1px 3px;
+    padding: 2px 4px;
     margin-left: 2px;
     border-radius: 4px;
     font-size: 8px;
@@ -43,6 +43,8 @@ const setDarkMode = function () {
     background: var(--color-primary);
     color: white;
     line-height: 1;
+    display: inline-block;
+    transform: scale(0.8);
   }
   
   &__link {
