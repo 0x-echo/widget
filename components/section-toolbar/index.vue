@@ -19,7 +19,7 @@
       </div>
 
       <toolbar-item
-        v-if="!hasLogined"
+        v-if="!hasLogined && showWalletConnect"
         :has-count="false"
         icon="ri-wallet-3-line"
         title="connect wallet"
@@ -27,7 +27,7 @@
       </toolbar-item>
       
       <template
-        v-if="hasLogined">
+        v-if="hasLogined && showWalletConnect">
         <el-popover
           :offset="0"
           placement="bottom"
@@ -114,6 +114,14 @@ const emits = defineEmits([
   'logout',
   'like'
 ])
+
+const showWalletConnect = computed(() => {
+  if (props.config.modules.length === 1 && (props.config.modules.includes('like-lite') || props.config.modules.includes('dislike-lite'))) {
+    return false
+  }
+
+  return true
+})
 
 const toolbarConfig = computed(() => {
   const list = [{
