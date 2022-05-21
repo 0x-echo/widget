@@ -13,7 +13,7 @@
           v-for="item in tabs"
           :key="item.value"
           @click="activeTab = item.value">
-          <template v-if="counts[item.value + '_counts']">{{ counts[item.value + '_counts'] }}</template> {{ counts[item.value + '_counts'] !== 1 ? item.plurLabel : item.label }}
+          <template v-if="counts[item.value + '_counts']">{{ $formatNumber(counts[item.value + '_counts']) }}</template> {{ counts[item.value + '_counts'] !== 1 ? item.plurLabel : item.label }}
         </div>
       </div>
     </tabs-skeleton>
