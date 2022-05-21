@@ -6,25 +6,27 @@
       alt="more"
       src="@/assets/arrow-go-forward-line.svg">
     
-    <chat-avatar
-      class="comment-collapse__avatar"
-      v-for="item in data"
-      :key="item.id"
-      :alt="item.author.screen_name"
-      :size="24"
-      :src="item.avatar">
-    </chat-avatar>
+    <template
+      v-if="hasAvatar">
+      <chat-avatar
+        class="comment-collapse__avatar"
+        v-for="item in data"
+        :key="item.id"
+        :alt="item.author.screen_name"
+        :size="24"
+        :src="item.avatar">
+      </chat-avatar>
+
+      <div
+        class="comment-collapse__count"
+        v-if="data.length > 1">
+        +{{ data.length - 1 }}
+      </div>
+    </template>
 
     <div
-      class="comment-collapse__count"
-      v-if="data.length > 1">
-      +{{ data.length - 1 }}
-    </div>
-
-    <div
-      class="comment-collapse__more"
-      @click="$emit('toggle')">
-      View {{ total - 1 }} more {{ total - 1 === 1 ? 'reply' : 'replies' }}
+      class="comment-collapse__more">
+      {{ label }}
     </div>
   </div>
 </template>
@@ -32,12 +34,14 @@
 <script setup>
 const props = defineProps({
   data: {
-    type: Array,
-    required: true
+    type: Array
   },
-  total: {
-    type: Number,
-    default: 0
+  hasAvatar: {
+    type: Boolean,
+    default: false
+  },
+  label: {
+    type: String
   }
 })
 </script>
@@ -47,6 +51,7 @@ const props = defineProps({
   display: flex;
   align-items: center;
   margin-top: 26px;
+  cursor: pointer;
   
   &__icon {
     margin-right: 10px;
@@ -55,6 +60,10 @@ const props = defineProps({
   &__avatar {
     & + & {
       margin-left: 6px;
+    }
+    
+    & + .comment-collapse__more {
+      margin-left: 12px;
     }
   }
   
@@ -70,13 +79,15 @@ const props = defineProps({
     font-weight: 500;
     background: var(--bg-color);
     color: var(--text-color-secondary);
+    
+    & + .comment-collapse__more {
+      margin-left: 12px;
+    }
   }
   
   &__more {
-    margin-left: 12px;
     font-size: 12px;
     color: var(--text-color-secondary);
-    cursor: pointer;
     transition: all .3s ease;
     
     &:hover {

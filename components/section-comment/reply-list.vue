@@ -12,10 +12,17 @@
     </transition-group>
 
     <comment-collapse
-      v-if="showAllReplies && total > 1"
       :data="collapsedList"
-      :total="total"
-      @toggle="toggle">
+      has-avatar
+      :label="`View ${total - maxDisplayReply} more ${ total - maxDisplayReply === 1 ? 'reply' : 'replies'}`">
+    </comment-collapse>
+    
+    <comment-collapse
+      :label="`View ${collapsedList.length} replies`">
+    </comment-collapse>
+    
+    <comment-collapse
+      label="Show more replies">
     </comment-collapse>
   </div>
 </template>
