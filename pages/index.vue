@@ -20,7 +20,8 @@
         @reply="reply"
         @reply-comment="replyComment"
         @report="goReport"
-        @tip="tip">
+        @tip="tip"
+        @load-children="loadChildren">
       </template-tabs>
       
       <chat-footer
@@ -119,6 +120,10 @@ const getCommonHeader = () => {
   return {
     Authorization: `Bearer ${token}`
   }
+}
+
+const loadChildren = async (id) => {
+  await getList(1, null, id)
 }
 
 const beforePost = () => {
@@ -348,8 +353,7 @@ const like = async (data) => {
 }
 
 const likeComment = async (data) => {
-  await doReact((data.has_liked ? '-' : '') + 'like', data.id)
-  data.has_liked = false
+  await doReact((data.has_liked ? '-' : '') + 'like', data)
   console.log(data)
 }
 
@@ -360,8 +364,7 @@ const dislike = async (data) => {
 }
 
 const dislikeComment = async (data) => {
-  await doReact((data.has_disliked ? '-' : '') + 'dislike', data.id)
-  data.has_disliked = false
+  await doReact((data.has_disliked ? '-' : '') + 'dislike', data)
   console.log(data)
 }
 
@@ -397,43 +400,56 @@ const getSummary = async () => {
   loading.value = false
 }
 
-const getList = async (page = 1, since) => {
+const getList = async (page = 1, since, parentId) => {
   if (onFetch) {
     return
   } else {
     onFetch = true
   }
 
+  const params = {
+    target_uri: TARGET_URI,
+    since,
+    page
+  }
+
+  if (parentId) {
+    params.parent_id = parentId
+  }
+
   try {
   const { data: rs }= await $fetch(api.GET_POST, {
-    params: {
-      target_uri: TARGET_URI,
-      since,
-      page
-    },
+    params,
     headers: getCommonHeader()
   })
-
   
-  if (since) {
-    for (let i in rs.list) {
-      comments = [...rs.list, ...summary.comments]
+  if (!parentId) {
+    if (since) {
+      for (let i in rs.list) {
+        comments = [...rs.list, ...summary.comments]
+      }
+    } else {
+      if (page === 1) {
+        comments = rs.list
+      } else {
+        comments = [...summary.comments, ...rs.list]
+      }
+    }
+    summary.comments = comments
+    summary.counts = rs.target_summary
+
+    store.setCounts(rs.target_summary)
+    if (page === 1) {
+      totalPage = Math.ceil(rs.total / limit)
+      store.setLastGotTime(new Date().getTime())
+      store.setNewPost(0)
     }
   } else {
-    if (page === 1) {
-      comments = rs.list
-    } else {
-      comments = [...summary.comments, ...rs.list]
-    }
-  }
-  summary.comments = comments
-  summary.counts = rs.target_summary
-
-  store.setCounts(rs.target_summary)
-  if (page === 1) {
-    totalPage = Math.ceil(rs.total / limit)
-    store.setLastGotTime(new Date().getTime())
-    store.setNewPost(0)
+    summary.comments.forEach(one => {
+      if (one.id === parentId) {
+        one.replies = rs.list
+      }
+    })
   }
 
   if (!hasLoaded.value) {
@@ -515,7 +531,7 @@ const doReport = async (content, parentId, directParentId, successCallback) => {
 }
 
 
-const doReact = async (subType, id) => {
+const doReact = async (subType, data) => {
    try {
     beforePost()
     const rs = await $fetch(api.CREATE_POST, {
@@ -524,16 +540,23 @@ const doReact = async (subType, id) => {
         type: 'reaction',
         sub_type: subType,
         target_uri: TARGET_URI,
-        parent_id: id,
+        parent_id: data ? data.id : null,
         protocol_version: common.PROTOCOL_VERSION,
         id: uuidv4()
       },
       headers: getCommonHeader()
     })
+
+    // reaction to comment
+    if (data && rs.data.parent_summary) {
+      for (let i in rs.data.parent_summary) {
+        data[i] = rs.data.parent_summary[i]
+      }
+    }
     // ElMessage.success({
     //   message: 'Done!'
     // })
-    getList()
+    // getList()
   } catch (e) {
     console.log(e)
     if (e.response && e.response._data) {
@@ -563,7 +586,7 @@ const reply = async () => {
 }
 
 const replyComment = async (data) => {
-  if (!message.value) {
+  if (!data.message) {
     ElMessage.error({
       message: 'Please type something'
     }) 

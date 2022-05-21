@@ -8,23 +8,23 @@
     
     <chat-avatar
       class="comment-collapse__avatar"
-      v-for="item in data.filter((item, index) => { return index < 3 })"
+      v-for="item in data"
       :key="item.id"
       :alt="item.author.screen_name"
       :size="24"
       :src="item.avatar">
     </chat-avatar>
-    
+
     <div
       class="comment-collapse__count"
-      v-if="data.length > 3">
-      +{{ data.length - 3 }}
+      v-if="data.length > 1">
+      +{{ data.length - 1 }}
     </div>
-    
+
     <div
       class="comment-collapse__more"
       @click="$emit('toggle')">
-      View {{ data.length }} more {{ data.length === 1 ? 'reply' : 'replies' }}
+      View {{ total - 1 }} more {{ total - 1 === 1 ? 'reply' : 'replies' }}
     </div>
   </div>
 </template>
@@ -34,6 +34,10 @@ const props = defineProps({
   data: {
     type: Array,
     required: true
+  },
+  total: {
+    type: Number,
+    default: 0
   }
 })
 </script>

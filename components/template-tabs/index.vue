@@ -22,13 +22,15 @@
       <chat-tab-pane
         value="comment">
         <section-comment
+          v-if="!loading"
           v-bind="$attrs"
           :data="data.comments"
           :loading="loading">
         </section-comment>
         
-        <!-- <empty-placeholder>
-        </empty-placeholder> -->
+        <empty-placeholder
+          v-if="!loading && !data.comments.length">
+        </empty-placeholder>
       </chat-tab-pane>
       
       <chat-tab-pane
@@ -40,7 +42,7 @@
         </section-vote>
         
         <!-- <empty-placeholder
-          v-if="!data.likes.length">
+          v-if="!loading && !data.likes.length">
         </empty-placeholder> -->
       </chat-tab-pane>
       
@@ -53,7 +55,7 @@
         </section-vote>
         
         <!-- <empty-placeholder
-          v-if="!data.dislikes.length">
+          v-if="!loading && !data.dislikes.length">
         </empty-placeholder> -->
       </chat-tab-pane>
       
@@ -66,7 +68,7 @@
         </section-tip>
         
         <!-- <empty-placeholder
-          v-if="!data.tips.length">
+          v-if="!loading && !data.tips.length">
         </empty-placeholder> -->
       </chat-tab-pane>
     </chat-tabs>
