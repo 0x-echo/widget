@@ -1,11 +1,11 @@
 <template>
   <el-avatar
     class="chat-avatar"
-    :alt="alt"
+    :alt="alt || hash"
     :title="alt">
     <boring-avatar
       :colors="colors" 
-      :name="alt"
+      :name="hash"
       size="100%"
       variant="beam" />
   </el-avatar>
@@ -17,6 +17,9 @@ import BoringAvatar from "vue-boring-avatars"
 
 const props = defineProps({
   alt: {
+    type: String
+  },
+  hash: {
     type: String,
     default: 'Avatar'
   }

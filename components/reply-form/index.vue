@@ -7,7 +7,8 @@
       :class="customClass">
       <chat-avatar
         class="reply-form__avatar"
-        :alt="store.address"
+        :alt="store.screen_name"
+        :hash="store.address"
         :src="avatar || user.avatar">
       </chat-avatar>
       
