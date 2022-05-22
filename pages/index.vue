@@ -106,7 +106,70 @@ import { setColorTheme, getDraft, setDraft, setBodyClass } from '../libs/helper'
 const { public: { api, common }} = useRuntimeConfig()
 import useStore from '~~/store';
 
-console.log('ethereum', window.ethereum)
+import WalletConnectProvider from '@walletconnect/web3-provider'
+import { providers } from "ethers";
+
+// https://github.com/catdad/canvas-confetti
+import confetti from 'canvas-confetti'
+console.log(confetti)
+const myCanvas = document.createElement('canvas');
+document.body.appendChild(myCanvas);
+myCanvas.style.display = 'none'
+myCanvas.style.position = 'fixed'
+myCanvas.style.width = '100%'
+myCanvas.style.height= '100%'
+myCanvas.style.left = 0
+myCanvas.style.top = 0
+myCanvas.style.zIndex = 9999
+
+const myConfetti = confetti.create(myCanvas, {
+  resize: true,
+  useWorker: true
+})
+
+// console.log(WalletConnectClient)
+// const connector = new WalletConnect({
+//   bridge: "https://bridge.walletconnect.org", // Required
+//   // qrcodeModal: QRCodeModal,
+// });
+// console.log(connector)
+// const client = await WalletConnectClient.init({
+//   projectId: thirdParty.WALLET_CONNECT_PROJECT_ID
+// })
+
+
+//  Create WalletConnect Provider
+const provider = new WalletConnectProvider({
+  infuraId: "dda2473ca43f4555926534d427abc648",
+  // bridge: "https://bridge.walletconnect.org",
+  qrcode: true
+});
+const web3Provider = new providers.Web3Provider(provider)
+
+//  Enable session (triggers QR Code modal)
+;(async () => {
+  try {
+    
+    provider.on("accountsChanged", (accounts) => {
+      console.log('accounts', accounts)
+  alert(accounts)
+});
+
+provider.on("chainChanged", (chainId) => {
+  console.log(chainId);
+});
+
+// Subscribe to session disconnection
+provider.on("disconnect", (code, reason) => {
+  console.log(code, reason);
+});
+
+// await provider.enable()
+  } catch (e) {
+    console.log(e)
+  }
+})()
+
 
 const { $bus } = useNuxtApp()
 const store = useStore()
@@ -542,8 +605,21 @@ const doReply = async (content, parentId, directParentId, successCallback, type 
       headers: getCommonHeader()
     })
     ElMessage.success({
-      message: 'Sent!'
-    })
+    
+
+    if (rs.data.is_first_comment) {
+      ElMessage.success({
+        message: 'Congrats on your fist comment!'
+      })
+      myCanvas.style.display = 'block'
+      setTimeout(() => {
+        myConfetti({
+          particleCount: 200,
+          spread: 160,
+          origin: { y: 0.7 }
+        });
+      })
+    }
     if (successCallback) {
       successCallback()
     }
