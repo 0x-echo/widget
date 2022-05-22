@@ -86,7 +86,7 @@ const logoMap = {
   'EVM/1284': moonbeamLogo
 }
 
-const store = useStore();
+const store = useStore()
 const counts = computed(() => store.counts)
 const hasLogined = computed(() => store.hasLogined)
 const loginInfo = computed(() => {
@@ -203,6 +203,14 @@ const hasLogin = computed(() => {
   
   &__user-arrow-icon {
     color: var(--text-color-muted);
+  }
+}
+
+@media screen and (max-width: $mobile-width) {
+  .section-toolbar {
+    &__user {
+      display: none;
+    }
   }
 }
 </style>

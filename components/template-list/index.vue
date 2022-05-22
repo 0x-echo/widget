@@ -78,6 +78,11 @@
           </el-tooltip>
         </div>
       </div>
+      
+      <chat-footer
+        v-bind="$attrs"
+        minimal>
+      </chat-footer>
     </div>
   </list-skeleton>
 </template>

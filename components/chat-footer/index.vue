@@ -1,22 +1,27 @@
 <template>
   <footer
-    class="chat-footer">
+    class="chat-footer"
+    :class="{
+      'is-minimal': minimal
+    }">
     <div>
-      Powered by Third.Chat <span class="chat-footer__beta-tag">beta</span>
+      <template v-if="!minimal">Powered by </template>Third.Chat <span class="chat-footer__beta-tag">beta</span>
     </div>
     
     <div
       class="chat-footer__right">
       <a 
         class="chat-footer__link"
+        v-if="!minimal"
         href=""
         target="_blank">
         Privacy Policy
       </a>
       
       <el-popover
+        ref="settingsPopover"
         :offset="0"
-        placement="bottom-end"
+        :placement="minimal ? 'bottom' : 'bottom-end'"
         :show-arrow="false"
         trigger="click"
         :width="166"
@@ -25,16 +30,26 @@
         <template 
           #reference>
           <i
-            class="ri-settings-3-line chat-footer__settings">
+            class="ri-settings-3-line chat-footer__settings"
+            v-if="hasLogined || minimal">
           </i>
         </template>
         
         <template 
           #default>
           <menu-item
+            v-if="minimal"
+            icon="ri-chat-private-line"
+            is-link
+            label="Privacy Policy"
+            url="/">
+          </menu-item>
+          
+          <menu-item
+            v-if="hasLogined"
             icon="ri-logout-circle-r-line"
             label="Logout"
-            @on-click="$emit('logout')">
+            @on-click="onClickLogout">
           </menu-item>
         </template>
       </el-popover>
@@ -44,14 +59,31 @@
 
 <script setup>
 import { ElPopover } from 'element-plus'
+import useStore from '~~/store'
 
 const setDarkMode = function () {
   document.body.classList.add('dark')
 }
 
+const store = useStore()
+const hasLogined = computed(() => store.hasLogined)
+
+const props = defineProps({
+  minimal: {
+    type: Boolean,
+    default: false
+  }
+})
+
 const emits = defineEmits([
   'logout'
 ])
+
+const settingsPopover = ref(null)
+const onClickLogout = () => {
+  settingsPopover.value.hide()
+  emits('logout')
+}
 </script>
 
 <style lang="scss">
@@ -63,7 +95,18 @@ const emits = defineEmits([
   margin-top: 60px;
   border-top: 1px solid var(--bg-color);
   font-size: 12px;
+  line-height: 24px;
   color: var(--text-color-muted);
+  
+  &.is-minimal {
+    border: 0;
+    justify-content: center;
+    margin: 0;
+    
+    .chat-footer__settings {
+      display: block;
+    }
+  }
   
   &__beta-tag {
     padding: 2px 4px;
@@ -92,6 +135,7 @@ const emits = defineEmits([
   }
   
   &__settings {
+    display: none;
     font-size: 16px;
     cursor: pointer;
   }
@@ -103,6 +147,14 @@ const emits = defineEmits([
     
     &__right {
       margin-top: 5px;
+    }
+  }
+}
+
+@media screen and (max-width: $mobile-width) {
+  .chat-footer {
+    &__settings {
+      display: block;
     }
   }
 }

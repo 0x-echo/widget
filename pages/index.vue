@@ -26,7 +26,8 @@
       </template-tabs>
 
       <chat-footer
-        v-if="!loading">
+        v-if="!loading"
+        @logout="logout">
       </chat-footer>
     </template>
     
@@ -69,8 +70,9 @@
       :loading="loading"
       :module="config.modules[0]"
       @dislike="dislike"
-      @tip="tip"
-      @like="like">
+      @like="like"
+      @logout="logout"
+      @tip="tip">
     </template-list>
     
     <dialog-connect
