@@ -480,11 +480,13 @@ const report = async (reason) => {
 // like
 const like = async (data) => {
   const type = (data ? '-' : '') + 'like'
-  await doReact(type)
-  if (type === 'like' && widgetType.value === 'like-only') {
-    showConfetti()
+  const rs = await doReact(type)
+  if (rs) {
+    if (type === 'like' && widgetType.value === 'like-only') {
+      showConfetti()
+    }
+    await getReactions('like')
   }
-  await getReactions('like')
 }
 
 const likeComment = async (data) => {
@@ -751,6 +753,7 @@ const doReact = async (subType, data) => {
     //   message: 'Done!'
     // })
     // getList()
+    return true
   } catch (e) {
     console.log(e)
     if (e.response && e.response._data) {
@@ -758,6 +761,7 @@ const doReact = async (subType, data) => {
         message: e.response._data.msg
       })
     }
+    return false
   }
 }
 
