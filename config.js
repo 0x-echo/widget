@@ -12,7 +12,8 @@ export default {
 		GET_TARGET_SUMMARY: baseURL + '/api/v1/target/summary',
 		CREATE_USER: baseURL + '/api/v1/users',
 		GET_USER_SCREEN_NAME: baseURL + '/api/v1/users/reverse_records',
-    GET_USER_INFO: baseURL + '/api/v1/users/info'
+    GET_USER_INFO: baseURL + '/api/v1/users/info',
+    GET_REACTIONS: baseURL + '/api/v1/reactions',
 	},
 	types: {
 		COMMENT: 'comment'
@@ -26,5 +27,8 @@ export default {
       'Misinformation',
       'Other'
     ]
+  },
+  thirdParty: {
+    WALLET_CONNECT_PROJECT_ID: 'f1605890a1bdc2cab216432b1768356d'
   }
 }
