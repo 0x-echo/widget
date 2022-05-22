@@ -1,7 +1,7 @@
 <template>
   <div
     ref="scrollComponent"
-    class="chat-widget">
+    class="chat-widget has-v-padding">
     <template
       v-if="widgetType === 'mix-widget'">
       <template-tabs
@@ -918,10 +918,15 @@ export default {
 <style lang="scss">
 .chat-widget {
   width: 100%;
-  padding: 30px 0;
+  
+  .has-v-padding & {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
   
   .has-h-padding & {
-    padding: 30px;
+    padding-right: 30px;
+    padding-left: 30px;
   }
   
   &__reply {
