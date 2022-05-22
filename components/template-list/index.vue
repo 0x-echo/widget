@@ -30,7 +30,7 @@
         <el-button
           class="el-button--xlarge el-button--icon template-list__action-button"
           :class="{
-            active: counts[`has_${module}d`]
+            active: counts[`has_${module}d`] && store.hasLogined
           }"
           @click="$emit(module, counts[`has_${module}d`])">
           <i

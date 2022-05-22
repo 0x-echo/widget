@@ -428,6 +428,8 @@ const login = async () => {
         message: 'Sign in successfully!'
       })
 
+      await getSummary()
+
       setTimeout(async () => {
         await store.getScreenName()
       }, 10)
@@ -459,6 +461,10 @@ const logout = (silent = false) => {
     screen_name: '',
     avatar: '',
     balance: ''
+  })
+  store.setCounts({
+    has_liked: false,
+    has_disliked: false
   })
   localStorage.removeItem('login_info')
   if (!silent) {
