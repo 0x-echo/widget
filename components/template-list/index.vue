@@ -29,25 +29,27 @@
         class="template-list__action">
         <el-button
           class="el-button--xlarge el-button--icon template-list__action-button"
+          :class="{
+            active: counts[`has_${module}d`]
+          }"
           @click="$emit(module, data)">
           <i
             class="template-list__action-icon"
             :class="currentModule.icon">
           </i>
-          
           <span>
             <template
-              v-if="length">
-              {{ length }} 
+              v-if="counts[`${module}_counts`]">
+              {{ counts[`${module}_counts`] }} 
             </template>
-            {{ length === 1 ? module : `${module}s` }}
+            {{ counts[`${module}_counts`] === 1 ? module : `${module}s` }}
           </span>
         </el-button>
       </div>
       
       <div
         class="template-list__stat">
-        Voting Power: $123
+        {{ module }} Power: $123
       </div>
       
       <div
@@ -71,6 +73,11 @@
 <script setup>
 import { ElButton } from 'element-plus'
 import ListSkeleton from './skeleton'
+import useStore from '~~/store'
+
+
+const store = useStore();
+const counts = computed(() => store.counts)
 
 const props = defineProps({
   data: {
