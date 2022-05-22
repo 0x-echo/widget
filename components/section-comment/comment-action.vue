@@ -1,15 +1,17 @@
 <template>
   <div
     class="comment-action"
-    :class="{
-      'active': active
-    }"
     role="button">
-    <i
+    <span
       class="comment-action__icon"
-      :class="icon"
-      :title="value">
-    </i>
+      :class="{
+        'active': active
+      }">
+      <i
+        :class="icon"
+        :title="value">
+      </i>
+    </span>
     
     <span
       class="comment-action__count"
@@ -49,14 +51,23 @@ const props = defineProps({
     margin-left: 10px;
   }
   
-  &:hover,
-  &.active {
-    color: var(--color-primary);
-  }
-  
   &__icon {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 50%;
     font-size: 14px;
+    line-height: 14px;
     cursor: pointer;
+    transition: all .3s ease;
+    
+    &:hover {
+      background: var(--bg-color);  
+    }
+    
+    &.active {
+      color: var(--color-primary);
+    }
   }
   
   &__count {

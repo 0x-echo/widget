@@ -350,7 +350,7 @@ $bus.on('reset-reply-comment', (data) => {
   &__control-bar {
     display: flex;
     align-items: center;
-    margin-top: 6px;
+    margin: 10px 0 0 -8px;
   }
   
   &__reply {
