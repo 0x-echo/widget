@@ -31,6 +31,7 @@
         <el-popover
           :offset="0"
           placement="bottom"
+          popper-class="section-toolbar__user-popover"
           :show-arrow="false"
           trigger="click"
           :width="136">
@@ -186,6 +187,13 @@ const hasLogin = computed(() => {
     border-radius: var(--border-radius);
     background: var(--bg-color);
     cursor: pointer;
+  }
+  
+  &__user-popover {
+    &.el-popper {
+      box-shadow: 0 10px 10px rgba(0, 0, 0, .08);
+      border: 0;
+    }
   }
   
   &__user-wallet-icon {

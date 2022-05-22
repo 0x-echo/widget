@@ -322,7 +322,8 @@ $bus.on('reset-reply-comment', (data) => {
     
     &.active,
     &:hover,
-    &:focus {
+    &:focus,
+    &:focus:not(.el-button:hover) {
       border-color: var(--bg-color);
       background: var(--bg-color);
       color: var(--text-color-secondary);
@@ -331,7 +332,8 @@ $bus.on('reset-reply-comment', (data) => {
     .dark & {
       &.active,
       &:hover,
-      &:focus {
+      &:focus,
+      &:focus:not(.el-button:hover) {
         color: white;
         background-clip: padding-box;
       }
