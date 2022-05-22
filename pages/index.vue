@@ -117,15 +117,30 @@ document.body.appendChild(myCanvas);
 myCanvas.style.display = 'none'
 myCanvas.style.position = 'fixed'
 myCanvas.style.width = '100%'
-myCanvas.style.height= '100%'
+myCanvas.style.height= '120%'
 myCanvas.style.left = 0
-myCanvas.style.top = 0
+myCanvas.style.top = '-20%'
 myCanvas.style.zIndex = 9999
 
 const myConfetti = confetti.create(myCanvas, {
   resize: true,
   useWorker: true
 })
+
+const showConfetti = () => {
+  myCanvas.style.display = 'block'
+  setTimeout(() => {
+    myConfetti({
+      particleCount: 200,
+      spread: 160,
+      origin: { y: 0.7 }
+    });
+  }, 200)
+
+  setTimeout(() => {
+    myCanvas.style.display = 'none'
+  }, 4000)
+}
 
 let summary = reactive({
   comments: [],
@@ -463,8 +478,12 @@ const report = async (reason) => {
 
 // like
 const like = async (data) => {
-  await doReact((data ? '-' : '') + 'like')
+  const type = (data ? '-' : '') + 'like'
+  await doReact(type)
   console.log('like', data)
+  if (type === 'like') {
+    showConfetti()
+  }
 }
 
 const likeComment = async (data) => {
@@ -641,18 +660,7 @@ const doReply = async (content, parentId, directParentId, successCallback, type 
       ElMessage.success({
         message: 'Congrats on your fist comment!'
       })
-      myCanvas.style.display = 'block'
-      setTimeout(() => {
-        myConfetti({
-          particleCount: 200,
-          spread: 160,
-          origin: { y: 0.7 }
-        });
-      }, 200)
-      
-      setTimeout(() => {
-        myCanvas.style.display = 'none'
-      }, 4000)
+      showConfetti()
     } else {
       ElMessage.success({
         message: 'Sent!'
