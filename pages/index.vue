@@ -512,10 +512,15 @@ const getList = async (page = 1, since, parentId) => {
       loading.value = false
     }
   } catch (e) {
-    console.log(e)
-    ElMessage.error({
-      message: 'Indexer error.'
-    })
+    if (e.response && e.response._data) {
+      ElMessage.error({
+        message: e.response._data.msg
+      })
+    } else {
+      ElMessage.error({
+        message: 'Indexer error.'
+      })
+    }
   }
   onFetch = false
 }
