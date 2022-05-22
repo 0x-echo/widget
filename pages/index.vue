@@ -484,6 +484,7 @@ const like = async (data) => {
   if (type === 'like') {
     showConfetti()
   }
+  await getReactions('like')
 }
 
 const likeComment = async (data) => {
