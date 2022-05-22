@@ -16,6 +16,7 @@
     "@nuxtjs/composition-api": "^0.32.0",
     "@pinia/nuxt": "^0.1.9",
     "@soerenmartius/vue3-clipboard": "^0.1.2",
+    "@walletconnect/web3-provider": "^1.7.8",
     "axios": "^0.27.2",
     "canvas-confetti": "^1.5.1",
     "crop-url": "^4.0.1",
