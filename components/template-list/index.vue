@@ -43,7 +43,7 @@
               {{ counts[`${module}_counts`] }} 
             </template>
             <template v-if="module !== 'tip'">
-              {{ counts[`${module}_counts`] === 1 ? module : `${module}s` }}
+              {{ counts[`${module}_counts`] === 1 ? module : ` ${module}s` }}
             </template>
             <template v-else>
               Support
