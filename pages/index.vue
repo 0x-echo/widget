@@ -65,7 +65,7 @@
     
     <template-list
       v-if="['like-only', 'dislike-only', 'tip-only'].includes(widgetType)"
-      :data="data"
+      :data="summary"
       :loading="loading"
       :module="config.modules[0]"
       @dislike="dislike"
@@ -125,6 +125,13 @@ myCanvas.style.zIndex = 9999
 const myConfetti = confetti.create(myCanvas, {
   resize: true,
   useWorker: true
+})
+
+let summary = reactive({
+  comments: [],
+  likes: [],
+  dislikes: [],
+  tips: []
 })
 
 // console.log(WalletConnectClient)
@@ -508,6 +515,26 @@ const getSummary = async () => {
   loading.value = false
 }
 
+const getReactions = async (subType) => {
+  const params = {
+    target_uri: TARGET_URI,
+    page: 1,
+    sub_type: subType
+  }
+
+  try {
+    const { data: rs }= await $fetch(api.GET_REACTIONS, {
+      params,
+      headers: getCommonHeader()
+    })
+    console.log('rs', rs)
+    console.log('summary', summary)
+    summary[subType + 's'] = rs.list
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 const getList = async (page = 1, since, parentId) => {
   if (onFetch) {
     return
@@ -608,7 +635,6 @@ const doReply = async (content, parentId, directParentId, successCallback, type 
       },
       headers: getCommonHeader()
     })
-    ElMessage.success({
     
 
     if (rs.data.is_first_comment) {
@@ -781,12 +807,16 @@ const widgetType = computed(() => {
   }
 })
 
-let summary = reactive({})
 let comments = reactive([])
 
 if (config.modules.includes('comment')) {
   getList()
 }
+
+;(async () => {
+  await getReactions('like')
+})()
+
 
 const onChangeTab = () => {
   console.log('change tab')
@@ -847,7 +877,7 @@ export default {
           name: 'hello.bit',
           created_at: '1 day ago'
         }],
-        downvotes: [{
+        dislikes: [{
           id: '1',
           avatar: '',
           name: 'hello.bit',
@@ -863,7 +893,7 @@ export default {
           name: 'hello.bit',
           asset: '120k'
         }],
-        upvotes: [{
+        likes: [{
           id: '1',
           avatar: '',
           name: 'hello.bit',
