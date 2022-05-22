@@ -30,7 +30,7 @@
         <el-button
           class="el-button--xlarge el-button--icon template-list__action-button"
           :class="{
-            active: counts[`has_${module}d`] && store.hasLogined
+            active: (module === 'like' || module === 'dislike') && counts[`has_${module}d`] && store.hasLogined
           }"
           @click="$emit(module, counts[`has_${module}d`])">
           <i
@@ -42,7 +42,12 @@
               v-if="counts[`${module}_counts`]">
               {{ counts[`${module}_counts`] }} 
             </template>
-            {{ counts[`${module}_counts`] === 1 ? module : `${module}s` }}
+            <template v-if="module !== 'tip'">
+              {{ counts[`${module}_counts`] === 1 ? module : `${module}s` }}
+            </template>
+            <template v-else>
+              Support
+            </template>
           </span>
         </el-button>
       </div>

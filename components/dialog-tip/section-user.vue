@@ -45,7 +45,6 @@
               :key="item.type">
               <img 
                 class="section-user__wallet-icon"
-                :alt="item.type"
                 src="">
                 
               <span

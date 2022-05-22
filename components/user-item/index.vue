@@ -5,6 +5,7 @@
       class="user-item__avatar"
       :alt="value"
       :size="36"
+      :hash="address"
       :src="avatar">
     </chat-avatar>
     
@@ -35,6 +36,9 @@ const props = defineProps({
   value: {
     type: String,
     required: true
+  },
+  address: {
+    type: String
   }
 })
 </script>

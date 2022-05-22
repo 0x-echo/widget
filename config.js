@@ -7,6 +7,12 @@ export default {
 	common: {
 		PROTOCOL_VERSION: '0.0.1'
 	},
+  supportedNetworks: {
+    'EVM/1': 'eth',
+    'EVM/137': 'polygon',
+    'EVM/10': 'optimism',
+    'EVM/1284': 'moonbeam'
+  },
 	api: () => {
     const config = configParser()
     if (config.rpc_url) {

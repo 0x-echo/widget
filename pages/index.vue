@@ -382,8 +382,15 @@ const login = async () => {
     })
     return
   }
-  console.log('go connect wallet')
-  console.log('network', window.ethereum.networkVersion)
+
+  const network = window.ethereum.networkVersion
+  if (!commonConfig.supportedNetworks[`EVM/${network}`]) {
+    ElMessage.error({
+      message: `Sorry. The network is not supported. Current supported networks are: ${Object.values(commonConfig.supportedNetworks).join(', ')}.`
+    })
+    return
+  }
+
   let account
   let accounts = await ethereum.request({ method: 'eth_accounts' })
   let signature
@@ -519,7 +526,10 @@ const dislikeComment = async (data) => {
 const tipDialogVisible = ref(false)
 
 const tip = () => {
-  tipDialogVisible.value = true
+  try {
+    beforePost()
+    tipDialogVisible.value = true
+  } catch (e) {}
 }
 
 const tipLogin = (data) => {

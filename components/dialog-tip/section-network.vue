@@ -39,6 +39,9 @@
 import { ElButton } from 'element-plus'
 import iconMatemask from '@/assets/metamask.svg'
 
+import ethLogo from '~~/assets/chains/ethereum.png'
+import polygonLogo from '~~/assets/chains/polygon.png'
+
 const props = defineProps({
   modelValue: {
     type: String
@@ -64,25 +67,27 @@ const changeOption = (item) => {
 
 const list = [{
   label: 'Ethereum',
-  icon: iconMatemask,
+  icon: ethLogo,
   value: 'ethereum'
 }, {
   label: 'Polygon',
-  icon: iconMatemask,
+  icon: polygonLogo,
   value: 'polygon'
-}, {
-  label: 'Binance Chain',
-  icon: iconMatemask,
-  value: 'binance'
-}, {
-  label: 'Ethereum1',
-  icon: iconMatemask,
-  value: 'ethereum1'
-}, {
-  label: 'Ethereu2',
-  icon: iconMatemask,
-  value: 'ethereum2'
-}]
+}
+// {
+//   label: 'Binance Chain',
+//   icon: iconMatemask,
+//   value: 'binance'
+// }, {
+//   label: 'Ethereum1',
+//   icon: iconMatemask,
+//   value: 'ethereum1'
+// }, {
+//   label: 'Ethereu2',
+//   icon: iconMatemask,
+//   value: 'ethereum2'
+// }
+]
 
 const networkBox = ref(null)
 const scrollButtonVisible = ref(true)
