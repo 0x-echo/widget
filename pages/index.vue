@@ -111,27 +111,21 @@ import WalletConnectProvider from '@walletconnect/web3-provider'
 import { providers } from "ethers";
 
 // https://github.com/catdad/canvas-confetti
-import confetti from 'canvas-confetti'
-console.log(confetti)
-const myCanvas = document.createElement('canvas');
-document.body.appendChild(myCanvas);
-myCanvas.style.display = 'none'
-myCanvas.style.position = 'fixed'
-myCanvas.style.width = '100%'
-myCanvas.style.height= '120%'
-myCanvas.style.left = 0
-myCanvas.style.top = '-20%'
-myCanvas.style.zIndex = 9999
+import Confetti from 'canvas-confetti'
 
-const myConfetti = confetti.create(myCanvas, {
+const confettiCanvas = document.createElement('canvas');
+confettiCanvas.id = 'confetti-canvas'
+document.body.appendChild(confettiCanvas);
+
+const confetti = Confetti.create(confettiCanvas, {
   resize: true,
   useWorker: true
 })
 
 const showConfetti = () => {
-  myCanvas.style.display = 'block'
+  confettiCanvas.style.display = 'block'
   setTimeout(() => {
-    myConfetti({
+    confetti({
       particleCount: 200,
       spread: 160,
       origin: { y: 0.7 }
@@ -139,7 +133,7 @@ const showConfetti = () => {
   }, 200)
 
   setTimeout(() => {
-    myCanvas.style.display = 'none'
+    confettiCanvas.style.display = 'none'
   }, 4000)
 }
 
@@ -480,11 +474,13 @@ const report = async (reason) => {
 // like
 const like = async (data) => {
   const type = (data ? '-' : '') + 'like'
-  await doReact(type)
-  if (type === 'like' && widgetType.value === 'like-only') {
-    showConfetti()
+  const rs = await doReact(type)
+  if (rs) {
+    if (type === 'like' && widgetType.value === 'like-only') {
+      showConfetti()
+    }
+    await getReactions('like')
   }
-  await getReactions('like')
 }
 
 const likeComment = async (data) => {
@@ -751,6 +747,7 @@ const doReact = async (subType, data) => {
     //   message: 'Done!'
     // })
     // getList()
+    return true
   } catch (e) {
     console.log(e)
     if (e.response && e.response._data) {
@@ -758,6 +755,7 @@ const doReact = async (subType, data) => {
         message: e.response._data.msg
       })
     }
+    return false
   }
 }
 
@@ -774,6 +772,9 @@ const reply = async () => {
   await doReply(message.value, null, null, function () {
     message.value = ''
     setDraft(TARGET_URI, '')
+    store.setCounts({
+      comment_counts: store.counts.comment_counts + 1
+    })
   })
 }
 
@@ -947,5 +948,16 @@ export default {
   .chat-widget {
     padding: 30px 20px;
   }
+}
+
+#confetti-canvas {
+  pointer-events: none;
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 120%;
+  left: 0;
+  top: -20%;
+  z-index: 9999;
 }
 </style>

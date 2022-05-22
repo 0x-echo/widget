@@ -67,7 +67,7 @@
           v-for="item in data[`${module}s`]"
           :key="item.id">
           <el-tooltip
-            :content="$formatScreenName(item.author.screen_name)"
+            :content="$formatScreenName(item.author.screen_name) + ((item.author.address === store.address) ? ' (you)' : '')"
             placement="bottom">
             <chat-avatar
               class="template-list__item-avatar"
