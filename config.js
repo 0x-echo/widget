@@ -22,6 +22,7 @@ export default {
       GET_USER_SCREEN_NAME: baseURL + '/api/v1/users/reverse_records',
       GET_USER_INFO: baseURL + '/api/v1/users/info',
       GET_REACTIONS: baseURL + '/api/v1/reactions',
+      SYNC_BALANCE: baseURL + '/api/v1/users/sync_balance'
     }
   },
 	types: {

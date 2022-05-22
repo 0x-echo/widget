@@ -58,6 +58,18 @@ const useStore = defineStore('global', {
         }
       } catch (e) {}
     },
+    async syncBalance () {
+      try {
+        const { data: rs } = await $fetch(config.api().SYNC_BALANCE, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${this.token}`
+          }
+        })
+      } catch (e) {
+        console.log('sync balance:', e)
+      }
+    },
     async getScreenName () {
       console.log('get screen name', this.address)
       try {

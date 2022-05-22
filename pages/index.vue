@@ -350,9 +350,13 @@ const tryAutoLogin = () => {
         avatar: _info.avatar
       })
       setTimeout(async () => {
-        await store.updateBalance(_info.address)
         await store.getScreenName()
+        await store.updateBalance(_info.address)
       }, 100)
+
+      setTimeout(async () => {
+        await store.syncBalance()
+      }, 200)
     }
   } catch (e) {}
 }
@@ -427,6 +431,10 @@ const login = async () => {
       setTimeout(async () => {
         await store.getScreenName()
       }, 10)
+
+      setTimeout(async () => {
+        await store.syncBalance()
+      }, 20)
     } catch (e) {
       console.log(e)
     }
