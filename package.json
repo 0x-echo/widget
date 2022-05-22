@@ -9,7 +9,9 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
+    "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
     "nuxt": "3.0.0-rc.1",
+    "rollup-plugin-node-polyfills": "^0.2.1",
     "sass": "^1.51.0"
   },
   "dependencies": {
@@ -27,6 +29,7 @@
     "linkifyjs": "^3.0.5",
     "md5": "^2.3.0",
     "mitt": "^3.0.0",
+    "number-flip": "^1.1.10",
     "pinia": "^2.0.14",
     "query-string": "^7.1.1",
     "remixicon": "^2.5.0",

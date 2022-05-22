@@ -13,7 +13,7 @@
       custom-class="chat-widget__reply"
       :loading="loading">
     </reply-form>
-
+    
     <chat-tabs
       v-if="config.modules.length > 1"
       v-model="activeTab"
@@ -23,7 +23,6 @@
       <chat-tab-pane
         value="comment">
         <section-comment
-          v-if="!loading"
           v-bind="$attrs"
           :data="data.comments"
           :loading="loading">
@@ -39,38 +38,38 @@
         <section-vote
           :data="data.likes"
           :loading="loading"
+          label="Like Power"
+          tip="Total value of all liking address"
           value="1.22B">
         </section-vote>
         
-        <!-- <empty-placeholder
+        <empty-placeholder
           v-if="!loading && !data.likes.length">
-        </empty-placeholder> -->
+        </empty-placeholder>
       </chat-tab-pane>
       
       <chat-tab-pane
         value="dislike">
         <section-vote
           :data="data.dislikes"
-          :loading="loading"
-          value="1.22B">
+          :loading="loading">
         </section-vote>
         
-        <!-- <empty-placeholder
+        <empty-placeholder
           v-if="!loading && !data.dislikes.length">
-        </empty-placeholder> -->
+        </empty-placeholder>
       </chat-tab-pane>
       
       <chat-tab-pane
         value="tip">
         <section-tip
           :data="data.tips"
-          :loading="loading"
-          value="1.22B">
+          :loading="loading">
         </section-tip>
         
-        <!-- <empty-placeholder
+        <empty-placeholder
           v-if="!loading && !data.tips.length">
-        </empty-placeholder> -->
+        </empty-placeholder>
       </chat-tab-pane>
     </chat-tabs>
   </div>

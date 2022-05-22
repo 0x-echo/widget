@@ -1,7 +1,6 @@
 <template>
   <section-template
-    label="Total tips"
-    :value="value">
+    v-bind="$attrs">
     <user-item
       v-for="item in data"
       :key="item.id"
@@ -18,10 +17,6 @@ import SectionTemplate from '../section-template'
 const props = defineProps({
   data: {
     type: Array,
-    required: true
-  },
-  value: {
-    type: String,
     required: true
   }
 })

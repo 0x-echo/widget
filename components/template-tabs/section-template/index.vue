@@ -6,7 +6,14 @@
       <div
         class="section-template__value"
         v-if="value">
-        {{ label }}: <strong>${{ value }}</strong>
+        <el-tooltip
+          :content="tip"
+          :disabled="tip === ''"
+          placement="top-start">
+          <span>
+            {{ label }}: <strong>${{ value }}</strong>
+          </span>
+        </el-tooltip>
       </div>
       
       <div
@@ -19,10 +26,14 @@
 </template>
 
 <script setup>
+import { ElTooltip } from 'element-plus'
 import TemplateSkeleton from './skeleton'
 
 const props = defineProps({
   label: {
+    type: String
+  },
+  tip: {
     type: String
   },
   value: {

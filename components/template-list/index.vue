@@ -48,8 +48,16 @@
       </div>
       
       <div
-        class="template-list__stat">
-        {{ module }} Power: $123
+        class="template-list__stat"
+        v-if="module === 'like'">
+        <el-tooltip
+          content="Total value of all liking address"
+          :disabled="module !== 'like'"
+          placement="bottom">
+          <span>
+            {{ module }} Power: $123
+          </span>
+        </el-tooltip>
       </div>
       
       <div
@@ -71,7 +79,7 @@
 </template>
 
 <script setup>
-import { ElButton } from 'element-plus'
+import { ElButton, ElTooltip } from 'element-plus'
 import ListSkeleton from './skeleton'
 import useStore from '~~/store'
 
@@ -173,11 +181,19 @@ const currentModule = computed(() => {
     }
     
     &.active,
+    &.active:focus:not(.el-button:hover),
     &:hover,
     &:focus {
       border-color: var(--color-primary);
       background: var(--color-primary);
       color: white;
+    }
+    
+    &.active {
+      &:hover {
+        border-color: var(--color-primary-dark);
+        background: var(--color-primary-dark);
+      }
     }
   }
   
@@ -194,6 +210,7 @@ const currentModule = computed(() => {
     margin-top: 30px;
     font-size: 12px;
     color: var(--text-color-muted);
+    text-transform: capitalize;
     
     &::before,
     &::after {
