@@ -2,7 +2,7 @@
   <footer
     class="chat-footer">
     <div>
-      Powered by third.chat <span class="chat-footer__beta-tag">beta</span>
+      Powered by Third.Chat <span class="chat-footer__beta-tag">beta</span>
     </div>
     
     <div>
