@@ -55,7 +55,7 @@
           :disabled="module !== 'like'"
           placement="bottom">
           <span>
-            {{ module }} Power: $123
+            {{ module }} Power: ${{ counts.like_power }}
           </span>
         </el-tooltip>
       </div>

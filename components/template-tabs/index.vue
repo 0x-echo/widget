@@ -40,7 +40,7 @@
           :loading="loading"
           label="Like Power"
           tip="Total value of all liking address"
-          value="1.22B">
+          :value="counts.like_power">
         </section-vote>
         
         <empty-placeholder
