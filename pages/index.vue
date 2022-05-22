@@ -401,6 +401,10 @@ const login = async () => {
 
       await store.updateBalance(account)
 
+      ElMessage.success({
+        message: 'Sign in successfully!'
+      })
+
       setTimeout(async () => {
         await store.getScreenName()
       }, 10)
@@ -618,8 +622,17 @@ const doReply = async (content, parentId, directParentId, successCallback, type 
           spread: 160,
           origin: { y: 0.7 }
         });
+      }, 200)
+      
+      setTimeout(() => {
+        myCanvas.style.display = 'none'
+      }, 4000)
+    } else {
+      ElMessage.success({
+        message: 'Sent!'
       })
     }
+
     if (successCallback) {
       successCallback()
     }
@@ -722,13 +735,11 @@ const reply = async () => {
     
     return
   }
-  console.log(message.value)
-  console.log($fetch)
+
   await doReply(message.value, null, null, function () {
     message.value = ''
     setDraft(TARGET_URI, '')
   })
-  // console.log(rs)
 }
 
 const replyComment = async (data) => {
