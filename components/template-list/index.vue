@@ -51,7 +51,7 @@
         class="template-list__stat"
         v-if="module === 'like' && counts[`${module}_counts`]">
         <el-tooltip
-          content="Total value of all liking address"
+          content="Estimated Total Value of all Liking Address"
           :disabled="module !== 'like'"
           placement="bottom">
           <span>
