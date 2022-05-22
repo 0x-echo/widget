@@ -32,7 +32,7 @@
           :class="{
             active: counts[`has_${module}d`]
           }"
-          @click="$emit(module, data)">
+          @click="$emit(module, counts[`has_${module}d`])">
           <i
             class="template-list__action-icon"
             :class="currentModule.icon">
