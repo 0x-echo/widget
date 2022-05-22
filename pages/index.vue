@@ -774,6 +774,9 @@ const reply = async () => {
   await doReply(message.value, null, null, function () {
     message.value = ''
     setDraft(TARGET_URI, '')
+    store.setCounts({
+      comment_counts: store.counts.comment_counts + 1
+    })
   })
 }
 
