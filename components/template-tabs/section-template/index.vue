@@ -33,7 +33,6 @@ const props = defineProps({
 
 <style lang="scss">
 .section-template {
-  min-height: 300px;
   padding: 0 30px;
   
   &__value {

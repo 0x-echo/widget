@@ -52,8 +52,6 @@ export default {
 
 <style lang="scss">
 .section-comment {
-  min-height: 300px;
-  
   &__refresh {
     display: flex;
     align-items: center;
