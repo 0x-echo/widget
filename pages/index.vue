@@ -481,8 +481,7 @@ const report = async (reason) => {
 const like = async (data) => {
   const type = (data ? '-' : '') + 'like'
   await doReact(type)
-  console.log('like', data)
-  if (type === 'like') {
+  if (type === 'like' && widgetType.value === 'like-only') {
     showConfetti()
   }
   await getReactions('like')
