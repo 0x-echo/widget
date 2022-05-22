@@ -4,8 +4,8 @@
     <user-item
       v-for="item in data"
       :key="item.id"
-      :avatar="item.avatar"
-      :label="`$${item.asset}`"
+      :avatar="item.author.avatar"
+      :label="((item.author.address === store.address) ? 'you&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' : $formatScreenName(item.author.screen_name))"
       :value="item.name">
     </user-item>
   </section-template>
@@ -13,7 +13,9 @@
 
 <script setup>
 import SectionTemplate from '../section-template'
+import useStore from '~~/store'
 
+const store = useStore()
 const props = defineProps({
   data: {
     type: Array,
