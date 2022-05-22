@@ -4,6 +4,13 @@
     <div
       class="section-comment">
       <div
+        class="section-comment__toolbar">
+        <comment-sort
+          v-model="currentSort">
+        </comment-sort>
+      </div>
+      
+      <div
         v-if="newPosts > 0"
         class="section-comment__refresh"
         @click="$emit('refresh-comments')">
@@ -28,6 +35,7 @@
 <script setup>
 import CommentList from './comment-list'
 import CommentSkeleton from './skeleton'
+import CommentSort from './comment-sort'
 import useStore from '~~/store'
 
 const store = useStore();
@@ -42,6 +50,8 @@ const props = defineProps({
     default: false
   }
 })
+
+let currentSort = ref('time:desc')
 </script>
 
 <script>
@@ -52,6 +62,14 @@ export default {
 
 <style lang="scss">
 .section-comment {
+  position: relative;
+  
+  &__toolbar {
+    position: absolute;
+    top: -65px;
+    right: 0;
+  }
+  
   &__refresh {
     display: flex;
     align-items: center;
@@ -81,6 +99,14 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+}
+
+@media screen and (max-width: #{$tablet-width - 1px}) {
+  .section-comment {
+    &__toolbar {
+      display: none;
+    }
   }
 }
 </style>

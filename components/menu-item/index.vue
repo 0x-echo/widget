@@ -3,7 +3,8 @@
     class="menu-item"
     :class="{
       'is-danger': danger,
-      'is-disabled': disabled
+      'is-disabled': disabled,
+      'is-selected': selected
     }"
     v-if="!isLink"
     @click="$emit('on-click')">
@@ -43,6 +44,10 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  selected: {
+    type: Boolean,
+    default: false
+  },
   url: {
     default: ''
   }
@@ -64,7 +69,8 @@ const emits = defineEmits([
   cursor: pointer;
   transition: all .3s ease;
   
-  &:hover {
+  &:hover,
+  &.is-selected {
     &:not(.is-disabled):not(.is-danger) {
       background: var(--menu-item-bg-color);
       color: var(--color-primary);

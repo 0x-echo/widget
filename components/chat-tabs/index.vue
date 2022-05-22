@@ -64,6 +64,12 @@ const onChangeTab = (value) => {
 }
 </script>
 
+<script>
+export default {
+  inheritAttrs: false
+}
+</script>
+
 <style lang="scss">
 .chat-tabs {
   &__header {
