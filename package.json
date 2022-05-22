@@ -17,6 +17,7 @@
     "@pinia/nuxt": "^0.1.9",
     "@soerenmartius/vue3-clipboard": "^0.1.2",
     "axios": "^0.27.2",
+    "canvas-confetti": "^1.5.1",
     "crop-url": "^4.0.1",
     "dayjs": "^1.11.2",
     "element-plus": "^2.1.11",
