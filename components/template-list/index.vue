@@ -60,9 +60,10 @@
           :key="item.id">
           <chat-avatar
             class="template-list__item-avatar"
-            :alt="item.name"
+            :alt="item.author.screen_name"
+            :hash="item.author.address"
             :size="36"
-            :src="item.avatar">
+            :src="item.author.avatar">
           </chat-avatar>
         </div>
       </div>
