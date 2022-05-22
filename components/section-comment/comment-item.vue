@@ -346,6 +346,10 @@ $bus.on('reset-reply-comment', (data) => {
     font-size: 14px;
     line-height: 24px;
     color: var(--text-color-primary);
+    
+    a {
+      text-decoration: underline;
+    }
   }
   
   &__control-bar {
