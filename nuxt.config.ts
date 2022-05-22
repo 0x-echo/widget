@@ -1,5 +1,8 @@
 import { defineNuxtConfig } from 'nuxt'
 import config from './config'
+import  inject  from  '@rollup/plugin-inject'
+import NodeGlobalsPolyfillPlugin from '@esbuild-plugins/node-globals-polyfill'
+import nodePolyfills from 'rollup-plugin-node-polyfills'
 
 export default defineNuxtConfig({
   meta: {
@@ -45,6 +48,28 @@ export default defineNuxtConfig({
     '@/styles/themes/_dark.scss'
   ],
   vite: {
+    optimizeDeps: {
+      esbuildOptions: {
+        // Fix global is not defined error
+        define: {
+          global: 'globalThis'
+        },
+        plugins: [
+          // Without this, npm run dev will output Buffer or process is not defined error
+          NodeGlobalsPolyfillPlugin({
+            buffer: true
+          })
+        ]
+      }
+    },
+    build: {
+      rollupOptions: {
+        plugins: [nodePolyfills()]
+      },
+      commonjsOptions: {
+        transformMixedEsModules: true
+      }
+    },
     css: {
       preprocessorOptions: {
         scss: {
