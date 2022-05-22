@@ -24,7 +24,7 @@
         @tip="tip"
         @load-children="loadChildren">
       </template-tabs>
-      
+
       <chat-footer
         v-if="!loading">
       </chat-footer>
@@ -103,7 +103,7 @@ import { ElMessage } from 'element-plus'
 import { parseContent } from '../libs/content-parser'
 import { setColorTheme, getDraft, setDraft, setBodyClass } from '../libs/helper'
 
-const { public: { api, common }} = useRuntimeConfig()
+const { public: { api, common, thirdParty }} = useRuntimeConfig()
 import useStore from '~~/store';
 
 import WalletConnectProvider from '@walletconnect/web3-provider'
