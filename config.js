@@ -13,6 +13,7 @@ export default {
       baseURL = config.rpc_url.replace(/\/$/, '')
     }
     return {
+      BASE_URL: baseURL,
       GET_POST: baseURL + '/api/v1/posts',
       CREATE_POST: baseURL + '/api/v1/posts',
       CHECK_POST: baseURL + '/api/v1/posts/update_check',
