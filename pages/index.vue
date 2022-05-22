@@ -105,6 +105,7 @@ import { setColorTheme, getDraft, setDraft, setBodyClass } from '../libs/helper'
 
 const { public: { api, common, thirdParty }} = useRuntimeConfig()
 import useStore from '~~/store';
+import commonConfig from '../config'
 
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import { providers } from "ethers";
@@ -271,7 +272,7 @@ onMounted(async () => {
 
     checkInterval = setInterval(async () => {
       try {
-        const { data } = await $fetch(api.CHECK_POST, {
+        const { data } = await $fetch(commonConfig.api().CHECK_POST, {
           params: {
             target_uri: TARGET_URI,
             since: store.last_got_time,
@@ -398,7 +399,7 @@ const login = async () => {
     console.log('signature', signature)
 
     try {
-      const { data: rs } = await $fetch(api.CREATE_USER, {
+      const { data: rs } = await $fetch(commonConfig.api().CREATE_USER, {
         method: 'POST',
         body: {
           chain: `EVM/${window.ethereum.networkVersion}`,
@@ -525,7 +526,7 @@ const deleteComment = () => {
 }
 
 const getSummary = async () => {
-  const { data: counts } = await $fetch(api.GET_TARGET_SUMMARY, {
+  const { data: counts } = await $fetch(commonConfig.api().GET_TARGET_SUMMARY, {
     params: {
       target_uri: TARGET_URI
     },
@@ -543,7 +544,7 @@ const getReactions = async (subType) => {
   }
 
   try {
-    const { data: rs }= await $fetch(api.GET_REACTIONS, {
+    const { data: rs }= await $fetch(commonConfig.api().GET_REACTIONS, {
       params,
       headers: getCommonHeader()
     })
@@ -573,7 +574,7 @@ const getList = async (page = 1, since, parentId) => {
   }
 
   try {
-    const { data: rs }= await $fetch(api.GET_POST, {
+    const { data: rs }= await $fetch(commonConfig.api().GET_POST, {
       params,
       headers: getCommonHeader()
     })
@@ -642,7 +643,7 @@ const getList = async (page = 1, since, parentId) => {
 const doReply = async (content, parentId, directParentId, successCallback, type = 'comment') => {
    try {
     beforePost()
-    const rs = await $fetch(api.CREATE_POST, {
+    const rs = await $fetch(commonConfig.api().CREATE_POST, {
       method: 'POST',
       body: {
         type,
@@ -691,7 +692,7 @@ const doReply = async (content, parentId, directParentId, successCallback, type 
 const doReport = async (content, parentId, directParentId, successCallback) => {
    try {
     beforePost()
-    const rs = await $fetch(api.CREATE_POST, {
+    const rs = await $fetch(commonConfig.api().CREATE_POST, {
       method: 'POST',
       body: {
         type: 'report',
@@ -724,7 +725,7 @@ const doReport = async (content, parentId, directParentId, successCallback) => {
 const doReact = async (subType, data) => {
    try {
     beforePost()
-    const rs = await $fetch(api.CREATE_POST, {
+    const rs = await $fetch(commonConfig.api().CREATE_POST, {
       method: 'POST',
       body: {
         type: 'reaction',
