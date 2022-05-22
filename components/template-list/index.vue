@@ -46,10 +46,10 @@
           </span>
         </el-button>
       </div>
-      
+
       <div
         class="template-list__stat"
-        v-if="module === 'like'">
+        v-if="module === 'like' && counts[`${module}_counts`]">
         <el-tooltip
           content="Total value of all liking address"
           :disabled="module !== 'like'"
@@ -66,13 +66,16 @@
           class="template-list__item"
           v-for="item in data[`${module}s`]"
           :key="item.id">
-          <chat-avatar
-            class="template-list__item-avatar"
-            :alt="item.author.screen_name"
-            :hash="item.author.address"
-            :size="36"
-            :src="item.author.avatar">
-          </chat-avatar>
+          <el-tooltip
+            :content="$formatScreenName(item.author.screen_name)"
+            placement="bottom">
+            <chat-avatar
+              class="template-list__item-avatar"
+              :hash="item.author.address"
+              :size="36"
+              :src="item.author.avatar">
+            </chat-avatar>
+          </el-tooltip>
         </div>
       </div>
     </div>

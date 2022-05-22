@@ -1,8 +1,7 @@
 <template>
   <el-avatar
     class="chat-avatar"
-    :alt="alt || hash"
-    :title="alt">
+    :alt="alt">
     <boring-avatar
       :colors="colors" 
       :name="hash"
