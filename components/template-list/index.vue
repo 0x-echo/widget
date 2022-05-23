@@ -60,7 +60,7 @@
           :disabled="module !== 'like'"
           placement="bottom">
           <span>
-            {{ module }} Power: ${{ counts.like_power }}
+            {{ ing(module) }} Power: ${{ counts.like_power }}
           </span>
         </el-tooltip>
       </div>
@@ -111,6 +111,14 @@ const props = defineProps({
     required: true
   }
 })
+
+const ing = (name) => {
+  if (/e$/.test(name)) {
+    return name.replace(/e$/, 'ing')
+  } else {
+    return name + 'ing'
+  }
+}
 
 const length = props.data[`${props.module}s`].length
 

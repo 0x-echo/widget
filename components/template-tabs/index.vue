@@ -38,7 +38,7 @@
         <section-vote
           :data="data.likes"
           :loading="loading"
-          label="Like Power"
+          label="Liking Power"
           tip="Estimated Total Value of all Liking Address"
           :value="counts.like_power">
         </section-vote>
