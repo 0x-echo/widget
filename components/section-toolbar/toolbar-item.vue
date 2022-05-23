@@ -16,22 +16,30 @@
       </i>
     </el-button>
     
-    <transition
-      name="slide-fade"
-      mode="out-in">
+    <div
+      class="toolbar-item__count"
+      v-if="hasCount">
       <span
-        class="toolbar-item__count"
-        v-if="hasCount"
-        :key="count">
-        {{ count ? $formatNumber(count) : '' }}
+        class="toolbar-item__count-number"
+        ref="countRef"
+        v-if="count <= 9999">
+      </span>
+      
+      <span
+        v-if="count > 9999">
+        {{ $formatNumber(count) }}
+      </span>
+      
+      <span>
         {{ showLabel && value === 'like' && count > 0 ? (count > 1 ? 'likes' : 'like') : '' }}
       </span>
-    </transition>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ElButton } from 'element-plus'
+import { Flip } from 'number-flip'
 
 const props = defineProps({
   active: {
@@ -60,6 +68,23 @@ const props = defineProps({
 const emits = defineEmits([
   'on-click'
 ])
+
+const countRef = ref(null)
+
+watch(() => props.count, (val, oldVal) => {
+  countRef.value.innerHTML = ''
+  if (oldVal <= 9999) {
+    try {
+      new Flip({
+        node: countRef.value,
+        from: oldVal || ' ',
+        to: val || ' '
+      }) 
+    } catch (e) {
+      console.log(e)
+    }
+  }
+})
 </script>
 
 <style lang="scss">
@@ -127,6 +152,7 @@ const emits = defineEmits([
   }
   
   &__count {
+    display: flex;
     min-width: 40px;
     margin-left: 8px;
     font-size: 14px;
