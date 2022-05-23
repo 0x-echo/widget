@@ -421,6 +421,7 @@ const doTipLogin = async () => {
     accounts = await ethereum.request({ method: 'eth_requestAccounts' })
     if (accounts.length) {
       account = accounts[0]
+      $bus.emit('show-connect-loading')
       // do the transfer 
       ethereum
       .request({
@@ -436,7 +437,6 @@ const doTipLogin = async () => {
       ],
     })
     .then(async (txHash) => {
-      $bus.emit('show-connect-loading')
       store.setStatus({
         onTransactionProcessing: true
       })
@@ -462,7 +462,8 @@ const doTipLogin = async () => {
           params: [txHash]
         })
 
-      if (rs && rs.status === '0x1') {
+        if (rs && rs.status === '0x1') {
+          $bus.emit('hide-connect-loading')
           clearInterval(checkTipInterval)
           checkTipInterval = null
           ElMessage.success({
@@ -481,6 +482,7 @@ const doTipLogin = async () => {
       }, 5000)
     })
     .catch((error) => {
+      $bus.emit('hide-connect-loading')
       store.setStatus({
         onTransactionProcessing: false
       })
