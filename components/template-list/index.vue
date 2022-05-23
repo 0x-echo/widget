@@ -130,7 +130,7 @@ const currentModule = computed(() => {
     icon: 'ri-thumb-down-fill',
     value: 'dislike'
   }, {
-    icon: 'ri-dollar-circle-fill',
+    icon: 'ri-hand-heart-fill',
     value: 'tip'
   }]
   
