@@ -1,5 +1,6 @@
 <template>
-  <el-dialog
+
+    <el-dialog
     v-bind="$attrs"
     :close-on-click-modal="false"
     custom-class="dialog-connect"
@@ -45,6 +46,12 @@
 import { ElDialog } from 'element-plus'
 import iconMatemask from '@/assets/metamask.svg'
 import iconWalletConnect from '@/assets/walletconnect.svg'
+import useStore from '~~/store';
+
+const store = useStore()
+const status = computed((state) => state.status)
+
+const loading = ref(true)
 
 const emits = defineEmits([
   'connect-wallet',

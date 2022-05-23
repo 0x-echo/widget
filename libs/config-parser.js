@@ -1,6 +1,6 @@
 import qs from 'query-string'
 
-const booleanFields = ['has-h-padding']
+const booleanFields = ['has-h-padding', 'h-v-padding']
 
 export default function () {
   const url = document.location.href
