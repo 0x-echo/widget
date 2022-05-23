@@ -28,11 +28,18 @@ const useStore = defineStore('global', {
     currency:  {
       ethereum: {
         symbol: 'eth',
-        usd: ''
+        usd: '',
+        id: 1
       },
       polygon: {
-        symbol: 'Matic',
-        usd: ''
+        symbol: 'MATIC',
+        usd: '',
+        id: 137
+      },
+      mumbai: {
+        symbol: 'MATIC',
+        usd: '',
+        id: 80001
       }
     }
   }),
@@ -91,7 +98,11 @@ const useStore = defineStore('global', {
         const data = await $fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`)
         for (let i in data) {
           if (data[i].usd) {
-            this.currency[remap[i]].usd = data[i].usd
+            const name = remap[i]
+            this.currency[name].usd = data[i].usd
+            if (name === 'polygon') {
+              this.currency['mumbai'].usd = data[i].usd
+            }
           }
         }
       } catch (e) {}

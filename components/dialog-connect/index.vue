@@ -44,6 +44,7 @@
 <script setup>
 import { ElDialog } from 'element-plus'
 import iconMatemask from '@/assets/metamask.svg'
+import iconWalletConnect from '@/assets/walletconnect.svg'
 
 const emits = defineEmits([
   'connect-wallet',
@@ -56,13 +57,15 @@ const list = [{
   value: 'metamask'
 }, {
   label: 'Wallet Connect',
-  icon: iconMatemask,
-  value: '1'
-}, {
-  label: 'Fortmatic',
-  icon: iconMatemask,
-  value: '1'
-}]
+  icon: iconWalletConnect,
+  value: 'walletconnect'
+}
+// {
+//   label: 'Fortmatic',
+//   icon: iconMatemask,
+//   value: '1'
+// }
+]
 
 
 const close = () => {

@@ -111,10 +111,12 @@ import useStore from '~~/store';
 import commonConfig from '../config'
 
 import WalletConnectProvider from '@walletconnect/web3-provider'
-import { providers } from "ethers";
+import { providers, ethers } from "ethers";
 
 // https://github.com/catdad/canvas-confetti
 import Confetti from 'canvas-confetti'
+
+let loginType = 'login'
 
 const confettiCanvas = document.createElement('canvas');
 confettiCanvas.id = 'confetti-canvas'
@@ -169,26 +171,24 @@ const web3Provider = new providers.Web3Provider(provider)
 //  Enable session (triggers QR Code modal)
 ;(async () => {
   try {
-    
     provider.on("accountsChanged", (accounts) => {
-      console.log('accounts', accounts)
-  alert(accounts)
-});
+     console.log('accounts', accounts)
+    });
 
-provider.on("chainChanged", (chainId) => {
-  console.log(chainId);
-});
+    provider.on("chainChanged", (chainId) => {
+      console.log(chainId);
+    });
 
-// Subscribe to session disconnection
-provider.on("disconnect", (code, reason) => {
-  console.log(code, reason);
-});
+    // Subscribe to session disconnection
+    provider.on("disconnect", (code, reason) => {
+      console.log(code, reason);
+    });
 
-// await provider.enable()
-  } catch (e) {
-    console.log(e)
-  }
-})()
+    // await provider.enable()
+    } catch (e) {
+      console.log(e)
+    }
+  })()
 
 
 const { $bus } = useNuxtApp()
@@ -384,6 +384,108 @@ const login = async () => {
     return
   }
 
+  if (loginType === 'login') {
+    await doAccountLogin()
+  } else if (loginType === 'tip') {
+    await doTipLogin()
+  }
+}
+
+
+// window.ethereum.request({ method: 'eth_requestAccounts' })
+
+let checkTipInterval = null
+const doTipLogin = async () => {
+  console.log('do tip login')
+
+  const network = window.ethereum.networkVersion
+  const tipNetwork = store.tip_network
+  console.log('tipnet', tipNetwork)
+  const tipNetworkId = store.currency[tipNetwork].id
+  if (network !== tipNetworkId) {
+    if (process.env.NODE_ENV === 'production') {
+      ElMessage.error({
+        message: `Please switch your network to ${tipNetwork} first.`
+      })
+      return
+    }
+  }
+  // const id =
+  let account
+  let accounts
+  let toAddress = '0x3c98b726Cd9e9F20BEcAFD05A9AfFeCD61617C0b'
+  let value = '0.0001'
+
+  try {
+    accounts = await ethereum.request({ method: 'eth_requestAccounts' })
+    if (accounts.length) {
+      account = accounts[0]
+      // do the transfer 
+      ethereum
+      .request({
+        method: 'eth_sendTransaction',
+        params: [
+          {
+            from: account,
+            to: toAddress,
+            value: ethers.utils.parseEther(value).toHexString()
+            // gasPrice: '',
+            // gas: '',
+          }
+      ],
+    })
+    .then(async (txHash) => {
+      const data = {
+        type: 'tip',
+        target_uri: TARGET_URI,
+        protocol_version: common.PROTOCOL_VERSION,
+        id: uuidv4(),
+        meta: {
+          from_address: account,
+          to_address: toAddress,
+          usd_value: store.tip_amount,
+          value,
+          chain: tipNetwork,
+          tx_hash: txHash
+        }
+      }
+      await submitTip(data)
+
+      checkTipInterval = setInterval(async () => {
+        const rs = await ethereum.request({
+          method: 'eth_getTransactionReceipt',
+          params: [txHash]
+        })
+
+      if (rs && rs.status === '0x1') {
+          clearInterval(checkTipInterval)
+          checkTipInterval = null
+          ElMessage.success({
+            message: 'Thanks for your support!'
+          })
+          showConfetti()
+          tipDialogVisible.value = false
+          connectDialogVisible.value = false
+          data.meta.status = 'success'
+          await submitTip(data)
+        }
+      }, 5000)
+    })
+    .catch((error) => {
+      ElMessage.error({
+        message: error.message
+      })
+    });
+    } else {
+      console.log('no accounts found')
+    }
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+const doAccountLogin = async () => {
+
   const network = window.ethereum.networkVersion
   if (!commonConfig.supportedNetworks[`EVM/${network}`]) {
     ElMessage.error({
@@ -463,6 +565,7 @@ const connectWallet =  async () => {
 }
 
 const goConnectWallet = async () => {
+  loginType = 'login'
   connectDialogVisible.value = true
 }
 
@@ -538,14 +641,15 @@ const tipDialogVisible = ref(false)
 const tip = async () => {
   try {
     beforePost()
+    loginType = 'tip'
     tipDialogVisible.value = true
-
     await store.getCurrency()    
-  } catch (e) {}
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 const tipLogin = (data) => {
-  console.log(data)
   connectDialogVisible.value = true
 }
 
@@ -673,6 +777,24 @@ const getList = async (page = 1, since, parentId) => {
     }
   }
   onFetch = false
+}
+
+
+const submitTip = async (data) => {
+  try {
+     const rs = await $fetch(commonConfig.api().TIP, {
+      method: 'POST',
+      body: data,
+      headers: getCommonHeader()
+    })
+  } catch (e) {
+    console.log(e)
+    if (e.response && e.response._data) {
+      ElMessage.error({
+        message: e.response._data.msg
+      })
+    }
+  }
 }
 
 const doReply = async (content, parentId, directParentId, successCallback, type = 'comment') => {
