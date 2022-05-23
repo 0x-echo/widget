@@ -6,8 +6,7 @@
       :key="item.id"
       :avatar="item.author.avatar"
       :address="item.author.address"
-      :label="((item.author.address === store.address) ? 'you&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' : $formatScreenName(item.author.screen_name))"
-      :value="item.name">
+      :title="((item.author.address === store.address) ? 'you' : $formatScreenName(item.author.screen_name))">
     </user-item>
   </section-template>
 </template>

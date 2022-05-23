@@ -141,7 +141,7 @@ const onClickLogout = () => {
   }
 }
 
-@media screen and (max-width: #{$small-mobile-width - 1}) {
+@media screen and (max-width: #{$small-mobile-width - 1px}) {
   .chat-footer {
     flex-direction: column;
     

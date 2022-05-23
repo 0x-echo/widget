@@ -3,7 +3,7 @@
     class="user-item">
     <chat-avatar
       class="user-item__avatar"
-      :alt="value"
+      :alt="title"
       :size="36"
       :hash="address"
       :src="avatar">
@@ -12,13 +12,14 @@
     <div
       class="user-item__body">
       <div
-        class="user-item__title">
-        {{ value }}
+        class="user-item__title ellipsis">
+        {{ title }}
       </div>
       
       <div
-        class="user-item__subtitle">
-        {{ label }}
+        class="user-item__subtitle"
+        v-if="subtitle">
+        {{ subtitle }}
       </div>
     </div>
   </div>
@@ -30,10 +31,10 @@ const props = defineProps({
     type: String,
     required: true
   },
-  label: {
+  subtitle: {
     type: String
   },
-  value: {
+  title: {
     type: String,
     required: true
   },
@@ -47,6 +48,7 @@ const props = defineProps({
 .user-item {
   display: flex;
   align-items: center;
+  width: 150px;
   margin: 8px 50px 8px 0;
   
   &__avatar {
@@ -59,6 +61,7 @@ const props = defineProps({
   
   &__body {
     flex: 1;
+    min-width: 0;
   }
   
   &__title {
@@ -70,6 +73,17 @@ const props = defineProps({
   &__subtitle {
     font-size: 12px;
     color: var(--text-color-muted);
+  }
+}
+
+@media screen and (max-width: #{$mobile-width - 1px}) {
+  .user-item {
+    width: auto;
+    margin-right: 16px;
+    
+    &__body {
+      display: none;
+    }
   }
 }
 </style>

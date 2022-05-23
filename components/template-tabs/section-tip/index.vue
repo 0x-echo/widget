@@ -5,8 +5,8 @@
       v-for="item in data"
       :key="item.id"
       :avatar="item.avatar"
-      :label="item.created_at"
-      :value="item.name">
+      :subtitle="item.created_at"
+      :title="item.name">
     </user-item>
   </section-template>
 </template>
