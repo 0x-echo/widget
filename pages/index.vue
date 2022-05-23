@@ -435,6 +435,9 @@ const doTipLogin = async () => {
       ],
     })
     .then(async (txHash) => {
+      store.setStatus({
+        onTransactionProcessing: true
+      })
       const data = {
         type: 'tip',
         target_uri: TARGET_URI,
@@ -463,6 +466,9 @@ const doTipLogin = async () => {
           ElMessage.success({
             message: 'Thanks for your support!'
           })
+          store.setStatus({
+            onTransactionProcessing: false
+          })
           showConfetti()
           tipDialogVisible.value = false
           connectDialogVisible.value = false
@@ -472,6 +478,9 @@ const doTipLogin = async () => {
       }, 5000)
     })
     .catch((error) => {
+      store.setStatus({
+        onTransactionProcessing: false
+      })
       ElMessage.error({
         message: error.message
       })

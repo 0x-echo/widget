@@ -29,7 +29,8 @@ export default {
       GET_USER_INFO: baseURL + '/api/v1/users/info',
       GET_REACTIONS: baseURL + '/api/v1/reactions',
       SYNC_BALANCE: baseURL + '/api/v1/users/sync_balance',
-      TIP: baseURL + '/api/v1/tips'
+      TIP: baseURL + '/api/v1/tips',
+      CURRENCY: baseURL + '/api/v1/common/currency'
     }
   },
 	types: {

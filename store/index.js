@@ -11,6 +11,10 @@ const useStore = defineStore('global', {
       tip_counts: 0
     },
 
+    status: {
+      onTransactionProcessing: false
+    },
+
     hasLogined: false,
     chain: '',
     address: '',
@@ -44,6 +48,11 @@ const useStore = defineStore('global', {
     }
   }),
 	actions: {
+    setStatus (obj) {
+      for (let i in obj) {
+        this.status[i] = obj[i]
+      }
+    },
     async updateBalance (account) {
       try {
         const rs = await window.ethereum.request({
@@ -95,7 +104,8 @@ const useStore = defineStore('global', {
       }
       try {
         const ids = Object.keys(this.currency).map(one => map[one]).join(',')
-        const data = await $fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`)
+        // const data = await $fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`)
+        const { data: data } = await $fetch(config.api().CURRENCY)
         for (let i in data) {
           if (data[i].usd) {
             const name = remap[i]
