@@ -23,19 +23,25 @@
         ${{ item }}
       </div>
       
-      <el-input
-        class="section-amount__input"
+      <div
+        class="section-amount__custom"
         :class="{
-          'active': amount
-        }"
-        v-model="amount"
-        size="large"
-        @input="onChangeInput">
-        <template 
-          #prefix>
+          'active': amount !== undefined
+        }">
+        <span>
           $
-        </template>
-      </el-input>
+        </span>
+        
+        <el-input-number
+          class="section-amount__custom-input"
+          v-model="amount"
+          :controls="false"
+          :min="0"
+          :precision="18"
+          size="large"
+          @input="onChangeInput"
+          @blur="onBlurInput" />
+      </div>
     </div>
     
     <el-collapse-transition>
@@ -49,7 +55,7 @@
 </template>
 
 <script setup>
-import { ElCollapseTransition, ElInput } from 'element-plus'
+import { ElCollapseTransition, ElInputNumber } from 'element-plus'
 import SectionHeader from './section-header'
 import useStore from '~~/store';
 
@@ -89,18 +95,25 @@ const activeOption = computed({
 const changeOption = (item) => {
   activeOption.value = item
   store.setTipAmount(item)
-  amount.value = ''
+  amount.value = undefined
 }
 
 const list = [1, 5, 10, 20, 50]
-const amount = ref('')
+let amount = ref(undefined)
 
 const onChangeInput = (value) => {
   console.log(value)
   if (value) {
     activeOption.value = value
   }
+ 
   store.setTipAmount(value)
+}
+
+const onBlurInput = (e) => {
+  if (amount.value === 0) {
+    amount.value = undefined
+  }
 }
 </script>
 
@@ -140,18 +153,33 @@ const onChangeInput = (value) => {
     }
   }
   
-  &__input {
+  &__custom {
+    display: flex;
+    align-items: center;
     width: 100%;
     height: 50px;
+    padding: 0 15px;
+    margin-bottom: 15px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
     
     &.active {
-      .el-input__wrapper {
-        box-shadow: inset 0 0 0 1px var(--color-primary);
-      }
+      border-color: var(--color-primary);
+    }
+  }
+  
+  &__custom-input {
+    width: 100%;
+    
+    .el-input__wrapper {
+      padding: 0 0 0 5px !important;
+      box-shadow: none;
     }
     
-    .el-input__inner,
-    .el-input__prefix-inner {
+    .el-input__inner {
+      height: 48px;
+      line-height: 48px;
+      text-align: left;
       color: var(--text-color-primary);
     }
   }
@@ -163,7 +191,7 @@ const onChangeInput = (value) => {
       width: calc((100% - 30px) / 4);
     }
     
-    &__input {
+    &__custom {
       flex: 1;
       margin-left: 10px;
     }
