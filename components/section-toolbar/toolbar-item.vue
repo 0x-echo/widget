@@ -23,6 +23,7 @@
         class="toolbar-item__count-number"
         ref="countRef"
         v-if="count <= 9999">
+        <span v-if="count > 0">{{ count }}</span>
       </span>
       
       <span
@@ -31,7 +32,7 @@
       </span>
       
       <span>
-        {{ showLabel && value === 'like' && count > 0 ? (count > 1 ? 'likes' : 'like') : '' }}
+        {{ showLabel && value === 'like' && count > 0 ? (count > 1 ? '&nbsp;likes' : '&nbsp;like') : '' }}
       </span>
     </div>
   </div>
