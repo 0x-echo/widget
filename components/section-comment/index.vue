@@ -4,6 +4,7 @@
     <div
       class="section-comment">
       <div
+        v-if="widgetType !== 'comment-only'"
         class="section-comment__toolbar">
         <comment-sort
           v-bind="$attrs"
@@ -49,6 +50,9 @@ const props = defineProps({
   showMore: {
     type: Boolean,
     default: false
+  },
+  widgetType: {
+    type: String
   }
 })
 

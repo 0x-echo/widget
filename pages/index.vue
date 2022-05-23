@@ -56,6 +56,7 @@
       <section-comment
         :data="summary.comments"
         :loading="loading"
+        :widget-type="widgetType"
         @delete-comment="goDeleteComment"
         @dislike-comment="dislikeComment"
         @refresh-comments="refreshComments"
