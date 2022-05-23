@@ -23,9 +23,12 @@
       v-model="data.network">
     </section-network>
     
-    <section-amount
-      v-model="data.amount">
-    </section-amount>
+    <el-collapse-transition>
+      <section-amount
+        v-show="data.network"
+        v-model="data.amount">
+      </section-amount>
+    </el-collapse-transition>
     
     <div
       class="dialog-tip__footer">
@@ -48,7 +51,7 @@
 
 <script setup>
 import { reactive } from 'vue'
-import { ElButton, ElDialog } from 'element-plus'
+import { ElButton, ElDialog, ElCollapseTransition } from 'element-plus'
 import SectionAmount from './section-amount'
 import SectionNetwork from './section-network'
 import SectionUser from './section-user'

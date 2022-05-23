@@ -38,16 +38,18 @@
       </el-input>
     </div>
     
-    <div 
-      class="dialog-tip__tip"
-      v-if="store.tip_amount">
-      ≈ {{ store.tip_amount / (store.currency[store.tip_network].usd) }} {{ store.currency[store.tip_network].symbol }}
-    </div>
+    <el-collapse-transition>
+      <div 
+        class="dialog-tip__tip"
+        v-if="store.tip_amount">
+        ≈ {{ store.tip_amount / (store.currency[store.tip_network].usd) }} {{ store.currency[store.tip_network].symbol }}
+      </div>
+    </el-collapse-transition>
   </section>
 </template>
 
 <script setup>
-import { ElInput } from 'element-plus'
+import { ElCollapseTransition, ElInput } from 'element-plus'
 import SectionHeader from './section-header'
 import useStore from '~~/store';
 
@@ -106,7 +108,7 @@ const onChangeInput = (value) => {
 .section-amount {
   &__header {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
   }
   
