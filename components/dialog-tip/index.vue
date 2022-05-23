@@ -33,7 +33,7 @@
         class="dialog-tip__tip">
         * non-refundable tip
       </div>
-      
+
       <el-button
         class="dialog-tip__next-button"
         :disabled="!(data.network && data.amount)"
@@ -52,6 +52,10 @@ import { ElButton, ElDialog } from 'element-plus'
 import SectionAmount from './section-amount'
 import SectionNetwork from './section-network'
 import SectionUser from './section-user'
+
+import useStore from '~~/store';
+
+const store = useStore()
 
 const emits = defineEmits([
   'go-next',

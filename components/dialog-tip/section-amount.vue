@@ -32,12 +32,18 @@
           $
         </template>
       </el-input>
+
+      <span v-if="store.tip_amount">{{ store.tip_amount / (store.currency[store.tip_network].usd) }} {{ store.currency[store.tip_network].symbol }}</span>
+      {{ placeholder }}
     </div>
   </section>
 </template>
 
 <script setup>
 import { ElInput } from 'element-plus'
+import useStore from '~~/store';
+
+const store = useStore()
 
 const props = defineProps({
   modelValue: {
@@ -48,6 +54,18 @@ const props = defineProps({
 const emits = defineEmits([
   'update:modelValue'
 ])
+
+const placeholder = computed(() => {
+  if (!store.tip_network) {
+    return ''
+  } else {
+    const currency = store.currency[store.tip_network]
+    if (currency && currency.usd) {
+      return ` 1${currency.symbol} ≈ $${currency.usd}`
+    }
+  }
+  return ''
+})
 
 const activeOption = computed({
   get: () => {
@@ -60,6 +78,7 @@ const activeOption = computed({
 
 const changeOption = (item) => {
   activeOption.value = item
+  store.setTipAmount(item)
   amount.value = ''
 }
 
@@ -71,6 +90,7 @@ const onChangeInput = (value) => {
   if (value) {
     activeOption.value = value
   }
+  store.setTipAmount(value)
 }
 </script>
 

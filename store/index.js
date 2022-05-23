@@ -21,7 +21,20 @@ const useStore = defineStore('global', {
     balance: 0,
 
     new_posts: 0,
-    last_got_time: 0
+    last_got_time: 0,
+
+    tip_amount: 0,
+    tip_network: '',
+    currency:  {
+      ethereum: {
+        symbol: 'eth',
+        usd: ''
+      },
+      polygon: {
+        symbol: 'Matic',
+        usd: ''
+      }
+    }
   }),
 	actions: {
     async updateBalance (account) {
@@ -55,6 +68,31 @@ const useStore = defineStore('global', {
       try {
         if (val.address) {
           localStorage.setItem('login_info', JSON.stringify(val))
+        }
+      } catch (e) {}
+    },
+    setTipNetwork (val) {
+      this.tip_network = val
+    },
+    setTipAmount (val) {
+      this.tip_amount = val
+    },
+    async getCurrency () {
+      const map = {
+        'ethereum': 'ethereum',
+        'polygon': 'matic-network'
+      }
+      const remap = {
+        'ethereum': 'ethereum',
+        'matic-network': 'polygon'
+      }
+      try {
+        const ids = Object.keys(this.currency).map(one => map[one]).join(',')
+        const data = await $fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`)
+        for (let i in data) {
+          if (data[i].usd) {
+            this.currency[remap[i]].usd = data[i].usd
+          }
         }
       } catch (e) {}
     },

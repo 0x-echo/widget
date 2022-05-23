@@ -535,10 +535,12 @@ const dislikeComment = async (data) => {
 // tip
 const tipDialogVisible = ref(false)
 
-const tip = () => {
+const tip = async () => {
   try {
     beforePost()
     tipDialogVisible.value = true
+
+    await store.getCurrency()    
   } catch (e) {}
 }
 

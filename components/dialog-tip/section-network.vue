@@ -42,6 +42,10 @@ import iconMatemask from '@/assets/metamask.svg'
 import ethLogo from '~~/assets/chains/ethereum.png'
 import polygonLogo from '~~/assets/chains/polygon.png'
 
+import useStore from '~~/store';
+
+const store = useStore()
+
 const props = defineProps({
   modelValue: {
     type: String
@@ -63,6 +67,7 @@ const activeOption = computed({
 
 const changeOption = (item) => {
   activeOption.value = item.value
+  store.setTipNetwork(item.value)
 }
 
 const list = [{
