@@ -1,6 +1,7 @@
 <template>
 
-    <el-dialog
+  <el-dialog
+    ref="connectDialogRef"
     v-bind="$attrs"
     :close-on-click-modal="false"
     custom-class="dialog-connect"
@@ -43,10 +44,12 @@
 </template>
 
 <script setup>
-import { ElDialog } from 'element-plus'
+import { ElDialog,  ElLoading } from 'element-plus'
 import iconMatemask from '@/assets/metamask.svg'
 import iconWalletConnect from '@/assets/walletconnect.svg'
 import useStore from '~~/store';
+
+const { $bus } = useNuxtApp()
 
 const store = useStore()
 const status = computed((state) => state.status)
@@ -74,6 +77,13 @@ const list = [{
 // }
 ]
 
+$bus.on('show-connect-loading', () => {
+  getLoading()
+})
+
+$bus.on('hide-connect-loading', () => {
+  loadingService.close()
+})
 
 const close = () => {
   emits('update:modelValue', false)
@@ -81,6 +91,13 @@ const close = () => {
 
 const connectWallet = (item) => {
   emits('connect-wallet', item)
+}
+
+let loadingService
+const getLoading = () => {
+  loadingService = ElLoading.service({
+    target: '.dialog-connect'
+  }) 
 }
 </script>
 

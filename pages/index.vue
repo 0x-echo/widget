@@ -436,6 +436,7 @@ const doTipLogin = async () => {
       ],
     })
     .then(async (txHash) => {
+      $bus.emit('show-connect-loading')
       store.setStatus({
         onTransactionProcessing: true
       })
@@ -475,6 +476,7 @@ const doTipLogin = async () => {
           connectDialogVisible.value = false
           data.meta.status = 'success'
           await submitTip(data)
+          await getTips()
         }
       }, 5000)
     })
@@ -698,6 +700,28 @@ const getReactions = async (subType) => {
     console.log('rs', rs)
     console.log('summary', summary)
     summary[subType + 's'] = rs.list
+    console.log('counts', rs.target_summary)
+    store.setCounts(rs.target_summary)
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+const getTips = async () => {
+  const params = {
+    target_uri: TARGET_URI
+  }
+
+  try {
+    const { data: rs }= await $fetch(commonConfig.api().GET_TIPS, {
+      params,
+      headers: getCommonHeader()
+    })
+    console.log('rs', rs)
+    console.log('summary', summary)
+    summary['tips'] = rs.list
+    console.log('counts', rs.target_summary)
+    store.setCounts(rs.target_summary)
   } catch (e) {
     console.log(e)
   }
@@ -1000,8 +1024,11 @@ if (config.modules.includes('comment')) {
 })()
 
 
-const onChangeTab = () => {
-  console.log('change tab')
+const onChangeTab = async (val) => {
+  console.log('change tab', val)
+  if (val === 'tip') {
+    await getTips()
+  }
 }
 </script>
 

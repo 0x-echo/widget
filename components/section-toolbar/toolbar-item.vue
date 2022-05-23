@@ -75,6 +75,9 @@ const countRef = ref(null)
 let flip
 
 onMounted(() => {
+  if (!countRef.value) {
+    return
+  }
   flip = new Flip({
     node: countRef.value,
     from: props.count,
@@ -89,7 +92,6 @@ watch(() => props.count, (val, oldVal) => {
         to: val || ' '
       }) 
     } catch (e) {
-      console.log(e)
     }
   }
 })

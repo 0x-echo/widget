@@ -4,15 +4,17 @@
     <user-item
       v-for="item in data"
       :key="item.id"
-      :avatar="item.avatar"
-      :subtitle="item.created_at"
-      :title="item.name">
+      :avatar="item.author.avatar"
+      :title="((item.author.address === store.address) ? 'you' : $formatScreenName(item.author.screen_name))">
     </user-item>
   </section-template>
 </template>
 
 <script setup>
 import SectionTemplate from '../section-template'
+import useStore from '~~/store'
+
+const store = useStore()
 
 const props = defineProps({
   data: {

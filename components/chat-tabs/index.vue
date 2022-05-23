@@ -60,7 +60,8 @@ provide('tabProps', props)
 
 const onChangeTab = (value) => {
   activeTab.value = value
-  emits('on-change-tab')
+  console.log('value', value)
+  emits('on-change-tab', value)
 }
 </script>
 

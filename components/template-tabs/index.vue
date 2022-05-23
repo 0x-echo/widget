@@ -19,7 +19,7 @@
       v-model="activeTab"
       :loading="loading"
       :tabs="tabs"
-      @on-change-tab="$emit('on-change-tab')">
+      @on-change-tab="$emit('on-change-tab', activeTab)">
       <chat-tab-pane
         value="comment">
         <section-comment
