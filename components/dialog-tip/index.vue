@@ -5,7 +5,8 @@
     custom-class="dialog-tip"
     :show-close="false"
     top="10vh"
-    width="90%">
+    width="90%"
+    @close="onCloseDialog">
     <template
       #title>
       <dialog-header
@@ -59,6 +60,7 @@ import SectionUser from './section-user'
 import useStore from '~~/store';
 
 const store = useStore()
+const { $bus } = useNuxtApp()
 
 const emits = defineEmits([
   'go-next',
@@ -67,6 +69,12 @@ const emits = defineEmits([
 
 const close = () => {
   emits('update:modelValue', false)
+}
+
+const onCloseDialog = () => {
+  $bus.emit('reset-tip-form', data.data)
+  data.network = ''
+  data.amount = ''
 }
 
 const user = {
@@ -81,7 +89,7 @@ const user = {
   }]
 }
 
-const data = reactive({
+let data = reactive({
   network: '',
   amount: ''
 })

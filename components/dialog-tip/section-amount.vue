@@ -15,18 +15,18 @@
       <div
         class="section-amount__item"
         :class="{
-          'active': item === activeOption
+          'active': item === activeAmount
         }"
         v-for="item in list"
         :key="item"
-        @click="changeOption(item)">
+        @click="changeAmount(item)">
         ${{ item }}
       </div>
       
       <div
         class="section-amount__custom"
         :class="{
-          'active': amount !== undefined
+          'active': customAmount !== undefined
         }">
         <span>
           $
@@ -34,7 +34,7 @@
         
         <el-input-number
           class="section-amount__custom-input"
-          v-model="amount"
+          v-model="customAmount"
           :controls="false"
           :min="0"
           :precision="18"
@@ -60,6 +60,7 @@ import SectionHeader from './section-header'
 import useStore from '~~/store';
 
 const store = useStore()
+const { $bus } = useNuxtApp()
 
 const props = defineProps({
   modelValue: {
@@ -70,6 +71,14 @@ const props = defineProps({
 const emits = defineEmits([
   'update:modelValue'
 ])
+
+onBeforeUnmount(() => {
+  $bus.off('reset-tip-form')
+})
+
+$bus.on('reset-tip-form', () => {
+  customAmount.value = undefined
+})
 
 const placeholder = computed(() => {
   if (!store.tip_network) {
@@ -83,7 +92,7 @@ const placeholder = computed(() => {
   return ''
 })
 
-const activeOption = computed({
+const activeAmount = computed({
   get: () => {
     return props.modelValue
   },
@@ -92,27 +101,26 @@ const activeOption = computed({
   }
 })
 
-const changeOption = (item) => {
-  activeOption.value = item
+const changeAmount = (item) => {
+  activeAmount.value = item
   store.setTipAmount(item)
-  amount.value = undefined
+  customAmount.value = undefined
 }
 
 const list = [1, 5, 10, 20, 50]
-let amount = ref(undefined)
+let customAmount = ref(undefined)
 
 const onChangeInput = (value) => {
-  console.log(value)
   if (value) {
-    activeOption.value = value
+    activeAmount.value = value
   }
  
   store.setTipAmount(value)
 }
 
 const onBlurInput = (e) => {
-  if (amount.value === 0) {
-    amount.value = undefined
+  if (customAmount.value === 0) {
+    customAmount.value = undefined
   }
 }
 </script>
