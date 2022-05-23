@@ -23,7 +23,6 @@
         class="toolbar-item__count-number"
         ref="countRef"
         v-if="count <= 9999">
-        <span v-if="count > 0">{{ count }}</span>
       </span>
       
       <span
@@ -34,6 +33,7 @@
       <span>
         {{ showLabel && value === 'like' && count > 0 ? (count > 1 ? '&nbsp;likes' : '&nbsp;like') : '' }}
       </span>
+      
     </div>
   </div>
 </template>
@@ -72,13 +72,20 @@ const emits = defineEmits([
 
 const countRef = ref(null)
 
+let flip
+
+onMounted(() => {
+  flip = new Flip({
+    node: countRef.value,
+    from: props.count,
+    systemArr: [(props.count < 10 && props.count < 10) ? '&nbsp;' : 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+  })
+})
+
 watch(() => props.count, (val, oldVal) => {
-  countRef.value.innerHTML = ''
   if (oldVal <= 9999) {
     try {
-      new Flip({
-        node: countRef.value,
-        from: oldVal || ' ',
+      flip.flipTo({
         to: val || ' '
       }) 
     } catch (e) {

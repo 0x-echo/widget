@@ -129,7 +129,7 @@ const toolbarConfig = computed(() => {
     active: true,
     icon: 'ri-thumb-up-line',
     value: 'like',
-    showLabel: !props.config.modules.includes('dislike') && !props.config.modules.includes('dislike-like'),
+    showLabel: !props.config.modules.includes('dislike') && !props.config.modules.includes('dislike-lite') && !props.config.modules.includes('tip') && !props.config.modules.includes('tip-lite'),
     count: 0
   }, {
     active: false,
