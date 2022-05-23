@@ -500,6 +500,9 @@ const like = async (data) => {
   const rs = await doReact(type)
   if (rs) {
     if (type === 'like' && widgetType.value === 'like-only') {
+      ElMessage.success({
+        message: 'Thank you!'
+      })
       showConfetti()
     }
     await getReactions('like')
