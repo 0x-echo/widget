@@ -26,22 +26,4 @@ const props = defineProps({
 </script>
 
 <style lang="scss">
-.section-vote {
-  padding: 0 30px;
-  
-  &__value {
-    margin-bottom: 30px;
-    font-size: 14px;
-    color: var(--text-color-secondary);
-    
-    strong {
-      font-weight: 500;
-    }
-  }
-  
-  &__list {
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
 </style>
