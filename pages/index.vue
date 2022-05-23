@@ -325,6 +325,7 @@ if (config['color-theme'] === 'auto') {
 }
 
 setBodyClass('has-h-padding', config['has-h-padding'])
+setBodyClass('has-v-padding', config['has-v-padding'])
 
 const TARGET_URI = config.target_uri || 'demo'
 
