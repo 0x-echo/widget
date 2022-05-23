@@ -1,5 +1,6 @@
 <template>
   <el-dialog
+    ref="tipDialogRef"
     v-bind="$attrs"
     :close-on-click-modal="false"
     custom-class="dialog-tip"
@@ -52,7 +53,7 @@
 
 <script setup>
 import { reactive } from 'vue'
-import { ElButton, ElDialog, ElCollapseTransition } from 'element-plus'
+import { ElButton, ElCollapseTransition, ElDialog, ElLoading } from 'element-plus'
 import SectionAmount from './section-amount'
 import SectionNetwork from './section-network'
 import SectionUser from './section-user'
@@ -98,6 +99,13 @@ const goNext = () => {
   close()
   emits('go-next', data)
 } 
+
+const tipDialogRef = ref(null)
+const getLoading = () => {
+  ElLoading.service({
+    target: '.dialog-tip'
+  }) 
+}
 </script>
 
 <script>
