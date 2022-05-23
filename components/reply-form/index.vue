@@ -39,9 +39,9 @@
               @click.stop="$emit('reply')">
               <template
                 #loading>
-                <div
+                <chat-loader
                   class="reply-form__send-button-loader">
-                </div>
+                </chat-loader>
               </template>
               
               Send
@@ -150,23 +150,7 @@ export default {
   }
   
   &__send-button-loader {
-    width: 15px;
-    height: 15px;
     margin-right: 10px;
-    border-radius: 50%;
-    border: 2px solid #fff;
-    clip-path: inset(0 0 50% 0);
-    transform: rotate(0);
-    animation: spin .6s linear infinite;
-  }
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
   }
 }
 
