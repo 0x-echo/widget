@@ -37,7 +37,7 @@ const props = defineProps({
     type: String
   },
   value: {
-    type: String
+    type: [String, Number]
   }
 })
 </script>

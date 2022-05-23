@@ -106,8 +106,11 @@ export default {
     margin-top: 30px;
   }
   
-  &__section-title {
+  &__section-header {
     margin-bottom: 20px;
+  }
+  
+  &__section-title {
     font-size: 13px;
     font-weight: 600;
   }

@@ -1,7 +1,7 @@
 <template>
   <div
     ref="scrollComponent"
-    class="chat-widget has-v-padding">
+    class="chat-widget">
     <template
       v-if="widgetType === 'mix-widget'">
       <template-tabs
@@ -986,7 +986,7 @@ export default {
 
 @media screen and (max-width: #{$tablet-width - 1px}) {
   .chat-widget {
-    padding: 30px 20px;
+    padding: 30px 20px !important;
   }
 }
 

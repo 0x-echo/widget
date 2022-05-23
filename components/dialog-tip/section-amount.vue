@@ -1,10 +1,14 @@
 <template>
   <section
     class="section-amount">
-    <h3
-      class="dialog-tip__section-title">
-      Choose Amount
-    </h3>
+    <section-header
+      class="section-amount__header"
+      title="Choose Amount">
+      <span
+        class="dialog-tip__tip">
+        {{ placeholder }}
+      </span>
+    </section-header>
     
     <div
       class="section-amount__content">
@@ -32,15 +36,19 @@
           $
         </template>
       </el-input>
-
-      <span v-if="store.tip_amount">{{ store.tip_amount / (store.currency[store.tip_network].usd) }} {{ store.currency[store.tip_network].symbol }}</span>
-      {{ placeholder }}
+    </div>
+    
+    <div 
+      class="dialog-tip__tip"
+      v-if="store.tip_amount">
+      ≈ {{ store.tip_amount / (store.currency[store.tip_network].usd) }} {{ store.currency[store.tip_network].symbol }}
     </div>
   </section>
 </template>
 
 <script setup>
 import { ElInput } from 'element-plus'
+import SectionHeader from './section-header'
 import useStore from '~~/store';
 
 const store = useStore()
@@ -96,6 +104,12 @@ const onChangeInput = (value) => {
 
 <style lang="scss">
 .section-amount {
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
   &__content {
     display: flex;
     flex-wrap: wrap;

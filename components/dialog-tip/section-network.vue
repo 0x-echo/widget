@@ -1,10 +1,9 @@
 <template>
   <section
     class="section-network">
-    <h3
-      class="dialog-tip__section-title">
-      Choose Network
-    </h3>
+    <section-header
+      title="Choose Network">
+    </section-header>
     
     <div
       class="section-network__content">
@@ -22,7 +21,7 @@
         </wallet-item>
       </div>
       
-      <el-button
+      <!-- <el-button
         class="section-network__arrow-button"
         v-if="scrollButtonVisible"
         size="small"
@@ -30,13 +29,14 @@
         <i
           class="ri-arrow-right-s-line">
         </i>
-      </el-button>
+      </el-button> -->
     </div>
   </section>
 </template>
 
 <script setup>
 import { ElButton } from 'element-plus'
+import SectionHeader from './section-header'
 import iconMatemask from '@/assets/metamask.svg'
 
 import ethLogo from '~~/assets/chains/ethereum.png'

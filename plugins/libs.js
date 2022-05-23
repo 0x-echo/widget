@@ -27,7 +27,7 @@ export default defineNuxtPlugin(() => {
         }
       },
       formatNumber: (number) => {
-        return numberFormatter.format(number)
+        return numberFormatter.format(number) 
       },
       ellipsisInMiddle,
       formatDate: (date, format = 'YYYY-MM-DD HH:mm:ss') => {
