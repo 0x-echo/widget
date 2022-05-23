@@ -57,10 +57,10 @@ let currentSort = computed({
 })
 
 const sortOptions = [{
-  value: 'time:desc',
+  value: 'newest',
   label: 'Newest'
 }, {
-  value: 'recommend:desc',
+  value: 'best',
   label: 'Recommended'
 }]
 

@@ -6,6 +6,7 @@
       <div
         class="section-comment__toolbar">
         <comment-sort
+          v-bind="$attrs"
           v-model="currentSort">
         </comment-sort>
       </div>
@@ -51,7 +52,16 @@ const props = defineProps({
   }
 })
 
-let currentSort = ref('time:desc')
+const emits = defineEmits([
+  'update:modelValue',
+  'sort-change'
+])
+
+let currentSort = ref('newest')
+
+watch(currentSort, (val) => {
+  emits('sort-change', val)
+})
 </script>
 
 <script>

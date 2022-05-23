@@ -21,6 +21,7 @@
         @reply="reply"
         @reply-comment="replyComment"
         @report="goReport"
+        @sort-change="sortChange"
         @tip="tip"
         @load-children="loadChildren">
       </template-tabs>
@@ -451,6 +452,12 @@ const login = async () => {
   }
 }
 
+const sortChange = async (val) => {
+  orderBy = val
+  page = 1
+  await getList(page)
+}
+
 const connectWallet =  async () => {
   await login()
 }
@@ -580,6 +587,7 @@ const getReactions = async (subType) => {
   }
 }
 
+let orderBy = 'newest'
 const getList = async (page = 1, since, parentId) => {
   if (onFetch) {
     return
@@ -590,7 +598,8 @@ const getList = async (page = 1, since, parentId) => {
   const params = {
     target_uri: TARGET_URI,
     since,
-    page
+    page,
+    order_by: orderBy
   }
 
   if (parentId) {
