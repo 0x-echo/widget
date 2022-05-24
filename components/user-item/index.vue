@@ -3,11 +3,25 @@
     class="user-item">
     <chat-avatar
       class="user-item__avatar"
+      v-if="!badge"
       :alt="title"
       :size="36"
       :hash="address"
       :src="avatar">
     </chat-avatar>
+    
+    <el-badge 
+      class="user-item__badge"
+      v-if="badge"
+      :value="badge">
+      <chat-avatar
+        class="user-item__avatar"
+        :alt="title"
+        :size="36"
+        :hash="address"
+        :src="avatar">
+      </chat-avatar>
+    </el-badge>
     
     <div
       class="user-item__body">
@@ -33,6 +47,9 @@ const props = defineProps({
   avatar: {
     type: String,
     required: true
+  },
+  badge: {
+    type: [String, Number]
   },
   subtitle: {
     type: String

@@ -5,12 +5,13 @@
       v-for="item in data"
       :key="item.id"
       :avatar="item.author.avatar"
+      :badge="item.times"
       :title="((item.author.address === store.address) ? 'you' : $formatScreenName(item.author.screen_name))">
-      <template
-        #subtitle>
+      <!-- <template
+        #subtitle> -->
         <!-- <Timeago :datetime="item.created_at" :title="$formatDate(data.created_at)" /> -->
-        x {{ item.times }}
-      </template>
+        <!-- x {{ item.times }} -->
+      <!-- </template> -->
     </user-item>
   </section-template>
 </template>

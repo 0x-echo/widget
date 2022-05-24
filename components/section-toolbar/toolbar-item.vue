@@ -34,7 +34,6 @@
         v-if="showLabel && value === 'like'">
         {{ count > 0 ? (count > 1 ? '&nbsp;likes' : '&nbsp;like') : '' }}
       </span>
-      
     </div>
   </div>
 </template>
