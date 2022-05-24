@@ -11,7 +11,7 @@
           :key="item.value"
           :active="counts[`has_${item.value}d`] && hasLogined"
           :icon="item.icon"
-          :count="counts[item.value + '_counts']"
+          :count="item.count"
           :value="item.value"
           :show-label="item.showLabel"
           @on-click="$emit(item.value, counts[`has_${item.value}d`])">
@@ -136,17 +136,17 @@ const toolbarConfig = computed(() => {
     icon: 'ri-thumb-up-line',
     value: 'like',
     showLabel: !props.config.modules.includes('dislike') && !props.config.modules.includes('dislike-lite') && !props.config.modules.includes('tip') && !props.config.modules.includes('tip-lite'),
-    count: 0
+    count: store.counts.like_counts
   }, {
     active: false,
     icon: 'ri-thumb-down-line',
     value: 'dislike',
-    count: 0
+    count: store.counts.dislike_counts
   }, {
     active: false,
     icon: 'ri-money-dollar-circle-line',
     value: 'tip',
-    count: 0
+    count: store.counts.uniq_supporter_counts
   }]
   
   let newList = []

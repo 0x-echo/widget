@@ -108,22 +108,22 @@ const tabs = computed(() => {
     label: 'Comment',
     plurLabel: 'Comments',
     value: 'comment',
-    count: 0
+    count: store.counts.comment_counts
   }, {
     label: 'Like',
     plurLabel: 'Likes',
     value: 'like',
-    count: 0
+    count: store.counts.like_counts
   }, {
     label: 'Dislike',
     plurLabel: 'Dislikes',
     value: 'dislike',
-    count: 0
+    count: store.counts.dislike_counts
   }, {
     label: 'Supporter',
     plurLabel: 'Supporters',
     value: 'tip',
-    count: 0
+    count: store.counts.uniq_supporter_counts
   }]
   
   let newList = []
