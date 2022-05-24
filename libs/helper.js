@@ -15,7 +15,7 @@ export function setBodyClass (className, value) {
 }
 
 export function insertStyle (css) {
-  const head = document.head || document.getElementsByTagName('head')[0]
+  const head = document.head
   const style = document.createElement('style')
 
   head.appendChild(style)

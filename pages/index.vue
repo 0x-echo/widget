@@ -116,13 +116,12 @@ import commonConfig from '../config'
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import { providers, ethers } from "ethers";
 
+import useWidgetConfig from '~~/compositions/widget-config'
+
 // https://github.com/catdad/canvas-confetti
 import Confetti from 'canvas-confetti'
 
-const defaultConfig = {
-  'color-theme': 'auto'
-}
-const config = reactive(Object.assign(defaultConfig, configParser()))
+const { config } = useWidgetConfig()
 
 let loginType = 'login'
 let currentTab = ''
