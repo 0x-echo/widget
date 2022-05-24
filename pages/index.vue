@@ -107,7 +107,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { ElMessage } from 'element-plus'
 
 import { parseContent } from '../libs/content-parser'
-import { setColorTheme, getDraft, setDraft, setBodyClass } from '../libs/helper'
+import { setColorTheme, getDraft, setDraft, setBodyClass, insertStyle } from '../libs/helper'
 
 const { public: { api, common, thirdParty }} = useRuntimeConfig()
 import useStore from '~~/store';
@@ -118,6 +118,11 @@ import { providers, ethers } from "ethers";
 
 // https://github.com/catdad/canvas-confetti
 import Confetti from 'canvas-confetti'
+
+const defaultConfig = {
+  'color-theme': 'auto'
+}
+const config = reactive(Object.assign(defaultConfig, configParser()))
 
 let loginType = 'login'
 let currentTab = ''
@@ -346,6 +351,12 @@ if (config['color-theme'] === 'auto') {
 
 setBodyClass('has-h-padding', config['has-h-padding'])
 setBodyClass('has-v-padding', config['has-v-padding'])
+if (config['dark-theme-color']) {
+  insertStyle(`
+body.dark {
+  --theme-bg-color: ${config['dark-theme-color']}!important;
+}`)
+}
 
 const TARGET_URI = config.target_uri || 'demo'
 

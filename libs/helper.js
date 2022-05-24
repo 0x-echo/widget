@@ -14,6 +14,15 @@ export function setBodyClass (className, value) {
   }
 }
 
+export function insertStyle (css) {
+  const head = document.head || document.getElementsByTagName('head')[0]
+  const style = document.createElement('style')
+
+  head.appendChild(style)
+  style.type = 'text/css'
+  style.appendChild(document.createTextNode(css))
+}
+
 export function setDraft (targetUri, content) {
   try {
     return localStorage.setItem(targetUri, content)
