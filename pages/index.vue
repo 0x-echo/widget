@@ -684,7 +684,8 @@ const getReactions = async (subType) => {
 
 const getTips = async () => {
   const params = {
-    target_uri: TARGET_URI
+    target_uri: TARGET_URI,
+    unique: true
   }
 
   try {

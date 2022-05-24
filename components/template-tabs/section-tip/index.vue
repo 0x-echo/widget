@@ -8,7 +8,8 @@
       :title="((item.author.address === store.address) ? 'you' : $formatScreenName(item.author.screen_name))">
       <template
         #subtitle>
-        <Timeago :datetime="item.created_at" :title="$formatDate(data.created_at)" />
+        <!-- <Timeago :datetime="item.created_at" :title="$formatDate(data.created_at)" /> -->
+        x {{ item.times }}
       </template>
     </user-item>
   </section-template>
