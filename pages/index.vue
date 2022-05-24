@@ -120,6 +120,21 @@ import { providers, ethers } from "ethers";
 import Confetti from 'canvas-confetti'
 
 let loginType = 'login'
+let currentTab = ''
+
+const modulesOrder = {
+  comment: 1,
+  like: 2,
+  dislike: 3,
+  tip: 4
+}
+
+config.modules.sort((a, b) => {
+  return modulesOrder[a] > modulesOrder[b] ? 1 : -1
+})
+
+currentTab = config.modules[0]
+
 
 const confettiCanvas = document.createElement('canvas');
 confettiCanvas.id = 'confetti-canvas'
@@ -233,11 +248,6 @@ const beforePost = () => {
   }
 }
 
-const defaultConfig = {
-  'color-theme': 'auto'
-}
-const config = reactive(Object.assign(defaultConfig, configParser()))
-
 let checkInterval = null
 
 let onHandlingStorageChange = false
@@ -284,7 +294,9 @@ onMounted(async () => {
       } catch (e) {}
     }, CHECK_INTERVAL)
 
-    window.addEventListener("scroll", handleScroll)
+    if (config.modules.includes('comment')) {
+      window.addEventListener("scroll", handleScroll)
+    }
   } else {
     await getSummary()
   }
@@ -298,6 +310,9 @@ onMounted(async () => {
 const scrollComponent = ref(null)
 
 const handleScroll = async (e) => {
+  if (currentTab !== 'comment') {
+    return
+  }
   let element = scrollComponent.value;
   if (element.getBoundingClientRect().bottom <= window.innerHeight + 100) {
     if (page >= totalPage) {
@@ -311,7 +326,9 @@ const handleScroll = async (e) => {
 
 onBeforeUnmount(() => {
   checkInterval && clearInterval(checkInterval)
-  window.removeEventListener('storage', handleStorageChange)
+  if (config.modules.includes('comment')) {
+    window.removeEventListener('storage', handleStorageChange)
+  }
 })
 
 if (config['color-theme'] === 'auto') {
@@ -729,10 +746,7 @@ const getTips = async () => {
       params,
       headers: getCommonHeader()
     })
-    console.log('rs', rs)
-    console.log('summary', summary)
     summary['tips'] = rs.list
-    console.log('counts', rs.target_summary)
     store.setCounts(rs.target_summary)
   } catch (e) {
     console.log(e)
@@ -846,6 +860,12 @@ const submitTip = async (data) => {
 const doReply = async (content, parentId, directParentId, successCallback, type = 'comment') => {
    try {
     beforePost()
+
+    if (!parentId) {
+      store.setStatus({
+        onSubmitingTargetComment: true
+      })
+    }
     const rs = await $fetch(commonConfig.api().CREATE_POST, {
       method: 'POST',
       body: {
@@ -921,6 +941,10 @@ const doReport = async (content, parentId, directParentId, successCallback) => {
         message: e.response._data.msg
       })
     }
+  } finally {
+    store.setStatus({
+      onSubmitingTargetComment: false
+    })
   }
 }
 
@@ -1027,21 +1051,40 @@ const widgetType = computed(() => {
 
 let comments = reactive([])
 
-if (config.modules.includes('comment')) {
-  getList()
+const init = async () => {
+  const firstModule = config.modules[0]
+  if (firstModule === 'comment') {
+    await getList()
+  }
+  if (firstModule === 'like') {
+    await getReactions('like')
+  }
+  if (firstModule === 'dislike') {
+    await getReactions('dislike')
+  }
+  if (firstModule === 'tip') {
+    await getTips()
+  }
 }
-
-;(async () => {
-  await getReactions('like')
-})()
 
 
 const onChangeTab = async (val) => {
-  console.log('change tab', val)
+  currentTab = val
+  if (val === 'tip') {
+    await getTips()
+  }
+  if (val === 'like') {
+    await getReactions('like')
+  }
+  if (val === 'dislike') {
+    await getReactions('like')
+  }
   if (val === 'tip') {
     await getTips()
   }
 }
+
+init().then(() => {})
 </script>
 
 <script>
