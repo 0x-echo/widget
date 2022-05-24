@@ -120,8 +120,8 @@ const tabs = computed(() => {
     value: 'dislike',
     count: 0
   }, {
-    label: 'Tip',
-    plurLabel: 'Tips',
+    label: 'Supporter',
+    plurLabel: 'Supporters',
     value: 'tip',
     count: 0
   }]
