@@ -12,7 +12,7 @@
           <div
             class="section-template__value">
             <i
-              class="ri-flashlight-fill section-template__light-icon">
+              class="ri-flashlight-fill section-template__value-icon">
             </i>
             
             <span>
@@ -64,7 +64,7 @@ const props = defineProps({
     color: var(--text-color-secondary);
   }
   
-  &__light-icon {
+  &__value-icon {
     margin-right: 5px;
     font-size: 18px;
     font-weight: 400;

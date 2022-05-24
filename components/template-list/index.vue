@@ -59,9 +59,16 @@
           content="Estimated Total Value of all Liking Address"
           :disabled="module !== 'like'"
           placement="bottom">
-          <span>
-            {{ ing(module) }} Power: ${{ counts.like_power }}
-          </span>
+          <div
+            class="template-list__stat-value">
+            <i
+              class="ri-flashlight-fill template-list__stat-icon">
+            </i>
+            
+            <span>
+              {{ ing(module) }} Power: ${{ counts.like_power }}
+            </span>
+          </div>
         </el-tooltip>
       </div>
       
@@ -248,6 +255,17 @@ const currentModule = computed(() => {
     &::after {
       margin-left: 10px;
     }
+  }
+  
+  &__stat-value {
+    display: flex;
+    align-items: center;
+  }
+  
+  &__stat-icon {
+    margin-right: 5px;
+    font-size: 14px;
+    color: var(--color-warning);
   }
   
   &__content {
