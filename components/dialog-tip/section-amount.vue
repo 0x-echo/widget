@@ -170,6 +170,7 @@ const onBlurInput = (e) => {
     margin-bottom: 15px;
     border-radius: var(--border-radius);
     border: 1px solid var(--border-color);
+    background: var(--bg-color);
     
     &.active {
       border-color: var(--color-primary);
@@ -182,6 +183,7 @@ const onBlurInput = (e) => {
     .el-input__wrapper {
       padding: 0 0 0 5px !important;
       box-shadow: none;
+      background: none;
     }
     
     .el-input__inner {
