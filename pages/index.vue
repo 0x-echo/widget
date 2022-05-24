@@ -395,7 +395,11 @@ const login = async () => {
   }
 }
 
-const refreshProfile = () => {
+const refreshProfile = async () => {
+  await store.getScreenName(true)
+  ElMessage.success({
+    message: 'Refresh done!'
+  })
   console.log('refresh profile')
 }
 

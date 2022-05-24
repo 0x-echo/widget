@@ -34,7 +34,7 @@
           popper-class="section-toolbar__user-popover"
           :show-arrow="false"
           trigger="click"
-          :width="140">
+          :width="160">
           <template 
             #reference>
             <div
@@ -45,7 +45,7 @@
                 :alt="logoMap[loginInfo.chain] ? loginInfo.address : ''">
               <span
                 class="section-toolbar__user-name">
-                {{ $ellipsisInMiddle(loginInfo.screen_name || loginInfo.address) }}
+                {{ $formatScreenName(loginInfo.screen_name || loginInfo.address) }}
               </span>
               
               <i
@@ -58,7 +58,7 @@
             #default>
             <menu-item
               icon="ri-refresh-line"
-              label="Refresh"
+              label="Refresh profile"
               @on-click="$emit('refresh-profile')">
             </menu-item>
             
@@ -187,7 +187,8 @@ const hasLogin = computed(() => {
   &__user {
     display: flex;
     align-items: center;
-    width: 140px;
+    min-width: 140px;
+    max-width: 160px;
     height: 40px;
     padding: 0 8px 0 12px;
     border-radius: var(--border-radius);

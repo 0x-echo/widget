@@ -129,12 +129,13 @@ const useStore = defineStore('global', {
         console.log('sync balance:', e)
       }
     },
-    async getScreenName () {
+    async getScreenName (force) {
       console.log('get screen name', this.address)
       try {
         const { data: rs } = await $fetch(config.api().GET_USER_INFO, {
           params: {
-            address: this.chain + '/' + this.address
+            address: this.chain + '/' + this.address,
+            force: force ? 'true' : ''
           }
         })
         console.log('rs name', rs)
