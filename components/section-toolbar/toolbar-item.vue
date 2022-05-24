@@ -30,8 +30,9 @@
         {{ $formatNumber(count) }}
       </span>
       
-      <span>
-        {{ showLabel && value === 'like' && count > 0 ? (count > 1 ? '&nbsp;likes' : '&nbsp;like') : '' }}
+      <span
+        v-if="showLabel && value === 'like'">
+        {{ count > 0 ? (count > 1 ? '&nbsp;likes' : '&nbsp;like') : '' }}
       </span>
       
     </div>
