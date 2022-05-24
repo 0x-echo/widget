@@ -37,7 +37,7 @@
           v-model="customAmount"
           :controls="false"
           :min="0"
-          :precision="18"
+          :precision="3"
           size="large"
           @input="onChangeInput"
           @blur="onBlurInput" />
