@@ -193,6 +193,10 @@ const hasLogin = computed(() => {
     &.el-popper {
       box-shadow: 0 10px 10px rgba(0, 0, 0, .08);
       border: 0;
+      
+      .dark & {
+        box-shadow: 0 0 0 1px var(--border-color);
+      }
     }
   }
   
