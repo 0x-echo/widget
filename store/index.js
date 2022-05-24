@@ -12,7 +12,7 @@ const useStore = defineStore('global', {
     },
 
     status: {
-      onTransactionProcessing: false
+      onTransactionProcessing: false,
     },
 
     hasLogined: false,

@@ -117,52 +117,18 @@ import WalletConnectProvider from '@walletconnect/web3-provider'
 import { providers, ethers } from "ethers";
 
 import useWidgetConfig from '~~/compositions/widget-config'
+import useConfetti from '~~/compositions/confetti'
 
-// https://github.com/catdad/canvas-confetti
-import Confetti from 'canvas-confetti'
+const { $bus } = useNuxtApp()
+const store = useStore()
 
 const { config } = useWidgetConfig()
+const { showConfetti } = useConfetti()
 
 let loginType = 'login'
-let currentTab = ''
 
-const modulesOrder = {
-  comment: 1,
-  like: 2,
-  dislike: 3,
-  tip: 4
-}
+let currentTab = config.modules[0]
 
-config.modules.sort((a, b) => {
-  return modulesOrder[a] > modulesOrder[b] ? 1 : -1
-})
-
-currentTab = config.modules[0]
-
-
-const confettiCanvas = document.createElement('canvas');
-confettiCanvas.id = 'confetti-canvas'
-document.body.appendChild(confettiCanvas);
-
-const confetti = Confetti.create(confettiCanvas, {
-  resize: true,
-  useWorker: true
-})
-
-const showConfetti = () => {
-  confettiCanvas.style.display = 'block'
-  setTimeout(() => {
-    confetti({
-      particleCount: 200,
-      spread: 160,
-      origin: { y: 0.7 }
-    });
-  }, 200)
-
-  setTimeout(() => {
-    confettiCanvas.style.display = 'none'
-  }, 4000)
-}
 
 let summary = reactive({
   comments: [],
@@ -213,9 +179,6 @@ const web3Provider = new providers.Web3Provider(provider)
   })()
 
 
-const { $bus } = useNuxtApp()
-const store = useStore()
-
 const CHECK_INTERVAL = 60 * 1000
 
 let localUpdateCommentIds = []
@@ -256,7 +219,6 @@ let checkInterval = null
 
 let onHandlingStorageChange = false
 const handleStorageChange = () => {
-  console.log('storage change val')
   if (onHandlingStorageChange) {
     return
   }
@@ -312,7 +274,6 @@ onMounted(async () => {
 })
 
 const scrollComponent = ref(null)
-
 const handleScroll = async (e) => {
   if (currentTab !== 'comment') {
     return
@@ -334,28 +295,6 @@ onBeforeUnmount(() => {
     window.removeEventListener('storage', handleStorageChange)
   }
 })
-
-if (config['color-theme'] === 'auto') {
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    setColorTheme('dark')
-  }
-
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-    const newColorScheme = event.matches ? "dark" : "light";
-    setColorTheme(newColorScheme)
-  })
-} else {
-  setColorTheme(config['color-theme'])
-}
-
-setBodyClass('has-h-padding', config['has-h-padding'])
-setBodyClass('has-v-padding', config['has-v-padding'])
-if (config['dark-theme-color']) {
-  insertStyle(`
-body.dark {
-  --theme-bg-color: ${config['dark-theme-color']}!important;
-}`)
-}
 
 const TARGET_URI = config.target_uri || 'demo'
 
@@ -427,18 +366,15 @@ const refreshProfile = async () => {
   ElMessage.success({
     message: 'Refresh done!'
   })
-  console.log('refresh profile')
 }
 
 // window.ethereum.request({ method: 'eth_requestAccounts' })
 
 let checkTipInterval = null
 const doTipLogin = async () => {
-  console.log('do tip login')
 
   const network = window.ethereum.networkVersion
   const tipNetwork = store.tip_network
-  console.log('tipnet', tipNetwork)
   const tipNetworkId = store.currency[tipNetwork].id
   if (network !== tipNetworkId) {
     if (process.env.NODE_ENV === 'production') {
