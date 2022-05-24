@@ -18,6 +18,7 @@
         @logout="logout"
         @on-change-tab="onChangeTab"
         @refresh-comments="refreshComments"
+        @refresh-profile="refreshProfile"
         @reply="reply"
         @reply-comment="replyComment"
         @report="goReport"
@@ -40,7 +41,8 @@
       @tip="tip"
       @dislike="dislike"
       @logout="logout"
-      @like="like">
+      @like="like"
+      @refresh-profile="refreshProfile">
     </section-toolbar>
     
     <div
@@ -393,6 +395,9 @@ const login = async () => {
   }
 }
 
+const refreshProfile = () => {
+  console.log('refresh profile')
+}
 
 // window.ethereum.request({ method: 'eth_requestAccounts' })
 

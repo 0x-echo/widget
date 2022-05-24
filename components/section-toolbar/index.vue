@@ -34,7 +34,7 @@
           popper-class="section-toolbar__user-popover"
           :show-arrow="false"
           trigger="click"
-          :width="136">
+          :width="140">
           <template 
             #reference>
             <div
@@ -56,6 +56,12 @@
           
           <template 
             #default>
+            <menu-item
+              icon="ri-refresh-line"
+              label="Refresh"
+              @on-click="$emit('refresh-profile')">
+            </menu-item>
+            
             <menu-item
               icon="ri-logout-circle-r-line"
               label="Logout"
