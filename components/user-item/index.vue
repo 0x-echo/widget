@@ -43,6 +43,8 @@
 </template>
 
 <script setup>
+import { ElBadge } from 'element-plus'
+
 const props = defineProps({
   avatar: {
     type: String,
@@ -73,15 +75,12 @@ const props = defineProps({
   
   &__avatar {
     flex-shrink: 0;
-    
-    & + .user-item__body {
-      margin-left: 12px;
-    }
   }
   
   &__body {
     flex: 1;
     min-width: 0;
+    margin-left: 12px;
   }
   
   &__title {
