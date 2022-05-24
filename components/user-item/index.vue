@@ -15,12 +15,15 @@
         class="user-item__title ellipsis">
         {{ title }}
       </div>
-      
-      <div
-        class="user-item__subtitle"
-        v-if="subtitle">
-        {{ subtitle }}
-      </div>
+
+        <div
+          class="user-item__subtitle"
+          v-if="subtitle || $slots.subtitle">
+          <slot
+            name="subtitle">
+            {{ subtitle }}
+          </slot>
+        </div>
     </div>
   </div>
 </template>

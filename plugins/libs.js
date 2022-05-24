@@ -6,6 +6,17 @@ const numberFormatter = Intl.NumberFormat('en', { notation: 'compact' });
 export default defineNuxtPlugin(() => {
   return {
     provide: {
+      processAvatarUri: (url) => {
+        if (!url) {
+          return url
+        }
+        if (/^ipfs:/.test(url)) {
+          return url
+          .replace('ipfs://ipfs/', 'https://ipfs.io/ipfs/') // 有可能路径本身是错的
+          .replace('ipfs://', 'https://ipfs.io/ipfs/')
+        }
+        return url
+      },
       formatAddress: (address) => {
         return ethers.utils.getAddress(address)
       },

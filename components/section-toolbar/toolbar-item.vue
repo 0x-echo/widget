@@ -22,11 +22,11 @@
       <span
         class="toolbar-item__count-number"
         ref="countRef"
-        v-if="count <= 9999">
+        v-show="count <= 9999">
       </span>
       
       <span
-        v-if="count > 9999">
+        v-if="count > 9999 || displayDirectly">
         {{ $formatNumber(count) }}
       </span>
       
@@ -71,6 +71,7 @@ const emits = defineEmits([
 ])
 
 const countRef = ref(null)
+const displayDirectly = ref(false)
 
 let flip
 
@@ -86,12 +87,53 @@ onMounted(() => {
 })
 
 watch(() => props.count, (val, oldVal) => {
+  console.log('value change', val, oldVal)
+  const oldLength = oldVal.toString().length
+  const newLength = val.toString().length
+  console.log(oldLength, newLength)
+
+  // drop from 4 digits to 2 digits
+  if (Math.abs(newLength - oldLength) >= 2) {
+    displayDirectly.value = true
+    countRef.value.innerHTML = ''
+    flip = null
+    return
+  } else {
+    displayDirectly.value = false
+  }
+
+  let from = oldVal
+  if (newLength > oldLength) {
+    // const offset = newLength - oldLength
+    // for (let i = 0; i < offset; i++) {
+    //   from = '0' + from
+    // }
+    countRef.value.innerHTML = ''
+    flip = new Flip({
+      node: countRef.value,
+      from,
+      to: val,
+      systemArr: [(props.count < 10 && props.count < 10) ? '&nbsp;' : 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+    })
+  }
+
   if (oldVal <= 9999) {
+    if (!flip) {
+        flip = new Flip({
+        node: countRef.value,
+        from: props.count,
+        systemArr: [(props.count < 10 && props.count < 10) ? '&nbsp;' : 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+      })
+    }
+    console.log('go flip')
     try {
       flip.flipTo({
+        from,
+        // direct: true,
         to: val || ' '
       }) 
     } catch (e) {
+      console.log(e)
     }
   }
 })

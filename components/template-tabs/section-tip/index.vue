@@ -6,11 +6,17 @@
       :key="item.id"
       :avatar="item.author.avatar"
       :title="((item.author.address === store.address) ? 'you' : $formatScreenName(item.author.screen_name))">
+      <template
+        #subtitle>
+        <Timeago :datetime="item.created_at" :title="$formatDate(data.created_at)" />
+      </template>
     </user-item>
   </section-template>
 </template>
 
 <script setup>
+import { Timeago } from 'vue2-timeago'
+
 import SectionTemplate from '../section-template'
 import useStore from '~~/store'
 
