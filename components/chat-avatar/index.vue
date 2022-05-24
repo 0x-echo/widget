@@ -2,11 +2,11 @@
   <el-avatar
     class="chat-avatar"
     :alt="alt">
-    <boring-avatar
+    <!-- <boring-avatar
       :colors="colors" 
       :name="hash"
       size="100%"
-      variant="beam" />
+      variant="beam" /> -->
   </el-avatar>
 </template>
 
