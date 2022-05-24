@@ -77,8 +77,8 @@ const list = [{
 // }
 ]
 
-$bus.on('show-connect-loading', () => {
-  getLoading()
+$bus.on('show-connect-loading', (text = '') => {
+  getLoading(text)
 })
 
 $bus.on('hide-connect-loading', () => {
@@ -94,9 +94,10 @@ const connectWallet = (item) => {
 }
 
 let loadingService
-const getLoading = () => {
+const getLoading = (text) => {
   loadingService = ElLoading.service({
-    target: '.dialog-connect'
+    target: '.dialog-connect',
+    text
   }) 
 }
 </script>
