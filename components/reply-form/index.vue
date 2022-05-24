@@ -9,7 +9,7 @@
         class="reply-form__avatar"
         :alt="store.screen_name"
         :hash="store.address"
-        :src="avatar || user.avatar">
+        :src="store.avatar || ''">
       </chat-avatar>
       
       <div
@@ -76,12 +76,6 @@ const props = defineProps({
   placeholder: {
     type: String,
     default: 'Type something...'
-  },
-  user: {
-    type: Object,
-    default () {
-      return {}
-    }
   }
 })
 

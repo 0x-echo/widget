@@ -10,7 +10,7 @@
           <chat-avatar
             :alt="data.name"
             :size="80"
-            :src="data.avatar">
+            :src="data.avatar || ''">
           </chat-avatar>
         </div>
         
@@ -78,7 +78,7 @@
               class="template-list__item-avatar"
               :hash="item.author.address"
               :size="36"
-              :src="item.author.avatar">
+              :src="item.author.avatar || ''">
             </chat-avatar>
           </el-tooltip>
         </div>

@@ -15,7 +15,7 @@
         class="section-user__avatar"
         :alt="data.name"
         size="small"
-        :src="data.avatar">
+        :src="data.avatar || ''">
       </chat-avatar>
       
       <div

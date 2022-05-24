@@ -9,7 +9,7 @@
         class="comment-item__avatar-image"
         :alt="data.author.screen_name"
         :hash="data.author.address"
-        :src="data.author.avatar">
+        :src="data.author.avatar || ''">
       </chat-avatar>
     </div>
     
@@ -234,6 +234,12 @@ $bus.on('reset-reply-comment', (data) => {
     showReply.value = false
   }
 })
+</script>
+
+<script>
+export default {
+  inheritAttrs: false
+}
 </script>
 
 <style lang="scss">

@@ -15,7 +15,7 @@
         :alt="item.author.screen_name"
         :hash="item.author.address"
         :size="24"
-        :src="item.avatar">
+        :src="item.avatar || ''">
       </chat-avatar>
 
       <div

@@ -6,7 +6,7 @@
       :alt="title"
       :size="36"
       :hash="address"
-      :src="avatar">
+      :src="avatar || ''">
     </chat-avatar>
     
     <div
