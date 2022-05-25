@@ -64,7 +64,8 @@ export default defineNuxtConfig({
     },
     build: {
       rollupOptions: {
-        plugins: [nodePolyfills()]
+        plugins: [nodePolyfills()],
+        output: { format: 'commonjs' }
       },
       commonjsOptions: {
         transformMixedEsModules: true
