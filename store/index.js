@@ -13,6 +13,11 @@ const useStore = defineStore('global', {
 
     status: {
       onTransactionProcessing: false,
+      onSubmitingTargetComment: false
+    },
+
+    widgetConfig: {
+      show_comment_dislike: false
     },
 
     hasLogined: false,
