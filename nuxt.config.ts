@@ -3,6 +3,7 @@ import config from './config'
 import  inject  from  '@rollup/plugin-inject'
 import NodeGlobalsPolyfillPlugin from '@esbuild-plugins/node-globals-polyfill'
 import nodePolyfills from 'rollup-plugin-node-polyfills'
+import polyfillExports from './dev/polyfill-exports'
 
 export default defineNuxtConfig({
   meta: {
@@ -48,6 +49,7 @@ export default defineNuxtConfig({
     '@/styles/themes/_dark.scss'
   ],
   vite: {
+    plugins: [polyfillExports()],
     optimizeDeps: {
       esbuildOptions: {
         // Fix global is not defined error
@@ -65,7 +67,7 @@ export default defineNuxtConfig({
     build: {
       rollupOptions: {
         plugins: [nodePolyfills()],
-        output: { format: 'commonjs' }
+        output: { format: 'cjs' }
       },
       commonjsOptions: {
         transformMixedEsModules: true
