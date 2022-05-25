@@ -55,7 +55,7 @@ export default defineNuxtConfig({
     plugins: [
       //polyfillExports(),
       commonjs(),
-      inject({ Buffer: ['buffer', 'Buffer'] })
+      // inject({ Buffer: ['buffer', 'Buffer'] })
     ],
     optimizeDeps: {
       esbuildOptions: {
