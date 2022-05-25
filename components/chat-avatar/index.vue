@@ -1,7 +1,6 @@
 <template>
   <el-avatar
-    class="chat-avatar"
-    :alt="alt">
+    class="chat-avatar">
     <boring-avatar
       :colors="colors" 
       :name="hash"
@@ -12,7 +11,7 @@
 
 <script setup>
 import { ElAvatar } from 'element-plus'
-import BoringAvatar from "vue-boring-avatars"
+import BoringAvatar from '@third.chat/vue-boring-avatars'
 
 const props = defineProps({
   alt: {
