@@ -1114,10 +1114,10 @@
   dependencies:
     clipboard "^2.0.0"
 
-"@third.chat/vue-boring-avatars@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmmirror.com/@third.chat/vue-boring-avatars/-/vue-boring-avatars-1.1.1.tgz#5e1e630788a237ecf4a5f1df5598a0755767644f"
-  integrity sha512-gM4y0HzPtntnWXF/gEr+Y5xzNbxMeTQ7nFGvvYBdgMiVB2d/zovIsbnN+GV1V1hqPpH1yE3HvYJtf3CO8EYEfg==
+"@third.chat/vue-boring-avatars@1.1.3":
+  version "1.1.3"
+  resolved "https://registry.npmmirror.com/@third.chat/vue-boring-avatars/-/vue-boring-avatars-1.1.3.tgz#2f2381373f45a8ce66662f341d01a68dac08b3de"
+  integrity sha512-IU2WO3vZWMc8wzfzOHv2lak5K9DhKtx+S1z13Q25lOiXO6P31F6ne9XyJf296zujTakA/irF6+cuIgeN1el25g==
 
 "@trysound/sax@0.2.0":
   version "0.2.0"
