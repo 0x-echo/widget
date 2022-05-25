@@ -80,7 +80,7 @@ watch(() => props.count, (val, oldVal) => {
 .comment-action {
   display: flex;
   align-items: center;
-  width: 55px;
+  width: 60px;
   color: var(--text-color-muted);
   
   & + & {
@@ -107,7 +107,6 @@ watch(() => props.count, (val, oldVal) => {
   }
   
   &__count {
-    margin-left: 8px;
     font-size: 12px;
   }
 }
