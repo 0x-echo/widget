@@ -531,7 +531,9 @@ const doAccountLogin = async () => {
         address: rs.address,
         token: rs.token,
         screen_name: rs.screen_name,
-        avatar: rs.avatar
+        avatar: rs.avatar,
+        ens: rs.ens,
+        dotbit: rs.dotbit
       })
 
       await store.updateBalance(account)
