@@ -27,6 +27,7 @@
     </div>
     
     <div
+      v-if="store.wallet.loginType === 'login'"
       class="dialog-connect__tip">
       By connecting your wallet and signing a message, you agree to Third.Chat's
       <a
@@ -39,6 +40,12 @@
         target="_blank">
         Privacy Policy
       </a>
+    </div>
+
+    <div
+      v-if="store.wallet.loginType === 'tip'"
+      class="dialog-connect__tip">
+      Tip: You can choose other address and network to tip the author.
     </div>
   </el-dialog>
 </template>
@@ -62,11 +69,11 @@ const emits = defineEmits([
 ])
 
 const list = [{
-  label: 'Metamask',
+  label: 'MetaMask',
   icon: iconMatemask,
   value: 'metamask'
 }, {
-  label: 'Wallet Connect',
+  label: 'WalletConnect',
   icon: iconWalletConnect,
   value: 'walletconnect'
 }

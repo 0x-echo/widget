@@ -20,6 +20,11 @@ const useStore = defineStore('global', {
       show_comment_dislike: false
     },
 
+    wallet: {
+      loginType: 'login', // or tip
+      loginApp: 'metamask' // or walletconnect
+    },
+
     hasLogined: false,
     chain: '',
     address: '',
@@ -36,7 +41,7 @@ const useStore = defineStore('global', {
     tip_network: '',
     currency:  {
       ethereum: {
-        symbol: 'eth',
+        symbol: 'ETH',
         usd: '',
         id: 1
       },
@@ -53,6 +58,11 @@ const useStore = defineStore('global', {
     }
   }),
 	actions: {
+    setWallet (data) {
+      for (let i in data) {
+        this.wallet[i] = data[i]
+      }
+    },
     setWidgetConfig (data) {
       for (let i in data) {
         this.widgetConfig[i] = data[i]

@@ -44,7 +44,7 @@
       @like="like"
       @refresh-profile="refreshProfile">
     </section-toolbar>
-    
+
     <template-list
       v-if="['like-only', 'dislike-only', 'tip-only'].includes(widgetType)"
       :data="summary"
@@ -90,13 +90,14 @@ const { public: { api, common, thirdParty }} = useRuntimeConfig()
 import useStore from '~~/store';
 import commonConfig from '../config'
 
-// import WalletConnectProvider from '@walletconnect/web3-provider'
-import WalletConnectProvider from '@walletconnect/web3-provider/dist/umd/index.min.js'
+// import WalletConnectProvider from '@walletconnect/web3-provider/dist/umd/index.min.js'
 
 import { providers, ethers } from "ethers";
 
 import useWidgetConfig from '~~/compositions/widget-config'
 import useConfetti from '~~/compositions/confetti'
+
+const GetWalletConnectProvider = () => import('@walletconnect/web3-provider/dist/umd/index.min.js')
 
 const { $bus } = useNuxtApp()
 const store = useStore()
@@ -105,8 +106,6 @@ const { config } = useWidgetConfig()
 store.setWidgetConfig(config)
 
 const { showConfetti } = useConfetti()
-
-let loginType = 'login'
 
 let currentTab = config.modules[0]
 
@@ -130,19 +129,69 @@ let summary = reactive({
 
 
 //  Create WalletConnect Provider
-const provider = new WalletConnectProvider({
-  infuraId: "dda2473ca43f4555926534d427abc648",
-  // bridge: "https://bridge.walletconnect.org",
-  qrcode: true
-});
-const web3Provider = new providers.Web3Provider(provider)
+
+
+let provider = null
+let web3provider = null
+
+const getProvicer = async () => {
+  const { default: WalletConnectProvider } = await GetWalletConnectProvider()
+  console.log('get', WalletConnectProvider.default)
+  const provider = new WalletConnectProvider ({
+    infuraId: "dda2473ca43f4555926534d427abc648",
+    // bridge: "https://bridge.walletconnect.org",
+    qrcode: true,
+    rpc: {
+      137: 'https://matic-mainnet.chainstacklabs.com',
+      80001: 'https://matic-mumbai.chainstacklabs.com'
+    }
+  });
+  const web3provider =  new providers.Web3Provider(provider)
+
+  return {
+    provider,
+    web3provider
+  }
+}
 
 //  Enable session (triggers QR Code modal)
-;(async () => {
+const setUpProvider = async () => {
+  const rs = await getProvicer()
+  provider = rs.provider
+  web3provider = rs.web3provider
+
   try {
-    provider.on("accountsChanged", (accounts) => {
+    provider.on("accountsChanged", async (accounts) => {
+      if (store.wallet.loginType === 'tip') {
+        return
+      }
       console.log('accounts', accounts)
-    });
+      const chain = await web3provider.getNetwork()
+      console.log('chain', chain)
+      const networkId = chain.chainId
+
+      const message = commonConfig.wallet.auth_message.replace('TIMESTAMP', new Date().getTime())
+      // let accounts = []
+      console.log('accounts', accounts)
+      // if (!accounts.length) {
+      //   accounts = await ethereum.request({ method: 'eth_requestAccounts' })
+      // }
+      //console.log('accounts2', accounts)
+      const account = accounts[0]
+      $bus.emit('show-connect-loading', `Please sign the message.`)
+      try {
+        const signature = await provider.request({ method: 'personal_sign', params: [ message, account ] })
+        console.log('signature', signature)
+        $bus.emit('hide-connect-loading')
+        await requestLogin(account, message, signature, networkId)
+      } catch (e) {
+        $bus.emit('hide-connect-loading')
+        ElMessage.error({
+          message: e.message
+        })
+      }
+      
+    })
 
     provider.on("chainChanged", (chainId) => {
       console.log(chainId);
@@ -150,12 +199,17 @@ const web3Provider = new providers.Web3Provider(provider)
 
     // Subscribe to session disconnection
     provider.on("disconnect", (code, reason) => {
+      $bus.emit('hide-connect-loading')
       console.log(code, reason);
     });
+
+    provider.on("error", (error) => {
+      console.log('error', error);
+    });
   } catch (e) {
-    console.log(e)
+    console.log('walletconnect error', e)
   }
-})()
+}
 
 
 const CHECK_INTERVAL = 60 * 1000
@@ -308,7 +362,9 @@ const tryAutoLogin = () => {
         await store.syncBalance()
       }, 200)
     }
-  } catch (e) {}
+  } catch (e) {
+    console.log('get login_info:', e)
+  }
 }
 
 tryAutoLogin()
@@ -326,16 +382,9 @@ var url = (window.location != window.parent.location)
 console.log('origin', window.location.ancestorOrigins[0])
 
 const login = async () => {
-  if (!window.ethereum) {
-    ElMessage.error({
-      message: 'Please install MetaMask first.'
-    })
-    return
-  }
-
-  if (loginType === 'login') {
+  if (store.wallet.loginType === 'login') {
     await doAccountLogin()
-  } else if (loginType === 'tip') {
+  } else if (store.wallet.loginType === 'tip') {
     await doTipLogin()
   }
 }
@@ -348,44 +397,12 @@ const refreshProfile = async () => {
 }
 
 
-let checkTipInterval = null
-const doTipLogin = async () => {
-
-  const network = window.ethereum.networkVersion
-  const tipNetwork = store.tip_network
-  const tipNetworkId = store.currency[tipNetwork].id
-  if (network !== tipNetworkId) {
-    if (process.env.NODE_ENV === 'production') {
-      ElMessage.error({
-        message: `Please switch your network to ${tipNetwork} first.`
-      })
-      return
-    }
-  }
-  // const id =
-  let account
-  let accounts
+const sendTip = async ({ currentProvider, account, chainId }) => {
   let toAddress = '0x3c98b726Cd9e9F20BEcAFD05A9AfFeCD61617C0b'
   let value = '0.0001'
-
-  try {
-    // force reselect
-    const rs = await window.ethereum.request({
-      method: "wallet_requestPermissions",
-      params: [
-        {
-          eth_accounts: {}
-        }
-      ]
-    })
-
-    accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-
-    if (accounts.length) {
-      account = accounts[0]
-      $bus.emit('show-connect-loading', `Hold on. It may take up to few minutes.`)
+  $bus.emit('show-connect-loading', `Hold on. It may take up to few minutes.`)
       // do the transfer 
-      ethereum
+      currentProvider
       .request({
         method: 'eth_sendTransaction',
         params: [
@@ -412,7 +429,7 @@ const doTipLogin = async () => {
           to_address: toAddress,
           usd_value: store.tip_amount,
           value,
-          chain: tipNetwork,
+          chain: chainId,
           tx_hash: txHash
         }
       }
@@ -452,6 +469,58 @@ const doTipLogin = async () => {
         message: error.message
       })
     });
+}
+
+
+let checkTipInterval = null
+const doTipLogin = async () => {
+  let currentProvider
+  let tipNetworkId
+  if (store.wallet.loginApp === 'metamask') {
+    currentProvider = window.ethereum
+    const network = window.ethereum.networkVersion
+    const tipNetwork = store.tip_network
+    tipNetworkId = store.currency[tipNetwork].id
+    if (network !== tipNetworkId) {
+      if (process.env.NODE_ENV === 'production') {
+        ElMessage.error({
+          message: `Please switch your network to ${tipNetwork} first.`
+        })
+        return
+      }
+    }
+  } else if (store.wallet.loginApp === 'walletconnect') {
+    console.log('go here')
+    // await setUpProvider()
+    currentProvider = provider
+  }
+  
+  // const id =
+  let account
+  let accounts
+
+
+  try {
+    // force reselect
+    if (store.wallet.loginApp === 'metamask') {
+      const rs = await currentProvider.request({
+        method: "wallet_requestPermissions",
+        params: [
+          {
+            eth_accounts: {}
+          }
+        ]
+      })
+      accounts = await currentProvider.request({ method: 'eth_requestAccounts' })
+    } else if (store.wallet.loginApp === 'walletconnect') {
+      accounts = await ethereum.request({ method: 'eth_accounts' })
+    }
+
+    console.log('accounts', accounts)
+
+    if (accounts.length) {
+      account = accounts[0]
+      await sendTip({ currentProvider, account, chain: tipNetworkId })
     } else {
       console.log('no accounts found')
       $bus.emit('hide-connect-loading')
@@ -464,36 +533,12 @@ const doTipLogin = async () => {
   }
 }
 
-const doAccountLogin = async () => {
-
-  const network = window.ethereum.networkVersion
-  if (!commonConfig.supportedNetworks[`EVM/${network}`]) {
-    ElMessage.error({
-      message: `Sorry. The network is not supported. Current supported networks are: ${Object.values(commonConfig.supportedNetworks).join(', ')}.`
-    })
-    return
-  }
-
-  let account
-  let accounts = await ethereum.request({ method: 'eth_accounts' })
-  let signature
-  const message = commonConfig.wallet.auth_message.replace('TIMESTAMP', new Date().getTime())
-
-  console.log('accounts', accounts)
-  if (!accounts.length) {
-    accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-  }
-  console.log('accounts2', accounts)
-  if (accounts.length) {
-    account = accounts[0]
-    signature = await ethereum.request({ method: 'personal_sign', params: [ message, account ] })
-    console.log('signature', signature)
-
-    try {
+const requestLogin = async (account, message, signature, chainId) => {
+  try {
       const { data: rs } = await $fetch(commonConfig.api().CREATE_USER, {
         method: 'POST',
         body: {
-          chain: `EVM/${window.ethereum.networkVersion}`,
+          chain: `EVM/${chainId}`,
           address: account,
           message,
           signature
@@ -521,6 +566,12 @@ const doAccountLogin = async () => {
         message: 'Sign in successfully!'
       })
 
+      if (provider) {
+        try {
+          await provider.disconnect()
+        } catch (e) {}
+      }
+
       await getSummary()
 
       setTimeout(async () => {
@@ -533,7 +584,41 @@ const doAccountLogin = async () => {
     } catch (e) {
       console.log(e)
     }
-    
+}
+
+const doAccountLogin = async () => {
+  if (store.wallet.loginType === 'metamask') {
+    if (!window.ethereum) {
+      ElMessage.error({
+        message: 'Please install MetaMask first.'
+      })
+      return
+    }
+  }
+  const network = window.ethereum.networkVersion
+  if (!commonConfig.supportedNetworks[`EVM/${network}`]) {
+    ElMessage.error({
+      message: `Sorry. The network is not supported. Current supported networks are: ${Object.values(commonConfig.supportedNetworks).join(', ')}.`
+    })
+    return
+  }
+
+  let account
+  let accounts = await ethereum.request({ method: 'eth_accounts' })
+  let signature
+  const message = commonConfig.wallet.auth_message.replace('TIMESTAMP', new Date().getTime())
+
+  console.log('accounts', accounts)
+  if (!accounts.length) {
+    accounts = await ethereum.request({ method: 'eth_requestAccounts' })
+  }
+  console.log('accounts2', accounts)
+  if (accounts.length) {
+    account = accounts[0]
+    signature = await ethereum.request({ method: 'personal_sign', params: [ message, account ] })
+    console.log('signature', signature)
+
+    await requestLogin(account, message, signature, window.ethereum.networkVersion)
   }
 }
 
@@ -543,16 +628,34 @@ const sortChange = async (val) => {
   await getList(page)
 }
 
+let hasOpen = false
 const connectWallet =  async (item) => {
+   store.setWallet({
+     loginApp: item.value
+   })
   if (item.value === 'metamask') {
     await login()
   } else {
-   await provider.enable()
+    await setUpProvider()
+    console.log('walletconnect go', provider)
+    try {
+      await provider.enable()
+    } catch (e) {
+      console.log('enable error', e)
+      await provider.disconnect()
+    }
+
+    if (store.wallet.loginType === 'tip') {
+      console.log('wallconnect 打赏')
+      await doTipLogin()
+    }
   }
 }
 
 const goConnectWallet = async () => {
-  loginType = 'login'
+  store.setWallet({
+    loginType: 'login'
+  })
   connectDialogVisible.value = true
 }
 
@@ -628,7 +731,9 @@ const tipDialogVisible = ref(false)
 const tip = async () => {
   try {
     beforePost()
-    loginType = 'tip'
+    store.setWallet({
+      loginType: 'tip'
+    })
     tipDialogVisible.value = true
     await store.getCurrency()    
   } catch (e) {
