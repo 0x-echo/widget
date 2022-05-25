@@ -396,7 +396,7 @@ const doTipLogin = async () => {
     accounts = await ethereum.request({ method: 'eth_requestAccounts' })
     if (accounts.length) {
       account = accounts[0]
-      $bus.emit('show-connect-loading')
+      $bus.emit('show-connect-loading', `Hold on. It may take up to 30s.`)
       // do the transfer 
       ethereum
       .request({
@@ -442,7 +442,7 @@ const doTipLogin = async () => {
           clearInterval(checkTipInterval)
           checkTipInterval = null
           ElMessage.success({
-            message: 'Thanks for your support!'
+            message: 'Thank you!'
           })
           store.setStatus({
             onTransactionProcessing: false
@@ -878,7 +878,7 @@ const doReport = async (content, parentId, directParentId, successCallback) => {
       headers: getCommonHeader()
     })
     ElMessage.success({
-      message: 'Thank you for your feedback!'
+      message: 'Thank you!'
     })
     if (successCallback) {
       successCallback()
