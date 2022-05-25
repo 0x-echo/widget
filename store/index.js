@@ -48,6 +48,11 @@ const useStore = defineStore('global', {
     }
   }),
 	actions: {
+    setWidgetConfig (data) {
+      for (let i in data) {
+        this.widgetConfig[i] = data[i]
+      }
+    },
     setStatus (obj) {
       for (let i in obj) {
         this.status[i] = obj[i]
