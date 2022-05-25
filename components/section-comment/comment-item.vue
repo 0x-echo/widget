@@ -118,6 +118,7 @@
           </comment-action>
           
           <comment-action
+            v-if="store.widgetConfig.show_comment_dislike"
             :active="data.has_disliked && hasLogined"
             :count="data.dislike_counts"
             icon="ri-thumb-down-line"

@@ -123,6 +123,8 @@ const { $bus } = useNuxtApp()
 const store = useStore()
 
 const { config } = useWidgetConfig()
+store.setWidgetConfig(config)
+
 const { showConfetti } = useConfetti()
 
 let loginType = 'login'

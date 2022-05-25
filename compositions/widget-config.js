@@ -34,6 +34,7 @@ export default () => {
 
 	setBodyClass('has-h-padding', config['has-h-padding'])
 	setBodyClass('has-v-padding', config['has-v-padding'])
+
 	if (config['dark-theme-color']) {
 		insertStyle(`
   body.dark {

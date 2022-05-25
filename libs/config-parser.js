@@ -1,6 +1,10 @@
 import qs from 'query-string'
 
-const booleanFields = ['has-h-padding', 'h-v-padding']
+const booleanFields = [
+  'has-h-padding',
+  'h-v-padding',
+  'show-comment-dislike'
+]
 
 export default function () {
   const url = document.location.href
@@ -14,6 +18,8 @@ export default function () {
     } else {
       query[f] = false
     }
+    const underlined = f.replace(/-/g, '_')
+    query[underlined] = query[f]
   })
   return query
 }
