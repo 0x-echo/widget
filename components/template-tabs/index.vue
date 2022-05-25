@@ -16,7 +16,6 @@
     </reply-form>
     
     <chat-tabs
-      v-if="config.modules.length > 1"
       v-model="activeTab"
       :loading="loading"
       :tabs="tabs"

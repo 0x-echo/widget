@@ -4,7 +4,8 @@
     <tabs-skeleton
       v-bind="$attrs">
       <div
-        class="chat-tabs__header">
+        class="chat-tabs__header"
+        v-if="showHeader">
         <div
           class="chat-tabs__item"
           :class="{
@@ -35,6 +36,10 @@ const counts = computed(() => store.counts)
 const props = defineProps({
   modelValue: {
     type: String
+  },
+  showHeader: {
+    type: Boolean,
+    default: true
   },
   tabs: {
     type: Array,

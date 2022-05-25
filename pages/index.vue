@@ -3,7 +3,7 @@
     ref="scrollComponent"
     class="chat-widget">
     <template
-      v-if="widgetType === 'mix-widget'">
+      v-if="widgetType === 'mix-widget' || widgetType === 'comment-only'">
       <template-tabs
         :config="config"
         :data="summary"
@@ -44,29 +44,6 @@
       @like="like"
       @refresh-profile="refreshProfile">
     </section-toolbar>
-    
-    <template
-      v-if="widgetType === 'comment-only'">
-      <reply-form
-        custom-class="chat-widget__reply"
-        :disabled-tooltip="false"
-        :loading="loading"
-        v-model="message"
-        @reply="reply">
-      </reply-form>
-    
-      <section-comment
-        :data="summary.comments"
-        :loading="loading"
-        :widget-type="widgetType"
-        @delete-comment="goDeleteComment"
-        @dislike-comment="dislikeComment"
-        @refresh-comments="refreshComments"
-        @reply-comment="replyComment"
-        @like-comment="likeComment"
-        @report="goReport">
-      </section-comment>
-    </template>
     
     <template-list
       v-if="['like-only', 'dislike-only', 'tip-only'].includes(widgetType)"
