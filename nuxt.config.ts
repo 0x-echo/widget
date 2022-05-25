@@ -3,6 +3,7 @@ import config from './config'
 import  inject  from  '@rollup/plugin-inject'
 import NodeGlobalsPolyfillPlugin from '@esbuild-plugins/node-globals-polyfill'
 import nodePolyfills from 'rollup-plugin-node-polyfills'
+// import eslintPlugin from "vite-plugin-eslint"
 import polyfillExports from './dev/polyfill-exports'
 
 export default defineNuxtConfig({
@@ -49,6 +50,7 @@ export default defineNuxtConfig({
     '@/styles/themes/_dark.scss'
   ],
   vite: {
+    // plugins: [eslintPlugin()],
     plugins: [polyfillExports()],
     optimizeDeps: {
       esbuildOptions: {
@@ -66,11 +68,11 @@ export default defineNuxtConfig({
     },
     build: {
       rollupOptions: {
-        plugins: [nodePolyfills()],
-        output: { format: 'cjs' }
+        // plugins: [nodePolyfills()],
+        // output: { format: 'cjs' }
       },
       commonjsOptions: {
-        transformMixedEsModules: true
+        transformMixedEsModules: false
       }
     },
     css: {
