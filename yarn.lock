@@ -1114,6 +1114,11 @@
   dependencies:
     clipboard "^2.0.0"
 
+"@third.chat/vue-boring-avatars@1.1.1":
+  version "1.1.1"
+  resolved "https://registry.npmmirror.com/@third.chat/vue-boring-avatars/-/vue-boring-avatars-1.1.1.tgz#5e1e630788a237ecf4a5f1df5598a0755767644f"
+  integrity sha512-gM4y0HzPtntnWXF/gEr+Y5xzNbxMeTQ7nFGvvYBdgMiVB2d/zovIsbnN+GV1V1hqPpH1yE3HvYJtf3CO8EYEfg==
+
 "@trysound/sax@0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@trysound/sax/-/sax-0.2.0.tgz#cccaab758af56761eb7bf37af6f03f326dd798ad"
@@ -7098,11 +7103,6 @@ vscode-uri@^3.0.2:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/vscode-uri/-/vscode-uri-3.0.3.tgz#a95c1ce2e6f41b7549f86279d19f47951e4f4d84"
   integrity sha512-EcswR2S8bpR7fD0YPeS7r2xXExrScVMxg4MedACaWHEtx9ftCF/qHG1xGkolzTPcEmjTavCQgbVzHUIdTMzFGA==
-
-vue-boring-avatars@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmmirror.com/vue-boring-avatars/-/vue-boring-avatars-1.1.0.tgz#01e3f9380007464c5030daa63c58943929272ee3"
-  integrity sha512-eiq79Dh1E6mhRiSLPPcL2oTyJFHfQow+5p7oUJr9i/DpqyCjEX0ayEvZhie1EDKyDcVfVbmqXXBeXBQOr2UAdw==
 
 vue-bundle-renderer@^0.3.6:
   version "0.3.7"
