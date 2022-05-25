@@ -368,7 +368,6 @@ const refreshProfile = async () => {
   })
 }
 
-// window.ethereum.request({ method: 'eth_requestAccounts' })
 
 let checkTipInterval = null
 const doTipLogin = async () => {
@@ -499,7 +498,8 @@ const doAccountLogin = async () => {
   let account
   let accounts = await ethereum.request({ method: 'eth_accounts' })
   let signature
-  const message = 'I authorize'
+  const message = commonConfig.wallet.auth_message.replace('TIMESTAMP', new Date().getTime())
+
   console.log('accounts', accounts)
   if (!accounts.length) {
     accounts = await ethereum.request({ method: 'eth_requestAccounts' })
@@ -1057,89 +1057,6 @@ init().then(() => {})
 export default {
   data () {
     return {
-      data: {
-        name: 'hello.bit',
-        bio: 'Hello world, hello world',
-        avatar: '',
-        comments_2: [{
-          id: '1',
-          avatar: '',
-          name: 'hello.bit',
-          created_at: '2022-10-10 10:00',
-          content: 'Hi, May I ask if you interested to sell your Bzuki to me? Someone scammed my pfp and I lost it, so happened that you are holding almost the same traits with mine..',
-          replies: [{
-            id: '11',
-            name: 'chatchat.bit',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
-            created_at: '2022-10-10 10:00',
-            content: 'hello',
-            reply_to: 'hello.bit'
-          }, {
-            id: '12',
-            name: 'chatchat.bit',
-            avatar: '',
-            created_at: '2022-10-10 10:00',
-            content: 'Scammer! You scam my ETH without sending me NFT'
-          }, {
-            id: '13',
-            name: 'chatchat.bit',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
-            created_at: '2022-10-10 10:00',
-            content: 'hello'
-          }, {
-            id: '14',
-            name: 'chatchat.bit',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
-            created_at: '2022-10-10 10:00',
-            content: 'Hi, May I ask if you interested to sell your Bzuki to me? Someone scammed my pfp and I lost it, so happened that you are holding almost the same traits with mine..'
-          }]
-        }, {
-          id: '2',
-          avatar: '',
-          name: 'hello.bit',
-          created_at: '2022-10-10 10:00',
-          content: 'Hi, May I ask if you interested to sell your Bzuki to me? Someone scammed my pfp and I lost it, so happened that you are holding almost the same traits with mine..',
-          replies: []
-        }],
-        tips: [{
-          id: '1',
-          avatar: '',
-          name: 'hello.bit',
-          created_at: '1 day ago'
-        }],
-        dislikes: [{
-          id: '1',
-          avatar: '',
-          name: 'hello.bit',
-          asset: '120k'
-        }, {
-          id: '2',
-          avatar: '',
-          name: 'chatchat.bit',
-          asset: '120k'
-        }, {
-          id: '3',
-          avatar: '',
-          name: 'hello.bit',
-          asset: '120k'
-        }],
-        likes: [{
-          id: '1',
-          avatar: '',
-          name: 'hello.bit',
-          asset: '120k'
-        }, {
-          id: '2',
-          avatar: '',
-          name: 'chatchat.bit',
-          asset: '120k'
-        }, {
-          id: '3',
-          avatar: '',
-          name: 'hello.bit',
-          asset: '120k'
-        }]
-      }
     }
   }
 }

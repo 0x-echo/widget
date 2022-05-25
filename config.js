@@ -49,5 +49,8 @@ export default {
   },
   thirdParty: {
     WALLET_CONNECT_PROJECT_ID: 'f1605890a1bdc2cab216432b1768356d'
+  },
+  wallet: {
+    auth_message: `I want to authenticate and generate a JWT token at timestamp - TIMESTAMP. `
   }
 }
