@@ -81,7 +81,7 @@ export default {
   &__header {
     position: relative;
     display: flex; 
-    margin-bottom: 30px;
+    margin-bottom: 28px;
     overflow-x: auto;
     
     &::after {
@@ -143,6 +143,7 @@ export default {
   &__content {
     flex: 1;
     overflow-y: auto;
+    padding-top: 2px;
   }
 }
 </style>

@@ -31,15 +31,17 @@
         v-bind="$attrs">
       </comment-list>
       
-      <!-- <pulse-loader>
-      </pulse-loader> -->
-      
       <div
         class="section-comment__bottom">
         <el-button
-          size="small">
+          class="section-comment__more-button"
+          size="small"
+          type="info">
           Load More
         </el-button>
+        
+        <pulse-loader>
+        </pulse-loader>
       </div>
     </div>
   </comment-skeleton>
@@ -131,6 +133,18 @@ export default {
     align-items: center;
     justify-content: center;
     margin-top: 10px;
+  }
+  
+  &__more-button {
+    .dark & {
+      &.active,
+      &:hover,
+      &:focus,
+      &:focus:not(.el-button:hover) {
+        color: white;
+        background-clip: padding-box;
+      }
+    }
   }
 }
 
