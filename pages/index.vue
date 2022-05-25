@@ -50,6 +50,7 @@
       v-if="widgetType === 'comment-only'">
       <reply-form
         custom-class="chat-widget__reply"
+        :disabled-tooltip="false"
         :loading="loading"
         v-model="message"
         @reply="reply">

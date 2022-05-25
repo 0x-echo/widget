@@ -1,18 +1,9 @@
 <template>
   <div
     class="user-item">
-    <chat-avatar
-      class="user-item__avatar"
-      v-if="!badge"
-      :alt="title"
-      :size="36"
-      :hash="address"
-      :src="avatar">
-    </chat-avatar>
-    
     <el-badge 
       class="user-item__badge"
-      v-if="badge"
+      :hidden="!badge"
       :value="badge">
       <chat-avatar
         class="user-item__avatar"

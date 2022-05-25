@@ -11,6 +11,7 @@
       v-if="config.modules.includes('comment')"
       v-bind="$attrs"
       custom-class="chat-widget__reply"
+      :disabled-tooltip="false"
       :loading="loading">
     </reply-form>
     

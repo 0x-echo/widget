@@ -5,12 +5,22 @@
     <div
       class="reply-form"
       :class="customClass">
-      <chat-avatar
-        class="reply-form__avatar"
-        :alt="store.screen_name"
-        :hash="store.address"
-        :src="store.avatar || ''">
-      </chat-avatar>
+      <el-tooltip
+        :disabled="disabledTooltip"
+        effect="dark"
+        placement="bottom-start">
+        <template 
+          #content> 
+          Avatar is synced from <br />your .bit or .eth records.
+        </template>
+        
+        <chat-avatar
+          class="reply-form__avatar"
+          :alt="store.screen_name"
+          :hash="store.address"
+          :src="store.avatar || ''">
+        </chat-avatar>
+      </el-tooltip>
       
       <div
         class="reply-form__box">
@@ -54,7 +64,7 @@
 </template>
 
 <script setup>
-import { ElButton, ElInput } from 'element-plus'
+import { ElButton, ElInput, ElTooltip } from 'element-plus'
 import FormSkeleton from './skeleton'
 import useStore from '~~/store'
 
@@ -64,6 +74,10 @@ const avatar = computed(() => store.avatar)
 const props = defineProps({
   customClass: {
     type: String
+  },
+  disabledTooltip: {
+    type: Boolean,
+    default: true
   },
   showToolbar: {
     type: Boolean,
