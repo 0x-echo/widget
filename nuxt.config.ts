@@ -5,6 +5,7 @@ import NodeGlobalsPolyfillPlugin from '@esbuild-plugins/node-globals-polyfill'
 import nodePolyfills from 'rollup-plugin-node-polyfills'
 // import eslintPlugin from "vite-plugin-eslint"
 import polyfillExports from './dev/polyfill-exports'
+import commonjs from '@rollup/plugin-commonjs';
 
 export default defineNuxtConfig({
   meta: {
@@ -51,7 +52,11 @@ export default defineNuxtConfig({
   ],
   vite: {
     // plugins: [eslintPlugin()],
-    plugins: [polyfillExports()],
+    plugins: [
+      //polyfillExports(),
+      commonjs(),
+      inject({ Buffer: ['buffer', 'Buffer'] })
+    ],
     optimizeDeps: {
       esbuildOptions: {
         // Fix global is not defined error
