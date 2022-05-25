@@ -393,7 +393,18 @@ const doTipLogin = async () => {
   let value = '0.0001'
 
   try {
+    // force reselect
+    const rs = await window.ethereum.request({
+      method: "wallet_requestPermissions",
+      params: [
+        {
+          eth_accounts: {}
+        }
+      ]
+    })
+
     accounts = await ethereum.request({ method: 'eth_requestAccounts' })
+
     if (accounts.length) {
       account = accounts[0]
       $bus.emit('show-connect-loading', `Hold on. It may take up to 30s.`)
@@ -467,6 +478,10 @@ const doTipLogin = async () => {
     });
     } else {
       console.log('no accounts found')
+      $bus.emit('hide-connect-loading')
+      store.setStatus({
+        onTransactionProcessing: false
+      })
     }
   } catch (e) {
     console.log(e)
