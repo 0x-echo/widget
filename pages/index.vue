@@ -114,6 +114,8 @@ import useStore from '~~/store';
 import commonConfig from '../config'
 
 // import WalletConnectProvider from '@walletconnect/web3-provider'
+import WalletConnectProvider from '@walletconnect/web3-provider/dist/umd/index.min.js'
+
 import { providers, ethers } from "ethers";
 
 import useWidgetConfig from '~~/compositions/widget-config'
@@ -151,32 +153,32 @@ let summary = reactive({
 
 
 //  Create WalletConnect Provider
-// const provider = new WalletConnectProvider({
-//   infuraId: "dda2473ca43f4555926534d427abc648",
-//   // bridge: "https://bridge.walletconnect.org",
-//   qrcode: true
-// });
-// const web3Provider = new providers.Web3Provider(provider)
+const provider = new WalletConnectProvider({
+  infuraId: "dda2473ca43f4555926534d427abc648",
+  // bridge: "https://bridge.walletconnect.org",
+  qrcode: true
+});
+const web3Provider = new providers.Web3Provider(provider)
 
 //  Enable session (triggers QR Code modal)
-// ;(async () => {
-//   try {
-//     provider.on("accountsChanged", (accounts) => {
-//      console.log('accounts', accounts)
-//     });
+;(async () => {
+  try {
+    provider.on("accountsChanged", (accounts) => {
+      console.log('accounts', accounts)
+    });
 
-//     provider.on("chainChanged", (chainId) => {
-//       console.log(chainId);
-//     });
+    provider.on("chainChanged", (chainId) => {
+      console.log(chainId);
+    });
 
-//     // Subscribe to session disconnection
-//     provider.on("disconnect", (code, reason) => {
-//       console.log(code, reason);
-//     });
-//     } catch (e) {
-//       console.log(e)
-//     }
-//   })()
+    // Subscribe to session disconnection
+    provider.on("disconnect", (code, reason) => {
+      console.log(code, reason);
+    });
+  } catch (e) {
+    console.log(e)
+  }
+})()
 
 
 const CHECK_INTERVAL = 60 * 1000
@@ -568,7 +570,7 @@ const connectWallet =  async (item) => {
   if (item.value === 'metamask') {
     await login()
   } else {
-   //  await provider.enable()
+   await provider.enable()
   }
 }
 
