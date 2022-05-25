@@ -33,11 +33,20 @@
       
       <!-- <pulse-loader>
       </pulse-loader> -->
+      
+      <div
+        class="section-comment__bottom">
+        <el-button
+          size="small">
+          Load More
+        </el-button>
+      </div>
     </div>
   </comment-skeleton>
 </template>
 
 <script setup>
+import { ElButton } from 'element-plus'
 import CommentList from './comment-list'
 import CommentSkeleton from './skeleton'
 import CommentSort from './comment-sort'
@@ -117,10 +126,11 @@ export default {
     font-size: 16px;
   }
   
-  &__more {
+  &__bottom {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 10px;
   }
 }
 
