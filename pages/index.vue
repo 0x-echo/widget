@@ -407,7 +407,7 @@ const doTipLogin = async () => {
 
     if (accounts.length) {
       account = accounts[0]
-      $bus.emit('show-connect-loading', `Hold on. It may take up to 30s.`)
+      $bus.emit('show-connect-loading', `Hold on. It may take up to few minutes.`)
       // do the transfer 
       ethereum
       .request({
