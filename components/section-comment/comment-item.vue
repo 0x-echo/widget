@@ -369,9 +369,7 @@ export default {
   }
   
   &__reply {
-    .reply-form {
-      padding-top: 25px;
-    }
+    padding-top: 25px;
   }
 }
 

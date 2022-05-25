@@ -4,9 +4,10 @@
     role="button">
     <span
       class="comment-action__icon"
-      :class="{
-        'active': active
-      }">
+      :class="[`comment-action__icon--${value}`, {
+        'active': active,
+        'activated': activated
+      }]">
       <i
         :class="icon"
         :title="value">
@@ -74,6 +75,11 @@ watch(() => props.count, (val, oldVal) => {
     }
   }
 })
+
+let activated = ref(false)
+watch(() => props.active, (val, oldVal) => {
+  activated.value = val
+})
 </script>
 
 <style lang="scss">
@@ -88,6 +94,7 @@ watch(() => props.count, (val, oldVal) => {
   }
   
   &__icon {
+    position: relative;
     display: flex;
     align-items: center;
     padding: 8px;
@@ -104,11 +111,47 @@ watch(() => props.count, (val, oldVal) => {
     &.active {
       color: var(--color-primary);
     }
+    
+    &.activated {
+      &::after {
+        animation: scaleFade 0.5s forwards;
+      }
+    }
+    
+    &:after {
+      font-family: "remixicon"!important;
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      z-index: 1;
+      font-size: 14px;
+      color: var(--color-primary);
+      transform: scale(0);
+      transform-origin: center;
+      opacity: 0;
+    }
+  }
+  
+  &__icon--like {
+    &::after {
+      content: '\f206';
+    }
   }
   
   &__count {
     margin-left: 5px;
     font-size: 12px;
   }
+}
+
+@keyframes scaleFade {
+  50% { 
+		opacity: 1;
+		transform: scale(1);
+	}
+	100% {
+		opacity: 0;
+		transform: scale(2.5);
+	}
 }
 </style>
