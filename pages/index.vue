@@ -45,8 +45,7 @@
       @refresh-profile="refreshProfile">
     </section-toolbar>
     
-    <div
-      class="chat-widget__container"
+    <template
       v-if="widgetType === 'comment-only'">
       <reply-form
         custom-class="chat-widget__reply"
@@ -67,7 +66,7 @@
         @like-comment="likeComment"
         @report="goReport">
       </section-comment>
-    </div>
+    </template>
     
     <template-list
       v-if="['like-only', 'dislike-only', 'tip-only'].includes(widgetType)"
@@ -1146,6 +1145,8 @@ export default {
 
 <style lang="scss">
 .chat-widget {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   
   .has-v-padding & {

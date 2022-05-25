@@ -73,6 +73,11 @@ export default {
 
 <style lang="scss">
 .chat-tabs {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  
   &__header {
     position: relative;
     display: flex; 
@@ -133,6 +138,11 @@ export default {
     &:hover {
       color: var(--text-color-primary);
     }
+  }
+  
+  &__content {
+    flex: 1;
+    overflow-y: auto;
   }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <div
-    class="chat-widget__container template-tabs">
+  <!-- <div
+    class="template-tabs"> -->
     <section-toolbar
       v-bind="$attrs"
       :config="config"
@@ -73,7 +73,7 @@
         </empty-placeholder>
       </chat-tab-pane>
     </chat-tabs>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script setup>

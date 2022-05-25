@@ -2,7 +2,10 @@
   <comment-skeleton
     :loading="loading">
     <div
-      class="section-comment">
+      class="section-comment"
+      :class="{
+        'scrollable': widgetType === 'comment-only'
+      }">
       <div
         v-if="widgetType !== 'comment-only'"
         class="section-comment__toolbar">
@@ -77,6 +80,11 @@ export default {
 <style lang="scss">
 .section-comment {
   position: relative;
+  
+  &.scrollable {
+    flex: 1;
+    overflow-y: auto;
+  }
   
   &__toolbar {
     position: absolute;
