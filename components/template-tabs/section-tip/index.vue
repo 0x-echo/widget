@@ -4,7 +4,7 @@
     <user-item
       v-for="item in data"
       :key="item.id"
-      :avatar="item.author.avatar"
+      :avatar="item.author.avatar || ''"
       :badge="item.times === 1 ? '' : `x${item.times}`"
       :address="item.author.address"
       :title="((item.author.address === store.address) ? 'you' : $formatScreenName(item.author.screen_name))">
