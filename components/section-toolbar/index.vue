@@ -42,7 +42,7 @@
               <img
                 class="section-toolbar__user-wallet-icon" 
                 :src="logoMap[loginInfo.chain] || defaultLogo" 
-                :alt="logoMap[loginInfo.chain] ? loginInfo.address : ''">
+                :alt="loginInfo.chain">
               <span
                 class="section-toolbar__user-name">
                 {{ $formatScreenName(loginInfo.screen_name || loginInfo.address) }}
