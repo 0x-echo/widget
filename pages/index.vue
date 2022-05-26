@@ -395,7 +395,7 @@ const refreshProfile = async () => {
   try {
     await store.getScreenName(true)
     ElMessage.success({
-      message: 'Refresh done!'
+      message: 'Refreshing done!'
     })
   } finally {
     message.close()
