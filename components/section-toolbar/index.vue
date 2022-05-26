@@ -41,7 +41,7 @@
               class="section-toolbar__user">
               <img
                 class="section-toolbar__user-wallet-icon" 
-                :src="logoMap[loginInfo.chain]" 
+                :src="logoMap[loginInfo.chain] || defaultLogo" 
                 :alt="logoMap[loginInfo.chain] ? loginInfo.address : ''">
               <span
                 class="section-toolbar__user-name">
@@ -85,6 +85,7 @@ import polygonLogo from '~~/assets/chains/polygon.png'
 import optimismLogo from '~~/assets/chains/optimism.svg'
 import moonbeamLogo from '~~/assets/chains/moonbeam.png'
 import arbitrumLogo from '~~/assets/chains/arbitrum.png'
+import defaultLogo from '~~/assets/chains/unknown-chain.svg'
 
 const logoMap = {
   'EVM/1': ethLogo,
