@@ -80,8 +80,8 @@ import { ElSkeleton, ElSkeletonItem } from 'element-plus'
   
   &__action {
     width: 185px;
-    height: 21px;
-    margin-top: 6px;
+    height: 30px;
+    margin-top: 10px;
   }
 }
 

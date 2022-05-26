@@ -28,9 +28,19 @@ const onError = () => {
   }) 
 }
 const onSuccess = () => {
-  ElMessage.success({
-    message: 'Copied!'
+  // ElMessage.success({
+  //   message: 'Copied!'
+  // })
+  
+  const message = ElMessage({
+    customClass: 'el-message--no-icon',
+    message: h('div', { class: 'chat-loader', style: 'width: 20px; height: 20px;border-color:#4E75F6;'}, ''),
+    duration: 0
   })
+  
+  setTimeout(() => {
+    message.close()
+  }, 1000)
 }
 </script>
 

@@ -141,6 +141,14 @@
   .dark & {
     box-shadow: 0 0 0 1px rgba(white, .2);
   }
+  
+  &--no-icon {
+    padding-left: 20px;
+    
+    .el-message__icon {
+      display: none;
+    }
+  }
 
   &__content {
     font-weight: 700;
