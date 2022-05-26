@@ -195,6 +195,10 @@ const currentModule = computed(() => {
   &__action {
     margin-top: 15px;
     text-align: center;
+
+    & + .template-list__content {
+      margin-top: 30px;
+    }
   }
   
   &__action-button {
