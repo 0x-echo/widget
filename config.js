@@ -11,7 +11,8 @@ export default {
     'EVM/1': 'eth',
     'EVM/137': 'polygon',
     'EVM/10': 'optimism',
-    'EVM/1284': 'moonbeam'
+    'EVM/1284': 'moonbeam',
+    'EVM/56': 'bsc'
   },
 	api: () => {
     const config = configParser()
