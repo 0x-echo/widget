@@ -78,7 +78,13 @@ watch(() => props.count, (val, oldVal) => {
 
 let activated = ref(false)
 watch(() => props.active, (val, oldVal) => {
-  activated.value = val
+  if (val) {
+    activated.value = val 
+    
+    setTimeout(() => {
+      activated.value = false
+    }, 500)
+  }
 })
 </script>
 
