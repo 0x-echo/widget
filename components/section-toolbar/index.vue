@@ -116,6 +116,7 @@ const props = defineProps({
 })
 
 const emits = defineEmits([
+  'refresh-profile',
   'connect-wallet',
   'tip',
   'dislike',
