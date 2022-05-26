@@ -1201,6 +1201,12 @@ const init = async () => {
   const firstModule = config.modules[0]
   if (firstModule === 'comment') {
     await getList()
+    if (config.modules.includes('like')) {
+      await getReactions('like')
+    }
+    if (config.modules.includes('tip')) {
+      await getTips()
+    }
   }
   if (firstModule === 'like') {
     await getReactions('like')
