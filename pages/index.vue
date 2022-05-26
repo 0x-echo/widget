@@ -389,6 +389,13 @@ const refreshProfile = async () => {
 const sendTip = async ({ currentProvider, account, chainId }) => {
   let toAddress = '0x3c98b726Cd9e9F20BEcAFD05A9AfFeCD61617C0b'
   let value = '0.0001'
+
+  if (ethers.utils.getAddress(toAddress) === ethers.utils.getAddress(account)) {
+    ElMessage.error({
+      message: 'Sorry. Cannot send to the same address.'
+    })
+    return
+  }
   
   let loadingMessage = `Hold on. It may take up to few minutes.`
   if (store.wallet.loginApp === 'walletconnect') {
@@ -459,9 +466,13 @@ const sendTip = async ({ currentProvider, account, chainId }) => {
       store.setStatus({
         onTransactionProcessing: false
       })
+      console.log('send tip error:', error)
       ElMessage.error({
         message: error.message
       })
+      if (error.message.includes('unable to sign')) {
+        provider && provider.disconnect()
+      }
     });
 }
 
@@ -480,15 +491,24 @@ const doTipLogin = async () => {
     const network = window.ethereum.networkVersion
     const tipNetwork = store.tip_network
     tipNetworkId = store.currency[tipNetwork].id
-    if (network !== tipNetworkId) {
-      if (process.env.NODE_ENV === 'production') {
-        ElMessage.error({
-          message: `Please switch your network to ${tipNetwork} first.`
-        })
-        return
-      }
+    if (network.toString() !== tipNetworkId.toString()) {
+      ElMessage.error({
+        message: `Your are on the wrong network. Please switch to ${tipNetwork} Mainnet`
+      })
+      return
     }
   } else if (store.wallet.loginApp === 'walletconnect') {
+
+    const chain = await web3provider.getNetwork()
+    const networkId = chain.chainId
+    const tipNetworkId = store.currency[store.tip_network].id
+    if (networkId.toString() !== tipNetworkId.toString()) {
+      ElMessage.error({
+        message: `Your are on the wrong network. Please switch to ${tipNetwork} Mainnet`
+      })
+      return
+    }
+
     currentProvider = provider
   }
   
@@ -523,6 +543,9 @@ const doTipLogin = async () => {
       })
     }
   } catch (e) {
+    ElMessage.error({
+      message: e.message
+    })
     console.log(e)
   }
 }
