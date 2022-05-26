@@ -68,7 +68,6 @@ const currentTab = computed(() => store.layout.currentTab)
 
 watch(currentTab, (newVal, oldVal) => {
   if (newVal === 'like') {
-    console.log('change', newVal, oldVal)
     val.value = props.value
   }
 })

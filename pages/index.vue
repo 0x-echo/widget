@@ -1134,6 +1134,10 @@ const onChangeTab = async (val) => {
   }
 }
 
+window.addEventListener('beforeunload', (event) => {
+  provider && provider.disconnect()
+})
+
 init().then(() => {})
 </script>
 
