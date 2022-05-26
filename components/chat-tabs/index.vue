@@ -7,15 +7,22 @@
         class="chat-tabs__header"
         v-if="showHeader">
         <div
-          class="chat-tabs__item"
-          :class="{
-            'active': item.value === activeTab
-          }"
-          v-for="item in tabs"
-          :key="item.value"
-          @click="onChangeTab(item.value)">
-          <template v-if="item.count">{{ $formatNumber(item.count) }}</template> {{ item.count !== 1 ? item.plurLabel : item.label }}
+          class="chat-tabs__nav">
+          <div
+            class="chat-tabs__item"
+            :class="{
+              'active': item.value === activeTab
+            }"
+            v-for="item in tabs"
+            :key="item.value"
+            @click="onChangeTab(item.value)">
+            <template v-if="item.count">{{ $formatNumber(item.count) }}</template> {{ item.count !== 1 ? item.plurLabel : item.label }}
+          </div>
         </div>
+        
+        <slot
+          name="header-right">
+        </slot>
       </div>
     </tabs-skeleton>
     
@@ -85,6 +92,8 @@ export default {
   &__header {
     position: relative;
     display: flex; 
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 28px;
     overflow-x: auto;
     
@@ -101,6 +110,10 @@ export default {
     &::-webkit-scrollbar {
       display: none;
     }
+  }
+  
+  &__nav {
+    display: flex; 
   }
   
   &__item {

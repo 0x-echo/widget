@@ -21,6 +21,13 @@
       :loading="loading"
       :tabs="tabs"
       @on-change-tab="$emit('on-change-tab', activeTab)">
+      <template
+        #header-right>
+        <chat-sort
+          v-model="currentSort">
+        </chat-sort>
+      </template>
+      
       <chat-tab-pane
         value="comment">
         <section-comment
@@ -99,7 +106,8 @@ const props = defineProps({
 })
 
 const emits = defineEmits([
-  'on-change-tab'
+  'on-change-tab',
+  'sort-change'
 ])
 
 const activeTab = ref(props.config.modules[0])
@@ -135,6 +143,11 @@ const tabs = computed(() => {
   })
   
   return newList
+})
+
+let currentSort = ref('newest')
+watch(currentSort, (val) => {
+  emits('sort-change', val)
 })
 </script>
 

@@ -7,15 +7,6 @@
         'scrollable': widgetType === 'comment-only'
       }">
       <div
-        v-if="widgetType !== 'comment-only'"
-        class="section-comment__toolbar">
-        <comment-sort
-          v-bind="$attrs"
-          v-model="currentSort">
-        </comment-sort>
-      </div>
-      
-      <div
         v-if="newPosts > 0"
         class="section-comment__refresh"
         @click="$emit('refresh-comments')">
@@ -54,7 +45,6 @@
 import { ElButton } from 'element-plus'
 import CommentList from './comment-list'
 import CommentSkeleton from './skeleton'
-import CommentSort from './comment-sort'
 import useStore from '~~/store'
 
 const store = useStore();
@@ -74,15 +64,8 @@ const props = defineProps({
 })
 
 const emits = defineEmits([
-  'update:modelValue',
-  'sort-change'
+  'update:modelValue'
 ])
-
-let currentSort = ref('newest')
-
-watch(currentSort, (val) => {
-  emits('sort-change', val)
-})
 </script>
 
 <script>
@@ -98,12 +81,6 @@ export default {
   &.scrollable {
     flex: 1;
     overflow-y: auto;
-  }
-  
-  &__toolbar {
-    position: absolute;
-    top: -65px;
-    right: 0;
   }
   
   &__refresh {
