@@ -22,9 +22,11 @@
         @reply="reply"
         @reply-comment="replyComment"
         @report="goReport"
+        @view-arweave-info="viewArweaveInfo"
         @sort-change="sortChange"
         @tip="tip"
-        @load-children="loadChildren">
+        @load-children="loadChildren"
+        @load-more-comments="loadMoreComments">
       </template-tabs>
 
       <chat-footer
@@ -86,17 +88,17 @@ import { ElMessage } from 'element-plus'
 import { parseContent } from '../libs/content-parser'
 import { setColorTheme, getDraft, setDraft, setBodyClass, insertStyle } from '../libs/helper'
 
-const { public: { api, common, thirdParty }} = useRuntimeConfig()
 import useStore from '~~/store';
 import commonConfig from '../config'
-
-// import WalletConnectProvider from '@walletconnect/web3-provider/dist/umd/index.min.js'
 
 import { providers, ethers } from "ethers";
 
 import useWidgetConfig from '~~/compositions/widget-config'
 import useConfetti from '~~/compositions/confetti'
 
+const { public: { api, common, thirdParty }} = useRuntimeConfig()
+
+// import WalletConnectProvider from '@walletconnect/web3-provider/dist/umd/index.min.js'
 const GetWalletConnectProvider = () => import('@walletconnect/web3-provider/dist/umd/index.min.js')
 
 const { $bus } = useNuxtApp()
@@ -108,7 +110,11 @@ store.setWidgetConfig(config)
 const { showConfetti } = useConfetti()
 
 let currentTab = config.modules[0]
+store.setLayout({
+  currentTab
+})
 
+const status = computed(() => store.status)
 
 let summary = reactive({
   comments: [],
@@ -117,23 +123,17 @@ let summary = reactive({
   tips: []
 })
 
-// console.log(WalletConnectClient)
-// const connector = new WalletConnect({
-//   bridge: "https://bridge.walletconnect.org", // Required
-//   // qrcodeModal: QRCodeModal,
-// });
-// console.log(connector)
-// const client = await WalletConnectClient.init({
-//   projectId: thirdParty.WALLET_CONNECT_PROJECT_ID
-// })
 
-
-//  Create WalletConnect Provider
-
+const viewArweaveInfo = () => {
+  ElMessage.info({
+    message: 'Syncing to Arweave will be activated after Beta phase.'
+  })
+}
 
 let provider = null
 let web3provider = null
 
+// WalletConnect cannot reopen dialog, so recreate an instance each time dialog is closed.
 const getProvicer = async () => {
   const { default: WalletConnectProvider } = await GetWalletConnectProvider()
   console.log('get', WalletConnectProvider.default)
@@ -248,6 +248,12 @@ const beforePost = () => {
   }
 }
 
+const loadMoreComments = async () => {
+  if (!onFetch) {
+    await getList(++page)
+  }
+}
+
 let checkInterval = null
 
 let onHandlingStorageChange = false
@@ -294,7 +300,7 @@ onMounted(async () => {
     }, CHECK_INTERVAL)
 
     if (config.modules.includes('comment')) {
-      window.addEventListener("scroll", handleScroll)
+      // window.addEventListener("scroll", handleScroll)
     }
   } else {
     await getSummary()
@@ -325,7 +331,7 @@ const handleScroll = async (e) => {
 onBeforeUnmount(() => {
   checkInterval && clearInterval(checkInterval)
   if (config.modules.includes('comment')) {
-    window.removeEventListener('storage', handleStorageChange)
+    // window.removeEventListener('storage', handleStorageChange)
   }
 })
 
@@ -400,7 +406,12 @@ const refreshProfile = async () => {
 const sendTip = async ({ currentProvider, account, chainId }) => {
   let toAddress = '0x3c98b726Cd9e9F20BEcAFD05A9AfFeCD61617C0b'
   let value = '0.0001'
-  $bus.emit('show-connect-loading', `Hold on. It may take up to few minutes.`)
+  
+  let loadingMessage = `Hold on. It may take up to few minutes.`
+  if (store.wallet.loginApp === 'walletconnect') {
+    loadingMessage = `Please confirm the transaction and wait a moment.`
+  }
+  $bus.emit('show-connect-loading', loadingMessage)
       // do the transfer 
       currentProvider
       .request({
@@ -458,7 +469,7 @@ const sendTip = async ({ currentProvider, account, chainId }) => {
           await submitTip(data)
           await getTips()
         }
-      }, 5000)
+      }, commonConfig.wallet.transaction_check_interval)
     })
     .catch((error) => {
       $bus.emit('hide-connect-loading')
@@ -746,12 +757,15 @@ const tipLogin = (data) => {
 }
 
 // delete comment 
+let currentComment = null
 const deleteDialogVisible = ref(false)
 const goDeleteComment = (data) => {
   console.log(data)
+  currentComment = data
   deleteDialogVisible.value = true
 }
-const deleteComment = () => {
+const deleteComment = (data) => {
+  console.log(currentComment, 'go delete')
 }
 
 const getSummary = async () => {
@@ -806,11 +820,17 @@ const getTips = async () => {
 }
 
 let orderBy = 'newest'
+const commentSize = 20
 const getList = async (page = 1, since, parentId) => {
   if (onFetch) {
     return
   } else {
     onFetch = true
+    if (!parentId && !since) {
+      store.setData('comment', {
+        isLoadingMore: true
+      })
+    }
   }
 
   const params = {
@@ -860,6 +880,15 @@ const getList = async (page = 1, since, parentId) => {
         store.setLastGotTime(new Date().getTime())
         store.setNewPost(0)
         localUpdateCommentIds = []
+        store.setData('comment', {
+          hasMore: rs.total > commentSize,
+          isLoadingMore: false
+        })
+      } else {
+        store.setData('comment', {
+          hasMore: rs.total > ((page - 1) * commentSize + rs.list.length),
+          isLoadingMore: false
+        })
       }
     } else {
       summary.comments.forEach(one => {
@@ -961,6 +990,10 @@ const doReply = async (content, parentId, directParentId, successCallback, type 
         message: e.response._data.msg
       })
     }
+  } finally {
+    store.setStatus({
+      onSubmitingTargetComment: false
+    })
   }
 }
 
@@ -993,10 +1026,6 @@ const doReport = async (content, parentId, directParentId, successCallback) => {
         message: e.response._data.msg
       })
     }
-  } finally {
-    store.setStatus({
-      onSubmitingTargetComment: false
-    })
   }
 }
 
@@ -1122,6 +1151,9 @@ const init = async () => {
 
 const onChangeTab = async (val) => {
   currentTab = val
+  store.setLayout({
+    currentTab
+  })
   if (val === 'tip') {
     await getTips()
   }

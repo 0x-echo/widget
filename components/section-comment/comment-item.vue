@@ -142,6 +142,7 @@
               :is-focused="showReply"
               :loading="false"
               :placeholder="`Reply to ${ $formatScreenName(data.author.screen_name) }`"
+              position="comment"
               show-toolbar
               @reply="reply">
             </reply-form>
@@ -188,27 +189,39 @@ const emits = defineEmits([
 const moreMenuVisible = ref(false)
 const moreMenuActive = ref(false)
 const moreMenu = computed(() => {
+  // const menus = [{
+  //   icon: 'ri-information-line',
+  //   isLink: true,
+  //   label: 'Arweave TX',
+  //   url: 'https://viewblock.io/arweave/tx/',
+  //   value: 'view-arweave-info'
+  // }]
+
   const menus = [{
     icon: 'ri-information-line',
-    isLink: true,
     label: 'Arweave TX',
     url: 'https://viewblock.io/arweave/tx/',
     value: 'view-arweave-info'
-  }, {
-    icon: 'ri-alert-line',
-    label: 'Report',
-    value: 'report'
   }]
 
-if (props.data.can_delete) {
+  if (store.hasLogined && !store.isMe(props.data.created_by)) {
     menus.push({
-      danger: true,
-      icon: 'ri-close-circle-line',
-      label: 'Delete',
-      value: 'delete-comment',
-      permission: 'can_delete'
+      icon: 'ri-alert-line',
+      label: 'Report',
+      value: 'report'
     })
   }
+
+  // @later
+  // if (props.data.can_delete) {
+  //   menus.push({
+  //     danger: true,
+  //     icon: 'ri-close-circle-line',
+  //     label: 'Delete',
+  //     value: 'delete-comment',
+  //     permission: 'can_delete'
+  //   })
+  // }
   return menus
 })
 

@@ -12,7 +12,8 @@
       v-bind="$attrs"
       custom-class="chat-widget__reply"
       :disabled-tooltip="false"
-      :loading="loading">
+      :loading="loading"
+      position="top">
     </reply-form>
     
     <chat-tabs

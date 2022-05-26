@@ -14,14 +14,24 @@
             <i
               class="ri-flashlight-fill section-template__value-icon">
             </i>
-            
+
             <span>
-              {{ label }}: ${{ value }}
+              {{ label }}: $
+              <span
+                v-show="store.widgetConfig.modules[0] === 'like'">{{ value }}</span>
+              <vue3-autocounter
+                v-if="store.widgetConfig.modules.includes('like') && store.widgetConfig.modules[0] !== 'like'"
+                autoinit
+                :duration="0.5"
+                :startAmount='0'
+                :endAmount="val"
+                separator=","></vue3-autocounter>
             </span>
+
           </div>
         </el-tooltip>
       </div>
-      
+
       <div
         class="section-template__list">
         <slot>
@@ -32,8 +42,12 @@
 </template>
 
 <script setup>
+import Vue3Autocounter from 'vue3-autocounter'
 import { ElTooltip } from 'element-plus'
 import TemplateSkeleton from './skeleton'
+import useStore from '~~/store';
+
+const store = useStore()
 
 const props = defineProps({
   label: {
@@ -44,6 +58,18 @@ const props = defineProps({
   },
   value: {
     type: [String, Number]
+  }
+})
+
+const val = ref(0)
+const show = ref(false)
+
+const currentTab = computed(() => store.layout.currentTab)
+
+watch(currentTab, (newVal, oldVal) => {
+  if (newVal === 'like') {
+    console.log('change', newVal, oldVal)
+    val.value = props.value
   }
 })
 </script>

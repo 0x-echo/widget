@@ -44,6 +44,7 @@
             v-show="showToolbarValue">
             <el-button
               class="reply-form__send-button"
+              :loading="position === 'comment' ? false : status.onSubmitingTargetComment"
               size="large"
               type="primary"
               @click.stop="$emit('reply')">
@@ -70,6 +71,7 @@ import useStore from '~~/store'
 
 const store = useStore()
 const avatar = computed(() => store.avatar)
+const status = computed(() => store.status)
 
 const props = defineProps({
   customClass: {
@@ -90,6 +92,9 @@ const props = defineProps({
   placeholder: {
     type: String,
     default: 'Type something...'
+  },
+  position: {
+    type: String
   }
 })
 

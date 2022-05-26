@@ -45,7 +45,7 @@
     <div
       v-if="store.wallet.loginType === 'tip'"
       class="dialog-connect__tip">
-      Tip: You can choose other address and network to tip the author.
+      Tip: You can use another address to tip the author.
     </div>
   </el-dialog>
 </template>

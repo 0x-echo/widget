@@ -34,13 +34,16 @@
       <div
         class="section-comment__bottom">
         <el-button
+          v-if="store.comment.hasMore && !store.comment.isLoadingMore"
           class="section-comment__more-button"
           size="small"
-          type="info">
+          type="info"
+          @click="$emit('load-more-comments')">
           Load More
         </el-button>
         
-        <pulse-loader>
+        <pulse-loader
+          v-if="store.comment.isLoadingMore">
         </pulse-loader>
       </div>
     </div>

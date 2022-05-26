@@ -15,7 +15,7 @@
     </template>
     
     <div>
-      I am Message...
+      The action cannot be undone.
     </div>
     
     <div

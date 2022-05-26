@@ -1,3 +1,5 @@
+// @important All new keys must be UpperCase
+
 import { defineStore } from 'pinia'
 import config from '../config'
 import axios from 'axios'
@@ -17,12 +19,22 @@ const useStore = defineStore('global', {
     },
 
     widgetConfig: {
-      show_comment_dislike: false
+      show_comment_dislike: false,
+      modules: []
     },
 
     wallet: {
       loginType: 'login', // or tip
       loginApp: 'metamask' // or walletconnect
+    },
+
+    layout: {
+      currentTab: ''
+    },
+
+    comment: {
+      hasMore: true,
+      isLoadingMore: false
     },
 
     hasLogined: false,
@@ -58,6 +70,28 @@ const useStore = defineStore('global', {
     }
   }),
 	actions: {
+    setData (module, data) {
+      if (!module) {
+        return
+      }
+      if (typeof data !== 'object') {
+        return
+      }
+      for (let i in data) {
+        this[module][i] = data[i]
+      }
+    },
+    isMe (fullAddress) {
+      if (!this.hasLogined) {
+        return false
+      }
+      return fullAddress === (this.chain + '/' + this.address)
+    },
+    setLayout (data) {
+      for (let i in data) {
+        this.layout[i] = data[i]
+      }
+    },
     setWallet (data) {
       for (let i in data) {
         this.wallet[i] = data[i]
