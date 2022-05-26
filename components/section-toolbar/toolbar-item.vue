@@ -150,6 +150,10 @@ watch(() => props.count, (val, oldVal) => {
     width: 40px;
     height: 40px;
   }
+
+  .ri-money-dollar-circle-line {
+    font-size: 18px;
+  }
   
   [id="likeButton"] {
     position: relative;
@@ -197,7 +201,7 @@ watch(() => props.count, (val, oldVal) => {
         will-change: opacity, box-shadow;
         animation-name: particles;
       }
-    } 
+    }
   }
   
   &__count {
