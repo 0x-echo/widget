@@ -84,6 +84,10 @@ const props = defineProps({
     font-size: 12px;
     color: var(--text-color-muted);
   }
+
+  &__badge {
+    display: flex;
+  }
 }
 
 @media screen and (max-width: #{$mobile-width - 1px}) {
