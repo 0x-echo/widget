@@ -117,6 +117,7 @@ store.setLayout({
 const status = computed(() => store.status)
 
 let summary = reactive({
+  name: 'code.bit',
   bio: 'Hello world.',
   avatar: 'https://ipfs.io/ipfs/QmVD87KnmMEgmDtV254xo3171KNpvv6xidQqaZZ9bpbzFX',
   comments: [],
