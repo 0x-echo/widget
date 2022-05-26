@@ -408,6 +408,9 @@ const sendTip = async ({ currentProvider, account, chainId }) => {
     return
   }
 
+  const valueSplit = value.toString().split('.')
+  value = valueSplit[0] + '.' + valueSplit[1].slice(0, 18)
+
   if (ethers.utils.getAddress(toAddress) === ethers.utils.getAddress(account)) {
     ElMessage.error({
       message: 'Sorry. Cannot send to the same address.'
@@ -428,7 +431,7 @@ const sendTip = async ({ currentProvider, account, chainId }) => {
           {
             from: account,
             to: toAddress,
-            value: ethers.utils.parseEther(value.toString()).toHexString()
+            value: ethers.utils.parseEther(value).toHexString()
             // gasPrice: '',
             // gas: '',
           }

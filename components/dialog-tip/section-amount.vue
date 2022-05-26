@@ -36,8 +36,8 @@
           class="section-amount__custom-input"
           v-model="customAmount"
           :controls="false"
-          :min="0"
-          :precision="3"
+          :min="0.0001"
+          :precision="4"
           size="large"
           @input="onChangeInput"
           @blur="onBlurInput" />
