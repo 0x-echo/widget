@@ -53,7 +53,7 @@
 
 <script setup>
 import { reactive } from 'vue'
-import { ElButton, ElCollapseTransition, ElDialog, ElLoading } from 'element-plus'
+import { ElButton, ElCollapseTransition, ElDialog, ElLoading, ElMessage } from 'element-plus'
 import SectionAmount from './section-amount'
 import SectionNetwork from './section-network'
 import SectionUser from './section-user'
@@ -96,6 +96,12 @@ let data = reactive({
 })
 
 const goNext = () => {
+  if (!store.currency[store.tip_network].usd) {
+    ElMessage.error({
+      message: 'Fail to get currency. Please try again later.'
+    })
+    return
+  }
   close()
   emits('go-next', data)
 } 

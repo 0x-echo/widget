@@ -65,6 +65,11 @@ const useStore = defineStore('global', {
         symbol: 'MATIC',
         usd: '',
         id: 80001
+      },
+      optimism: {
+        symbol: 'op',
+        usd: '',
+        id: 10
       }
     }
   }),
@@ -155,9 +160,14 @@ const useStore = defineStore('global', {
         'matic-network': 'polygon'
       }
       try {
-        const ids = Object.keys(this.currency).map(one => map[one]).join(',')
+        const ids = Object.keys(this.currency).map(one => map[one]).filter(one => !!one).join(',')
+        // https://api.coingecko.com/api/v3/coins/list
         // const data = await $fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`)
-        const { data: data } = await $fetch(config.api().CURRENCY)
+        const { data: data } = await $fetch(config.api().CURRENCY, {
+          params: {
+            ids
+          }
+        })
         for (let i in data) {
           if (data[i].usd) {
             const name = remap[i]

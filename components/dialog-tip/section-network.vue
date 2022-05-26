@@ -41,6 +41,7 @@ import iconMatemask from '@/assets/metamask.svg'
 
 import ethLogo from '~~/assets/chains/ethereum.png'
 import polygonLogo from '~~/assets/chains/polygon.png'
+import opLogo from '~~/assets/chains/optimism.svg'
 
 import useStore from '~~/store';
 
@@ -79,6 +80,11 @@ const list = [{
   icon: polygonLogo,
   value: 'polygon'
 }
+// {
+//   label: 'Optimism',
+//   icon: opLogo,
+//   value: 'optimism'
+// }
 // {
 //   label: 'Binance Chain',
 //   icon: iconMatemask,

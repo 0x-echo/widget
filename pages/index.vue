@@ -141,6 +141,7 @@ const getProvicer = async () => {
     // bridge: "https://bridge.walletconnect.org",
     qrcode: true,
     rpc: {
+      10: 'https://mainnet.optimism.io',
       137: 'https://matic-mainnet.chainstacklabs.com',
       80001: 'https://matic-mumbai.chainstacklabs.com'
     }
