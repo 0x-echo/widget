@@ -96,6 +96,8 @@ import { providers, ethers } from "ethers";
 import useWidgetConfig from '~~/compositions/widget-config'
 import useConfetti from '~~/compositions/confetti'
 
+import useLoading from '~~/compositions/loading'
+
 const { public: { api, common, thirdParty }} = useRuntimeConfig()
 
 // import WalletConnectProvider from '@walletconnect/web3-provider/dist/umd/index.min.js'
@@ -108,6 +110,7 @@ const { config } = useWidgetConfig()
 store.setWidgetConfig(config)
 
 const { showConfetti } = useConfetti()
+const { showLoading } = useLoading()
 
 let currentTab = config.modules[0]
 store.setLayout({
@@ -691,7 +694,12 @@ if (accounts.length) {
 const sortChange = async (val) => {
   orderBy = val
   page = 1
-  await getList(page)
+  const instance = showLoading()
+  try {
+    await getList(page)
+  } finally {
+    instance.close()
+  }
 }
 
 let hasOpen = false
