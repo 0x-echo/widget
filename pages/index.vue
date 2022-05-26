@@ -871,9 +871,11 @@ const getList = async (page = 1, since, parentId) => {
   } else {
     onFetch = true
     if (!parentId && !since) {
-      store.setData('comment', {
-        isLoadingMore: true
-      })
+      if (page > 1) {
+        store.setData('comment', {
+          isLoadingMore: true
+        })
+      }
     }
   }
 
