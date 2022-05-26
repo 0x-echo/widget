@@ -127,12 +127,4 @@ export default {
     }
   }
 }
-
-@media screen and (max-width: #{$tablet-width - 1px}) {
-  .section-comment {
-    &__toolbar {
-      display: none;
-    }
-  }
-}
 </style>

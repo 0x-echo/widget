@@ -9,9 +9,9 @@
     <template 
       #reference>
       <div
-        class="comment-sort">
+        class="chat-sort">
         <span
-          class="comment-sort__label">
+          class="chat-sort__label">
           {{ sortOptions.filter(item => {return item.value === currentSort })[0].label }}
         </span>
         
@@ -22,7 +22,7 @@
     </template>
     
     <div
-      class="comment-sort__list">
+      class="chat-sort__list">
       <menu-item
         v-for="item in sortOptions"
         :key="item.value"
@@ -72,7 +72,7 @@ const onClickSortOption = (value) => {
 </script>
 
 <style lang="scss">
-.comment-sort {
+.chat-sort {
   display: inline-flex;
   align-items: center;
   justify-content: flex-end;

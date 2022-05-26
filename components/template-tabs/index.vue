@@ -23,10 +23,13 @@
       @on-change-tab="$emit('on-change-tab', activeTab)">
       <template
         #header-right>
-        <chat-sort
-          v-if="activeTab === 'comment'"
-          v-model="currentSort">
-        </chat-sort>
+        <div
+          class="template-tabs__sort">
+          <chat-sort
+            v-if="activeTab === 'comment'"
+            v-model="currentSort">
+          </chat-sort>
+        </div>
       </template>
       
       <chat-tab-pane
@@ -159,4 +162,11 @@ export default {
 </script>
 
 <style lang="scss">
+@media screen and (max-width: #{$tablet-width - 1px}) {
+  .template-tabs {
+    &__sort {
+      display: none;
+    }
+  }
+}
 </style>
