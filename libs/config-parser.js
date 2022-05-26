@@ -3,7 +3,8 @@ import qs from 'query-string'
 const booleanFields = [
   'has-h-padding',
   'h-v-padding',
-  'show-comment-dislike'
+  'show-comment-dislike',
+  'support-mumbai'
 ]
 
 export default function () {

@@ -41,7 +41,7 @@
               class="section-toolbar__user">
               <img
                 class="section-toolbar__user-wallet-icon" 
-                :src="logoMap[loginInfo.chain] || defaultLogo" 
+                :src="logos[loginInfo.chain] || defaultLogo" 
                 :alt="loginInfo.chain">
               <span
                 class="section-toolbar__user-name">
@@ -79,20 +79,9 @@ import { ElPopover } from 'element-plus'
 import ToolbarItem from './toolbar-item'
 import ToolbarSkeleton from './skeleton'
 import useStore from '~~/store'
+import useChain from '~~/compositions/chain'
 
-import ethLogo from '~~/assets/chains/ethereum.png'
-import polygonLogo from '~~/assets/chains/polygon.png'
-import optimismLogo from '~~/assets/chains/optimism.svg'
-import moonbeamLogo from '~~/assets/chains/moonbeam.png'
-import arbitrumLogo from '~~/assets/chains/arbitrum.png'
-import defaultLogo from '~~/assets/chains/unknown-chain.svg'
-
-const logoMap = {
-  'EVM/1': ethLogo,
-  'EVM/137': polygonLogo,
-  'EVM/10': optimismLogo,
-  'EVM/1284': moonbeamLogo
-}
+const { logos, defaultLogo } = useChain()
 
 const store = useStore()
 const counts = computed(() => store.counts)

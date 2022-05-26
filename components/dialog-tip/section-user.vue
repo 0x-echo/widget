@@ -45,7 +45,7 @@
               :key="item.type">
               <img 
                 class="section-user__wallet-icon"
-                src="">
+                :src="logos[item.chain] || defaultLogo">
                 
               <span
                 class="section-user__address">
@@ -61,6 +61,10 @@
 
 <script setup>
 import { ElCollapseTransition } from 'element-plus'
+import useChain from '~~/compositions/chain'
+
+const { logos, defaultLogo } = useChain()
+
 
 const props = defineProps({
   data: {

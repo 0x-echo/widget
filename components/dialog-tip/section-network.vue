@@ -79,10 +79,6 @@ const list = [{
   label: 'Polygon',
   icon: polygonLogo,
   value: 'polygon'
-}, {
-  label: 'Mumbai(for test)',
-  icon: polygonLogo,
-  value: 'mumbai'
 }
 // {
 //   label: 'Optimism',
@@ -103,6 +99,14 @@ const list = [{
 //   value: 'ethereum2'
 // }
 ]
+
+if (store.widgetConfig['support_mumbai']) {
+  list.push({
+    label: 'Mumbai(for test)',
+    icon: polygonLogo,
+    value: 'mumbai'
+  })
+}
 
 const networkBox = ref(null)
 const scrollButtonVisible = ref(true)

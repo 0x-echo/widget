@@ -79,14 +79,15 @@ const onCloseDialog = () => {
 }
 
 const user = {
-  name: 'hello.bit',
-  bio: 'Hello world, hello world',
+  name: 'code.bit',
+  bio: 'Hello world.',
+  avatar: 'https://s2.loli.net/2022/01/25/7fwE8NhnRxpzSaG.png',
   wallet: [{
-    type: 'polygon',
-    address: '0x12243532323233456'
+    chain: 'EVM/1',
+    address: '0x3c98b726Cd9e9F20BEcAFD05A9AfFeCD61617C0b'
   }, {
-    type: 'eth',
-    address: '0x1323232424243456'
+    chain: 'EVM/137',
+    address: '0x3c98b726Cd9e9F20BEcAFD05A9AfFeCD61617C0b'
   }]
 }
 
