@@ -13,7 +13,7 @@
       <a 
         class="chat-footer__link"
         v-if="!minimal"
-        href=""
+        href="https://third.chat/privacy"
         target="_blank">
         Privacy Policy
       </a>
@@ -42,7 +42,7 @@
             icon="ri-chat-private-line"
             is-link
             label="Privacy Policy"
-            url="/">
+            url="https://third.chat/privacy/">
           </menu-item>
           
           <menu-item

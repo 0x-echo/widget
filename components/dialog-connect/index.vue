@@ -31,12 +31,12 @@
       class="dialog-connect__tip">
       By connecting your wallet and signing a message, you agree to Third.Chat's
       <a
-        href="/tos" 
+        href="https://third.chat/tos" 
         target="_blank">
         Term's & Conditions
       </a> and 
       <a
-        href="/privacy" 
+        href="https://third.chat/privacy" 
         target="_blank">
         Privacy Policy
       </a>
