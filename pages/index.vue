@@ -397,9 +397,16 @@ const refreshProfile = async () => {
 }
 
 const sendTip = async ({ currentProvider, account, chainId }) => {
-  console.log('account', account)
-  let toAddress = '0xFEA384b1cf76C495FA44D6f54F5702F778e00000'
-  let value = '0.0001'
+  let gotSuccess = false // may trigger more than once due to the slow network
+  let toAddress = '0x3c98b726Cd9e9F20BEcAFD05A9AfFeCD61617C0b'
+  let value = store.tip_amount / (store.currency[store.tip_network].usd)
+  console.log('value', value)
+  if (value <= 0) {
+      ElMessage.error({
+        message: 'Something is wrong. Please try again later.'
+      })
+    return
+  }
 
   if (ethers.utils.getAddress(toAddress) === ethers.utils.getAddress(account)) {
     ElMessage.error({
@@ -421,13 +428,18 @@ const sendTip = async ({ currentProvider, account, chainId }) => {
           {
             from: account,
             to: toAddress,
-            value: ethers.utils.parseEther(value).toHexString()
+            value: ethers.utils.parseEther(value.toString()).toHexString()
             // gasPrice: '',
             // gas: '',
           }
       ],
     })
     .then(async (txHash) => {
+      if (!gotSuccess) {
+        gotSuccess = true
+      } else {
+        return
+      }
       store.setStatus({
         onTransactionProcessing: true
       })
@@ -442,7 +454,9 @@ const sendTip = async ({ currentProvider, account, chainId }) => {
           usd_value: store.tip_amount,
           value,
           chain: chainId,
-          tx_hash: txHash
+          tx_hash: txHash,
+          currency: store.currency[store.tip_network].usd,
+          network: store.currency[store.tip_network]
         }
       }
       await submitTip(data)
@@ -515,7 +529,7 @@ const doTipLogin = async () => {
     const tipNetworkId = store.currency[store.tip_network].id
     if (networkId.toString() !== tipNetworkId.toString()) {
       ElMessage.error({
-        message: `Your are on the wrong network. Please switch to ${tipNetwork}`
+        message: `Your are on the wrong network. Please switch to ${store.tip_network}`
       })
       return
     }
@@ -558,6 +572,10 @@ const doTipLogin = async () => {
       message: e.message
     })
     console.log(e)
+    $bus.emit('hide-connect-loading')
+    store.setStatus({
+      onTransactionProcessing: false
+    })
   }
 }
 
