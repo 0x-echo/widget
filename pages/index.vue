@@ -136,7 +136,6 @@ let web3provider = null
 // WalletConnect cannot reopen dialog, so recreate an instance each time dialog is closed.
 const getProvicer = async () => {
   const { default: WalletConnectProvider } = await GetWalletConnectProvider()
-  console.log('get', WalletConnectProvider.default)
   const provider = new WalletConnectProvider ({
     infuraId: "dda2473ca43f4555926534d427abc648",
     // bridge: "https://bridge.walletconnect.org",
@@ -165,23 +164,15 @@ const setUpProvider = async () => {
       if (store.wallet.loginType === 'tip') {
         return
       }
-      console.log('accounts', accounts)
       const chain = await web3provider.getNetwork()
-      console.log('chain', chain)
       const networkId = chain.chainId
 
       const message = commonConfig.wallet.auth_message.replace('TIMESTAMP', new Date().getTime())
-      // let accounts = []
-      console.log('accounts', accounts)
-      // if (!accounts.length) {
-      //   accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-      // }
-      //console.log('accounts2', accounts)
+
       const account = accounts[0]
       $bus.emit('show-connect-loading', `Please sign the message.`)
       try {
         const signature = await provider.request({ method: 'personal_sign', params: [ message, account ] })
-        console.log('signature', signature)
         $bus.emit('hide-connect-loading')
         await requestLogin(account, message, signature, networkId)
       } catch (e) {
@@ -190,7 +181,6 @@ const setUpProvider = async () => {
           message: e.message
         })
       }
-      
     })
 
     provider.on("chainChanged", (chainId) => {
@@ -200,7 +190,6 @@ const setUpProvider = async () => {
     // Subscribe to session disconnection
     provider.on("disconnect", (code, reason) => {
       $bus.emit('hide-connect-loading')
-      console.log(code, reason);
     });
 
     provider.on("error", (error) => {
@@ -381,12 +370,6 @@ watch(message, (val) => {
   setDraft(TARGET_URI, message.value)
 })
 
-var url = (window.location != window.parent.location)
-            ? document.referrer
-            : document.location.href;
-
-console.log('origin', window.location.ancestorOrigins[0])
-
 const login = async () => {
   if (store.wallet.loginType === 'login') {
     await doAccountLogin()
@@ -401,7 +384,6 @@ const refreshProfile = async () => {
     message: 'Refresh done!'
   })
 }
-
 
 const sendTip = async ({ currentProvider, account, chainId }) => {
   let toAddress = '0x3c98b726Cd9e9F20BEcAFD05A9AfFeCD61617C0b'
@@ -482,12 +464,17 @@ const sendTip = async ({ currentProvider, account, chainId }) => {
     });
 }
 
-
 let checkTipInterval = null
 const doTipLogin = async () => {
   let currentProvider
   let tipNetworkId
   if (store.wallet.loginApp === 'metamask') {
+    if (!window.ethereum) {
+      ElMessage.error({
+        message: 'Please install MetaMask first.'
+      })
+      return
+    }
     currentProvider = window.ethereum
     const network = window.ethereum.networkVersion
     const tipNetwork = store.tip_network
@@ -501,8 +488,6 @@ const doTipLogin = async () => {
       }
     }
   } else if (store.wallet.loginApp === 'walletconnect') {
-    console.log('go here')
-    // await setUpProvider()
     currentProvider = provider
   }
   
@@ -527,13 +512,10 @@ const doTipLogin = async () => {
       accounts = await ethereum.request({ method: 'eth_accounts' })
     }
 
-    console.log('accounts', accounts)
-
     if (accounts.length) {
       account = accounts[0]
       await sendTip({ currentProvider, account, chain: tipNetworkId })
     } else {
-      console.log('no accounts found')
       $bus.emit('hide-connect-loading')
       store.setStatus({
         onTransactionProcessing: false
@@ -556,7 +538,6 @@ const requestLogin = async (account, message, signature, chainId) => {
         },
         headers: getCommonHeader()
       })
-      console.log(rs)
 
       connectDialogVisible.value = false
 
@@ -619,15 +600,13 @@ const doAccountLogin = async () => {
   let signature
   const message = commonConfig.wallet.auth_message.replace('TIMESTAMP', new Date().getTime())
 
-  console.log('accounts', accounts)
   if (!accounts.length) {
     accounts = await ethereum.request({ method: 'eth_requestAccounts' })
   }
-  console.log('accounts2', accounts)
-  if (accounts.length) {
+
+if (accounts.length) {
     account = accounts[0]
     signature = await ethereum.request({ method: 'personal_sign', params: [ message, account ] })
-    console.log('signature', signature)
 
     await requestLogin(account, message, signature, window.ethereum.networkVersion)
   }
@@ -648,16 +627,13 @@ const connectWallet =  async (item) => {
     await login()
   } else {
     await setUpProvider()
-    console.log('walletconnect go', provider)
     try {
       await provider.enable()
     } catch (e) {
-      console.log('enable error', e)
       await provider.disconnect()
     }
 
     if (store.wallet.loginType === 'tip') {
-      console.log('wallconnect 打赏')
       await doTipLogin()
     }
   }
@@ -722,18 +698,15 @@ const like = async (data) => {
 
 const likeComment = async (data) => {
   await doReact((data.has_liked ? '-' : '') + 'like', data)
-  console.log(data)
 }
 
 // dislike
 const dislike = async (data) => {
   await doReact((data ? '-' : '') + 'dislike')
-  console.log('dislike', data)
 }
 
 const dislikeComment = async (data) => {
   await doReact((data.has_disliked ? '-' : '') + 'dislike', data)
-  console.log(data)
 }
 
 // tip
@@ -760,12 +733,10 @@ const tipLogin = (data) => {
 let currentComment = null
 const deleteDialogVisible = ref(false)
 const goDeleteComment = (data) => {
-  console.log(data)
   currentComment = data
   deleteDialogVisible.value = true
 }
 const deleteComment = (data) => {
-  console.log(currentComment, 'go delete')
 }
 
 const getSummary = async () => {
@@ -791,10 +762,7 @@ const getReactions = async (subType) => {
       params,
       headers: getCommonHeader()
     })
-    console.log('rs', rs)
-    console.log('summary', summary)
     summary[subType + 's'] = rs.list
-    console.log('counts', rs.target_summary)
     store.setCounts(rs.target_summary)
   } catch (e) {
     console.log(e)
@@ -1100,13 +1068,11 @@ const replyComment = async (data) => {
     return
   }
   
-  console.log('data', data)
   await doReply(data.message, null, data.data.id, null)
   $bus.emit('reset-reply-comment', data.data)
 }
 
 const refreshComments = () => {
-  console.log('refresh-comments')
   getList(1, store.last_got_time)
 }
 

@@ -87,10 +87,8 @@ onMounted(() => {
 })
 
 watch(() => props.count, (val, oldVal) => {
-  console.log('value change', val, oldVal)
   const oldLength = oldVal.toString().length
   const newLength = val.toString().length
-  console.log(oldLength, newLength)
 
   // drop from 4 digits to 2 digits
   if (Math.abs(newLength - oldLength) >= 2) {
@@ -125,7 +123,6 @@ watch(() => props.count, (val, oldVal) => {
         systemArr: [(props.count < 10 && props.count < 10) ? '&nbsp;' : 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
       })
     }
-    console.log('go flip')
     try {
       flip.flipTo({
         from,

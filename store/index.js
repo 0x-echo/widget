@@ -4,7 +4,6 @@ import { defineStore } from 'pinia'
 import config from '../config'
 import axios from 'axios'
 
-console.log(config)
 const useStore = defineStore('global', {
 	state: () => ({
     counts: {
@@ -113,7 +112,6 @@ const useStore = defineStore('global', {
           method: 'eth_getBalance',
           params: [account, 'latest']
         })
-        console.log('got balance', rs)
         this.balance = rs
       } catch (e) {}
     },
@@ -180,11 +178,10 @@ const useStore = defineStore('global', {
           }
         })
       } catch (e) {
-        console.log('sync balance:', e)
+        console.log('sync balance error:', e)
       }
     },
     async getScreenName (force) {
-      console.log('get screen name', this.address)
       try {
         const { data: rs } = await $fetch(config.api().GET_USER_INFO, {
           params: {
@@ -192,8 +189,6 @@ const useStore = defineStore('global', {
             force: force ? 'true' : ''
           }
         })
-        console.log('rs name', rs)
-        // this.screen_name = rs.screen_name
         if (rs.dotbit || rs.ens) {
           this.screen_name = rs.dotbit || rs.ens
         }
