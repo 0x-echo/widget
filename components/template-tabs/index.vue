@@ -24,6 +24,7 @@
       <template
         #header-right>
         <chat-sort
+          v-if="activeTab === 'comment'"
           v-model="currentSort">
         </chat-sort>
       </template>
