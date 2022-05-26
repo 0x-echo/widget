@@ -598,7 +598,7 @@ const requestLogin = async (account, message, signature, chainId) => {
 }
 
 const doAccountLogin = async () => {
-  if (store.wallet.loginType === 'metamask') {
+  if (store.wallet.loginApp === 'metamask') {
     if (!window.ethereum) {
       ElMessage.error({
         message: 'Please install MetaMask first.'
