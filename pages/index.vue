@@ -380,14 +380,25 @@ const login = async () => {
 }
 
 const refreshProfile = async () => {
-  await store.getScreenName(true)
-  ElMessage.success({
-    message: 'Refresh done!'
+  const message = ElMessage({
+    customClass: 'el-message--no-icon',
+    message: h('div', { class: 'chat-loader', style: 'width: 20px; height: 20px;border-color:#4E75F6;'}, ''),
+    duration: 0
   })
+  
+  try {
+    await store.getScreenName(true)
+    ElMessage.success({
+      message: 'Refresh done!'
+    })
+  } finally {
+    message.close()
+  }
 }
 
 const sendTip = async ({ currentProvider, account, chainId }) => {
-  let toAddress = '0x3c98b726Cd9e9F20BEcAFD05A9AfFeCD61617C0b'
+  console.log('account', account)
+  let toAddress = '0xFEA384b1cf76C495FA44D6f54F5702F778e00000'
   let value = '0.0001'
 
   if (ethers.utils.getAddress(toAddress) === ethers.utils.getAddress(account)) {
@@ -493,7 +504,7 @@ const doTipLogin = async () => {
     tipNetworkId = store.currency[tipNetwork].id
     if (network.toString() !== tipNetworkId.toString()) {
       ElMessage.error({
-        message: `Your are on the wrong network. Please switch to ${tipNetwork} Mainnet`
+        message: `Your are on the wrong network. Please switch to ${tipNetwork}`
       })
       return
     }
@@ -504,7 +515,7 @@ const doTipLogin = async () => {
     const tipNetworkId = store.currency[store.tip_network].id
     if (networkId.toString() !== tipNetworkId.toString()) {
       ElMessage.error({
-        message: `Your are on the wrong network. Please switch to ${tipNetwork} Mainnet`
+        message: `Your are on the wrong network. Please switch to ${tipNetwork}`
       })
       return
     }
@@ -551,6 +562,11 @@ const doTipLogin = async () => {
 }
 
 const requestLogin = async (account, message, signature, chainId) => {
+  const loading = ElMessage({
+    customClass: 'el-message--no-icon',
+    message: h('div', { class: 'chat-loader', style: 'width: 20px; height: 20px;border-color:#4E75F6;'}, ''),
+    duration: 0
+  })
   try {
       const { data: rs } = await $fetch(commonConfig.api().CREATE_USER, {
         method: 'POST',
@@ -578,6 +594,8 @@ const requestLogin = async (account, message, signature, chainId) => {
 
       await store.updateBalance(account)
 
+      loading.close()
+
       ElMessage.success({
         message: 'Sign in successfully!'
       })
@@ -590,6 +608,11 @@ const requestLogin = async (account, message, signature, chainId) => {
 
       await getSummary()
 
+      // should not be too fast, so user can see it happen.
+      setTimeout(async () => {
+        await afterLogin()
+      }, 800)
+
       setTimeout(async () => {
         await store.getScreenName()
       }, 10)
@@ -599,6 +622,7 @@ const requestLogin = async (account, message, signature, chainId) => {
       }, 20)
     } catch (e) {
       console.log(e)
+      loading.close()
     }
 }
 
@@ -613,10 +637,14 @@ const doAccountLogin = async () => {
   }
   const network = window.ethereum.networkVersion
   if (!commonConfig.supportedNetworks[`EVM/${network}`]) {
-    ElMessage.error({
-      message: `Sorry. The network is not supported. Current supported networks are: ${Object.values(commonConfig.supportedNetworks).join(', ')}.`
-    })
-    return
+    // if mumbai is supported
+    if (network.toString() === '80001' && store.widgetConfig.support_mumbai) {
+    } else {
+      ElMessage.error({
+        message: `Sorry. The network is not supported. Current supported networks are: ${Object.values(commonConfig.supportedNetworks).join(', ')}.`
+      })
+      return
+    }
   }
 
   let account
@@ -1021,9 +1049,30 @@ const doReport = async (content, parentId, directParentId, successCallback) => {
   }
 }
 
+// comment is a action that should be more serious, so we are not going to support auto-submitting it.
+const afterLogin = async () => {
+  if (store.login.beforeAction) {
+    // if already did, ignore
+    if (!store.counts[`has_${store.login.beforeAction}d`]) {
+      try {
+        await doReact(store.login.beforeAction)
+      } catch (e) {}
+    }
+    // reset to empty whether succeeded or not
+    store.setData('login', {
+      beforeAction: ''
+    })
+  }
+}
+
 
 const doReact = async (subType, data) => {
    try {
+    if (!data) {
+      store.setData('login', {
+        beforeAction: subType
+      })
+    }
     beforePost()
     const rs = await $fetch(commonConfig.api().CREATE_POST, {
       method: 'POST',

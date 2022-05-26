@@ -31,6 +31,10 @@ const useStore = defineStore('global', {
       currentTab: ''
     },
 
+    login: {
+      beforeAction: ''
+    },
+
     comment: {
       hasMore: true,
       isLoadingMore: false
