@@ -22,7 +22,7 @@
               <vue3-autocounter
                 v-if="store.widgetConfig.modules.includes('like') && store.widgetConfig.modules[0] !== 'like'"
                 autoinit
-                :duration="0.5"
+                :duration="1"
                 :startAmount='0'
                 :endAmount="val"
                 separator=","></vue3-autocounter>
