@@ -51,7 +51,7 @@
           :data="data.likes"
           :loading="loading"
           label="Liking Power"
-          tip="Estimated Total Value of all Liking Address"
+          tip="Estimated total value of all liking address"
           :value="counts.like_power">
         </section-vote>
         
@@ -64,7 +64,10 @@
         value="dislike">
         <section-vote
           :data="data.dislikes"
-          :loading="loading">
+          :loading="loading"
+          label="Disliking Power"
+          tip="Estimated total value of all disiking address"
+          :value="counts.like_power">
         </section-vote>
         
         <empty-placeholder
