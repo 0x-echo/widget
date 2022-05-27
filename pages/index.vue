@@ -1253,7 +1253,7 @@ const onChangeTab = async (val) => {
     await getReactions('like')
   }
   if (val === 'dislike') {
-    await getReactions('like')
+    await getReactions('dislike')
   }
   if (val === 'tip') {
     await getTips()
