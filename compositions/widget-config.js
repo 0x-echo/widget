@@ -43,9 +43,11 @@ export default () => {
 	}
 
   if (config.height) {
-    insertStyle(`.chat-widget {
-      height: ${config.height}px;
-    }`)
+    if (config.modules.includes('comment')) {
+      insertStyle(`.chat-widget {
+        height: ${config.height}px;
+      }`)
+    }
   }
 
 	return {
