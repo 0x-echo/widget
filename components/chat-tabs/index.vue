@@ -96,16 +96,7 @@ export default {
     align-items: center;
     margin-bottom: 28px;
     overflow-x: auto;
-    
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background: var(--bg-color);
-    }
+    border-bottom: 1px solid var(--bg-color);
     
     &::-webkit-scrollbar {
       display: none;
