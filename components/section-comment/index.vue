@@ -2,10 +2,7 @@
   <comment-skeleton
     :loading="loading">
     <div
-      class="section-comment"
-      :class="{
-        'scrollable': widgetType === 'comment-only'
-      }">
+      class="section-comment">
       <div
         v-if="newPosts > 0"
         class="section-comment__refresh"
@@ -77,11 +74,6 @@ export default {
 <style lang="scss">
 .section-comment {
   position: relative;
-  
-  &.scrollable {
-    flex: 1;
-    overflow-y: auto;
-  }
   
   &__refresh {
     display: flex;
