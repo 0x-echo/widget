@@ -523,6 +523,12 @@ const doTipLogin = async () => {
     }
     currentProvider = window.ethereum
     const network = window.ethereum.networkVersion
+    if (!network) {
+      ElMessage.error({
+        message: 'Seems MetaMask are swithing network. Wait a moment.'
+      })
+      return
+    }
     const tipNetwork = store.tip_network
     tipNetworkId = store.currency[tipNetwork].id
     if (network.toString() !== tipNetworkId.toString()) {
@@ -663,6 +669,13 @@ const doAccountLogin = async () => {
     }
   }
   const network = window.ethereum.networkVersion
+  if (!network) {
+    ElMessage.error({
+      message: 'Seems MetaMask are swithing network. Wait a moment.'
+    })
+    return
+  }
+  
   if (!commonConfig.supportedNetworks[`EVM/${network}`]) {
     // if mumbai is supported
     if (network.toString() === '80001' && store.widgetConfig.support_mumbai) {
