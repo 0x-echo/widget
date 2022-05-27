@@ -9,6 +9,7 @@
         class="comment-item__avatar-image"
         :alt="data.author.screen_name"
         :hash="data.author.address"
+        :size="avatarSize"
         :src="data.author.avatar || ''">
       </chat-avatar>
     </div>
@@ -36,16 +37,16 @@
                 Author
               </chat-tag>
               
-              <icon-copy
+              <!-- <icon-copy
                 class="comment-item__copy-icon"
                 :value="$formatAddress(data.author.address)"
                 title="copy address">
-              </icon-copy>
+              </icon-copy> -->
             </div>
               
             <div
               class="comment-item__meta">
-              <template
+              <!-- <template
                 v-if="data.replied_to">
                 <span>
                   Replying to 
@@ -59,7 +60,7 @@
                   class="comment-item__meta-divider">
                   ·
                 </span>
-              </template>
+              </template> -->
             
               <Timeago :datetime="data.posted_at" :title="$formatDate(data.posted_at)" />
             </div>
@@ -172,6 +173,10 @@ onBeforeUnmount(() => {
 })
 
 const props = defineProps({
+  avatarSize: {
+    type: [Number, String],
+    default: 48
+  },
   data: {
     type: Object,
     required: true
@@ -383,6 +388,17 @@ export default {
   
   &__reply {
     padding-top: 25px;
+  }
+  
+  .reply-list & {
+    .comment-item__header-content {
+      display: flex;
+      align-items: center;
+    }
+    
+    .comment-item__meta {
+      margin: 0 0 0 10px;
+    }
   }
 }
 

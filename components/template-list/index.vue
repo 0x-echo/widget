@@ -30,7 +30,7 @@
         <el-button
           class="el-button--xlarge el-button--icon template-list__action-button"
           :class="{
-            active: (module === 'like' || module === 'dislike') && counts[`has_${module}d`] && store.hasLogined
+            active: ((module === 'like' || module === 'dislike') && counts[`has_${module}d`] && store.hasLogined) || module === 'tip'
           }"
           @click="$emit(module, counts[`has_${module}d`])">
           <i
