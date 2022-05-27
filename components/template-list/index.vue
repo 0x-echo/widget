@@ -46,7 +46,8 @@
               {{ counts[`${module}_counts`] === 1 ? module : ` ${module}s` }}
             </template>
             <template v-else>
-              {{ counts[`${module}_counts`] === 1 ? ' Supporter' : ' Supporters' }}
+              <template v-if="!counts[`${module}_counts`]">Support</template>
+              <template v-else>{{ counts[`${module}_counts`] === 1 ? ' Supporter' : ' Supporters' }}</template>
             </template>
           </span>
         </el-button>
