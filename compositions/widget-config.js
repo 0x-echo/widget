@@ -42,6 +42,12 @@ export default () => {
   }`)
 	}
 
+  if (config.height) {
+    insertStyle(`.chat-widget {
+      height: ${config.height}px;
+    }`)
+  }
+
 	return {
 		config,
 		modulesOrder
