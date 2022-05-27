@@ -149,7 +149,6 @@ const currentModule = computed(() => {
 
 <style lang="scss">
 .template-list {
-  padding-bottom: 30px;
   
   &__user {
     display: flex;
