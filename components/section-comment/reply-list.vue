@@ -7,7 +7,7 @@
         v-bind="$attrs"
         v-for="item in replies"
         :key="item.id"
-        :avatar-size="36"
+        avatar-size="small"
         :data="item">
       </comment-item>
     </transition-group>

@@ -80,7 +80,8 @@
                 class="el-button--icon comment-item__more-button"
                 :class="{
                   'show': moreMenuVisible || moreMenuActive
-                }">
+                }"
+                size="small">
                 <i
                   class="ri-more-fill">
                 </i>
@@ -175,7 +176,7 @@ onBeforeUnmount(() => {
 const props = defineProps({
   avatarSize: {
     type: [Number, String],
-    default: 48
+    default: 'default'
   },
   data: {
     type: Object,
@@ -342,6 +343,7 @@ export default {
   
   &__more-button {
     border-color: var(--fill-color-blank);
+    font-size: 14px;
     opacity: 0;
     transition: all .3s ease;
     
@@ -355,11 +357,16 @@ export default {
     }
     
     .dark & {
+      border-color: transparent;
+      background: transparent;
+      
       &.active,
       &:hover,
       &:focus,
       &:focus:not(.el-button:hover) {
         color: white;
+        border-color: var(--bg-color);
+        background: var(--bg-color);
         background-clip: padding-box;
       }
     }
@@ -390,6 +397,10 @@ export default {
   }
   
   .reply-list & {
+    .comment-item__header {
+      margin-bottom: 4px;
+    }
+    
     .comment-item__header-content {
       display: flex;
       align-items: center;

@@ -5,7 +5,8 @@
       :id="`${value}Button`"
       class="el-button--icon toolbar-item__button"
       :class="{
-        'active': active
+        'active': active,
+        'activated': activated
       }"
       size="large"
       :title="value"
@@ -134,6 +135,17 @@ watch(() => props.count, (val, oldVal) => {
     }
   }
 })
+
+let activated = ref(false)
+watch(() => props.active, (val, oldVal) => {
+  if (val) {
+    activated.value = val 
+    
+    setTimeout(() => {
+      activated.value = false
+    }, 1000)
+  }
+})
 </script>
 
 <style lang="scss">
@@ -184,7 +196,7 @@ watch(() => props.count, (val, oldVal) => {
       height: 0.375rem;
     } 
   
-    &.active {
+    &.activated {
       will-change: font-size;
       animation: heartBeat 1s cubic-bezier(0.17, 0.89, 0.32, 1.49);
       
