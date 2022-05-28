@@ -74,6 +74,11 @@ const useStore = defineStore('global', {
         symbol: 'op',
         usd: '',
         id: 10
+      },
+      bsc: {
+        symbol: 'BNB',
+        usd: '',
+        id: 56
       }
     }
   }),
@@ -157,11 +162,13 @@ const useStore = defineStore('global', {
     async getCurrency () {
       const map = {
         'ethereum': 'ethereum',
-        'polygon': 'matic-network'
+        'polygon': 'matic-network',
+        'bsc': 'binancecoin'
       }
       const remap = {
         'ethereum': 'ethereum',
-        'matic-network': 'polygon'
+        'matic-network': 'polygon',
+        'binancecoin': 'bsc'
       }
       try {
         const ids = Object.keys(this.currency).map(one => map[one]).filter(one => !!one).join(',')
