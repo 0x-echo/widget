@@ -265,7 +265,6 @@ export default {
 .comment-item {
   position: relative;
   display: flex;
-  padding-right: 10px;
   
   &.has-replies {
     &::before {

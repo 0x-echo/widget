@@ -151,7 +151,19 @@ export default {
   &__content {
     flex: 1;
     overflow-y: auto;
-    padding-top: 2px;
+    padding: 2px 5px 0 0;
+    
+    &::-webkit-scrollbar {
+      width: 1px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+      
+    &::-webkit-scrollbar-thumb {
+      background: var(--bg-color);
+    }
   }
 }
 </style>
