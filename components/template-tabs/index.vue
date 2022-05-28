@@ -67,7 +67,7 @@
           :loading="loading"
           label="Disliking Power"
           tip="Estimated total value of all disiking address"
-          :value="counts.like_power">
+          :value="counts.dislike_power">
         </section-vote>
         
         <empty-placeholder
