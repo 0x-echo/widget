@@ -1225,6 +1225,9 @@ const init = async () => {
     if (config.modules.includes('like')) {
       await getReactions('like')
     }
+    if (config.modules.includes('dislike')) {
+      await getReactions('dislike')
+    }
     if (config.modules.includes('tip')) {
       await getTips()
     }

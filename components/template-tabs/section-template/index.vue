@@ -18,9 +18,9 @@
             <span>
               {{ label }}: $
               <span
-                v-show="store.widgetConfig.modules[0] === 'like'">{{ value }}</span>
+                v-show="store.widgetConfig.modules[0] === 'like' || store.widgetConfig.modules[0] === 'dislike'">{{ value }}</span>
               <vue3-autocounter
-                v-if="store.widgetConfig.modules.includes('like') && store.widgetConfig.modules[0] !== 'like'"
+                v-if="(store.widgetConfig.modules.includes('like') && store.widgetConfig.modules[0] !== 'like') || (store.widgetConfig.modules.includes('dislike') && store.widgetConfig.modules[0] !== 'dislike')"
                 autoinit
                 :duration="1"
                 :startAmount='0'
@@ -67,7 +67,7 @@ const show = ref(false)
 const currentTab = computed(() => store.layout.currentTab)
 
 watch(currentTab, (newVal, oldVal) => {
-  if (newVal === 'like') {
+  if (newVal === 'like' || newVal === 'dislike') {
     val.value = props.value
   }
 })
