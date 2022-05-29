@@ -51,7 +51,7 @@ import { ElSkeleton, ElSkeletonItem } from 'element-plus'
     display: flex;
     
     & + & {
-      margin-top: 30px;
+      margin-top: 20px;
     }
   }
   

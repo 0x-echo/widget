@@ -4,7 +4,7 @@
     <div
       class="section-template">
       <div
-        v-if="value">
+        v-if="powerValue">
         <el-tooltip
           :content="tip"
           :disabled="tip === ''"
@@ -16,14 +16,12 @@
             </i>
 
             <span>
-              {{ label }}: $<span
-                v-show="store.widgetConfig.modules[0] === 'like' || store.widgetConfig.modules[0] === 'dislike'">{{ value }}</span>
-              <vue3-autocounter
-                v-if="(store.widgetConfig.modules.includes('like') && store.widgetConfig.modules[0] !== 'like') || (store.widgetConfig.modules.includes('dislike') && store.widgetConfig.modules[0] !== 'dislike')"
+              {{ powerLabel }}: $<vue3-autocounter
+                ref="counterRef"
                 autoinit
                 :duration="1"
-                :startAmount='0'
-                :endAmount="val"
+                :startAmount="store.widgetConfig.modules[0] === module ? powerValue : 0"
+                :endAmount="powerValue"
                 separator=",">
               </vue3-autocounter>
             </span>
@@ -50,32 +48,34 @@ import useStore from '~~/store';
 const store = useStore()
 
 const props = defineProps({
-  label: {
+  module: {
     type: String
   },
-  tip: {
+  powerLabel: {
     type: String
   },
-  value: {
+  powerValue: {
     type: [String, Number]
+  },
+   tip: {
+    type: String
   }
 })
 
-const val = ref(0)
-const show = ref(false)
-
 const currentTab = computed(() => store.layout.currentTab)
-
+const counterRef = ref(null)
+const animationDone = ref(false)
 watch(currentTab, (newVal, oldVal) => {
-  if (newVal === 'like' || newVal === 'dislike') {
-    val.value = props.value
+  if (newVal === props.module && counterRef.value && !animationDone.value) {
+    counterRef.value.start()
+    animationDone.value = true
   }
 })
 </script>
 
 <style lang="scss">
 .section-template {
-  padding: 0 30px;
+  padding: 0 20px;
   
   &__value {
     display: inline-flex;

@@ -46,7 +46,7 @@ import { ElSkeleton, ElSkeletonItem } from 'element-plus'
 
 <style lang="scss">
 .template-skeleton {
-  padding: 0 30px;
+  padding: 0 20px;
   
   &__value {
     width: 180px;
