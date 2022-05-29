@@ -25,7 +25,11 @@
 
 <script setup>
 import useStore from '~~/store'
+import useWidgetConfig from '~~/compositions/widget-config'
+
 const store = useStore()
+const { config } = useWidgetConfig(store)
+store.setWidgetConfig(config)
 
 const props = defineProps({
   error: Object
