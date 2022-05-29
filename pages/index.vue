@@ -1193,7 +1193,12 @@ const replyComment = async (data) => {
 }
 
 const refreshComments = () => {
-  getList(1, store.last_got_time)
+  const loading = showLoading()
+  try {
+    getList(1, store.last_got_time)
+  } finally {
+    loading.close()
+  }
 }
 
 const widgetType = computed(() => {
@@ -1224,6 +1229,9 @@ const init = async () => {
     await getList()
     if (config.modules.includes('like')) {
       await getReactions('like')
+    }
+    if (config.modules.includes('dislike')) {
+      await getReactions('dislike')
     }
     if (config.modules.includes('tip')) {
       await getTips()

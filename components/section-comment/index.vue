@@ -61,6 +61,7 @@ const props = defineProps({
 })
 
 const emits = defineEmits([
+  'refresh-comments',
   'update:modelValue'
 ])
 </script>

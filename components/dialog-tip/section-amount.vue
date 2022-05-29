@@ -15,7 +15,7 @@
       <div
         class="section-amount__item"
         :class="{
-          'active': item === activeAmount
+          'active': item === activeAmount && !customAmount
         }"
         v-for="item in list"
         :key="item"

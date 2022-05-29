@@ -38,6 +38,7 @@
 import { ElButton } from 'element-plus'
 import SectionHeader from './section-header'
 import iconMatemask from '@/assets/metamask.svg'
+import useChain from '@/compositions/chain'
 
 import ethLogo from '~~/assets/chains/ethereum.png'
 import polygonLogo from '~~/assets/chains/polygon.png'
@@ -45,6 +46,7 @@ import opLogo from '~~/assets/chains/optimism.svg'
 
 import useStore from '~~/store';
 
+const { logos } = useChain()
 const store = useStore()
 
 const props = defineProps({
@@ -73,12 +75,16 @@ const changeOption = (item) => {
 
 const list = [{
   label: 'Ethereum',
-  icon: ethLogo,
+  icon: logos['EVM/1'],
   value: 'ethereum'
 }, {
   label: 'Polygon',
-  icon: polygonLogo,
+  icon: logos['EVM/137'],
   value: 'polygon'
+}, {
+  label: 'BSC',
+  icon: logos['EVM/56'],
+  value: 'bsc'
 }
 // {
 //   label: 'Optimism',
@@ -103,7 +109,7 @@ const list = [{
 if (store.widgetConfig['support_mumbai']) {
   list.push({
     label: 'Mumbai(for test)',
-    icon: polygonLogo,
+    icon: logos['EVM/137'],
     value: 'mumbai'
   })
 }

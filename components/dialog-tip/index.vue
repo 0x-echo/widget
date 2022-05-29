@@ -35,8 +35,8 @@
     <div
       class="dialog-tip__footer">
       <div
-        class="dialog-tip__tip">
-        * non-refundable
+        class="dialog-tip__fee-tip">
+        * non-refundable.<br>* no service fee.
       </div>
 
       <el-button
@@ -191,10 +191,14 @@ export default {
     margin-top: 30px;
   }
   
-  &__tip {
+  &__tip, &__fee-tip {
     font-size: 12px;
-    text-align: left;
+    text-align: right;
     color: var(--text-color-muted);
+  }
+
+  &__fee-tip {
+    text-align: left;
   }
   
   &__next-button {

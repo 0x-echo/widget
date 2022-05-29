@@ -55,7 +55,7 @@
 
       <div
         class="template-list__stat"
-        v-if="module === 'like' && counts[`${module}_counts`]">
+        v-if="(module === 'like' || module === 'dislike') && counts[`${module}_counts`]">
         <el-tooltip
           content="Estimated Total Value of all Liking Address"
           :disabled="module !== 'like'"
@@ -67,7 +67,7 @@
             </i>
             
             <span>
-              {{ ing(module) }} Power: ${{ counts.like_power }}
+              {{ ing(module) }} Power: ${{ counts[`${module}_power`] }}
             </span>
           </div>
         </el-tooltip>

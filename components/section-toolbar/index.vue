@@ -39,10 +39,17 @@
             #reference>
             <div
               class="section-toolbar__user">
-              <img
+              <chat-avatar
+                class="section-toolbar__user-wallet-icon"
+                :alt="loginInfo.screen_name"
+                size="small"
+                :hash="loginInfo.address"
+                :src="loginInfo.avatar || ''">
+              </chat-avatar>
+              <!-- <img
                 class="section-toolbar__user-wallet-icon" 
-                :src="logos[loginInfo.chain] || defaultLogo" 
-                :alt="loginInfo.chain">
+                :src="loginInfo.avatar" 
+                :alt="loginInfo.chain"> -->
               <span
                 class="section-toolbar__user-name">
                 {{ $formatScreenName(loginInfo.screen_name || loginInfo.address) }}
@@ -90,7 +97,8 @@ const loginInfo = computed(() => {
   return {
     chain: store.chain,
     address: store.address,
-    screen_name: store.screen_name
+    screen_name: store.screen_name,
+    avatar: store.avatar
   }
 })
 
@@ -202,6 +210,7 @@ const hasLogin = computed(() => {
     width: 20px;
     height: 20px;
     object-fit: contain;
+    border-radius: 50%;
   }
   
   &__user-name {
