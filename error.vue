@@ -5,11 +5,13 @@
       class="error-page__content">
       <img 
         class="error-page__image"
+        v-if="store.env.colorTheme === 'light'"
         src="@/assets/error.svg" 
         alt="Something is wrong">
         
       <img 
         class="error-page__image"
+        v-if="store.env.colorTheme === 'dark'"
         src="@/assets/error-dark.svg" 
         alt="Something is wrong">
       

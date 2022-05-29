@@ -23,7 +23,7 @@ const useStore = defineStore('global', {
     },
 
     env: {
-      colorTheme: ''
+      colorTheme: 'light'
     },
 
     wallet: {
