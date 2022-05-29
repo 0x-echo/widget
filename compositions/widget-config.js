@@ -15,7 +15,7 @@ export default () => {
 	}
 	const config = reactive(Object.assign(defaultConfig, configParser()))
 
-	config.modules.sort((a, b) => {
+	config.modules && config.modules.sort((a, b) => {
 		return modulesOrder[a] > modulesOrder[b] ? 1 : -1
 	})
 

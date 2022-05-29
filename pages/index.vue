@@ -107,6 +107,10 @@ const { $bus } = useNuxtApp()
 const store = useStore()
 
 const { config } = useWidgetConfig()
+
+if (!config.modules || !config.modules.length) {
+  location.href = `/404?error=${encodeURIComponent('WRONG WIDGET CONFIGURATION')}`
+}
 store.setWidgetConfig(config)
 
 const { showConfetti } = useConfetti()
