@@ -36,7 +36,7 @@
       class="dialog-tip__footer">
       <div
         class="dialog-tip__fee-tip">
-        * non-refundable.<br>* no service fee.
+        * non-refundable; no service fee.
       </div>
 
       <el-button

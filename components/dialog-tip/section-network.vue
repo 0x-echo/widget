@@ -150,8 +150,8 @@ const handleScroll = (el) => {
   }
   
   &__item {
-    flex-shrink: 0;
-    width: 160px;
+    flex: 1;
+    min-width: 140px;
     margin-bottom: 0;
     
     & + & {
