@@ -22,6 +22,10 @@ const useStore = defineStore('global', {
       modules: []
     },
 
+    env: {
+      colorTheme: ''
+    },
+
     wallet: {
       loginType: 'login', // or tip
       loginApp: 'metamask' // or walletconnect

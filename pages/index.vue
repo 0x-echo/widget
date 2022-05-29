@@ -106,7 +106,7 @@ const GetWalletConnectProvider = () => import('@walletconnect/web3-provider/dist
 const { $bus } = useNuxtApp()
 const store = useStore()
 
-const { config } = useWidgetConfig()
+const { config } = useWidgetConfig(store)
 
 if (!config.modules || !config.modules.length) {
   location.href = `/404?error=${encodeURIComponent('WRONG WIDGET CONFIGURATION')}`

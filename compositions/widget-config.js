@@ -9,7 +9,7 @@ const modulesOrder = {
 	tip: 4
 }
 
-export default () => {
+export default (store) => {
 	const defaultConfig = {
 		'color-theme': 'auto'
 	}
@@ -21,14 +21,27 @@ export default () => {
 
 	if (config['color-theme'] === 'auto') {
 		if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      store.setData('env', {
+        colorTheme: 'dark'
+      })
 			setColorTheme('dark')
-		}
+		} else {
+      store.setData('env', {
+        colorTheme: 'light'
+      })
+    }
 
 		window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
 			const newColorScheme = event.matches ? 'dark' : 'light'
+      store.setData('env', {
+        colorTheme: newColorScheme
+      })
 			setColorTheme(newColorScheme)
 		})
 	} else {
+    store.setData('env', {
+      colorTheme: config['color-theme']
+    })
 		setColorTheme(config['color-theme'])
 	}
 
