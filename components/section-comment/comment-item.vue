@@ -26,7 +26,7 @@
             <div
               class="comment-item__byline">
               <span
-                class="comment-item__author"
+                class="comment-item__author ellipsis"
                 :title="data.author.screen_name">
                 {{ $formatScreenName(data.author.screen_name) }}
               </span>
@@ -280,7 +280,7 @@ export default {
   }
   
   & + & {
-    margin-top: 30px;
+    margin-top: 20px;
   }
   
   &__avatar {
@@ -296,7 +296,7 @@ export default {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
   
   &__header-content {
@@ -307,14 +307,18 @@ export default {
   &__byline {
     display: inline-flex;
     align-items: center;
-    font-size: 15px;
-    font-weight: 500;
+    min-width: 0;
     
     &:hover {
       .comment-item__copy-icon {
         opacity: 1;
       }
     }
+  }
+  
+  &__author {
+    font-size: 14px;
+    font-weight: 500;
   }
   
   &__tag {
@@ -328,9 +332,9 @@ export default {
   }
   
   &__meta {
+    flex-shrink: 0;
     font-size: 12px;
     color: var(--text-color-muted);
-    margin-top: 2px;
   }
   
   &__meta-reply {
@@ -389,16 +393,16 @@ export default {
   &__control-bar {
     display: flex;
     align-items: center;
-    margin: 10px 0 0 -8px;
+    margin: 5px 0 0 -8px;
   }
   
   &__reply {
-    padding-top: 25px;
+    padding-top: 15px;
   }
   
   .reply-list & {
     .comment-item__header {
-      margin-bottom: 4px;
+      margin-bottom: 2px;;
     }
     
     .comment-item__header-content {

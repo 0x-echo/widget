@@ -172,6 +172,12 @@ export default {
     &__avatar {
       display: none;
     }
+    
+    &__send-button {
+      width: 80px;
+      height: 32px;
+      font-size: 14px;
+    }
   }
 }
 </style>

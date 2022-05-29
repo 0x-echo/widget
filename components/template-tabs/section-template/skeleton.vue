@@ -25,9 +25,9 @@
               class="template-skeleton__title"
               variant="h1" />
               
-            <el-skeleton-item
+            <!-- <el-skeleton-item
               class="template-skeleton__subtitle"
-              variant="text" />
+              variant="text" /> -->
           </div>
         </div>
       </div>
@@ -49,9 +49,9 @@ import { ElSkeleton, ElSkeletonItem } from 'element-plus'
   padding: 0 30px;
   
   &__value {
-    width: 200px;
-    height: 21px;
-    margin-bottom: 30px; 
+    width: 180px;
+    height: 37px;
+    margin-bottom: 20px; 
   }
   
   &__list {
@@ -61,7 +61,8 @@ import { ElSkeleton, ElSkeletonItem } from 'element-plus'
   &__item {
     display: flex;
     align-items: center;
-    margin-right: 50px;
+    width: 150px;
+    margin: 8px 50px 8px 0;
   }
   
   &__body {
@@ -70,7 +71,7 @@ import { ElSkeleton, ElSkeletonItem } from 'element-plus'
   
   &__title {
     width: 60px;
-    height: 18px;
+    height: 21px;
   }
   
   &__subtitle {

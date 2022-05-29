@@ -16,8 +16,7 @@
             </i>
 
             <span>
-              {{ label }}: $
-              <span
+              {{ label }}: $<span
                 v-show="store.widgetConfig.modules[0] === 'like' || store.widgetConfig.modules[0] === 'dislike'">{{ value }}</span>
               <vue3-autocounter
                 v-if="(store.widgetConfig.modules.includes('like') && store.widgetConfig.modules[0] !== 'like') || (store.widgetConfig.modules.includes('dislike') && store.widgetConfig.modules[0] !== 'dislike')"
@@ -25,7 +24,8 @@
                 :duration="1"
                 :startAmount='0'
                 :endAmount="val"
-                separator=","></vue3-autocounter>
+                separator=",">
+              </vue3-autocounter>
             </span>
 
           </div>
@@ -81,7 +81,7 @@ watch(currentTab, (newVal, oldVal) => {
     display: inline-flex;
     align-items: center;
     padding: 5px 15px 5px 10px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     border-radius: var(--border-radius);
     font-size: 14px;
     font-weight: bold;

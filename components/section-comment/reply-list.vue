@@ -80,6 +80,6 @@ const toggle = () => {
 
 <style lang="scss">
 .reply-list {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 </style>

@@ -81,10 +81,6 @@
           :data="data.tips"
           :loading="loading">
         </section-tip>
-        
-        <empty-placeholder
-          v-if="!loading && !data.tips.length">
-        </empty-placeholder>
       </chat-tab-pane>
     </chat-tabs>
   <!-- </div> -->

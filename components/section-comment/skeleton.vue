@@ -65,23 +65,24 @@ import { ElSkeleton, ElSkeletonItem } from 'element-plus'
   
   &__author {
     width: 80px;
-    height: 22px;
+    height: 14px;
+    margin-top: 6px;
   }
   
   &__meta {
     width: 116px;
-    height: 14px;
-    margin: 6px 0 8px;
+    height: 12px;
+    margin: 5px 0 9px;
   }
   
   &__content {
-    height: 48px;
+    height: 24px;
   }
   
   &__action {
     width: 185px;
-    height: 30px;
-    margin-top: 10px;
+    height: 20px;
+    margin-top: 9px;
   }
 }
 
