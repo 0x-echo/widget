@@ -7,6 +7,11 @@
         class="error-page__image"
         src="@/assets/error.svg" 
         alt="Something is wrong">
+        
+      <img 
+        class="error-page__image"
+        src="@/assets/error-dark.svg" 
+        alt="Something is wrong">
       
       <h1
         class="error-page__title">
@@ -17,7 +22,8 @@
 </template>
 
 <script setup>
-import { ElButton } from 'element-plus'
+import useStore from '~~/store'
+const store = useStore()
 
 const props = defineProps({
   error: Object
