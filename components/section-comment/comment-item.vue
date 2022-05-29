@@ -433,6 +433,14 @@ export default {
     &__more-button {
       opacity: 1;
     }
+    
+    &__reply {
+      .reply-form__input {
+        .el-textarea__inner {
+          padding: 8px 12px;
+        }
+      }
+    }
   }
 }
 </style>  
