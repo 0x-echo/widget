@@ -57,7 +57,11 @@
         </section-vote>
         
         <empty-placeholder
-          v-if="!loading && !data.likes.length">
+          v-if="!loading && !data.likes.length"
+          button-icon="ri-thumb-up-line"
+          button-text="Be the First Liker"
+          message=""
+          @on-click="$emit('like')">
         </empty-placeholder>
       </chat-tab-pane>
       
@@ -83,6 +87,14 @@
           :data="data.tips"
           :loading="loading">
         </section-tip>
+        
+        <empty-placeholder
+          v-if="!loading && !data.tips.length"
+          button-icon="ri-hand-heart-line"
+          button-text="Be the First Supporter"
+          message=""
+          @on-click="$emit('tip')">
+        </empty-placeholder>
       </chat-tab-pane>
     </chat-tabs>
   <!-- </div> -->
@@ -111,8 +123,10 @@ const props = defineProps({
 })
 
 const emits = defineEmits([
+  'like',
   'on-change-tab',
-  'sort-change'
+  'sort-change',
+  'tip'
 ])
 
 const activeTab = ref(props.config.modules[0])

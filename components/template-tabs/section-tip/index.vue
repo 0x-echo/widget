@@ -19,7 +19,6 @@
 
 <script setup>
 import { Timeago } from 'vue2-timeago'
-
 import SectionTemplate from '../section-template'
 import useStore from '~~/store'
 

@@ -57,7 +57,7 @@ const props = defineProps({
   powerValue: {
     type: [String, Number]
   },
-   tip: {
+  tip: {
     type: String
   }
 })

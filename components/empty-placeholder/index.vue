@@ -22,7 +22,8 @@
     <slot>
       <el-button
         class="empty-placeholder__button"
-        v-if="buttonText">
+        v-if="buttonText"
+        @click="$emit('on-click')">
         <i
           class="empty-placeholder__button-icon"
           :class="buttonIcon"
@@ -65,6 +66,10 @@ const props = defineProps({
     default: 'No Data'
   }
 })
+
+const emits = defineEmits([
+  'on-click'
+])
 </script>
 
 <style lang="scss">
@@ -92,10 +97,12 @@ const props = defineProps({
   
   &__button {
     margin-top: 20px;
+    font-size: 12px;
   }
   
   &__button-icon {
     margin-right: 8px;
+    font-size: 14px;
   }
 }
 </style>
