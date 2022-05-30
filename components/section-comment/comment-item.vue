@@ -45,24 +45,10 @@
             </div>
               
             <div
-              class="comment-item__meta">
-              <!-- <template
-                v-if="data.replied_to">
-                <span>
-                  Replying to 
-                  <span
-                    class="comment-item__meta-reply">
-                    @{{ $formatScreenName(data.replied_to.screen_name) }}
-                  </span>
-                </span>
-                
-                <span
-                  class="comment-item__meta-divider">
-                  ·
-                </span>
-              </template> -->
-            
-              <Timeago :datetime="data.posted_at" :title="$formatDate(data.posted_at)" />
+              class="comment-item__date">
+              <timeago 
+                :datetime="data.posted_at" 
+                :title="$formatDate(data.posted_at)" />
             </div>
           </div>
           
@@ -103,10 +89,10 @@
             </template>
           </el-popover>
         </div>
-        
+            
         <div
           class="comment-item__content" 
-          v-html="parseContent(data.content)">
+          v-html="commentContent">
         </div>
         
         <div
@@ -161,7 +147,7 @@
 <script setup>
 import { ElButton, ElCollapseTransition, ElPopover } from 'element-plus'
 import CommentAction from './comment-action'
-const { $bus } = useNuxtApp()
+const { $bus, $formatScreenName } = useNuxtApp()
 import { Timeago } from 'vue2-timeago'
 import { parseContent } from '../../libs/content-parser'
 import useStore from '~~/store'
@@ -254,6 +240,14 @@ $bus.on('reset-reply-comment', (data) => {
     showReply.value = false
   }
 })
+
+const commentContent = computed(() => {
+  if (props.data.replied_to) {
+    return `<span class="comment-item__meta-reply">@${$formatScreenName(props.data.replied_to.screen_name)}</span> ` + parseContent(props.data.content) 
+  } else {
+    return parseContent(props.data.content) 
+  }
+})
 </script>
 
 <script>
@@ -331,18 +325,14 @@ export default {
     opacity: 0;
   }
   
-  &__meta {
+  &__date {
     flex-shrink: 0;
     font-size: 12px;
     color: var(--text-color-muted);
   }
   
   &__meta-reply {
-    color: var(--text-color-secondary);
-  }
-  
-  &__meta-divider {
-    margin: 0 5px;
+    color: var(--color-primary);
   }
   
   &__more-button {
@@ -410,7 +400,7 @@ export default {
       align-items: center;
     }
     
-    .comment-item__meta {
+    .comment-item__date {
       margin: 0 0 0 10px;
     }
   }
