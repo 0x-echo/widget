@@ -4,7 +4,9 @@
     <section-toolbar
       v-bind="$attrs"
       :config="config"
-      :loading="loading">
+      :loading="loading"
+      @like="$emit('like')"
+      @tip="$emit('tip')">
     </section-toolbar>
     
     <reply-form
