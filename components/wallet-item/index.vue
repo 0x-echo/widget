@@ -2,7 +2,8 @@
   <div
     class="wallet-item"
     :class="{
-      'active': active
+      'active': active,
+      'wallet-item--row': direction === 'row'
     }">
     <img 
       class="wallet-item__logo"
@@ -25,6 +26,9 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  direction: {
+    type: String
+  },
   icon: {
     type: String
   },
@@ -42,7 +46,6 @@ const props = defineProps({
   justify-content: center;
   width: calc((100% - 15px) / 2);
   padding: 15px 15px 12px;
-  margin-bottom: 15px;
   border-radius: 12px;
   border: 1px solid var(--border-color);
   background: var(--fill-color-blank);
@@ -53,6 +56,21 @@ const props = defineProps({
   &:hover {
     border-color: var(--color-primary);
     box-shadow: 0 0 4px rgba(var(--color-primary-rgb), .5);
+  }
+  
+  &--row {
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 12px 20px;
+    
+    .wallet-item__logo {
+      margin-right: 10px;
+    }
+    
+    .wallet-item__label {
+      margin-top: 0;
+      font-size: 12px;
+    }
   }
   
   &__logo {
@@ -72,7 +90,6 @@ const props = defineProps({
 
 @media screen and (max-width: #{$tablet-width - 1px}) {
   .wallet-item {
-    width: 100%;
     flex-direction: row;
     justify-content: flex-start;
     padding: 12px 20px;

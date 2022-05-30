@@ -14,6 +14,7 @@
           v-for="item in list"
           :key="item.value"
           :active="item.value === activeOption"
+          direction="row"
           :icon="item.icon"
           :label="item.value"
           @click="changeOption(item)">
@@ -81,9 +82,8 @@ const list = [{
   }
   
   &__item {
-    flex-shrink: 0;
-    width: 160px;
-    margin-bottom: 0;
+    flex-shrink: 1;
+    width: 150px;
     
     & + & {
       margin-left: 15px;
@@ -100,6 +100,16 @@ const list = [{
       border-color: var(--border-color);
       box-shadow: none;
       color: var(--text-color-muted);
+    }
+  }
+}
+
+@media screen and (max-width: #{$tablet-width - 1px}) {
+  .section-wallet {
+    &__item {      
+      & + & {
+        margin-left: 10px;
+      }
     }
   }
 }

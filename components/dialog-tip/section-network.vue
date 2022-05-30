@@ -132,8 +132,7 @@ const handleScroll = (el) => {
   
   &__item {
     flex: 1;
-    min-width: 160px;
-    margin-bottom: 0;
+    min-width: 150px;
     
     & + & {
       margin-left: 15px;
@@ -169,8 +168,6 @@ const handleScroll = (el) => {
 @media screen and (max-width: #{$tablet-width - 1px}) {
   .section-network {
     &__item {
-      width: auto;
-      
       & + & {
         margin-left: 10px;
       }

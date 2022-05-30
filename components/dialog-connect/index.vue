@@ -19,6 +19,7 @@
     <div
       class="dialog-connect__list">
       <wallet-item
+        class="dialog-connect__item"
         v-for="item in list"
         :key="item.value"
         :icon="item.icon"
@@ -129,11 +130,23 @@ export default {
     justify-content: space-between;
   }
   
+  &__item {
+    margin-bottom: 15px;
+  }
+  
   &__tip {
     margin-top: 15px;
     font-size: 12px;
     text-align: center;
     color: var(--text-color-secondary);
+  }
+}
+
+@media screen and (max-width: #{$tablet-width - 1px}) {
+  .dialog-connect {
+    &__item {
+      width: 100%;
+    }
   }
 }
 </style>
