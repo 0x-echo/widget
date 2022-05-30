@@ -81,6 +81,7 @@ const list = [{
   }
   
   &__item {
+    flex-shrink: 0;
     width: 160px;
     margin-bottom: 0;
     
