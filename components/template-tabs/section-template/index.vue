@@ -2,7 +2,8 @@
   <template-skeleton
     v-bind="$attrs">
     <div
-      class="section-template">
+      class="section-template"
+      v-if="showList">
       <div
         v-if="powerValue">
         <el-tooltip
@@ -59,6 +60,9 @@ const props = defineProps({
   },
   tip: {
     type: String
+  },
+  showList: {
+    type: Boolean
   }
 })
 
