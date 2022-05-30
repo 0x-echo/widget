@@ -11,7 +11,7 @@
       class="empty-placeholder__image"
       v-if="store.env.colorTheme === 'dark'"
       :alt="message"
-      src="/assets/empty-dark.svg" >
+      :src="defaultImageDark" >
     
     <div
       class="empty-placeholder__message"
@@ -40,7 +40,7 @@
 <script setup>
 import { ElButton } from 'element-plus'
 import defaultImage from '@/assets/empty.svg'
-import defaultImageDark from '/assets/empty-dark.svg'
+import defaultImageDark from '@/assets/empty-dark.svg'
 import useStore from '~~/store'
 
 const store = useStore()
