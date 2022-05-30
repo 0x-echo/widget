@@ -1,7 +1,7 @@
 <template>
   <section-template
     v-bind="$attrs"
-    :show-list="data.length">
+    :show-list="data.length > 0">
     <user-item
       v-for="item in data"
       :key="item.id"

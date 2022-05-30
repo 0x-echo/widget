@@ -1,6 +1,7 @@
 <template>
   <div
     class="chat-tab-pane"
+    v-if="tabs.includes(value)"
     v-show="active">
     <slot></slot>
   </div>
@@ -16,6 +17,11 @@ const props = defineProps({
 })
 
 const active = computed(() => inject('tabProps').modelValue === props.value)
+const tabs = computed(() => {
+  return inject('tabProps').tabs.map((item) => {
+    return item.value
+  })
+})
 </script>
 
 <style lang="scss">
