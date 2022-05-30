@@ -21,7 +21,8 @@
       <wallet-item
         v-for="item in list"
         :key="item.value"
-        :data="item"
+        :icon="item.icon"
+        :label="item.label"
         @click="connectWallet(item)">
       </wallet-item>
     </div>

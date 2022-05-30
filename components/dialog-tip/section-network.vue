@@ -16,7 +16,8 @@
           v-for="item in list"
           :key="item.value"
           :active="item.value === activeOption"
-          :data="item"
+          :icon="item.icon"
+          :label="item.label"
           @click="changeOption(item)">
         </wallet-item>
       </div>
@@ -37,7 +38,6 @@
 <script setup>
 import { ElButton } from 'element-plus'
 import SectionHeader from './section-header'
-import iconMatemask from '@/assets/metamask.svg'
 import useChain from '@/compositions/chain'
 
 import ethLogo from '~~/assets/chains/ethereum.png'
@@ -85,26 +85,7 @@ const list = [{
   label: 'BSC',
   icon: logos['EVM/56'],
   value: 'bsc'
-}
-// {
-//   label: 'Optimism',
-//   icon: opLogo,
-//   value: 'optimism'
-// }
-// {
-//   label: 'Binance Chain',
-//   icon: iconMatemask,
-//   value: 'binance'
-// }, {
-//   label: 'Ethereum1',
-//   icon: iconMatemask,
-//   value: 'ethereum1'
-// }, {
-//   label: 'Ethereu2',
-//   icon: iconMatemask,
-//   value: 'ethereum2'
-// }
-]
+}]
 
 if (store.widgetConfig['support_mumbai']) {
   list.push({

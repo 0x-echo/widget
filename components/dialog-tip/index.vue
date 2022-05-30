@@ -32,6 +32,13 @@
       </section-amount>
     </el-collapse-transition>
     
+    <el-collapse-transition>
+      <section-wallet
+        v-show="data.amount"
+        v-model="data.wallet">
+      </section-wallet>
+    </el-collapse-transition>
+    
     <div
       class="dialog-tip__footer">
       <div
@@ -57,6 +64,7 @@ import { ElButton, ElCollapseTransition, ElDialog, ElLoading, ElMessage } from '
 import SectionAmount from './section-amount'
 import SectionNetwork from './section-network'
 import SectionUser from './section-user'
+import SectionWallet from './section-wallet'
 
 import useStore from '~~/store';
 
@@ -93,7 +101,8 @@ const user = {
 
 let data = reactive({
   network: '',
-  amount: ''
+  amount: '',
+  wallet: ''
 })
 
 const goNext = () => {

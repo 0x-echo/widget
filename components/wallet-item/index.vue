@@ -6,13 +6,15 @@
     }">
     <img 
       class="wallet-item__logo"
-      :alt="data.label"
-      :src="data.icon" 
-      :title="data.label">
+      :alt="label"
+      :src="icon" 
+      :title="label">
     
     <div
       class="wallet-item__label">
-      {{ data.label }}
+      <slot>
+        {{ label }}
+      </slot>
     </div>
   </div>
 </template>
@@ -23,9 +25,11 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
-  data: {
-    type: Object,
-    required: true
+  icon: {
+    type: String
+  },
+  label: {
+    type: String
   }
 })
 </script>
