@@ -174,7 +174,7 @@ export default {
     }
     
     &__send-button {
-      width: 80px;
+      width: 100px;
       height: 32px;
       font-size: 14px;
     }
