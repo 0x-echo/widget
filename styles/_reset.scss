@@ -28,6 +28,10 @@ body {
   font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   line-height: 1.5;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 p {
