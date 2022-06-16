@@ -31,14 +31,14 @@
     <div
       v-if="store.wallet.loginType === 'login'"
       class="dialog-connect__tip">
-      By connecting your wallet and signing a message, you agree to Third.Chat's
+      By connecting your wallet and signing a message, you agree to 0xecho's
       <a
-        href="https://third.chat/tos" 
+        href="https://0xecho.com/tos" 
         target="_blank">
         Term's & Conditions
       </a> and 
       <a
-        href="https://third.chat/privacy" 
+        href="https://0xecho.com/privacy" 
         target="_blank">
         Privacy Policy
       </a>

@@ -5,7 +5,7 @@
       'is-minimal': minimal
     }">
     <div>
-      <template v-if="!minimal">Powered by </template>Third.Chat <span class="chat-footer__beta-tag">beta</span>
+      <template v-if="!minimal">Powered by </template>ECHO <span class="chat-footer__beta-tag">beta</span>
     </div>
     
     <div
@@ -13,7 +13,7 @@
       <a 
         class="chat-footer__link"
         v-if="!minimal"
-        href="https://third.chat/privacy"
+        href="https://0xecho.com/privacy"
         target="_blank">
         Privacy Policy
       </a>
@@ -42,7 +42,7 @@
             icon="ri-chat-private-line"
             is-link
             label="Privacy Policy"
-            url="https://third.chat/privacy/">
+            url="https://0xecho.com/privacy/">
           </menu-item>
           
           <menu-item
