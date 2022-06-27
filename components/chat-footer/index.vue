@@ -20,9 +20,8 @@
       
       <el-popover
         ref="settingsPopover"
-        :offset="0"
+        v-if="hasLogined || minimal"
         :placement="minimal ? 'bottom' : 'bottom-end'"
-        :show-arrow="false"
         trigger="click"
         :width="166"
         @before-leave="moreMenuActive = false"
@@ -30,8 +29,7 @@
         <template 
           #reference>
           <i
-            class="ri-settings-3-line chat-footer__settings"
-            v-if="hasLogined || minimal">
+            class="ri-settings-3-line chat-footer__settings">
           </i>
         </template>
         
@@ -124,6 +122,7 @@ const onClickLogout = () => {
   &__right {
     display: flex;
     align-items: center;
+    margin-left: 5px;
   }
   
   &__link {

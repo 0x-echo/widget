@@ -93,12 +93,22 @@
   
   &.el-popper {
     min-width: 120px;
-    border-color: white;
+    border-color: var(--bg-color);
     border-radius: var(--border-radius);
     background-color: var(--theme-bg-color);
     
+    .el-popper__arrow:before {
+      border-color: var(--bg-color);
+    }
+    
     .dark & {
       border-color: var(--border-color);
+      background-color: #26282d;
+      
+      .el-popper__arrow:before {
+        border-color: var(--border-color);
+        background-color: #26282d;
+      }
     }
   }
 }

@@ -53,9 +53,7 @@
           </div>
           
           <el-popover
-            :offset="0"
             placement="bottom-end"
-            :show-arrow="false"
             trigger="click"
             :width="166"
             @before-leave="moreMenuActive = false"

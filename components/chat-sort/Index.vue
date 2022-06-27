@@ -1,9 +1,8 @@
 <template>
   <el-popover
-    :offset="0"
+    :offset="2"
     placement="bottom-end"
     ref="sortPopover"
-    :show-arrow="false"
     trigger="click"
     :width="165">
     <template 

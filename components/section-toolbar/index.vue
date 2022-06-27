@@ -29,7 +29,7 @@
       <template
         v-if="hasLogined && showWalletConnect">
         <el-popover
-          :offset="0"
+          :offset="6"
           placement="bottom"
           popper-class="section-toolbar__user-popover"
           :show-arrow="false"
