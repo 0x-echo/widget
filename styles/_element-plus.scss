@@ -72,6 +72,18 @@
     }
   }
   
+  &--text {
+    &:hover,
+    &:focus {
+      color: var(--color-primary-dark);
+    }
+    
+    &:focus:not(.el-button:hover) {
+      border-color: transparent;
+      color: var(--color-primary);
+    }
+  }
+  
   &--large {
     font-size: 15px;
   }

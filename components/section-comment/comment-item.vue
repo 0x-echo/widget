@@ -87,11 +87,26 @@
             </template>
           </el-popover>
         </div>
-            
-        <div
+        
+        <vue-clamp
           class="comment-item__content" 
-          v-html="commentContent">
-        </div>
+          :max-lines="5"
+          raw-html>
+          {{ commentContent }}
+          
+          <template 
+            #after="{ toggle, expanded, clamped }">
+            <div
+              class="comment-item__content-more"
+              v-if="expanded || clamped">
+              <el-button
+                type="text"
+                @click="toggle">
+                {{ expanded ? 'Show less' : 'Show more' }}
+              </el-button>
+            </div>
+          </template>
+        </vue-clamp>
         
         <div
           class="comment-item__control-bar">
@@ -376,6 +391,10 @@ export default {
     a {
       text-decoration: underline;
     }
+  }
+  
+  &__content-more {
+    margin-top: 5px;
   }
   
   &__control-bar {
