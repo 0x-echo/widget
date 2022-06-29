@@ -3,7 +3,7 @@
 import { defineStore } from 'pinia'
 import config from '../config'
 import axios from 'axios'
-import solana from '../libs/sol'
+// import solana from '../libs/sol'
 
 const useStore = defineStore('global', {
 	state: () => ({
@@ -135,14 +135,15 @@ const useStore = defineStore('global', {
           this.balance = rs
         } catch (e) {}
       } else {
-        let connection = new solana.Connection(solana.clusterApiUrl('testnet')) // mainnet-beta, testnet, or devnet
-        console.log(connection)
-        // async function
-        setTimeout(async () => {
-          const rs = await connection.getBalance(window.solana.publicKey)
-          console.log(rs / solana.LAMPORTS_PER_SOL)
-          this.balance = rs / solana.LAMPORTS_PER_SOL
-        })
+        // @todo server logic
+        // let connection = new solana.Connection(solana.clusterApiUrl('testnet')) // mainnet-beta, testnet, or devnet
+        // console.log(connection)
+        // // async function
+        // setTimeout(async () => {
+        //   const rs = await connection.getBalance(window.solana.publicKey)
+        //   console.log(rs / solana.LAMPORTS_PER_SOL)
+        //   this.balance = rs / solana.LAMPORTS_PER_SOL
+        // })
       }
     },
     setCounts (counts) {
