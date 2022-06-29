@@ -29,7 +29,9 @@ const useStore = defineStore('global', {
 
     wallet: {
       loginType: 'login', // or tip
-      loginApp: 'metamask' // or walletconnect
+      loginApp: 'metamask', // or walletconnect
+      connectedAccounts: [],
+      tipWallet: ''
     },
 
     layout: {

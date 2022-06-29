@@ -11,20 +11,21 @@
         class="section-wallet__content-wrapper">
         <wallet-item
           class="section-wallet__item"
-          v-for="item in list"
-          :key="item.value"
-          :active="item.value === activeOption"
+          v-for="item in store.wallet.connectedWallets"
+          :key="item"
+          :active="item === store.wallet.tipWallet"
           direction="row"
-          :icon="item.icon"
-          :label="item.value"
+          :label="item"
           @click="changeOption(item)">
-          {{ $ellipsisInMiddle(item.value) }}
+          {{ $ellipsisInMiddle(item, 6) }}
         </wallet-item>
         
         <div
-          class="wallet-item section-wallet__item section-wallet__add">
+          v-if="store.wallet.loginApp === 'metamask'"
+          class="wallet-item section-wallet__item section-wallet__add"
+          @click="reSelectWallet">
           <i
-            class="ri-add-line">
+            class="ri-edit-line">
           </i>
         </div>
       </div>
@@ -46,7 +47,8 @@ const props = defineProps({
 })
 
 const emits = defineEmits([
-  'update:modelValue'
+  'update:modelValue',
+  'tip-reconnect'
 ])
 
 const activeOption = computed({
@@ -59,13 +61,44 @@ const activeOption = computed({
 })
 
 const changeOption = (item) => {
-  activeOption.value = item.value
+  activeOption.value = item
+  store.setData('wallet', {
+    tipWallet: item
+  })
 }
 
-const list = [{
-  icon: metamaskLogo,
-  value: '0x123424245535'
-}]
+const reSelectWallet = async () => {
+  store.setWallet({
+    loginType: 'reselect'
+  })
+  emits('tip-reconnect')
+  // const rs = await window.ethereum.request({
+  //   method: "wallet_requestPermissions",
+  //   params: [
+  //     {
+  //       eth_accounts: {}
+  //     }
+  //   ]
+  // })
+  // if (store.wallet.connectedWallets[0]) {
+  //   store.setData('wallet', {
+  //     tipWallet: store.wallet.connectedWallets[0]
+  //   })
+  // }
+}
+
+onMounted(async () => {
+  console.log('wallet mounted')
+  console.log(store.wallet)
+  // const accounts = await ethereum.request({ method: 'eth_accounts' })
+  // console.log(accounts)
+  // auto-select current wallet
+  if (store.wallet.connectedWallets[0]) {
+    store.setData('wallet', {
+      tipWallet: store.wallet.connectedWallets[0]
+    })
+  }
+})
 </script>
 
 <style lang="scss">

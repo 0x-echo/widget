@@ -34,8 +34,9 @@
     
     <el-collapse-transition>
       <section-wallet
-        v-show="data.amount"
-        v-model="data.wallet">
+        v-if="data.amount"
+        v-model="data.wallet"
+        @tip-reconnect="$emit('tip-reconnect')">
       </section-wallet>
     </el-collapse-transition>
     
@@ -73,7 +74,9 @@ const { $bus } = useNuxtApp()
 
 const emits = defineEmits([
   'go-next',
-  'update:modelValue'
+  'update:modelValue',
+  'do-tip',
+  'tip-reconnect'
 ])
 
 const close = () => {
@@ -112,8 +115,9 @@ const goNext = () => {
     })
     return
   }
-  close()
-  emits('go-next', data)
+  // close()
+  // emits('go-next', data)
+  emits('do-tip', data)
 } 
 
 const tipDialogRef = ref(null)

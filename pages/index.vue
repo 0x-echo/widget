@@ -66,7 +66,8 @@
     
     <dialog-tip
       v-model="tipDialogVisible"
-      @go-next="tipLogin">
+      @tip-reconnect="tipLogin"
+      @do-tip="doTipLogin">
     </dialog-tip>
     
     <dialog-report
@@ -128,6 +129,20 @@ const getAuthMessage = () => {
   return commonConfig.wallet.auth_message.replace('TIMESTAMP', new Date().getTime())
 }
 
+
+const initWallet = async () => {
+  try {
+    const accounts = await ethereum.request({ method: 'eth_accounts' })
+    if (accounts.length) {
+      store.setData('wallet', {
+        connectedWallets: accounts
+      })
+    }
+  } catch (e) {}
+}
+
+initWallet().then(() => {})
+
 // setTimeout(async () => {
   
 // }, 5000)
@@ -183,6 +198,9 @@ const setUpProvider = async () => {
 
   try {
     provider.on("accountsChanged", async (accounts) => {
+      store.setData('wallet', {
+        connectedWallets: accounts
+      })
       if (store.wallet.loginType === 'tip') {
         return
       }
@@ -315,10 +333,12 @@ onMounted(async () => {
     await getSummary()
   }
 
-  // window.ethereum.on('accountsChanged', async (accounts) => {
-  //   console.log('account changed', accounts)
-  //   await connectWallet()
-  // })
+  window.ethereum.on('accountsChanged', async (accounts) => {
+    console.log('account changed', accounts)
+    store.setData('wallet', {
+      connectedWallets: accounts
+    })
+  })
 })
 
 const scrollComponent = ref(null)
@@ -394,7 +414,24 @@ const login = async () => {
   if (store.wallet.loginType === 'login') {
     await doAccountLogin()
   } else if (store.wallet.loginType === 'tip') {
-    await doTipLogin()
+    // await doTipLogin()
+  } else if (store.wallet.loginType === 'reselect') {
+    console.log('重新选择钱包')
+    await window.ethereum.request({
+      method: "wallet_requestPermissions",
+      params: [
+        {
+          eth_accounts: {}
+        }
+      ]
+    })
+    const accounts = await ethereum.request({ method: 'eth_accounts' })
+    if (accounts.length) {
+      store.setData('wallet', {
+        tipWallet: accounts[0]
+      })
+    }
+    connectDialogVisible.value = false
   }
 }
 
@@ -569,18 +606,17 @@ const doTipLogin = async () => {
   let account
   let accounts
 
-
   try {
     // force reselect
     if (store.wallet.loginApp === 'metamask') {
-      const rs = await currentProvider.request({
-        method: "wallet_requestPermissions",
-        params: [
-          {
-            eth_accounts: {}
-          }
-        ]
-      })
+      // const rs = await currentProvider.request({
+      //   method: "wallet_requestPermissions",
+      //   params: [
+      //     {
+      //       eth_accounts: {}
+      //     }
+      //   ]
+      // })
       accounts = await currentProvider.request({ method: 'eth_requestAccounts' })
     } else if (store.wallet.loginApp === 'walletconnect') {
       accounts = await ethereum.request({ method: 'eth_accounts' })
@@ -803,9 +839,9 @@ const connectWallet =  async (item) => {
       await provider.disconnect()
     }
 
-    if (store.wallet.loginType === 'tip') {
-      await doTipLogin()
-    }
+    // if (store.wallet.loginType === 'tip') {
+    //   await doTipLogin()
+    // }
   } else if (item.value === 'phantom') {
     await phantomLogin()
   }

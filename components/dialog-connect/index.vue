@@ -72,25 +72,33 @@ const emits = defineEmits([
   'update:modelValue'
 ])
 
-const list = [{
-  label: 'MetaMask',
-  icon: iconMatemask,
-  value: 'metamask'
-}, {
-  label: 'WalletConnect',
-  icon: iconWalletConnect,
-  value: 'walletconnect'
-}, {
-  label: 'Phantom',
-  icon: iconPhantom,
-  value: 'phantom'
-}
-// {
-//   label: 'Fortmatic',
-//   icon: iconMatemask,
-//   value: '1'
-// }
-]
+const list = computed(() => {
+  const list = [{
+    label: 'MetaMask',
+    icon: iconMatemask,
+    value: 'metamask'
+  }, {
+    label: 'WalletConnect',
+    icon: iconWalletConnect,
+    value: 'walletconnect'
+  }
+  // {
+  //   label: 'Fortmatic',
+  //   icon: iconMatemask,
+  //   value: '1'
+  // }
+  ]
+
+  if (store.wallet.loginType === 'login') {
+    list.push({
+      label: 'Phantom',
+      icon: iconPhantom,
+      value: 'phantom'
+    })
+  }
+
+  return list
+})
 
 $bus.on('show-connect-loading', (text = '') => {
   getLoading(text)

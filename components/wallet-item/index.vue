@@ -6,6 +6,7 @@
       'wallet-item--row': direction === 'row'
     }">
     <img 
+      v-if="icon"
       class="wallet-item__logo"
       :alt="label"
       :src="icon" 
