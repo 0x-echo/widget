@@ -129,7 +129,9 @@ const emits = defineEmits([
   'tip',
   'dislike',
   'logout',
-  'like'
+
+  'like',
+  'ilike'
 ])
 
 // @todo use ilike instead of like because there is a bug
