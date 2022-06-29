@@ -56,6 +56,8 @@
 import { ElDialog,  ElLoading } from 'element-plus'
 import iconMatemask from '@/assets/metamask.svg'
 import iconWalletConnect from '@/assets/walletconnect.svg'
+import iconPhantom from '@/assets/phantom.png'
+
 import useStore from '~~/store';
 
 const { $bus } = useNuxtApp()
@@ -78,6 +80,10 @@ const list = [{
   label: 'WalletConnect',
   icon: iconWalletConnect,
   value: 'walletconnect'
+}, {
+  label: 'Phantom',
+  icon: iconPhantom,
+  value: 'phantom'
 }
 // {
 //   label: 'Fortmatic',
@@ -91,7 +97,7 @@ $bus.on('show-connect-loading', (text = '') => {
 })
 
 $bus.on('hide-connect-loading', () => {
-  loadingService.close()
+  loadingService && loadingService.close()
 })
 
 const close = () => {

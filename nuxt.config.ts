@@ -16,13 +16,17 @@ export default defineNuxtConfig({
     }, {
       hid: 'keywords',
       name: 'keywords',
-      content: 'chat, web3',
+      content: 'web3, comment widget, tip',
     }, {
       hid: 'description',
       name: 'description',
       content: 'ECHO',
     }],
     link: [{
+      ref: 'apple-touch-icon',
+      sizes: '180x180',
+      href: '/apple-touch-icon.png'
+    }, {
       rel: 'preconnect',
       href: 'https://fonts.googleapis.com'
     }, {

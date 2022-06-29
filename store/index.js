@@ -3,6 +3,7 @@
 import { defineStore } from 'pinia'
 import config from '../config'
 import axios from 'axios'
+import solana from '../libs/sol'
 
 const useStore = defineStore('global', {
 	state: () => ({
@@ -125,13 +126,24 @@ const useStore = defineStore('global', {
       }
     },
     async updateBalance (account) {
-      try {
-        const rs = await window.ethereum.request({
-          method: 'eth_getBalance',
-          params: [account, 'latest']
+      if (/^0x/i.test(account)) {
+        try {
+          const rs = await window.ethereum.request({
+            method: 'eth_getBalance',
+            params: [account, 'latest']
+          })
+          this.balance = rs
+        } catch (e) {}
+      } else {
+        let connection = new solana.Connection(solana.clusterApiUrl('testnet')) // mainnet-beta, testnet, or devnet
+        console.log(connection)
+        // async function
+        setTimeout(async () => {
+          const rs = await connection.getBalance(window.solana.publicKey)
+          console.log(rs / solana.LAMPORTS_PER_SOL)
+          this.balance = rs / solana.LAMPORTS_PER_SOL
         })
-        this.balance = rs
-      } catch (e) {}
+      }
     },
     setCounts (counts) {
       for (let i in counts) {
@@ -214,6 +226,9 @@ const useStore = defineStore('global', {
             force: force ? 'true' : ''
           }
         })
+        if (!rs) {
+          return
+        }
         if (rs.dotbit || rs.ens) {
           this.screen_name = rs.dotbit || rs.ens
         }

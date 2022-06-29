@@ -14,6 +14,7 @@
         @dislike="dislike"
         @dislike-comment="dislikeComment"
         @like="like"
+        @ilike="like"
         @like-comment="likeComment"
         @logout="logout"
         @on-change-tab="onChangeTab"
@@ -83,6 +84,8 @@
 <script setup>
 import configParser from '../libs/config-parser'
 import { v4 as uuidv4 } from 'uuid'
+import base58 from 'bs58'
+
 import { ElMessage } from 'element-plus'
 
 import { parseContent } from '../libs/content-parser'
@@ -120,6 +123,14 @@ let currentTab = config.modules[0]
 store.setLayout({
   currentTab
 })
+
+const getAuthMessage = () => {
+  return commonConfig.wallet.auth_message.replace('TIMESTAMP', new Date().getTime())
+}
+
+// setTimeout(async () => {
+  
+// }, 5000)
 
 const status = computed(() => store.status)
 
@@ -177,15 +188,13 @@ const setUpProvider = async () => {
       }
       const chain = await web3provider.getNetwork()
       const networkId = chain.chainId
-
-      const message = commonConfig.wallet.auth_message.replace('TIMESTAMP', new Date().getTime())
-
+      const message = getAuthMessage()
       const account = accounts[0]
       $bus.emit('show-connect-loading', `Please sign the message.`)
       try {
         const signature = await provider.request({ method: 'personal_sign', params: [ message, account ] })
         $bus.emit('hide-connect-loading')
-        await requestLogin(account, message, signature, networkId)
+        await requestLogin(account, message, signature, 'eth', networkId)
       } catch (e) {
         $bus.emit('hide-connect-loading')
         ElMessage.error({
@@ -598,7 +607,7 @@ const doTipLogin = async () => {
   }
 }
 
-const requestLogin = async (account, message, signature, chainId) => {
+const requestLogin = async (account, message, signature, chain, chainId) => {
   const loading = ElMessage({
     customClass: 'el-message--no-icon',
     message: h('div', { class: 'chat-loader', style: 'width: 20px; height: 20px;border-color:#4E75F6;'}, ''),
@@ -608,7 +617,7 @@ const requestLogin = async (account, message, signature, chainId) => {
       const { data: rs } = await $fetch(commonConfig.api().CREATE_USER, {
         method: 'POST',
         body: {
-          chain: `EVM/${chainId}`,
+          chain,
           address: account,
           message,
           signature
@@ -660,6 +669,15 @@ const requestLogin = async (account, message, signature, chainId) => {
     } catch (e) {
       console.log(e)
       loading.close()
+      if (e.response && e.response._data) {
+        ElMessage.error({
+          message: e.response._data.msg
+        })
+      } else {
+        ElMessage.error({
+          message: 'Unknown login error.'
+        })
+      }
     }
 }
 
@@ -694,7 +712,7 @@ const doAccountLogin = async () => {
   let account
   let accounts = await ethereum.request({ method: 'eth_accounts' })
   let signature
-  const message = commonConfig.wallet.auth_message.replace('TIMESTAMP', new Date().getTime())
+  const message = getAuthMessage()
 
   if (!accounts.length) {
     accounts = await ethereum.request({ method: 'eth_requestAccounts' })
@@ -704,7 +722,7 @@ if (accounts.length) {
     account = accounts[0]
     signature = await ethereum.request({ method: 'personal_sign', params: [ message, account ] })
 
-    await requestLogin(account, message, signature, window.ethereum.networkVersion)
+    await requestLogin(account, message, signature, 'eth', window.ethereum.networkVersion)
   }
 }
 
@@ -719,6 +737,57 @@ const sortChange = async (val) => {
   }
 }
 
+const phantomSign = async (key) => {
+  const message = getAuthMessage()
+  const encodedMessage = new TextEncoder().encode(message);
+  const signedMessage = await window.solana.signMessage(encodedMessage, 'utf-8')
+  console.log('public key', window.solana.publicKey)
+  console.log('sign message', message, signedMessage)
+  console.log('encode signed', base58.encode(signedMessage.signature))
+
+  console.log('public key base58', window.solana.publicKey.toBase58())
+  console.log(message, base58.encode(signedMessage.signature), key)
+  console.log('decode key', base58.decode(base58.encode(signedMessage.signature)))
+  await requestLogin(key, message, base58.encode(signedMessage.signature), 'solana')
+}
+
+const phantomLogin = async () => {
+  const isPhantomInstalled = window.solana && window.solana.isPhantom
+  if (!isPhantomInstalled) {
+    ElMessage.error({
+      message: 'Please install Phantom first.'
+    })
+    return
+  }
+
+  let key
+
+  try {
+    window.solana.on("connect", () => {
+      console.log("connected!")
+    })
+    if (window.solana.isConnected) {
+      console.log('solana is already connected')
+      key = window.solana.publicKey.toString()
+      await phantomSign(key)
+      return
+    }
+    $bus.emit('show-connect-loading', `Connecting...`)
+    const resp = await window.solana.connect()
+    key = resp.publicKey.toString()
+    // 26qv4GCcx98RihuK3c4T6ozB3J7L6VwCuFVc7Ta2A3Uo 
+    await phantomSign(key)
+  } catch (err) {
+    console.log(err)
+    ElMessage.error({
+      message: err.message
+    })
+    // { code: 4001, message: 'User rejected the request.' }
+  } finally {
+    $bus.emit('hide-connect-loading')
+  }
+}
+
 let hasOpen = false
 const connectWallet =  async (item) => {
    store.setWallet({
@@ -726,7 +795,7 @@ const connectWallet =  async (item) => {
    })
   if (item.value === 'metamask') {
     await login()
-  } else {
+  } else if (item.value === 'walletconnect') {
     await setUpProvider()
     try {
       await provider.enable()
@@ -737,6 +806,8 @@ const connectWallet =  async (item) => {
     if (store.wallet.loginType === 'tip') {
       await doTipLogin()
     }
+  } else if (item.value === 'phantom') {
+    await phantomLogin()
   }
 }
 

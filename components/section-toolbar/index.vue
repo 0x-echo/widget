@@ -6,6 +6,17 @@
       class="section-toolbar">
       <div
         class="section-toolbar__left">
+        <!-- {{ counts }} -->
+
+ <!-- <div
+          v-for="item in toolbarConfig"
+          :key="item.value"
+          
+         >
+         {{ item.value }}
+         {{ counts[`has_${item.value}d`] }}
+        </div> -->
+        
         <toolbar-item
           v-for="item in toolbarConfig"
           :key="item.value"
@@ -14,7 +25,7 @@
           :count="item.count"
           :value="item.value"
           :show-label="item.showLabel"
-          @on-click="$emit(item.value, counts[`has_${item.value}d`])">
+          @on-click="emitAction(item)">
         </toolbar-item>
       </div>
 
@@ -120,6 +131,11 @@ const emits = defineEmits([
   'logout',
   'like'
 ])
+
+// @todo use ilike instead of like because there is a bug
+const emitAction = (item) => {
+  emits(item.value === 'like' ? 'ilike' : item.value, counts.value[`has_${item.value}d`])
+}
 
 const showWalletConnect = computed(() => {
   if (props.config.modules.length === 1 && (props.config.modules.includes('like-lite') || props.config.modules.includes('dislike-lite'))) {
