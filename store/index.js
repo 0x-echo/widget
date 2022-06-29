@@ -218,6 +218,23 @@ const useStore = defineStore('global', {
         console.log('sync balance error:', e)
       }
     },
+    async logout () {
+      this.setLogined(false)
+      this.setLoginInfo({
+        chain: '',
+        address: '',
+        screen_name: '',
+        avatar: '',
+        balance: ''
+      })
+      this.setCounts({
+        has_liked: false,
+        has_disliked: false
+      })
+      try {
+        localStorage.removeItem('login_info')
+      } catch (e) {}
+    },
     async getScreenName (force) {
       try {
         const { data: rs } = await $fetch(config.api().GET_USER_INFO, {
@@ -234,6 +251,13 @@ const useStore = defineStore('global', {
         }
         if (rs.avatar) {
           this.avatar = rs.avatar
+        }
+
+        // logout user if JWT expires
+        // @todo need improvement
+        if (!rs.has_logined && this.hasLogined) {
+          console.log('已经非登录状态')
+          this.logout()
         }
       } catch (e) {
         console.log(e)

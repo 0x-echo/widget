@@ -1106,7 +1106,7 @@ const doReply = async (content, parentId, directParentId, successCallback, type 
 
     if (rs.data.is_first_comment) {
       ElMessage.success({
-        message: 'Congrats on your fist comment!'
+        message: 'Congrats on your first comment!'
       })
       showConfetti()
     } else {
