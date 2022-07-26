@@ -75,10 +75,15 @@
       @submit="report">
     </dialog-report>
     
-    <dialog-delete
+    <dialog-confirm
+      confirm-button-text="Delete"
+      confirm-button-type="danger"
+      icon="ri-close-circle-line"
+      message="The action cannot be undone."
+      title="Delete Comment?"
       v-model="deleteDialogVisible"
       @submit="deleteComment">
-    </dialog-delete>
+    </dialog-confirm>
   </div>
 </template>
 

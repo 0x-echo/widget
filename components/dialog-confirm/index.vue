@@ -2,35 +2,34 @@
   <el-dialog
     v-bind="$attrs"
     :close-on-click-modal="false"
-    custom-class="dialog-delete"
+    custom-class="dialog-confirm"
     :show-close="false"
     width="90%">
     <template
       #title>
       <dialog-header
-        icon="ri-close-circle-line"
-        title="Delete Comment?"
+        :icon="icon"
+        :title="title"
         @close="close">
       </dialog-header>
     </template>
     
-    <div>
-      The action cannot be undone.
+    <div
+      class="dialog-confirm__message">
+      {{ message }}
     </div>
     
     <div
-      class="dialog-delete__footer">
+      class="dialog-confirm__footer">
       <el-button
-        size="large"
         @click="close">
         Cancel
       </el-button>
       
       <el-button
-        size="large"
-        type="danger"
+        :type="confirmButtonType"
         @click="submit">
-        Delete
+        {{ confirmButtonText }}
       </el-button>
     </div>
   </el-dialog>
@@ -38,6 +37,26 @@
 
 <script setup>
 import { ElButton, ElDialog } from 'element-plus'
+
+const props = defineProps({
+  confirmButtonText: {
+    type: String,
+    default: 'Sure'
+  },
+  confirmButtonType: {
+    type: String,
+    default: 'primary'
+  },
+  icon: {
+    type: String
+  },
+  message: {
+    type: String
+  },
+  title: {
+    type: String
+  }
+})
 
 const emits = defineEmits([
   'submit',
@@ -61,13 +80,23 @@ export default {
 
 
 <style lang="scss">
-.dialog-delete {
+.dialog-confirm {
   &.el-dialog {
-    max-width: 485px;
+    max-width: 450px;
   }
   
-  &__select {
-    width: 100%;
+  .el-dialog__header {
+    padding: 30px 30px 0;
+  }
+  
+  .el-dialog__body {
+    padding: 25px 30px 30px;
+  }
+  
+  &__message {
+    padding: 15px;
+    border-radius: 10px;
+    background: var(--bg-color);
   }
   
   &__footer {
@@ -76,6 +105,7 @@ export default {
     
     .el-button {
       width: 100px;
+      height: 36px;
     }
   }
 }

@@ -25,6 +25,21 @@
     }
   }
   
+  &--danger {
+    &,
+    &:focus:not(.el-button:hover) {
+      border-color: var(--color-danger);
+      background-color: var(--color-danger);
+      color: white;
+    }
+    
+    &:hover,
+    &:focus {
+      border-color: #ed4233;
+      background-color: #ed4233;
+    }
+  }
+  
   &--info {
     --el-button-hover-bg-color: var(--color-primary-light);
     --el-button-hover-border-color: var(--color-primary-light);
