@@ -3,6 +3,7 @@
     class="wallet-item"
     :class="{
       'active': active,
+      'disabled': disabled,
       'wallet-item--row': direction === 'row'
     }">
     <img 
@@ -29,6 +30,10 @@ const props = defineProps({
   },
   direction: {
     type: String
+  },
+  disabled: {
+    type: Boolean,
+    default: false
   },
   icon: {
     type: String
@@ -57,6 +62,16 @@ const props = defineProps({
   &:hover {
     border-color: var(--color-primary);
     box-shadow: 0 0 4px rgba(var(--color-primary-rgb), .5);
+  }
+  
+  &.disabled {
+    opacity: .6;
+    cursor: not-allowed;
+    
+    &:hover {
+      border-color: var(--border-color);
+      box-shadow: none;
+    }
   }
   
   &--row {
