@@ -217,7 +217,7 @@ const setUpProvider = async () => {
       try {
         const signature = await provider.request({ method: 'personal_sign', params: [ message, account ] })
         $bus.emit('hide-connect-loading')
-        await requestLogin(account, message, signature, 'eth', networkId)
+        await requestLogin(account, message, signature, 'EVM', networkId)
       } catch (e) {
         $bus.emit('hide-connect-loading')
         ElMessage.error({
@@ -763,7 +763,7 @@ if (accounts.length) {
     account = accounts[0]
     signature = await ethereum.request({ method: 'personal_sign', params: [ message, account ] })
 
-    await requestLogin(account, message, signature, 'eth', window.ethereum.networkVersion)
+    await requestLogin(account, message, signature, 'EVM', window.ethereum.networkVersion)
   }
 }
 
