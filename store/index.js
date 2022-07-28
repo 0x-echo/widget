@@ -212,9 +212,10 @@ const useStore = defineStore('global', {
     async syncBalance () {
       try {
         const { data: rs } = await $fetch(config.api().SYNC_BALANCE, {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${this.token}`
+          method: 'GET',
+          params: {
+            chain: this.chain,
+            address: this.address
           }
         })
       } catch (e) {
