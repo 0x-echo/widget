@@ -76,7 +76,8 @@ const list = computed(() => {
   const list = [{
     label: 'MetaMask',
     icon: iconMatemask,
-    value: 'metamask'
+    value: 'metamask',
+    disabled: !window.ethereum
   }, {
     label: 'WalletConnect',
     icon: iconWalletConnect,
@@ -93,7 +94,8 @@ const list = computed(() => {
     list.push({
       label: 'Phantom',
       icon: iconPhantom,
-      value: 'phantom'
+      value: 'phantom',
+      disabled: !window.solana
     })
   }
 
