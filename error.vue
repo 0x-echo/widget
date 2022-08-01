@@ -17,7 +17,7 @@
       
       <h1
         class="error-page__title">
-        Something is wrong
+        {{ $route.query.error || 'Something is wrong' }}
       </h1>
     </div>
   </div>
