@@ -782,13 +782,6 @@ const phantomSign = async (key) => {
   const message = getAuthMessage()
   const encodedMessage = new TextEncoder().encode(message);
   const signedMessage = await window.solana.signMessage(encodedMessage, 'utf-8')
-  console.log('public key', window.solana.publicKey)
-  console.log('sign message', message, signedMessage)
-  console.log('encode signed', base58.encode(signedMessage.signature))
-
-  console.log('public key base58', window.solana.publicKey.toBase58())
-  console.log(message, base58.encode(signedMessage.signature), key)
-  console.log('decode key', base58.decode(base58.encode(signedMessage.signature)))
   await requestLogin(key, message, base58.encode(signedMessage.signature), 'solana')
 }
 

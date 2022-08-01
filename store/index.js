@@ -259,12 +259,16 @@ const useStore = defineStore('global', {
 
         // logout user if JWT expires
         // @todo need improvement
-        if (!rs.has_logined && this.hasLogined) {
-          console.log('已经非登录状态')
-          this.logout()
-        }
+        // if (!rs.has_logined && this.hasLogined) {
+        //   console.log('NOT IN LOGINED STATUS')
+        //   this.logout()
+        // }
       } catch (e) {
         console.log(e)
+        if (e.message.includes('404')) {
+          console.log('USER NOT FOUND')
+          this.logout()
+        }
       }
     }
   },
