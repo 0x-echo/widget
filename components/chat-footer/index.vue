@@ -4,9 +4,12 @@
     :class="{
       'is-minimal': minimal
     }">
-    <div>
+    <a
+      class="chat-footer__link"
+      href="https://0xecho.com/"
+      target="_blank">
       <template v-if="!minimal">Powered by </template>ECHO <span class="chat-footer__beta-tag">beta</span>
-    </div>
+    </a>
     
     <div
       class="chat-footer__right">
