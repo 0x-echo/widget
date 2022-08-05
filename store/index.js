@@ -247,6 +247,10 @@ const useStore = defineStore('global', {
       } catch (e) {}
     },
     async getScreenName (force) {
+      if (!this.chain || !this.address) {
+        console.error('user: fail to get screen name')
+        return
+      }
       try {
         const { data: rs } = await $fetch(config.api().GET_USER_INFO, {
           params: {
