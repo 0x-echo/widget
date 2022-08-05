@@ -106,6 +106,12 @@ import useWidgetConfig from '~~/compositions/widget-config'
 import useConfetti from '~~/compositions/confetti'
 
 import useLoading from '~~/compositions/loading'
+import useSign from '~~/compositions/sign'
+
+import useReceiver from '~~/compositions/receiver'
+
+const sign = useSign()
+const receiver = useReceiver()
 
 const { public: { api, common, thirdParty }} = useRuntimeConfig()
 
@@ -155,9 +161,9 @@ initWallet().then(() => {})
 const status = computed(() => store.status)
 
 let summary = reactive({
-  name: 'code.bit',
-  bio: 'Hello world.',
-  avatar: 'https://ipfs.io/ipfs/QmVD87KnmMEgmDtV254xo3171KNpvv6xidQqaZZ9bpbzFX',
+  name: '',
+  bio: '',
+  avatar: '',
   comments: [],
   likes: [],
   dislikes: [],
@@ -459,13 +465,19 @@ const refreshProfile = async () => {
 
 const sendTip = async ({ currentProvider, account, chainId }) => {
   let gotSuccess = false // may trigger more than once due to the slow network
-  let toAddress = '0x3c98b726Cd9e9F20BEcAFD05A9AfFeCD61617C0b'
+  let toAddress = store.receiver.address
+  if (!toAddress) {
+    ElMessage.error({
+      message: 'Fail to resolve receiver\'s address.'
+    })
+    return
+  }
   let value = store.tip_amount / (store.currency[store.tip_network].usd)
   console.log('value', value)
   if (value <= 0) {
-      ElMessage.error({
-        message: 'Something is wrong. Please try again later.'
-      })
+    ElMessage.error({
+      message: 'Something is wrong. Please try again later.'
+    })
     return
   }
 
@@ -655,18 +667,23 @@ const requestLogin = async (account, message, signature, chain, chainId) => {
     duration: 0
   })
   try {
+    const signKeys = sign.generateKeyPair()
+
       const { data: rs } = await $fetch(commonConfig.api().CREATE_USER, {
         method: 'POST',
         body: {
           chain,
           address: account,
           message,
-          signature
+          signature,
+          public_key: signKeys.publicKey.replace(/^0x/, '')
         },
         headers: getCommonHeader()
       })
 
       connectDialogVisible.value = false
+
+      sign.save(signKeys.privateKey)
 
       store.setLogined(true)
       store.setLoginInfo({
@@ -1123,20 +1140,27 @@ const doReply = async (content, parentId, directParentId, successCallback, type 
         onSubmitingTargetComment: true
       })
     }
+
+    const body = {
+      type,
+      target_uri: TARGET_URI,
+      parent_id: parentId,
+      direct_parent_id: directParentId,
+      content: parseContent(content, false),
+      protocol_version: common.PROTOCOL_VERSION,
+      id: uuidv4()
+    }
+
+    const signed = sign.sign(body)
+
+    body.public_key = signed.publicKey
+    body.signature = signed.signature
+
     const rs = await $fetch(commonConfig.api().CREATE_POST, {
       method: 'POST',
-      body: {
-        type,
-        target_uri: TARGET_URI,
-        parent_id: parentId,
-        direct_parent_id: directParentId,
-        content: parseContent(content, false),
-        protocol_version: common.PROTOCOL_VERSION,
-        id: uuidv4()
-      },
+      body,
       headers: getCommonHeader()
     })
-    
 
     if (rs.data.is_first_comment) {
       ElMessage.success({
