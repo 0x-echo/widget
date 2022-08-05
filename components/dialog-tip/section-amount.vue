@@ -52,7 +52,7 @@
            ≈ {{ store.tip_amount / (store.currency[store.tip_network].usd) }} {{ store.currency[store.tip_network].symbol }}
         </template>
         <template v-else>
-          Fail get currency. Please try again later.
+          Fail to get currency. Please try again later.
         </template>
       </div>
     </el-collapse-transition>

@@ -8,6 +8,9 @@ export function parseContent(str, isRender = true) {
 		return ''
 	}
 
+	// trim
+	str = str.trim()
+
 	str = xss(str, {
 		whiteList: {}, // empty, means filter out all tags
 		stripIgnoreTag: true, // filter out all HTML not in the whitelist

@@ -18,7 +18,11 @@ export default defineNuxtPlugin(() => {
         return url
       },
       formatAddress: (address) => {
-        return ethers.utils.getAddress(address)
+        if (/^0x/.test(address)) {
+          return ethers.utils.getAddress(address)
+        } else {
+          return address
+        }
       },
       formatScreenName: (name) => {
         if (name.includes('.')) {

@@ -8,20 +8,20 @@
         <div
           class="template-list__avatar">
           <chat-avatar
-            :alt="data.name"
+            :alt="store.receiver.name"
             :size="80"
-            :src="data.avatar || ''">
+            :src="store.receiver.avatar || ''">
           </chat-avatar>
         </div>
         
         <div
           class="template-list__user-name">
-          {{ data.name }}
+          {{ store.receiver.displayName || route.query.receiver }}
         </div>
         
         <div
           class="template-list__bio">
-          {{ data.bio }}
+          {{ route.query.desc }}
         </div>
       </div>
       
@@ -105,8 +105,8 @@ import { ElButton, ElTooltip } from 'element-plus'
 import ListSkeleton from './skeleton'
 import useStore from '~~/store'
 
-
-const store = useStore();
+const route = useRoute()
+const store = useStore()
 const counts = computed(() => store.counts)
 
 const props = defineProps({

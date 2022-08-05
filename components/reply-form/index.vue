@@ -91,7 +91,7 @@ const props = defineProps({
   },
   placeholder: {
     type: String,
-    default: 'Type something...'
+    default: 'Write a comment...'
   },
   position: {
     type: String

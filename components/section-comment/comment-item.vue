@@ -37,11 +37,11 @@
                 Author
               </chat-tag>
               
-              <!-- <icon-copy
+              <icon-copy
                 class="comment-item__copy-icon"
                 :value="$formatAddress(data.author.address)"
                 title="copy address">
-              </icon-copy> -->
+              </icon-copy>
             </div>
               
             <div

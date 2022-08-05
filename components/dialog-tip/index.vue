@@ -72,6 +72,8 @@ import useStore from '~~/store';
 const store = useStore()
 const { $bus } = useNuxtApp()
 
+const route = useRoute()
+
 const emits = defineEmits([
   'go-next',
   'update:modelValue',
@@ -89,18 +91,22 @@ const onCloseDialog = () => {
   data.amount = ''
 }
 
-const user = {
-  name: 'code.bit',
-  bio: 'Hello world.',
-  avatar: 'https://s2.loli.net/2022/01/25/7fwE8NhnRxpzSaG.png',
+
+const user = computed(() => ({
+  name: store.receiver.displayName,
+  bio: route.query.desc,
+  avatar: store.receiver.avatar,
   wallet: [{
     chain: 'EVM/1',
-    address: '0x3c98b726Cd9e9F20BEcAFD05A9AfFeCD61617C0b'
+    address: store.receiver.address
   }, {
     chain: 'EVM/137',
-    address: '0x3c98b726Cd9e9F20BEcAFD05A9AfFeCD61617C0b'
+    address: store.receiver.address
+  }, {
+    chain: 'EVM/56',
+    address: store.receiver.address
   }]
-}
+}))
 
 let data = reactive({
   network: '',

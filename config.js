@@ -5,7 +5,7 @@ let baseURL = 'http://127.0.0.1:9000'
 
 export default {
 	common: {
-		PROTOCOL_VERSION: '0.0.1'
+		PROTOCOL_VERSION: '0.1'
 	},
   supportedNetworks: {
     'EVM/1': 'eth',
