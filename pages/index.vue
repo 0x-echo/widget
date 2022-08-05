@@ -305,6 +305,7 @@ const handleStorageChange = () => {
     if (loginInfo) {
       tryAutoLogin()
     } else {
+      console.log('do logout')
       logout(true)
     }
   } catch (e) {
