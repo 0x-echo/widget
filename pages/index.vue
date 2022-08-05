@@ -110,6 +110,9 @@ import useSign from '~~/compositions/sign'
 
 import useReceiver from '~~/compositions/receiver'
 
+// whether login on this page or not
+let loginOnCurrentPage = false
+
 const sign = useSign()
 const receiver = useReceiver()
 
@@ -297,6 +300,9 @@ let checkInterval = null
 let onHandlingStorageChange = false
 const handleStorageChange = () => {
   if (onHandlingStorageChange) {
+    return
+  }
+  if (loginOnCurrentPage) {
     return
   }
   onHandlingStorageChange = true
@@ -704,6 +710,8 @@ const requestLogin = async (account, message, signature, chain, chainId) => {
       ElMessage.success({
         message: 'Sign in successfully!'
       })
+
+      loginOnCurrentPage = true
 
       if (provider) {
         try {
