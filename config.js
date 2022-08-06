@@ -17,6 +17,10 @@ export default {
 	api: () => {
     const config = configParser()
     if (config.rpc_url) {
+      // third.chat => sandbox
+      if (config.rpc_url.includes('third.chat')) {
+        config.rpc_url = 'https://sandbox.0xecho.com'
+      }
       baseURL = config.rpc_url.replace(/\/$/, '')
     }
     return {
