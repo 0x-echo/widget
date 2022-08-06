@@ -140,9 +140,14 @@ store.setLayout({
 })
 
 const getAuthMessage = () => {
-  return commonConfig.wallet.auth_message.replace('TIMESTAMP', new Date().getTime())
+  const signKeys = sign.generateKeyPair()
+  return {
+    message: commonConfig.wallet.auth_message
+    .replace('TIMESTAMP', new Date().getTime())
+    .replace('PUBLIC_KEY', signKeys.publicKey.replace(/^0x/, '')),
+    signKeys
+  }
 }
-
 
 const initWallet = async () => {
   try {
@@ -667,15 +672,13 @@ const doTipLogin = async () => {
   }
 }
 
-const requestLogin = async (account, message, signature, chain, chainId) => {
+const requestLogin = async (account, message, signature, chain, signKeys) => {
   const loading = ElMessage({
     customClass: 'el-message--no-icon',
     message: h('div', { class: 'chat-loader', style: 'width: 20px; height: 20px;border-color:#4E75F6;'}, ''),
     duration: 0
   })
   try {
-    const signKeys = sign.generateKeyPair()
-
       const { data: rs } = await $fetch(commonConfig.api().CREATE_USER, {
         method: 'POST',
         body: {
@@ -779,7 +782,7 @@ const doAccountLogin = async () => {
   let account
   let accounts = await ethereum.request({ method: 'eth_accounts' })
   let signature
-  const message = getAuthMessage()
+  const { message, signKeys } = getAuthMessage()
 
   if (!accounts.length) {
     accounts = await ethereum.request({ method: 'eth_requestAccounts' })
@@ -789,7 +792,7 @@ if (accounts.length) {
     account = accounts[0]
     signature = await ethereum.request({ method: 'personal_sign', params: [ message, account ] })
 
-    await requestLogin(account, message, signature, 'EVM', window.ethereum.networkVersion)
+    await requestLogin(account, message, signature, 'EVM', signKeys)
   }
 }
 
@@ -805,10 +808,10 @@ const sortChange = async (val) => {
 }
 
 const phantomSign = async (key) => {
-  const message = getAuthMessage()
+  const { message, signKeys } = getAuthMessage()
   const encodedMessage = new TextEncoder().encode(message);
   const signedMessage = await window.solana.signMessage(encodedMessage, 'utf-8')
-  await requestLogin(key, message, base58.encode(signedMessage.signature), 'solana')
+  await requestLogin(key, message, base58.encode(signedMessage.signature), 'solana', signKeys)
 }
 
 const phantomLogin = async () => {
