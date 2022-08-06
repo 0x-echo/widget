@@ -81,7 +81,7 @@
                 :icon="item.icon"
                 :is-link="item.isLink"
                 :label="item.label"
-                :url="item.url + data.ar_tx_id"
+                :url="item.url + data.ar_id"
                 @on-click="$emit(item.value, data)">
               </menu-item>
             </template>

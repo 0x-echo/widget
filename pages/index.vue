@@ -1266,16 +1266,24 @@ const doReact = async (subType, data) => {
       })
     }
     beforePost()
+
+    const body = {
+      type: 'reaction',
+      sub_type: subType,
+      target_uri: TARGET_URI,
+      parent_id: data ? data.id : null,
+      protocol_version: common.PROTOCOL_VERSION,
+      id: uuidv4()
+    }
+
+    const signed = sign.sign(body)
+
+    body.public_key = signed.publicKey
+    body.signature = signed.signature
+
     const rs = await $fetch(commonConfig.api().CREATE_POST, {
       method: 'POST',
-      body: {
-        type: 'reaction',
-        sub_type: subType,
-        target_uri: TARGET_URI,
-        parent_id: data ? data.id : null,
-        protocol_version: common.PROTOCOL_VERSION,
-        id: uuidv4()
-      },
+      body,
       headers: getCommonHeader()
     })
 
