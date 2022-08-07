@@ -57,7 +57,7 @@ export default {
   },
   wallet: {
     // auth_message: `I want to authenticate and generate a JWT token at timestamp - TIMESTAMP. `,
-    auth_message: `I authorize publishing on ECHO from this device.\n\nTimestamp: TIMESTAMP\nPublic key: PUBLIC_KEY`,
+    auth_message: `I authorize publishing on ECHO from this device with my account: ADDRESS\n\nI accept the Terms of Service: https://0xecho.com/tos\n\nIssued At: TIMESTAMP\nPublic Key: PUBLIC_KEY`,
     transaction_check_interval: 3000
   }
 }

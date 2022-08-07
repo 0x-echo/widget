@@ -139,10 +139,11 @@ store.setLayout({
   currentTab
 })
 
-const getAuthMessage = () => {
+const getAuthMessage = (chain, address) => {
   const signKeys = sign.generateKeyPair()
   return {
     message: commonConfig.wallet.auth_message
+    .replace('ADDRESS', `${chain}/${address}`)
     .replace('TIMESTAMP', new Date().getTime())
     .replace('PUBLIC_KEY', signKeys.publicKey.replace(/^0x/, '')),
     signKeys
@@ -227,8 +228,8 @@ const setUpProvider = async () => {
       }
       const chain = await web3provider.getNetwork()
       const networkId = chain.chainId
-      const message = getAuthMessage()
       const account = accounts[0]
+      const message = getAuthMessage('EVM', account)
       $bus.emit('show-connect-loading', `Please sign the message.`)
       try {
         const signature = await provider.request({ method: 'personal_sign', params: [ message, account ] })
@@ -784,11 +785,12 @@ const doAccountLogin = async () => {
   let account
   let accounts = await ethereum.request({ method: 'eth_accounts' })
   let signature
-  const { message, signKeys } = getAuthMessage()
 
   if (!accounts.length) {
     accounts = await ethereum.request({ method: 'eth_requestAccounts' })
   }
+
+  const { message, signKeys } = getAuthMessage('EVM', accounts[0])
 
 if (accounts.length) {
     account = accounts[0]
@@ -810,7 +812,7 @@ const sortChange = async (val) => {
 }
 
 const phantomSign = async (key) => {
-  const { message, signKeys } = getAuthMessage()
+  const { message, signKeys } = getAuthMessage('solana', key)
   const encodedMessage = new TextEncoder().encode(message);
   const signedMessage = await window.solana.signMessage(encodedMessage, 'utf-8')
   await requestLogin(key, message, base58.encode(signedMessage.signature), 'solana', signKeys)
