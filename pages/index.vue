@@ -358,7 +358,7 @@ onMounted(async () => {
     await getSummary()
   }
 
-  window.ethereum.on('accountsChanged', async (accounts) => {
+  window.ethereum && window.ethereum.on('accountsChanged', async (accounts) => {
     console.log('account changed', accounts)
     store.setData('wallet', {
       connectedWallets: accounts
