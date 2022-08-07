@@ -751,6 +751,8 @@ const requestLogin = async (account, message, signature, chain, signKeys) => {
           message: 'Unknown login error.'
         })
       }
+    } finally {
+      $bus.emit('hide-connect-loading')
     }
 }
 
@@ -782,21 +784,27 @@ const doAccountLogin = async () => {
     }
   }
 
-  let account
-  let accounts = await ethereum.request({ method: 'eth_accounts' })
-  let signature
+  try {
+    let account
+    let accounts = await ethereum.request({ method: 'eth_accounts' })
+    let signature
 
-  if (!accounts.length) {
-    accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-  }
+    if (!accounts.length) {
+      accounts = await ethereum.request({ method: 'eth_requestAccounts' })
+    }
 
-  const { message, signKeys } = getAuthMessage('EVM', accounts[0])
+    const { message, signKeys } = getAuthMessage('EVM', accounts[0])
+    $bus.emit('show-connect-loading', `Connecting...`)
 
-if (accounts.length) {
-    account = accounts[0]
-    signature = await ethereum.request({ method: 'personal_sign', params: [ message, account ] })
-
-    await requestLogin(account, message, signature, 'EVM', signKeys)
+    if (accounts.length) {
+      account = accounts[0]
+      signature = await ethereum.request({ method: 'personal_sign', params: [ message, account ] })
+      try {
+        await requestLogin(account, message, signature, 'EVM', signKeys)
+      } catch (e) {}
+    }
+  } finally {
+    $bus.emit('hide-connect-loading')
   }
 }
 
