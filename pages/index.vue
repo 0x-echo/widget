@@ -732,7 +732,7 @@ const requestLogin = async (account, message, signature, chain, signKeys) => {
       }, 800)
 
       setTimeout(async () => {
-        await store.getScreenName()
+        await store.getScreenName(true)
       }, 10)
 
       setTimeout(async () => {
