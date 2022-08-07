@@ -179,10 +179,12 @@ let summary = reactive({
 })
 
 
-const viewArweaveInfo = () => {
-  ElMessage.info({
-    message: 'Syncing to Arweave will be activated after Beta phase.'
-  })
+const viewArweaveInfo = (data) => {
+  if (!data.ar_id) {
+    ElMessage.info({
+      message: 'The data will be sent to Arweave in 5 mins.'
+    })
+  }
 }
 
 let provider = null

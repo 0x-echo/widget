@@ -81,7 +81,7 @@
                 :icon="item.icon"
                 :is-link="item.isLink"
                 :label="item.label"
-                :url="item.url + data.ar_id"
+                :url="item.url"
                 @on-click="$emit(item.value, data)">
               </menu-item>
             </template>
@@ -188,26 +188,31 @@ const emits = defineEmits([
   'dislike-comment',
   'reply-comment',
   'report',
-  'like-comment'
+  'like-comment',
+  'view-arweave-info'
 ])
 
 const moreMenuVisible = ref(false)
 const moreMenuActive = ref(false)
 const moreMenu = computed(() => {
-  // const menus = [{
-  //   icon: 'ri-information-line',
-  //   isLink: true,
-  //   label: 'Arweave TX',
-  //   url: 'https://viewblock.io/arweave/tx/',
-  //   value: 'view-arweave-info'
-  // }]
 
-  const menus = [{
-    icon: 'ri-information-line',
-    label: 'Arweave TX',
-    url: 'https://viewblock.io/arweave/tx/',
-    value: 'view-arweave-info'
-  }]
+  const menus = []
+
+  if (props.data.ar_url) {
+    menus.push({
+      icon: 'ri-information-line',
+      label: 'Arweave TX',
+      url: props.data.ar_url,
+      isLink: true,
+      value: 'view-arweave-info'
+    })
+  } else {
+    menus.push({
+      icon: 'ri-send-plane-line',
+      label: 'Arweave',
+      value: 'view-arweave-info'
+    })
+  }
 
   if (store.hasLogined && !store.isMe(props.data.created_by)) {
     menus.push({
