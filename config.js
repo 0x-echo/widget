@@ -1,7 +1,7 @@
 // const baseURL = 'http://95.216.99.122:9000'
 import configParser from "./libs/config-parser"
 
-let baseURL = 'http://127.0.0.1:9000'
+let baseURL = 'https://node1.0xecho.com'
 
 export default {
 	common: {
