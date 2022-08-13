@@ -99,6 +99,18 @@ import ToolbarSkeleton from './skeleton'
 import useStore from '~~/store'
 import useChain from '~~/compositions/chain'
 
+// import * as Dotbit from 'dotbit/lib/index'
+// console.log(Dotbit)
+// const { createInstance, ProviderSigner, BitNetwork } = Dotbit
+// const signer = new ProviderSigner(window.ethereum)
+// const dotbit = createInstance({
+//   network: BitNetwork.testnet,
+//   signer
+// })
+
+// const bitAccount = dotbit.account('ec009.imac.bit')
+// console.log(bitAccount)
+
 const { logos, defaultLogo } = useChain()
 
 const store = useStore()

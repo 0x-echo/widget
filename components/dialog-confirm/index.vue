@@ -16,7 +16,9 @@
     
     <div
       class="dialog-confirm__message">
-      {{ message }}
+      <slot>
+        {{ message }}
+      </slot>
     </div>
     
     <div

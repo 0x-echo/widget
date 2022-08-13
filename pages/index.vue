@@ -79,10 +79,12 @@
       confirm-button-text="Delete"
       confirm-button-type="danger"
       icon="ri-close-circle-line"
-      message="The action cannot be undone."
       title="Delete Comment?"
       v-model="deleteDialogVisible"
       @submit="deleteComment">
+      The action cannot be undone.
+      <br>
+      The post cannot be deleted after it goes on-chain in about 5 minutes.
     </dialog-confirm>
   </div>
 </template>
@@ -980,10 +982,33 @@ const tipLogin = (data) => {
 let currentComment = null
 const deleteDialogVisible = ref(false)
 const goDeleteComment = (data) => {
+  console.log('data', data)
   currentComment = data
   deleteDialogVisible.value = true
 }
-const deleteComment = (data) => {
+const deleteComment = async () => {
+  console.log('go delete', currentComment, currentComment.id)
+  try {
+    const rs = await $fetch(commonConfig.api().DELETE_POST + currentComment.id, {
+      method: 'DELETE',
+      headers: getCommonHeader()
+    })
+    currentComment = null
+    deleteDialogVisible.value = false
+    ElMessage.success({
+      message: 'Done.'
+    })
+  } catch (e) {
+    if (e.response && e.response._data) {
+      ElMessage.error({
+        message: e.response._data.msg
+      })
+    } else {
+      ElMessage.error({
+        message: 'Indexer error.'
+      })
+    }
+  }
 }
 
 const getSummary = async () => {
@@ -1193,7 +1218,7 @@ const doReply = async (content, parentId, directParentId, successCallback, type 
       showConfetti()
     } else {
       ElMessage.success({
-        message: 'Sent!'
+        message: 'Echo Sent!'
       })
     }
 

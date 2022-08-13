@@ -56,7 +56,9 @@ export default defineNuxtConfig({
     '@/styles/_reset.scss',
     '@/styles/_transition.scss',
     '@/styles/themes/_default.scss',
-    '@/styles/themes/_dark.scss'
+    '@/styles/themes/_dark.scss',
+    '@/styles/highlight/github.scss',
+    '@/styles/highlight/github-dark.scss'
   ],
   vite: {
     // plugins: [eslintPlugin()],

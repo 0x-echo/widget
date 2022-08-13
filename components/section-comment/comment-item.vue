@@ -37,11 +37,11 @@
                 Author
               </chat-tag>
               
-              <icon-copy
+              <!-- <icon-copy
                 class="comment-item__copy-icon"
                 :value="$formatAddress(data.author.address)"
                 title="copy address">
-              </icon-copy>
+              </icon-copy> -->
             </div>
               
             <div
@@ -87,7 +87,7 @@
             </template>
           </el-popover>
         </div>
-        
+      
         <vue-clamp
           class="comment-item__content" 
           :max-lines="5"
@@ -222,16 +222,15 @@ const moreMenu = computed(() => {
     })
   }
 
-  // @later
-  // if (props.data.can_delete) {
-  //   menus.push({
-  //     danger: true,
-  //     icon: 'ri-close-circle-line',
-  //     label: 'Delete',
-  //     value: 'delete-comment',
-  //     permission: 'can_delete'
-  //   })
-  // }
+  if (props.data.can_delete) {
+    menus.push({
+      danger: true,
+      icon: 'ri-close-circle-line',
+      label: 'Delete',
+      value: 'delete-comment',
+      permission: 'can_delete'
+    })
+  }
   return menus
 })
 
@@ -351,6 +350,10 @@ export default {
   
   &__meta-reply {
     color: var(--color-primary);
+
+    // & + p {
+    //   display: inline;
+    // }
   }
   
   &__more-button {
@@ -395,6 +398,74 @@ export default {
     
     a {
       text-decoration: underline;
+    }
+
+    ul li {
+      list-style: disc;
+      margin-left: 15px;
+    }
+
+    ol li {
+      list-style: number;
+      margin-left: 15px;
+    }
+
+    img {
+      max-width: 200px;
+    }
+
+    blockquote {
+      padding: 5px 10px;
+      margin: 0 0 5px 10px;
+      border-left: 2px solid #eee;
+    }
+
+    blockquote:before, blockquote:after {
+      content: "";
+    }
+
+    code {
+      font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+    }
+
+    p > code, code.code__no-lang {
+      padding: 0.2em 0.4em;
+      margin: 0;
+      font-size: 85%;
+      background-color: rgba(175,184,193,0.2);
+      border-radius: 6px;
+    }
+
+    table {
+      width: 100%;
+      font-size: 14px;
+      text-align: left;
+    }
+    
+    th,
+    td {
+      padding: 10px 15px;
+      border-bottom: 1px solid var(--bg-color);
+      min-width: 120px;
+    }
+    
+    th:first-of-type,
+    td:first-of-type {
+      padding-left: 0;
+    }
+    
+    th:last-of-type,
+    td:last-of-type {
+      padding-right: 0;
+    }
+    
+    td:nth-child(3) {
+      max-width: 250px;
+      min-width: 200px;
+    }
+    
+    th {
+      font-weight: 600;
     }
   }
   

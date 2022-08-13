@@ -36,7 +36,8 @@ export default {
       SYNC_BALANCE: baseURL + '/api/v1/modules/wallet-balance',
       TIP: baseURL + '/api/v1/tips',
       GET_TIPS: baseURL + '/api/v1/tips',
-      CURRENCY: baseURL + '/api/v1/common/currency'
+      CURRENCY: baseURL + '/api/v1/common/currency',
+      DELETE_POST: baseURL + '/api/v1/posts/'
     }
   },
 	types: {
