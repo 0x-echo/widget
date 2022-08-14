@@ -15,6 +15,7 @@
     "sass": "^1.51.0"
   },
   "dependencies": {
+    "@0xecho/highlight.js": "^11.6.1",
     "@nuxtjs/composition-api": "^0.32.0",
     "@pinia/nuxt": "^0.1.9",
     "@soerenmartius/vue3-clipboard": "^0.1.2",

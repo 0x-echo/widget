@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@0xecho/highlight.js@^11.6.1":
+  version "11.6.1"
+  resolved "https://registry.npmmirror.com/@0xecho/highlight.js/-/highlight.js-11.6.1.tgz#296e897a8903de18944f28ea6cc9dabca15ae3af"
+  integrity sha512-n7qAtoeEgKxA0MGMIdBdPoeSpQDVEeOnTdEaVjx1liHtf5JCY32jUIHbzPgrK0qoxvQfBKpouyLxuUJ+Io/8eg==
+
 "@ampproject/remapping@^2.1.0":
   version "2.2.0"
   resolved "https://registry.npmjs.org/@ampproject/remapping/-/remapping-2.2.0.tgz"
