@@ -2,8 +2,9 @@
 import linkifyHtml from 'linkify-html'
 import xss from 'xss'
 import cropUrl from 'crop-url'
-import markdown from 'markdown-it'
-import hljs from 'highlight.js' // styels locates in @/styles/highlight/
+import markdown from 'markdown-it/dist/markdown-it'
+// import hljs from 'highlight.js/lib/common' // styels locates in @/styles/highlight/
+import hljs from '@0xecho/highlight.js/es/common'
 import emoji from 'markdown-it-emoji'
 import iterator from 'markdown-it-for-inline'
 
