@@ -8,6 +8,8 @@ import hljs from '@0xecho/highlight.js/es/common'
 import emoji from 'markdown-it-emoji'
 import iterator from 'markdown-it-for-inline'
 
+const CODE_BLOCK_REG = /```[a-z]*\n[\s\S]*?\n```/g
+
 const md = markdown({
 	html: true,
 	linkify: true,
@@ -63,7 +65,17 @@ export function parseContent(str, isRender = true) {
 	// trim
 	str = str.trim()
 
-	// ignore blockquote tag
+	// ignore code block
+	const codeBlockMap = {}
+	let codeBlockIndex = 0
+	str = str.replace(CODE_BLOCK_REG, function (a, b) {
+		const key = `$$$${codeBlockIndex}$$$`
+		codeBlockMap[key] = a
+		codeBlockIndex++
+		return key
+	})
+
+	// ignore blockquote tag, or they will be escape by xss
 	str = str.split('\n').map(line => {
 		if (/^\>>>/.test(line)) {
 			line = line.replace(/^\>>>/g, '__BLOCKQUOTE____BLOCKQUOTE____BLOCKQUOTE__')
@@ -88,6 +100,10 @@ export function parseContent(str, isRender = true) {
 	})
 
 	str = str.replace(/__BLOCKQUOTE__/g, '>')
+	for (const key in codeBlockMap) {
+		str = str.replace(key, codeBlockMap[key])
+		delete codeBlockMap[key]
+	}
 
 	if (isRender) {
 		try {
