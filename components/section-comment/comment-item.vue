@@ -36,12 +36,6 @@
                 class="comment-item__tag">
                 Author
               </chat-tag>
-              
-              <!-- <icon-copy
-                class="comment-item__copy-icon"
-                :value="$formatAddress(data.author.address)"
-                title="copy address">
-              </icon-copy> -->
             </div>
               
             <div
@@ -55,7 +49,7 @@
           <el-popover
             placement="bottom-end"
             trigger="click"
-            :width="166"
+            :width="190"
             @before-leave="moreMenuActive = false"
             @show="moreMenuActive = true">
             <template 
@@ -82,7 +76,7 @@
                 :is-link="item.isLink"
                 :label="item.label"
                 :url="item.url"
-                @on-click="$emit(item.value, data)">
+                @on-click="onClickMenu(item.value)">
               </menu-item>
             </template>
           </el-popover>
@@ -158,12 +152,13 @@
 </template>
 
 <script setup>
-import { ElButton, ElCollapseTransition, ElPopover } from 'element-plus'
+import { ElButton, ElCollapseTransition, ElMessage, ElPopover } from 'element-plus'
 import CommentAction from './comment-action'
-const { $bus, $formatScreenName } = useNuxtApp()
+const { $bus, $formatAddress, $formatScreenName } = useNuxtApp()
 import { Timeago } from 'vue2-timeago'
 import { parseContent } from '../../libs/content-parser'
 import useStore from '~~/store'
+import { toClipboard } from '@soerenmartius/vue3-clipboard'
 
 const store = useStore()
 const hasLogined = computed(() => store.hasLogined)
@@ -195,7 +190,6 @@ const emits = defineEmits([
 const moreMenuVisible = ref(false)
 const moreMenuActive = ref(false)
 const moreMenu = computed(() => {
-
   const menus = []
 
   if (props.data.ar_url) {
@@ -221,6 +215,12 @@ const moreMenu = computed(() => {
       value: 'report'
     })
   }
+  
+  menus.push({
+    icon: 'ri-file-copy-line',
+    label: 'Copy Wallet Address',
+    value: 'copy-wallet-address'
+  })
 
   if (props.data.can_delete) {
     menus.push({
@@ -233,6 +233,17 @@ const moreMenu = computed(() => {
   }
   return menus
 })
+
+const onClickMenu = async (value) => {
+  if (value === 'copy-wallet-address') {
+    await toClipboard($formatAddress(props.data.author.address))
+    ElMessage.success({
+      message: 'Copied!'
+    })
+  } else {
+    emits(value, props.data)
+  }
+}
 
 const showReply = ref(false)
 let message = ref('')
@@ -307,7 +318,7 @@ export default {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
   }
   
   &__header-content {
@@ -393,7 +404,6 @@ export default {
   
   &__content {
     font-size: 14px;
-    line-height: 24px;
     color: var(--text-color-primary);
     
     a {
@@ -413,27 +423,52 @@ export default {
     img {
       max-width: 200px;
     }
-
-    blockquote {
-      padding: 5px 10px;
-      margin: 0 0 5px 10px;
-      border-left: 2px solid #eee;
+    
+    p {
+      + p,
+      + blockquote,
+      + pre {
+        margin-top: 16px;
+      }
+      
+      code {
+        padding: 3px 5px;
+        border-radius: var(--border-radius-small);
+        background: var(--bg-color);
+      }
     }
 
-    blockquote:before, blockquote:after {
+    blockquote {
+      padding: 0 14px;
+      border-left: 3px solid var(--bg-color);
+      
+      + p,
+      + blockquote,
+      + pre {
+        margin-top: 16px;
+      }
+    }
+
+    blockquote:before, 
+    blockquote:after {
       content: "";
     }
 
     code {
+      font-size: 12px;
       font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
     }
-
-    p > code, code.code__no-lang {
-      padding: 0.2em 0.4em;
-      margin: 0;
-      font-size: 85%;
-      background-color: rgba(175,184,193,0.2);
-      border-radius: 6px;
+    
+    pre {
+      padding: 12px 15px;
+      border-radius: var(--border-radius);
+      background: var(--bg-color);
+      
+      + p,
+      + blockquote,
+      + pre {
+        margin-top: 16px;
+      }
     }
 
     table {

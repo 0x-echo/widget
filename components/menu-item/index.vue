@@ -104,6 +104,7 @@ const emits = defineEmits([
   }
   
   &__label {
+    text-align: left;
     font-size: 12px;
   }
 }

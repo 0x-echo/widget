@@ -128,7 +128,7 @@ export function parseContent(str, isRender = true) {
 		// })
 
 		// make <p> into plain text + <br>, so it can display inline.
-		str = str.replace(/<p>/g, '').replace(/<\/p>/g, '<br>')
+
 		str = str.trim().replace(/<br>$/, '')
 	}
 

@@ -177,6 +177,8 @@ export default {
       width: 100px;
       height: 32px;
       font-size: 14px;
+      padding-top: 8px;
+      padding-bottom: 8px;
     }
   }
 }
