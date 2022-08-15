@@ -185,7 +185,7 @@ let summary = reactive({
 const viewArweaveInfo = (data) => {
   if (!data.ar_id) {
     ElMessage.info({
-      message: 'The data will be sent to Arweave in 5 mins.'
+      message: 'The data is not yet sent to Arweave.'
     })
   }
 }
