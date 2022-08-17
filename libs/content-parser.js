@@ -26,7 +26,7 @@ const md = markdown({
     return '<pre class="hljs"><code class="code__no-lang">' + md.utils.escapeHtml(str) + '</code></pre>';
   }
 })
-	.disable(['heading'])
+//	.disable(['heading'])
 
 md.use(emoji)
 
@@ -126,8 +126,6 @@ export function parseContent(str, isRender = true) {
     //     title: 'DYOR on the external url.'
     //   }
 		// })
-
-		// make <p> into plain text + <br>, so it can display inline.
 
 		str = str.trim().replace(/<br>$/, '')
 	}

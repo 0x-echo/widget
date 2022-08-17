@@ -42,6 +42,19 @@
           <div
             class="reply-form__toolbar"
             v-show="showToolbarValue">
+            <a 
+              class="reply-form__markdown-info"
+              href="https://guides.github.com/features/mastering-markdown/"
+              target="_blank">
+              <i
+                class="ri-markdown-fill">
+              </i>
+              
+              <span>
+                Styling with Markdown is supported
+              </span>
+            </a>
+            
             <el-button
               class="reply-form__send-button"
               :loading="position === 'comment' ? false : status.onSubmitingTargetComment"
@@ -154,8 +167,23 @@ export default {
   }
   
   &__toolbar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
     margin-top: 12px;
-    text-align: right;
+    gap: 10px;
+  }
+  
+  &__markdown-info {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-color-secondary);
+    
+    i {
+      margin-right: 5px;
+      font-size: 14px;
+    }
   }
   
   &__send-button {
@@ -170,6 +198,14 @@ export default {
 @media screen and (max-width: #{$tablet-width - 1px}) {
   .reply-form {
     &__avatar {
+      display: none;
+    }
+    
+    &__toolbar {
+      justify-content: flex-end;
+    }
+    
+    &__markdown-info {
       display: none;
     }
     

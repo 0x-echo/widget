@@ -82,7 +82,11 @@
           </el-popover>
         </div>
       
-        <vue-clamp
+        <div
+          class="comment-item__content"
+          v-html="commentContent">
+        </div>
+        <!-- <vue-clamp
           class="comment-item__content" 
           :max-lines="5"
           raw-html>
@@ -100,7 +104,7 @@
               </el-button>
             </div>
           </template>
-        </vue-clamp>
+        </vue-clamp> -->
         
         <div
           class="comment-item__control-bar">
@@ -159,14 +163,11 @@ import { Timeago } from 'vue2-timeago'
 import { parseContent } from '../../libs/content-parser'
 import useStore from '~~/store'
 import { toClipboard } from '@soerenmartius/vue3-clipboard'
-
 const store = useStore()
 const hasLogined = computed(() => store.hasLogined)
-
 onBeforeUnmount(() => {
   $bus.off('reset-reply-comment')
 })
-
 const props = defineProps({
   avatarSize: {
     type: [Number, String],
@@ -177,7 +178,6 @@ const props = defineProps({
     required: true
   }
 })
-
 const emits = defineEmits([
   'delete-comment',
   'dislike-comment',
@@ -186,12 +186,10 @@ const emits = defineEmits([
   'like-comment',
   'view-arweave-info'
 ])
-
 const moreMenuVisible = ref(false)
 const moreMenuActive = ref(false)
 const moreMenu = computed(() => {
   const menus = []
-
   if (props.data.ar_url) {
     menus.push({
       icon: 'ri-information-line',
@@ -207,7 +205,6 @@ const moreMenu = computed(() => {
       value: 'view-arweave-info'
     })
   }
-
   if (store.hasLogined && !store.isMe(props.data.created_by)) {
     menus.push({
       icon: 'ri-alert-line',
@@ -221,7 +218,6 @@ const moreMenu = computed(() => {
     label: 'Copy Wallet Address',
     value: 'copy-wallet-address'
   })
-
   if (props.data.can_delete) {
     menus.push({
       danger: true,
@@ -233,7 +229,6 @@ const moreMenu = computed(() => {
   }
   return menus
 })
-
 const onClickMenu = async (value) => {
   if (value === 'copy-wallet-address') {
     await toClipboard($formatAddress(props.data.author.address))
@@ -244,31 +239,26 @@ const onClickMenu = async (value) => {
     emits(value, props.data)
   }
 }
-
 const showReply = ref(false)
 let message = ref('')
-
 const toggleReplyForm = () => {
   showReply.value = !showReply.value
   if (!showReply.value) {
     message.value = ''
   }
 }
-
 const reply = () => {
   emits('reply-comment', {
     message: message.value,
     data: props.data
   })
 }
-
 $bus.on('reset-reply-comment', (data) => {
   if (props.data.id === data.id) {
     message.value = ''
     showReply.value = false
   }
 })
-
 const commentContent = computed(() => {
   if (props.data.replied_to) {
     return `<span class="comment-item__meta-reply">@${$formatScreenName(props.data.replied_to.screen_name)}</span> ` + parseContent(props.data.content) 
@@ -361,7 +351,6 @@ export default {
   
   &__meta-reply {
     color: var(--color-primary);
-
     // & + p {
     //   display: inline;
     // }
@@ -406,54 +395,99 @@ export default {
     font-size: 14px;
     color: var(--text-color-primary);
     
+    > :first-child {
+      margin-top: 0;
+    }
+    
+    > :last-child {
+      margin-bottom: 0;
+    }
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    hr,
+    p,
+    blockquote,
+    pre,
+    ul,
+    ol {
+      margin-bottom: 16px;
+    }
+    
+    h1 {
+      font-size: 28px;
+    }
+    
+    h2 {
+      font-size: 21px;
+    }
+    
+    h3 {
+      font-size: 18px;
+    }
+    
+    h4,
+    h5,
+    h6 {
+      font-size: 14px;
+    }
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin-top: 24px;
+    }
+    
+    hr {
+      border: 0; 
+      border-top: 1px solid var(--bg-color);
+    }
+    
     a {
       text-decoration: underline;
     }
-
     ul li {
       list-style: disc;
       margin-left: 15px;
     }
-
     ol li {
       list-style: number;
       margin-left: 15px;
     }
-
     img {
       max-width: 200px;
     }
     
-    p {
-      + p,
-      + blockquote,
-      + pre {
-        margin-top: 16px;
-      }
-      
+    p { 
       code {
         padding: 3px 5px;
         border-radius: var(--border-radius-small);
         background: var(--bg-color);
       }
+      
+      + p {
+        margin-top: 0;
+      }
     }
-
     blockquote {
       padding: 0 14px;
       border-left: 3px solid var(--bg-color);
       
-      + p,
-      + blockquote,
-      + pre {
-        margin-top: 16px;
+      > :first-child {
+        margin-top: 0;
+      }
+      
+      > :last-child {
+        margin-bottom: 0;
       }
     }
-
-    blockquote:before, 
-    blockquote:after {
-      content: "";
-    }
-
     code {
       font-size: 12px;
       font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
@@ -463,14 +497,7 @@ export default {
       padding: 12px 15px;
       border-radius: var(--border-radius);
       background: var(--bg-color);
-      
-      + p,
-      + blockquote,
-      + pre {
-        margin-top: 16px;
-      }
     }
-
     table {
       width: 100%;
       font-size: 14px;
@@ -511,7 +538,7 @@ export default {
   &__control-bar {
     display: flex;
     align-items: center;
-    margin: 5px 0 0 -8px;
+    margin: 6px 0 0 -8px;
   }
   
   &__reply {
@@ -533,7 +560,6 @@ export default {
     }
   }
 }
-
 @media screen and (max-width: #{$tablet-width - 1px}) {
   .comment-item {
     &.has-replies {
