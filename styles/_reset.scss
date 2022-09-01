@@ -23,7 +23,7 @@ li {
 }
 
 body {
-  background: var(--theme-bg-color);
+  background: transparent;
   color: var(--text-color-primary);
   font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
@@ -31,6 +31,10 @@ body {
   
   &::-webkit-scrollbar {
     display: none;
+  }
+  
+  &.dark.global-dark {
+    background: var(--theme-bg-color);
   }
 }
 

@@ -7,7 +7,7 @@
     width="90%"
     @close="reason = ''">
     <template
-      #title>
+      #header>
       <dialog-header
         icon="ri-alert-line"
         title="Report"

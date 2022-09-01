@@ -1,5 +1,4 @@
 <template>
-
   <el-dialog
     ref="connectDialogRef"
     v-bind="$attrs"
@@ -8,7 +7,7 @@
     :show-close="false"
     width="90%">
     <template
-      #title>
+      #header>
       <dialog-header
         icon="ri-wallet-3-line"
         title="Connect Wallet"

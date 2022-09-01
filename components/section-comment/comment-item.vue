@@ -86,25 +86,17 @@
           class="comment-item__content"
           v-html="commentContent">
         </div>
-        <!-- <vue-clamp
-          class="comment-item__content" 
-          :max-lines="5"
-          raw-html>
-          {{ commentContent }}
-          
-          <template 
-            #after="{ toggle, expanded, clamped }">
-            <div
-              class="comment-item__content-more"
-              v-if="expanded || clamped">
-              <el-button
-                type="text"
-                @click="toggle">
-                {{ expanded ? 'Show less' : 'Show more' }}
-              </el-button>
-            </div>
-          </template>
-        </vue-clamp> -->
+        
+        <div
+          class="comment-item__content-more"
+          v-if="hasMoreButton">
+          <el-button
+            text
+            type="primary"
+            @click="toggleContent">
+            {{ collapsed ? 'Show more' : 'Show less' }}
+          </el-button>
+        </div>
         
         <div
           class="comment-item__control-bar">
@@ -298,6 +290,10 @@ export default {
   &__avatar {
     flex-shrink: 0;
     margin-right: 16px;
+    
+    img {
+      background: white;
+    }
   }
   
   &__body {

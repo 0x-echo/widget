@@ -9,7 +9,7 @@
     width="90%"
     @close="onCloseDialog">
     <template
-      #title>
+      #header>
       <dialog-header
         icon="ri-hand-heart-line"
         title="Tip"

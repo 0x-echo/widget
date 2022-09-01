@@ -23,6 +23,17 @@
       background-color: var(--color-primary);
       color: white;
     }
+    
+    &.is-text {
+      &:hover,
+      &:focus {
+        color: var(--color-primary-dark);
+      }
+      
+      &:focus:not(.el-button:hover) {
+        color: var(--color-primary);
+      }
+    }
   }
   
   &--danger {
@@ -87,15 +98,12 @@
     }
   }
   
-  &--text {
-    &:hover,
-    &:focus {
-      color: var(--color-primary-dark);
-    }
+  &.is-text {
+    padding: 0;
     
-    &:focus:not(.el-button:hover) {
-      border-color: transparent;
-      color: var(--color-primary);
+    &:not(.is-disabled):focus, 
+    &:not(.is-disabled):hover {
+      background-color: transparent;
     }
   }
   

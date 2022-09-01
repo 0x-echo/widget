@@ -6,7 +6,7 @@
     :show-close="false"
     width="90%">
     <template
-      #title>
+      #header>
       <dialog-header
         :icon="icon"
         :title="title"
