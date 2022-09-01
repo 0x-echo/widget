@@ -27,5 +27,9 @@ const colors = ['#FFAD08', '#EDD75A', '#73B06F', '#0C8F8F', '#405059']
 </script>
 
 <style lang="scss">
-
+.chat-avatar {
+  img {
+    background: white;
+  }
+}
 </style>
