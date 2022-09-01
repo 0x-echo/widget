@@ -1,6 +1,7 @@
 <template>
   <div
-    class="comment-item">
+    class="comment-item"
+    :id="data.id">
     <div
       class="comment-item__avatar"
       @mouseenter="moreMenuVisible = true"
@@ -47,6 +48,7 @@
           </div>
           
           <el-popover
+            ref="commentMenuRef"
             placement="bottom-end"
             trigger="click"
             :width="190"
@@ -55,7 +57,7 @@
             <template 
               #reference>
               <el-button
-                class="el-button--icon comment-item__more-button"
+                class="el-button--icon comment-item__menu-button"
                 :class="{
                   'show': moreMenuVisible || moreMenuActive
                 }"
@@ -84,6 +86,10 @@
       
         <div
           class="comment-item__content"
+          :class="{
+            'collapsed': hasMoreButton && collapsed
+          }"
+          ref="commentContentRef"
           v-html="commentContent">
         </div>
         
@@ -155,6 +161,8 @@ import { Timeago } from 'vue2-timeago'
 import { parseContent } from '../../libs/content-parser'
 import useStore from '~~/store'
 import { toClipboard } from '@soerenmartius/vue3-clipboard'
+import jump from 'jump.js'
+
 const store = useStore()
 const hasLogined = computed(() => store.hasLogined)
 onBeforeUnmount(() => {
@@ -178,6 +186,17 @@ const emits = defineEmits([
   'like-comment',
   'view-arweave-info'
 ])
+
+const commentContentRef = ref(null)
+let hasMoreButton = ref(false)
+let collapsed = ref(true)
+
+onMounted(() => {
+  if (commentContentRef.value.clientHeight > 105) {
+    hasMoreButton.value = true
+  }
+})
+
 const moreMenuVisible = ref(false)
 const moreMenuActive = ref(false)
 const moreMenu = computed(() => {
@@ -210,6 +229,7 @@ const moreMenu = computed(() => {
     label: 'Copy Wallet Address',
     value: 'copy-wallet-address'
   })
+
   if (props.data.can_delete) {
     menus.push({
       danger: true,
@@ -221,6 +241,9 @@ const moreMenu = computed(() => {
   }
   return menus
 })
+
+
+const commentMenuRef = ref(null)
 const onClickMenu = async (value) => {
   if (value === 'copy-wallet-address') {
     await toClipboard($formatAddress(props.data.author.address))
@@ -230,7 +253,9 @@ const onClickMenu = async (value) => {
   } else {
     emits(value, props.data)
   }
+  commentMenuRef.value.hide()
 }
+
 const showReply = ref(false)
 let message = ref('')
 const toggleReplyForm = () => {
@@ -258,6 +283,15 @@ const commentContent = computed(() => {
     return parseContent(props.data.content) 
   }
 })
+
+const toggleContent = () => {
+  collapsed.value = !collapsed.value
+  if (collapsed.value) {
+    jump(`#${props.data.id}`, {
+      offset: 0
+    })
+  }
+}
 </script>
 
 <script>
@@ -347,12 +381,13 @@ export default {
   
   &__meta-reply {
     color: var(--color-primary);
-    // & + p {
-    //   display: inline;
-    // }
+
+    & + p {
+      display: inline;
+    }
   }
   
-  &__more-button {
+  &__menu-button {
     border-color: var(--fill-color-blank);
     font-size: 14px;
     opacity: 0;
@@ -390,6 +425,12 @@ export default {
   &__content {
     font-size: 14px;
     color: var(--text-color-primary);
+    
+    &.collapsed {
+      max-height: 105px;
+      overflow: hidden;
+      mask-image: linear-gradient(var(--theme-bg-color) 50%, transparent);
+    }
     
     > :first-child {
       margin-top: 0;
@@ -472,6 +513,7 @@ export default {
         margin-top: 0;
       }
     }
+
     blockquote {
       padding: 0 14px;
       border-left: 3px solid var(--bg-color);
@@ -484,6 +526,7 @@ export default {
         margin-bottom: 0;
       }
     }
+
     code {
       font-size: 12px;
       font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
@@ -570,7 +613,7 @@ export default {
       margin-right: 10px;
     }
     
-    &__more-button {
+    &__menu-button {
       opacity: 1;
     }
     
