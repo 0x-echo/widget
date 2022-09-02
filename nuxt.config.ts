@@ -22,6 +22,11 @@ export default defineNuxtConfig({
       name: 'description',
       content: 'ECHO',
     }],
+    script: [{
+      src: 'https://analytics.0xecho.com/js/plausible.js',
+      'data-domain': 'embed.0xecho.com',
+      defer: true
+    }],
     link: [{
       rel: 'icon',
       href: '/favicon.ico',
