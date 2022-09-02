@@ -231,13 +231,11 @@ const setUpProvider = async () => {
       const chain = await web3provider.getNetwork()
       const networkId = chain.chainId
       const account = accounts[0]
-      const message = getAuthMessage('EVM', account)
       const { message, signKeys } = getAuthMessage('EVM', account)
       $bus.emit('show-connect-loading', `Please sign the message.`)
       try {
         const signature = await provider.request({ method: 'personal_sign', params: [ message, account ] })
         $bus.emit('hide-connect-loading')
-        await requestLogin(account, message, signature, 'EVM', networkId)
         await requestLogin(account, message, signature, 'EVM', signKeys)
       } catch (e) {
         $bus.emit('hide-connect-loading')
@@ -881,6 +879,7 @@ const connectWallet =  async (item) => {
     try {
       await provider.enable()
     } catch (e) {
+      console.log('walletconnect enable error', e)
       await provider.disconnect()
     }
 
