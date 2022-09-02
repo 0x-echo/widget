@@ -232,11 +232,13 @@ const setUpProvider = async () => {
       const networkId = chain.chainId
       const account = accounts[0]
       const message = getAuthMessage('EVM', account)
+      const { message, signKeys } = getAuthMessage('EVM', account)
       $bus.emit('show-connect-loading', `Please sign the message.`)
       try {
         const signature = await provider.request({ method: 'personal_sign', params: [ message, account ] })
         $bus.emit('hide-connect-loading')
         await requestLogin(account, message, signature, 'EVM', networkId)
+        await requestLogin(account, message, signature, 'EVM', signKeys)
       } catch (e) {
         $bus.emit('hide-connect-loading')
         ElMessage.error({
@@ -805,6 +807,8 @@ const doAccountLogin = async () => {
         await requestLogin(account, message, signature, 'EVM', signKeys)
       } catch (e) {}
     }
+  } catch (e) {
+    console.log('login error:', e)
   } finally {
     $bus.emit('hide-connect-loading')
   }
