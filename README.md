@@ -1,7 +1,7 @@
 # 0xecho
 
 <p align="center">
-  <img src="http://some_place.com/image.png" />
+  <img src="https://0xecho.com/android-chrome-192x192.png" />
   <span>Long Live Our Opinion</span>
 </p>
 
