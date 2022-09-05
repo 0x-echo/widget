@@ -1,49 +1,14 @@
-# Nuxt 3 Minimal Starter
+# 0xecho
 
-Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+<p align="center">
+  <img src="http://some_place.com/image.png" />
+  <span>Long Live Our Opinion</span>
+</p>
 
-## Setup
 
-Make sure to install the dependencies:
+## Development
 
-```bash
-# yarn
-yarn install
-
-# npm
-npm install
-
-# pnpm
-pnpm install --shamefully-hoist
-```
-
-## Development Server
-
-Start the development server on http://localhost:3000
-
-```bash
+``` sh
+yarn
 npm run dev
 ```
-
-## Production
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Checkout the [deployment documentation](https://v3.nuxtjs.org/docs/deployment) for more information.
-
-
-
-## credits
-
-* https://github.com/trustwallet/assets
-* https://apeboard.finance/protocols
