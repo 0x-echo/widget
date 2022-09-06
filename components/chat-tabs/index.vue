@@ -154,15 +154,7 @@ export default {
     padding: 2px 5px 0 0;
     
     &::-webkit-scrollbar {
-      width: 1px;
-    }
-    
-    &::-webkit-scrollbar-track {
-      background: transparent;
-    }
-      
-    &::-webkit-scrollbar-thumb {
-      background: var(--bg-color);
+      display: none;
     }
   }
 }
