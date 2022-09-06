@@ -40,6 +40,7 @@
       <template
         v-if="hasLogined && showWalletConnect">
         <el-popover
+          ref="userMenuRef"
           :offset="6"
           placement="bottom"
           popper-class="section-toolbar__user-popover"
@@ -57,10 +58,7 @@
                 :hash="loginInfo.address"
                 :src="loginInfo.avatar || ''">
               </chat-avatar>
-              <!-- <img
-                class="section-toolbar__user-wallet-icon" 
-                :src="loginInfo.avatar" 
-                :alt="loginInfo.chain"> -->
+             
               <span
                 class="section-toolbar__user-name">
                 {{ $formatScreenName(loginInfo.screen_name || loginInfo.address) }}
@@ -75,15 +73,11 @@
           <template 
             #default>
             <menu-item
-              icon="ri-refresh-line"
-              label="Refresh profile"
-              @on-click="$emit('refresh-profile')">
-            </menu-item>
-            
-            <menu-item
-              icon="ri-logout-circle-r-line"
-              label="Logout"
-              @on-click="$emit('logout')">
+              v-for="item in userMenu"
+              :key="item.value"
+              :icon="item.icon"
+              :label="item.label"
+              @on-click="onClickUserMenu(item.value)">
             </menu-item>
           </template>
         </el-popover>
@@ -141,7 +135,6 @@ const emits = defineEmits([
   'tip',
   'dislike',
   'logout',
-
   'like',
   'ilike'
 ])
@@ -199,6 +192,22 @@ const hasLogin = computed(() => {
   
   return modules.length !== count
 })
+
+const userMenu = [{
+  icon: 'ri-refresh-line',
+  label: 'Refresh profile',
+  value: 'refresh-profile'
+}, {
+  icon: 'ri-logout-circle-r-line',
+  label: 'Logout',
+  value: 'logout'
+}]
+
+const userMenuRef = ref(null)
+const onClickUserMenu = (value) => {
+  emits(value)
+  userMenuRef.value.hide()
+}
 </script>
 
 <style lang="scss">
