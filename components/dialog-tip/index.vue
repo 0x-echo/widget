@@ -2,8 +2,10 @@
   <el-dialog
     ref="tipDialogRef"
     v-bind="$attrs"
+    append-to-body
     :close-on-click-modal="false"
     custom-class="dialog-tip"
+    destroy-on-close
     :show-close="false"
     top="10vh"
     width="90%"

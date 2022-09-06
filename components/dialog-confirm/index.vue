@@ -1,8 +1,10 @@
 <template>
   <el-dialog
     v-bind="$attrs"
+    append-to-body
     :close-on-click-modal="false"
     custom-class="dialog-confirm"
+    destroy-on-close
     :show-close="false"
     width="90%">
     <template

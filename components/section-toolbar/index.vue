@@ -43,6 +43,7 @@
           :offset="6"
           placement="bottom"
           popper-class="section-toolbar__user-popover"
+          :persistent="false"
           :show-arrow="false"
           trigger="click"
           :width="160">

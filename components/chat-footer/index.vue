@@ -25,6 +25,7 @@
         ref="settingsPopover"
         v-if="hasLogined || minimal"
         :placement="minimal ? 'bottom' : 'bottom-end'"
+        :persistent="false"
         trigger="click"
         :width="166"
         @before-leave="moreMenuActive = false"

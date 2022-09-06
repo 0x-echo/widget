@@ -2,8 +2,10 @@
   <el-dialog
     ref="connectDialogRef"
     v-bind="$attrs"
+    append-to-body
     :close-on-click-modal="false"
     custom-class="dialog-connect"
+    destroy-on-close
     :show-close="false"
     width="90%">
     <template

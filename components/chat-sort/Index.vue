@@ -2,6 +2,7 @@
   <el-popover
     :offset="2"
     placement="bottom-end"
+    :persistent="false"
     ref="sortPopover"
     trigger="click"
     :width="165">
