@@ -460,7 +460,7 @@ const login = async () => {
 }
 
 const refreshProfile = async () => {
-  const loading = $showLoading()
+  const loadingMessage = $showLoading()
   
   try {
     await store.getScreenName(true)
@@ -468,7 +468,7 @@ const refreshProfile = async () => {
       message: 'Refreshing done!'
     })
   } finally {
-    loading.close()
+    loadingMessage.close()
   }
 }
 
@@ -670,7 +670,7 @@ const doTipLogin = async () => {
 }
 
 const requestLogin = async (account, message, signature, chain, signKeys) => {
-  const loading = $showLoading()
+  const loadingMessage = $showLoading()
   
   try {
       const { data: rs } = await $fetch(commonConfig.api().CREATE_USER, {
@@ -702,7 +702,7 @@ const requestLogin = async (account, message, signature, chain, signKeys) => {
 
       await store.updateBalance(account)
 
-      loading.close()
+      loadingMessage.close()
 
       ElMessage.success({
         message: 'Sign in successfully!'
@@ -732,7 +732,7 @@ const requestLogin = async (account, message, signature, chain, signKeys) => {
       }, 20)
     } catch (e) {
       console.log(e)
-      loading.close()
+      loadingMessage.close()
       if (e.response && e.response._data) {
         ElMessage.error({
           message: e.response._data.msg
@@ -804,11 +804,11 @@ const doAccountLogin = async () => {
 const sortChange = async (val) => {
   orderBy = val
   page = 1
-  const loading = $showLoading()
+  const loadingMessage = $showLoading()
   try {
     await getList(page)
   } finally {
-    loading.close()
+    loadingMessage.close()
   }
 }
 
@@ -1375,12 +1375,12 @@ const replyComment = async (data) => {
 }
 
 const refreshComments = async () => {
-  const loading = $showLoading()
+  const loadingMessage = $showLoading()
 
   try {
     await getList(1, store.last_got_time)
   } finally {
-    loading.close()
+    loadingMessage.close()
   }
 }
 
@@ -1430,7 +1430,6 @@ const init = async () => {
     await getTips()
   }
 }
-
 
 const onChangeTab = async (val) => {
   currentTab = val
