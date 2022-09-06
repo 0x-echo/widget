@@ -3,16 +3,19 @@
     class="comment-item"
     :id="data.id">
     <div
-      class="comment-item__avatar"
+      class="comment-item__left"
       @mouseenter="moreMenuVisible = true"
       @mouseleave="moreMenuVisible = false">
-      <chat-avatar
-        class="comment-item__avatar-image"
-        :alt="data.author.screen_name"
-        :hash="data.author.address"
-        :size="avatarSize"
-        :src="data.author.avatar || ''">
+      <profile-popover
+        :data="data">
+        <chat-avatar
+          class="comment-item__avatar"
+          :alt="data.author.screen_name"
+          :hash="data.author.address"
+          :size="avatarSize"
+          :src="data.author.avatar || ''">
       </chat-avatar>
+      </profile-popover>
     </div>
     
     <div
@@ -26,11 +29,14 @@
             class="comment-item__header-content">
             <div
               class="comment-item__byline">
-              <span
-                class="comment-item__author ellipsis"
-                :title="data.author.screen_name">
-                {{ $formatScreenName(data.author.screen_name) }}
-              </span>
+              <profile-popover
+                :data="data">
+                <span
+                  class="comment-item__author ellipsis"
+                  :title="data.author.screen_name">
+                  {{ $formatScreenName(data.author.screen_name) }}
+                </span>
+              </profile-popover>
               
               <chat-tag
                 v-if="data.is_author"
@@ -50,6 +56,7 @@
           <el-popover
             ref="commentMenuRef"
             placement="bottom-end"
+            :persistent="false"
             trigger="click"
             :width="190"
             @before-leave="moreMenuActive = false"
@@ -156,6 +163,7 @@
 <script setup>
 import { ElButton, ElCollapseTransition, ElMessage, ElPopover } from 'element-plus'
 import CommentAction from './comment-action'
+import ProfilePopover from './profile-popover'
 const { $bus, $formatAddress, $formatScreenName } = useNuxtApp()
 import { Timeago } from 'vue2-timeago'
 import { parseContent } from '../../libs/content-parser'
@@ -321,35 +329,36 @@ export default {
     margin-top: 20px;
   }
   
-  &__avatar {
+  &__left {
     flex-shrink: 0;
     margin-right: 16px;
-    
-    img {
-      background: white;
-    }
+  }
+  
+  &__avatar {
+    cursor: pointer;
   }
   
   &__body {
     flex: 1;
+    min-width: 0;
   }
   
   &__header {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    margin-bottom: 8px;
+    margin: 3px 0 8px;
   }
   
   &__header-content {
     flex: 1;
+    min-width: 0;
     margin-right: 10px;
   }
   
   &__byline {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    min-width: 0;
     
     &:hover {
       .comment-item__copy-icon {
@@ -361,6 +370,7 @@ export default {
   &__author {
     font-size: 14px;
     font-weight: 500;
+    cursor: pointer;
   }
   
   &__tag {
@@ -374,7 +384,7 @@ export default {
   }
   
   &__date {
-    flex-shrink: 0;
+    margin-top: 1px;
     font-size: 12px;
     color: var(--text-color-muted);
   }
@@ -388,6 +398,7 @@ export default {
   }
   
   &__menu-button {
+    flex-shrink: 0;
     border-color: var(--fill-color-blank);
     font-size: 14px;
     opacity: 0;
@@ -609,7 +620,8 @@ export default {
       }
     }
     
-    &__avatar {
+    &__left {
+      padding-top: 8px;
       margin-right: 10px;
     }
     
