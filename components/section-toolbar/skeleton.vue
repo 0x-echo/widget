@@ -21,6 +21,7 @@
       </div>
       
       <el-skeleton-item
+        v-if="showRight"
         variant="button" />
     </template>
     
@@ -38,6 +39,10 @@ const props = defineProps({
   config: {
     type: Array,
     required: true
+  },
+  showRight: {
+    type: Boolean,
+    default: true
   }
 })
 </script>
