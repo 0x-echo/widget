@@ -61,8 +61,6 @@ const props = defineProps({
 .user-item {
   display: flex;
   align-items: center;
-  width: 150px;
-  margin: 8px 50px 8px 0;
   
   &__avatar {
     flex-shrink: 0;
@@ -92,9 +90,6 @@ const props = defineProps({
 
 @media screen and (max-width: #{$mobile-width - 1px}) {
   .user-item {
-    width: auto;
-    margin-right: 16px;
-    
     &__body {
       display: none;
     }

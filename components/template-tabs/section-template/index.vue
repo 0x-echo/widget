@@ -79,13 +79,13 @@ watch(currentTab, (newVal, oldVal) => {
 
 <style lang="scss">
 .section-template {
-  padding: 0 20px;
+  padding: 0 20px 40px;
   
   &__value {
     display: inline-flex;
     align-items: center;
     padding: 5px 15px 5px 10px;
-    margin-bottom: 20px;
+    margin-bottom: 28px;
     border-radius: var(--border-radius);
     font-size: 14px;
     font-weight: bold;
@@ -101,8 +101,18 @@ watch(currentTab, (newVal, oldVal) => {
   }
   
   &__list {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 150px);
+    gap: 16px 50px;
+  }
+}
+
+@media screen and (max-width: #{$mobile-width - 1px}) {
+  .section-template {
+    &__list {
+      grid-template-columns: repeat(auto-fit, minmax(36px, 1fr));
+      gap: 16px 12px;
+    }
   }
 }
 </style>

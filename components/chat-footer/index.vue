@@ -87,13 +87,18 @@ const onClickLogout = () => {
 }
 </script>
 
+<script>
+export default {
+  inheritAttrs: false
+}
+</script>
+
 <style lang="scss">
 .chat-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 15px 0;
-  margin-top: 60px;
   border-top: 1px solid var(--bg-color);
   font-size: 12px;
   line-height: 24px;
@@ -140,16 +145,6 @@ const onClickLogout = () => {
     display: none;
     font-size: 16px;
     cursor: pointer;
-  }
-}
-
-@media screen and (max-width: #{$small-mobile-width - 1px}) {
-  .chat-footer {
-    flex-direction: column;
-    
-    &__right {
-      margin-top: 5px;
-    }
   }
 }
 
