@@ -5,8 +5,10 @@ import { setBodyClass, insertStyle, setColorTheme } from '~~/libs/helper'
 const modulesOrder = {
 	comment: 1,
 	like: 2,
-	dislike: 3,
-	tip: 4
+	'like-lite': 3,
+	dislike: 4,
+	'dislike-lite': 5,
+	tip: 6
 }
 
 export default (store) => {

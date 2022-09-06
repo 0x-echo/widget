@@ -1,105 +1,102 @@
 <template>
-  <!-- <div
-    class="template-tabs"> -->
-    <section-toolbar
-      v-bind="$attrs"
-      :config="config"
-      :loading="loading"
-      @like="$emit('like')"
-      @tip="$emit('tip')">
-    </section-toolbar>
+  <section-toolbar
+    v-bind="$attrs"
+    :config="config"
+    :loading="loading"
+    @like="$emit('like')"
+    @tip="$emit('tip')">
+  </section-toolbar>
+  
+  <reply-form
+    v-if="config.modules.includes('comment')"
+    v-bind="$attrs"
+    custom-class="chat-widget__reply"
+    :disabled-tooltip="false"
+    :loading="loading"
+    position="top">
+  </reply-form>
+  
+  <chat-tabs
+    v-model="activeTab"
+    :loading="loading"
+    :tabs="tabs"
+    @on-change-tab="$emit('on-change-tab', activeTab)">
+    <template
+      #header-right>
+      <div
+        class="template-tabs__sort">
+        <chat-sort
+          v-if="activeTab === 'comment'"
+          v-model="currentSort">
+        </chat-sort>
+      </div>
+    </template>
     
-    <reply-form
-      v-if="config.modules.includes('comment')"
-      v-bind="$attrs"
-      custom-class="chat-widget__reply"
-      :disabled-tooltip="false"
-      :loading="loading"
-      position="top">
-    </reply-form>
+    <chat-tab-pane
+      value="comment">
+      <section-comment
+        v-bind="$attrs"
+        :data="data.comments"
+        :loading="loading">
+      </section-comment>
+      
+      <empty-placeholder
+        v-if="!loading && !data.comments.length">
+      </empty-placeholder>
+    </chat-tab-pane>
     
-    <chat-tabs
-      v-model="activeTab"
-      :loading="loading"
-      :tabs="tabs"
-      @on-change-tab="$emit('on-change-tab', activeTab)">
-      <template
-        #header-right>
-        <div
-          class="template-tabs__sort">
-          <chat-sort
-            v-if="activeTab === 'comment'"
-            v-model="currentSort">
-          </chat-sort>
-        </div>
-      </template>
+    <chat-tab-pane
+      value="like">
+      <section-vote
+        :data="data.likes"
+        :loading="loading"
+        module="like"
+        power-label="Liking Power"
+        :power-value="counts.like_power"
+        tip="Estimated total value of all liking address">
+      </section-vote>
       
-      <chat-tab-pane
-        value="comment">
-        <section-comment
-          v-bind="$attrs"
-          :data="data.comments"
-          :loading="loading">
-        </section-comment>
-        
-        <empty-placeholder
-          v-if="!loading && !data.comments.length">
-        </empty-placeholder>
-      </chat-tab-pane>
+      <empty-placeholder
+        v-if="!loading && !data.likes.length"
+        button-icon="ri-thumb-up-line"
+        button-text="Be the First Liker"
+        message=""
+        @on-click="$emit('like')">
+      </empty-placeholder>
+    </chat-tab-pane>
+    
+    <chat-tab-pane
+      value="dislike">
+      <section-vote
+        :data="data.dislikes"
+        :loading="loading"
+        module="dislike"
+        power-label="Disliking Power"
+        :power-value="counts.dislike_power"
+        tip="Estimated total value of all disiking address">
+      </section-vote>
       
-      <chat-tab-pane
-        value="like">
-        <section-vote
-          :data="data.likes"
-          :loading="loading"
-          module="like"
-          power-label="Liking Power"
-          :power-value="counts.like_power"
-          tip="Estimated total value of all liking address">
-        </section-vote>
-        
-        <empty-placeholder
-          v-if="!loading && !data.likes.length"
-          button-icon="ri-thumb-up-line"
-          button-text="Be the First Liker"
-          message=""
-          @on-click="$emit('like')">
-        </empty-placeholder>
-      </chat-tab-pane>
+      <empty-placeholder
+        v-if="!loading && !data.dislikes.length">
+      </empty-placeholder>
+    </chat-tab-pane>
+    
+    <chat-tab-pane
+      value="tip">
+      <section-tip
+        :data="data.tips"
+        :loading="loading">
+      </section-tip>
       
-      <chat-tab-pane
-        value="dislike">
-        <section-vote
-          :data="data.dislikes"
-          :loading="loading"
-          module="dislike"
-          power-label="Disliking Power"
-          :power-value="counts.dislike_power"
-          tip="Estimated total value of all disiking address">
-        </section-vote>
-        
-        <empty-placeholder
-          v-if="!loading && !data.dislikes.length">
-        </empty-placeholder>
-      </chat-tab-pane>
-      
-      <chat-tab-pane
-        value="tip">
-        <section-tip
-          :data="data.tips"
-          :loading="loading">
-        </section-tip>
-        
-        <empty-placeholder
-          v-if="!loading && !data.tips.length"
-          button-icon="ri-hand-heart-line"
-          button-text="Be the First Supporter"
-          message=""
-          @on-click="$emit('tip')">
-        </empty-placeholder>
-      </chat-tab-pane>
-    </chat-tabs>
-  <!-- </div> -->
+      <empty-placeholder
+        v-if="!loading && !data.tips.length"
+        button-icon="ri-hand-heart-line"
+        button-text="Be the First Supporter"
+        message=""
+        @on-click="$emit('tip')">
+      </empty-placeholder>
+    </chat-tab-pane>
+  </chat-tabs>
 </template>
 
 <script setup>
