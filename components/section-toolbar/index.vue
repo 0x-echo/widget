@@ -1,22 +1,12 @@
 <template>
   <toolbar-skeleton
     v-bind="$attrs"
-    :config="toolbarConfig">
+    :config="toolbarConfig"
+    :show-right="showWalletConnect">
     <div
       class="section-toolbar">
       <div
         class="section-toolbar__left">
-        <!-- {{ counts }} -->
-
- <!-- <div
-          v-for="item in toolbarConfig"
-          :key="item.value"
-          
-         >
-         {{ item.value }}
-         {{ counts[`has_${item.value}d`] }}
-        </div> -->
-        
         <toolbar-item
           v-for="item in toolbarConfig"
           :key="item.value"
