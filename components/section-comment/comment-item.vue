@@ -424,6 +424,7 @@ export default {
   
   &__content {
     font-size: 14px;
+    line-height: 1.625;
     color: var(--text-color-primary);
     
     &.collapsed {

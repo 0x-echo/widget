@@ -61,6 +61,7 @@ const props = defineProps({
 })
 
 const emits = defineEmits([
+  'load-more-comments',
   'refresh-comments',
   'update:modelValue'
 ])
@@ -105,7 +106,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 10px;
+    margin: 10px 0 28px;
   }
   
   &__more-button {

@@ -115,6 +115,10 @@
     height: 44px;
     font-size: 15px;
   }
+  
+  &--small {
+    border-radius: calc(var(--el-border-radius-base) - 2px);
+  }
 }
 
 .el-input,
