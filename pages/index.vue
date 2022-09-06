@@ -102,15 +102,12 @@ import { setColorTheme, getDraft, setDraft, setBodyClass, insertStyle } from '..
 import useStore from '~~/store';
 import commonConfig from '../config'
 
-import { providers, ethers } from "ethers";
+import { providers, ethers } from "ethers"
 
-import useWidgetConfig from '~~/compositions/widget-config'
 import useConfetti from '~~/compositions/confetti'
-
-import useLoading from '~~/compositions/loading'
-import useSign from '~~/compositions/sign'
-
 import useReceiver from '~~/compositions/receiver'
+import useSign from '~~/compositions/sign'
+import useWidgetConfig from '~~/compositions/widget-config'
 
 // whether login on this page or not
 let loginOnCurrentPage = false
@@ -123,7 +120,7 @@ const { public: { api, common, thirdParty }} = useRuntimeConfig()
 // import WalletConnectProvider from '@walletconnect/web3-provider/dist/umd/index.min.js'
 const GetWalletConnectProvider = () => import('@walletconnect/web3-provider/dist/umd/index.min.js')
 
-const { $bus } = useNuxtApp()
+const { $bus, $showLoading } = useNuxtApp()
 const store = useStore()
 
 const { config } = useWidgetConfig(store)
@@ -134,7 +131,6 @@ if (!config.modules || !config.modules.length) {
 store.setWidgetConfig(config)
 
 const { showConfetti } = useConfetti()
-const { showLoading } = useLoading()
 
 let currentTab = config.modules[0]
 store.setLayout({
@@ -464,11 +460,7 @@ const login = async () => {
 }
 
 const refreshProfile = async () => {
-  const message = ElMessage({
-    customClass: 'el-message--no-icon',
-    message: h('div', { class: 'chat-loader', style: 'width: 20px; height: 20px;border-color:#4E75F6;'}, ''),
-    duration: 0
-  })
+  const loading = $showLoading()
   
   try {
     await store.getScreenName(true)
@@ -476,7 +468,7 @@ const refreshProfile = async () => {
       message: 'Refreshing done!'
     })
   } finally {
-    message.close()
+    loading.close()
   }
 }
 
@@ -678,11 +670,8 @@ const doTipLogin = async () => {
 }
 
 const requestLogin = async (account, message, signature, chain, signKeys) => {
-  const loading = ElMessage({
-    customClass: 'el-message--no-icon',
-    message: h('div', { class: 'chat-loader', style: 'width: 20px; height: 20px;border-color:#4E75F6;'}, ''),
-    duration: 0
-  })
+  const loading = $showLoading()
+  
   try {
       const { data: rs } = await $fetch(commonConfig.api().CREATE_USER, {
         method: 'POST',
@@ -815,11 +804,11 @@ const doAccountLogin = async () => {
 const sortChange = async (val) => {
   orderBy = val
   page = 1
-  const instance = showLoading()
+  const loading = $showLoading()
   try {
     await getList(page)
   } finally {
-    instance.close()
+    loading.close()
   }
 }
 
@@ -1385,10 +1374,11 @@ const replyComment = async (data) => {
   $bus.emit('reset-reply-comment', data.data)
 }
 
-const refreshComments = () => {
-  const loading = showLoading()
+const refreshComments = async () => {
+  const loading = $showLoading()
+
   try {
-    getList(1, store.last_got_time)
+    await getList(1, store.last_got_time)
   } finally {
     loading.close()
   }

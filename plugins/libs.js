@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import { ethers } from 'ethers'
+import { ElMessage } from 'element-plus'
 
 const numberFormatter = Intl.NumberFormat('en', { notation: 'compact' });
 
@@ -50,7 +51,8 @@ export default defineNuxtPlugin(() => {
           return date
         }
         return dayjs(date).format(format)
-      }
+      },
+      showLoading
     }
   }
 })
@@ -64,4 +66,12 @@ function ellipsisInMiddle (str, length = 4) {
   }
   
   return str
+}
+
+function showLoading () {
+  return ElMessage({
+    customClass: 'el-message--no-icon',
+    message: () => h('div', { class: 'chat-loader', style: 'width: 20px; height: 20px;border-color:#4E75F6;'}, ''),
+    duration: 0
+  })
 }
