@@ -15,7 +15,13 @@ export default (store) => {
 	const defaultConfig = {
 		'color-theme': 'auto'
 	}
-	const config = reactive(Object.assign(defaultConfig, configParser()))
+
+	const parsed = configParser()
+	if (parsed['target_uri'].includes('mirror.xyz')) {
+		console.warn('ECHO: Mirror does not support color-theme:auto, set to light instead.')
+		parsed['color-theme'] = 'light'
+	}
+	const config = reactive(Object.assign(defaultConfig, parsed))
 
 	config.modules && config.modules.sort((a, b) => {
 		return modulesOrder[a] > modulesOrder[b] ? 1 : -1
