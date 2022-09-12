@@ -1,7 +1,7 @@
 <template>
   <div
     class="comment-item"
-    :id="data.id">
+    :id="`_${data.id}`">
     <div
       class="comment-item__avatar"
       @mouseenter="moreMenuVisible = true"
@@ -287,7 +287,7 @@ const commentContent = computed(() => {
 const toggleContent = () => {
   collapsed.value = !collapsed.value
   if (collapsed.value) {
-    jump(`#${props.data.id}`, {
+    jump(`#_${props.data.id}`, {
       offset: 0
     })
   }
