@@ -66,8 +66,10 @@
               v-for="item in userMenu"
               :key="item.value"
               :icon="item.icon"
+              :is-link="item.isLink"
               :label="item.label"
-              @on-click="onClickUserMenu(item.value)">
+              :url="item.url"
+              @on-click="onClickUserMenu(item)">
             </menu-item>
           </template>
         </el-popover>
@@ -184,6 +186,12 @@ const hasLogin = computed(() => {
 })
 
 const userMenu = [{
+  icon: 'ri-service-line',
+  isLink: true,
+  label: 'Donate',
+  url: 'https://gitcoin.co/grants/7554/echo-long-live-our-opinion',
+  value: 'Donate'
+}, {
   icon: 'ri-refresh-line',
   label: 'Refresh profile',
   value: 'refresh-profile'
@@ -194,8 +202,10 @@ const userMenu = [{
 }]
 
 const userMenuRef = ref(null)
-const onClickUserMenu = (value) => {
-  emits(value)
+const onClickUserMenu = (item) => {
+  if (!item.isLink) {
+    emits(value)
+  }
   userMenuRef.value.hide()
 }
 </script>

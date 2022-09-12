@@ -4,12 +4,36 @@
     :class="{
       'is-minimal': minimal
     }">
-    <a
-      class="chat-footer__link"
-      href="https://0xecho.com/"
-      target="_blank">
-      <template v-if="!minimal">Powered by </template>ECHO <span class="chat-footer__beta-tag">beta</span>
-    </a>
+    <div
+      class="chat-footer__left">
+      <a
+        class="chat-footer__link"
+        href="https://0xecho.com/"
+        target="_blank">
+        <template v-if="!minimal">Powered by </template>ECHO 
+        <!-- <span class="chat-footer__beta-tag">beta</span>  -->
+      </a>
+      
+      <a 
+        class="chat-footer__gitcoin"
+        v-if="!minimal"
+        href="https://gitcoin.co/grants/7554/echo-long-live-our-opinion"
+        target="_blank"
+        title="Support Us on GitCoin">
+        <img 
+          class="chat-footer__gitcoin-logo"
+          src="@/assets/gitcoin.svg" 
+          alt="GitCoin">
+        
+        <span>
+          Support
+        </span>
+        
+        <i
+          class="ri-arrow-right-up-line">
+        </i>
+      </a>
+    </div>
     
     <div
       class="chat-footer__right">
@@ -114,6 +138,11 @@ export default {
     }
   }
   
+  &__left {
+    display: flex;
+    align-items: center;
+  }
+  
   &__beta-tag {
     padding: 2px 4px;
     border-radius: 4px;
@@ -125,6 +154,29 @@ export default {
     line-height: 1;
     display: inline-block;
     transform: scale(0.8);
+  }
+  
+  &__gitcoin {
+    display: flex;
+    align-items: center;
+    padding: 3px 5px;
+    margin-left: 5px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    background: #15EBB7;
+    color: var(--text-color-primary);
+    
+    &:hover {
+      background: #14e6b3;
+      color: var(--text-color-primary);
+    }
+  }
+  
+  &__gitcoin-logo {
+    height: 14px;
+    margin-right: 4px;
   }
   
   &__right {
@@ -152,6 +204,10 @@ export default {
   .chat-footer {
     &__settings {
       display: block;
+    }
+    
+    &__gitcoin {
+      display: none;
     }
   }
 }

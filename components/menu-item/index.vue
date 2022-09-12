@@ -21,7 +21,9 @@
     }"
     v-if="isLink"
     :href="url"
-    target="_blank">
+    rel="noopener noreferrer"
+    target="_blank"
+    @click="$emit('on-click')">
     <menu-item-inner
       v-bind="$attrs">
     </menu-item-inner>
