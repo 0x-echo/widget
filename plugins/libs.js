@@ -27,17 +27,18 @@ export default defineNuxtPlugin(() => {
       },
       formatScreenName: (name) => {
         if (name.includes('.')) {
-          if (name.length > 15) {
-            const splits = name.split('.')
-            if (splits.length === 2) {
-              return splits[0].substr(0, 15 - splits[1].length - 1) + '.' + splits[1]
-            }
-            if (splits.length === 3) {
-              return (splits[0] + '.' + splits[1]).substr(0, 15 - splits[1].length - 1) + '.' + splits[1]
-            }
-          } else {
-            return name
-          }
+          return name
+          // if (name.length > 15) {
+          //   const splits = name.split('.')
+          //   if (splits.length === 2) {
+          //     return splits[0].substr(0, 15 - splits[1].length - 1) + '.' + splits[1]
+          //   }
+          //   if (splits.length === 3) {
+          //     return (splits[0] + '.' + splits[1]).substr(0, 15 - splits[1].length - 1) + '.' + splits[1]
+          //   }
+          // } else {
+          //   return name
+          // }
         } else {
           return ellipsisInMiddle(name)
         }
