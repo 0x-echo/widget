@@ -1474,7 +1474,6 @@ export default {
   
   .has-v-padding & {
     padding-top: 30px;
-    padding-bottom: 30px;
   }
   
   .has-h-padding & {
