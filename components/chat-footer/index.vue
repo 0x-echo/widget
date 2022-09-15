@@ -166,11 +166,11 @@ export default {
     font-weight: 500;
     line-height: 1;
     background: #15EBB7;
-    color: var(--text-color-primary);
+    color: #16171C;
     
     &:hover {
       background: #14e6b3;
-      color: var(--text-color-primary);
+      color: #16171C;
     }
   }
   
