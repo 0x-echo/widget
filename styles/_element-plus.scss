@@ -184,6 +184,7 @@
 .el-message {
   min-width: 0;
   padding: 12px 20px 12px 15px;
+  border-color: var(--theme-bg-color);
   background-color: var(--theme-bg-color);
   box-shadow: var(--popover-box-shadow);
   
