@@ -69,6 +69,14 @@ export default (store) => {
     }`)
   }
 
+	// if not in iframe, but color-theme is dark, set a dark background
+	if (!store.env.inIframe) {
+		console.info('env: not in iframe')
+		if (store.env.colorTheme === 'dark') {
+			document.body.classList.add('global-dark')
+		}
+	}
+
 	return {
 		config,
 		modulesOrder

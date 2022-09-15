@@ -24,7 +24,8 @@ const useStore = defineStore('global', {
     },
 
     env: {
-      colorTheme: 'light'
+      colorTheme: 'light',
+      inIframe: self !== top
     },
 
     receiver: {
