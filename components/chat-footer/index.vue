@@ -25,7 +25,8 @@
           src="@/assets/gitcoin.svg" 
           alt="GitCoin">
         
-        <span>
+        <span
+          class="chat-footer__gitcoin-label">
           Support
         </span>
         
@@ -177,6 +178,10 @@ export default {
   &__gitcoin-logo {
     height: 14px;
     margin-right: 4px;
+  }
+  
+  &__gitcoin-label {
+    flex-shrink: 0;
   }
   
   &__right {
