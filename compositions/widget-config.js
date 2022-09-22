@@ -17,7 +17,7 @@ export default (store) => {
 	}
 
 	const parsed = configParser()
-	if (parsed['target_uri'].includes('mirror.xyz')) {
+	if (parsed['target_uri'].includes('mirror.xyz') && (!parsed['color-theme'] || parsed['color-theme'] === 'auto')) {
 		console.warn('ECHO: Mirror does not support color-theme:auto, set to light instead.')
 		parsed['color-theme'] = 'light'
 	}
