@@ -11,28 +11,7 @@
         href="https://0xecho.com/"
         target="_blank">
         <template v-if="!minimal">Powered by </template>ECHO 
-        <!-- <span class="chat-footer__beta-tag">beta</span>  -->
-      </a>
-      
-      <a 
-        class="chat-footer__gitcoin"
-        v-if="!minimal"
-        href="https://gitcoin.co/grants/7554/echo-long-live-our-opinion"
-        target="_blank"
-        title="Support Us on GitCoin">
-        <img 
-          class="chat-footer__gitcoin-logo"
-          src="@/assets/gitcoin.svg" 
-          alt="GitCoin">
-        
-        <span
-          class="chat-footer__gitcoin-label">
-          Support
-        </span>
-        
-        <i
-          class="ri-arrow-right-up-line">
-        </i>
+        <span class="chat-footer__beta-tag">beta</span> 
       </a>
     </div>
     
