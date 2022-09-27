@@ -56,6 +56,10 @@ export default (store) => {
 	setBodyClass('has-h-padding', config['has-h-padding'])
 	setBodyClass('has-v-padding', config['has-v-padding'])
 
+	if (config['target_site']) {
+		setBodyClass(`target_site_${config['target_site']}`, true)
+	}
+
 	if (config['dark-theme-color']) {
 		insertStyle(`
   body.dark {
