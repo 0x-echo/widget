@@ -184,6 +184,12 @@ export default {
   }
 }
 
+@media screen and (max-width: #{$tablet-width - 1px}) {
+  .chat-footer {
+    padding-bottom: 0;
+  }
+}
+
 @media screen and (max-width: $mobile-width) {
   .chat-footer {
     &__settings {
