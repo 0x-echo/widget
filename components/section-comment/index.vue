@@ -20,7 +20,8 @@
       </comment-list>
       
       <div
-        class="section-comment__bottom">
+        class="section-comment__bottom"
+        v-if="(store.comment.hasMore && !store.comment.isLoadingMore) || store.comment.isLoadingMore">
         <el-button
           v-if="store.comment.hasMore && !store.comment.isLoadingMore"
           class="section-comment__more-button"

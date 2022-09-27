@@ -34,28 +34,20 @@
     
     <chat-tab-pane
       value="comment">
+      <empty-placeholder
+        v-if="!loading && !data.comments.length">
+      </empty-placeholder>
+      
       <section-comment
+        v-else
         v-bind="$attrs"
         :data="data.comments"
         :loading="loading">
       </section-comment>
-      
-      <empty-placeholder
-        v-if="!loading && !data.comments.length">
-      </empty-placeholder>
     </chat-tab-pane>
     
     <chat-tab-pane
       value="like">
-      <section-vote
-        :data="data.likes"
-        :loading="loading"
-        module="like"
-        power-label="Liking Power"
-        :power-value="counts.like_power"
-        tip="Estimated total value of all liking address">
-      </section-vote>
-      
       <empty-placeholder
         v-if="!loading && !data.likes.length"
         button-icon="ri-thumb-up-line"
@@ -63,11 +55,26 @@
         message=""
         @on-click="$emit('like')">
       </empty-placeholder>
+      
+      <section-vote
+        v-else
+        :data="data.likes"
+        :loading="loading"
+        module="like"
+        power-label="Liking Power"
+        :power-value="counts.like_power"
+        tip="Estimated total value of all liking address">
+      </section-vote>
     </chat-tab-pane>
     
     <chat-tab-pane
       value="dislike">
+      <empty-placeholder
+        v-if="!loading && !data.dislikes.length">
+      </empty-placeholder>
+      
       <section-vote
+        v-else
         :data="data.dislikes"
         :loading="loading"
         module="dislike"
@@ -75,19 +82,10 @@
         :power-value="counts.dislike_power"
         tip="Estimated total value of all disiking address">
       </section-vote>
-      
-      <empty-placeholder
-        v-if="!loading && !data.dislikes.length">
-      </empty-placeholder>
     </chat-tab-pane>
     
     <chat-tab-pane
       value="tip">
-      <section-tip
-        :data="data.tips"
-        :loading="loading">
-      </section-tip>
-      
       <empty-placeholder
         v-if="!loading && !data.tips.length"
         button-icon="ri-hand-heart-line"
@@ -95,6 +93,12 @@
         message=""
         @on-click="$emit('tip')">
       </empty-placeholder>
+      
+      <section-tip
+        v-else
+        :data="data.tips"
+        :loading="loading">
+      </section-tip>
     </chat-tab-pane>
   </chat-tabs>
 </template>
