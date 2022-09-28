@@ -204,7 +204,7 @@ const userMenu = [{
 const userMenuRef = ref(null)
 const onClickUserMenu = (item) => {
   if (!item.isLink) {
-    emits(value)
+    emits(item.value)
   }
   userMenuRef.value.hide()
 }
