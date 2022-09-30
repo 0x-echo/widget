@@ -1,4 +1,5 @@
-import useStore from '~~/store';
+import useStore from '~~/store'
+import { ethers } from 'ethers'
 
 const resolve = async (name) => {
   if (/\.eth$/.test(name)) {
@@ -27,6 +28,23 @@ const resolve = async (name) => {
       rs.avatar = avatarRs.value
     }
     return rs
+  } else { // 0x address
+    try {
+      const address = ethers.utils.getAddress(name)
+      return {
+        address,
+        name: address,
+        displayName: name.substr(0, 4) + '...' + name.substr(name.length - 4, 4),
+        avatar: ''
+      }
+    } catch (e) {
+      return {
+        address: 'unknown',
+        name: 'unknown',
+        display: 'unknown',
+        avatar: ''
+      }
+    }
   }
 }
 
