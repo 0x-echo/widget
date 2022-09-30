@@ -28,10 +28,11 @@
           class="reply-form__input"
           ref="replyInput"
           v-bind="$attrs"
-          autosize
+          :autosize="{
+            minRows: 1
+          }"
           :placeholder="placeholder"
           resize="none"
-          :rows="1"
           type="textarea"
           @focus="showToolbarValue = true"
           @keydown.enter="enter">

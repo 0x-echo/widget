@@ -264,7 +264,23 @@ const onClickUserMenu = (item) => {
   }
 }
 
-@media screen and (max-width: $mobile-width) {
+@media screen and (max-width: #{$tablet-width - 1px}) {
+  .section-toolbar {
+    &__user {
+      width: 40px;
+      min-width: inherit;
+      max-width: inherit;
+      padding: 0 10px;
+    }
+    
+    &__user-name,
+    &__user-arrow-icon {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: $small-mobile-width - 1px) {
   .section-toolbar {
     &__user {
       display: none;
