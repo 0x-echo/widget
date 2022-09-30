@@ -136,21 +136,25 @@ const activeTab = ref(props.config.modules[0])
 
 const tabs = computed(() => {
   const list = [{
+    icon: 'ri-chat-3-line',
     label: 'Comment',
     plurLabel: 'Comments',
     value: 'comment',
     count: store.counts.comment_counts
   }, {
+    icon: 'ri-thumb-up-line',
     label: 'Like',
     plurLabel: 'Likes',
     value: 'like',
     count: store.counts.like_counts
   }, {
+    icon: 'ri-thumb-down-line',
     label: 'Dislike',
     plurLabel: 'Dislikes',
     value: 'dislike',
     count: store.counts.dislike_counts
   }, {
+    icon: 'ri-money-dollar-circle-line',
     label: 'Supporter',
     plurLabel: 'Supporters',
     value: 'tip',

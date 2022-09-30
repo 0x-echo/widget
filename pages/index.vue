@@ -1,6 +1,6 @@
 <template>
   <div
-    ref="scrollComponent"
+    ref="widget"
     class="chat-widget">
     <template
       v-if="widgetType === 'mix-widget' || widgetType === 'comment-only'">
@@ -365,12 +365,12 @@ onMounted(async () => {
   })
 })
 
-const scrollComponent = ref(null)
+const widget = ref(null)
 const handleScroll = async (e) => {
   if (currentTab !== 'comment') {
     return
   }
-  let element = scrollComponent.value;
+  let element = widget.value;
   if (element.getBoundingClientRect().bottom <= window.innerHeight + 100) {
     if (page >= totalPage) {
       return

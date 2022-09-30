@@ -7,7 +7,10 @@
         class="chat-tabs__header"
         v-if="showHeader">
         <div
-          class="chat-tabs__nav">
+          class="chat-tabs__nav"
+          :class="{
+            'is-mobile': isMobile
+          }">
           <div
             class="chat-tabs__item"
             :class="{
@@ -16,7 +19,22 @@
             v-for="item in tabs"
             :key="item.value"
             @click="onChangeTab(item.value)">
-            <template v-if="item.count">{{ $formatNumber(item.count) }}</template> {{ item.count !== 1 ? item.plurLabel : item.label }}
+            <i
+              class="chat-tabs__item-icon"
+              :class="item.icon"
+              v-if="isMobile">
+            </i>
+            
+            <span
+              v-if="item.count">
+              {{ $formatNumber(item.count) }}
+            </span>
+            
+            <span
+              class="chat-tabs__item-label"
+              v-if="!isMobile">
+              {{ item.count !== 1 ? item.plurLabel : item.label }}
+            </span>
           </div>
         </div>
         
@@ -74,6 +92,25 @@ const onChangeTab = (value) => {
   activeTab.value = value
   emits('on-change-tab', value)
 }
+
+let isMobile = ref(false)
+onMounted(() => {
+  checkIfMobile()
+  window.addEventListener('resize', checkIfMobile)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', checkIfMobile)
+})
+
+const checkIfMobile = () => {
+  const widget = document.querySelector('.chat-widget')
+  if (widget.clientWidth < 719) {
+    isMobile.value = true
+  } else {
+    isMobile.value = false
+  }
+}
 </script>
 
 <script>
@@ -105,6 +142,15 @@ export default {
   
   &__nav {
     display: flex; 
+    
+    &.is-mobile {
+      width: 100%;
+      
+      .chat-tabs__item {
+        flex: 1;
+        padding: 0 10px;
+      }
+    }
   }
   
   &__item {
@@ -112,6 +158,7 @@ export default {
     flex-shrink: 0;
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 40px;
     padding: 0 20px;
     font-size: 14px;
@@ -146,6 +193,15 @@ export default {
     &:hover {
       color: var(--text-color-primary);
     }
+  }
+  
+  &__item-icon {
+    margin-right: 5px;
+    font-size: 16px;
+  }
+  
+  &__item-label {
+    margin-left: 5px;
   }
   
   &__content {

@@ -28,7 +28,7 @@
       <el-popover
         ref="settingsPopover"
         v-if="hasLogined || minimal"
-        :placement="minimal ? 'bottom' : 'bottom-end'"
+        :placement="minimal ? 'top' : 'top-end'"
         trigger="click"
         :width="166"
         @before-leave="moreMenuActive = false"
@@ -190,7 +190,7 @@ export default {
   }
 }
 
-@media screen and (max-width: $mobile-width) {
+@media screen and (max-width: $small-mobile-width - 1px) {
   .chat-footer {
     &__settings {
       display: block;
