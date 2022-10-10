@@ -332,6 +332,7 @@ export default {
   
   &__body {
     flex: 1;
+    min-width: 0;
   }
   
   &__header {
@@ -343,13 +344,13 @@ export default {
   
   &__header-content {
     flex: 1;
+    min-width: 0;
     margin-right: 10px;
   }
   
   &__byline {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    min-width: 0;
     
     &:hover {
       .comment-item__copy-icon {
