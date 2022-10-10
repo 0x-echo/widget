@@ -105,7 +105,7 @@ onUnmounted(() => {
 
 const checkIfMobile = () => {
   const widget = document.querySelector('.chat-widget')
-  if (widget.clientWidth < 719) {
+  if (widget.clientWidth < 500) {
     isMobile.value = true
   } else {
     isMobile.value = false
