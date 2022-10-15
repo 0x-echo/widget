@@ -55,6 +55,7 @@ export default (store) => {
 
 	setBodyClass('has-h-padding', config['has-h-padding'])
 	setBodyClass('has-v-padding', config['has-v-padding'])
+	setBodyClass('no-padding-in-mobile', config['no-padding-in-mobile'])
 
 	if (config['target_site']) {
 		setBodyClass(`target_site_${config['target_site']}`, true)

@@ -4,7 +4,8 @@ const booleanFields = [
   'has-h-padding',
   'h-v-padding',
   'show-comment-dislike',
-  'support-mumbai'
+  'support-mumbai',
+  'no-padding-in-mobile'
 ]
 
 export default function () {
