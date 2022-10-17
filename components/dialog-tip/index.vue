@@ -1,22 +1,10 @@
 <template>
-  <el-dialog
-    ref="tipDialogRef"
-    v-bind="$attrs"
-    :close-on-click-modal="false"
-    custom-class="dialog-tip"
-    :show-close="false"
-    top="10vh"
-    width="90%"
-    @close="onCloseDialog">
-    <template
-      #header>
-      <dialog-header
-        icon="ri-hand-heart-line"
-        title="Tip"
-        @close="close">
-      </dialog-header>
-    </template>
-    
+  <echo-dialog
+    class="dialog-tip"
+    title="Tip"
+    title-icon="ri-hand-heart-line"
+    @close="close"
+    @on-close="$emit('update:modelValue', false)">
     <section-user
       :data="user">
     </section-user>
@@ -56,12 +44,11 @@
         Next
       </el-button>
     </div>
-  </el-dialog>
+  </echo-dialog>
 </template>
 
 <script setup>
-import { reactive } from 'vue'
-import { ElButton, ElCollapseTransition, ElDialog, ElLoading, ElMessage } from 'element-plus'
+import { ElButton, ElCollapseTransition, ElLoading, ElMessage } from 'element-plus'
 import SectionAmount from './section-amount'
 import SectionNetwork from './section-network'
 import SectionUser from './section-user'
@@ -80,17 +67,6 @@ const emits = defineEmits([
   'do-tip',
   'tip-reconnect'
 ])
-
-const close = () => {
-  emits('update:modelValue', false)
-}
-
-const onCloseDialog = () => {
-  $bus.emit('reset-tip-form', data.data)
-  data.network = ''
-  data.amount = ''
-}
-
 
 const user = computed(() => ({
   name: store.receiver.displayName,
@@ -114,6 +90,12 @@ let data = reactive({
   wallet: ''
 })
 
+const close = () => {
+  $bus.emit('reset-tip-form')
+  data.network = ''
+  data.amount = ''
+}
+
 const goNext = () => {
   if (!store.currency[store.tip_network].usd) {
     ElMessage.error({
@@ -121,25 +103,16 @@ const goNext = () => {
     })
     return
   }
-  // close()
-  // emits('go-next', data)
+
   emits('do-tip', data)
 } 
 
-const tipDialogRef = ref(null)
 const getLoading = () => {
   ElLoading.service({
     target: '.dialog-tip'
   }) 
 }
 </script>
-
-<script>
-export default {
-  inheritAttrs: false
-}
-</script>
-
 
 <style lang="scss">
 .dialog-tip {
@@ -210,7 +183,8 @@ export default {
     margin-top: 30px;
   }
   
-  &__tip, &__fee-tip {
+  &__tip, 
+  &__fee-tip {
     font-size: 12px;
     text-align: right;
     color: var(--text-color-muted);

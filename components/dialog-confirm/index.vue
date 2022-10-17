@@ -1,85 +1,29 @@
 <template>
-  <el-dialog
-    v-bind="$attrs"
-    :close-on-click-modal="false"
-    custom-class="dialog-confirm"
-    :show-close="false"
-    width="90%">
-    <template
-      #header>
-      <dialog-header
-        :icon="icon"
-        :title="title"
-        @close="close">
-      </dialog-header>
-    </template>
-    
+  <echo-dialog
+    class="dialog-confirm"
+    has-action-footer
+    @cancel="$emit('update:modelValue', false)"
+    @on-close="$emit('update:modelValue', false)">
     <div
       class="dialog-confirm__message">
       <slot>
         {{ message }}
       </slot>
     </div>
-    
-    <div
-      class="dialog-confirm__footer">
-      <el-button
-        @click="close">
-        Cancel
-      </el-button>
-      
-      <el-button
-        :type="confirmButtonType"
-        @click="submit">
-        {{ confirmButtonText }}
-      </el-button>
-    </div>
-  </el-dialog>
+  </echo-dialog>
 </template>
 
 <script setup>
-import { ElButton, ElDialog } from 'element-plus'
-
 const props = defineProps({
-  confirmButtonText: {
-    type: String,
-    default: 'Sure'
-  },
-  confirmButtonType: {
-    type: String,
-    default: 'primary'
-  },
-  icon: {
-    type: String
-  },
   message: {
-    type: String
-  },
-  title: {
     type: String
   }
 })
 
 const emits = defineEmits([
-  'submit',
   'update:modelValue'
 ])
-
-const close = () => {
-  emits('update:modelValue', false)
-}
-
-const submit = () => {
-  emits('submit')
-}
 </script>
-
-<script>
-export default {
-  inheritAttrs: false
-}
-</script>
-
 
 <style lang="scss">
 .dialog-confirm {
@@ -99,16 +43,7 @@ export default {
     padding: 15px;
     border-radius: 10px;
     background: var(--bg-color);
-  }
-  
-  &__footer {
-    margin-top: 30px;
-    text-align: right;
-    
-    .el-button {
-      width: 100px;
-      height: 36px;
-    }
+    color: var(--text-color-secondary);
   }
 }
 </style>

@@ -155,6 +155,7 @@
 .el-dialog {
   --el-dialog-bg-color: var(--theme-bg-color);
   --el-dialog-border-radius: var(--border-radius-large);
+  max-width: 485px;
   
   .dark & {
     box-shadow: 0 0 0 1px rgba(white, .2);

@@ -11,12 +11,12 @@
         @click="showMore = !showMore">
       </i>
       
-      <chat-avatar
+      <echo-avatar
         class="section-user__avatar"
         :alt="data.name"
         size="small"
         :src="data.avatar || ''">
-      </chat-avatar>
+      </echo-avatar>
       
       <div
         class="section-user__content">

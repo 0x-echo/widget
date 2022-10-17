@@ -1,20 +1,9 @@
 <template>
-  <el-dialog
-    ref="connectDialogRef"
-    v-bind="$attrs"
-    :close-on-click-modal="false"
-    custom-class="dialog-connect"
-    :show-close="false"
-    width="90%">
-    <template
-      #header>
-      <dialog-header
-        icon="ri-wallet-3-line"
-        title="Connect Wallet"
-        @close="close">
-      </dialog-header>
-    </template>
-    
+  <echo-dialog
+    class="dialog-connect"
+    title="Connect Wallet"
+    title-icon="ri-wallet-3-line"
+    @on-close="$emit('update:modelValue', false)">
     <div
       class="dialog-connect__list">
       <wallet-item
@@ -48,11 +37,11 @@
       class="dialog-connect__tip">
       Tip: You can use another address to tip the author.
     </div>
-  </el-dialog>
+  </echo-dialog>
 </template>
 
 <script setup>
-import { ElDialog,  ElLoading } from 'element-plus'
+import { ElLoading } from 'element-plus'
 import iconMatemask from '@/assets/metamask.svg'
 import iconWalletConnect from '@/assets/walletconnect.svg'
 import iconPhantom from '@/assets/phantom.png'
@@ -126,19 +115,8 @@ const getLoading = (text) => {
 }
 </script>
 
-<script>
-export default {
-  inheritAttrs: false
-}
-</script>
-
-
 <style lang="scss">
 .dialog-connect {
-  &.el-dialog {
-    max-width: 485px;
-  }
-  
   &__list {
     display: flex;
     flex-wrap: wrap;

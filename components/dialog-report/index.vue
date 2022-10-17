@@ -1,20 +1,13 @@
 <template>
-  <el-dialog
-    v-bind="$attrs"
-    :close-on-click-modal="false"
-    custom-class="dialog-report"
-    :show-close="false"
-    width="90%"
-    @close="reason = ''">
-    <template
-      #header>
-      <dialog-header
-        icon="ri-alert-line"
-        title="Report"
-        @close="close">
-      </dialog-header>
-    </template>
-    
+  <echo-dialog
+    class="dialog-report"
+    has-action-footer
+    title="Report"
+    title-icon="ri-alert-line"
+    @cancel="$emit('update:modelValue', false)"
+    @close="reason.value = ''"
+    @on-close="$emit('update:modelValue', false)"
+    @submit="submit">
     <el-select
       class="dialog-report__select"
       :key="new Date()"
@@ -27,28 +20,11 @@
         :label="item.label"
         :value="item.value" />
     </el-select>
-    
-    <div
-      class="dialog-report__footer">
-      <el-button
-        size="large"
-        @click="close">
-        Cancel
-      </el-button>
-      
-      <el-button
-        :disabled="!reason"
-        size="large"
-        type="primary"
-        @click="submit">
-        Submit
-      </el-button>
-    </div>
-  </el-dialog>
+  </echo-dialog>
 </template>
 
 <script setup>
-import { ElButton, ElDialog, ElSelect, ElOption } from 'element-plus'
+import { ElSelect, ElOption } from 'element-plus'
 
 const { public: { report }} = useRuntimeConfig()
 
@@ -61,39 +37,15 @@ const reason = ref('')
 
 const options = report.reasons.map(one => ({ label: one, value: one }))
 
-const close = () => {
-  emits('update:modelValue', false)
-}
-
 const submit = () => {
   emits('submit', reason.value)
 }
 </script>
 
-<script>
-export default {
-  inheritAttrs: false
-}
-</script>
-
-
 <style lang="scss">
-.dialog-report {
-  &.el-dialog {
-    max-width: 485px;
-  }
-  
+.dialog-report {  
   &__select {
     width: 100%;
-  }
-  
-  &__footer {
-    margin-top: 30px;
-    text-align: right;
-    
-    .el-button {
-      width: 100px;
-    }
   }
 }
 </style>
