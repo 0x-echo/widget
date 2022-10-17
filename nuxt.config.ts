@@ -1,4 +1,3 @@
-import { defineNuxtConfig } from 'nuxt'
 import config from './config'
 import  inject  from  '@rollup/plugin-inject'
 import NodeGlobalsPolyfillPlugin from '@esbuild-plugins/node-globals-polyfill'
