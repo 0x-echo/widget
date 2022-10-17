@@ -1,6 +1,6 @@
 <template>
   <div
-    class="chat-tag">
+    class="echo-tag">
     <slot></slot>
   </div>
 </template>
@@ -10,7 +10,7 @@
 </script>
 
 <style lang="scss">
-.chat-tag {
+.echo-tag {
   display: flex;
   align-items: center;
   height: 20px;

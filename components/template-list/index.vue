@@ -7,11 +7,11 @@
         class="template-list__user">
         <div
           class="template-list__avatar">
-          <chat-avatar
+          <echo-avatar
             :alt="store.receiver.name"
             :size="80"
             :src="store.receiver.avatar || ''">
-          </chat-avatar>
+          </echo-avatar>
         </div>
         
         <div
@@ -82,20 +82,20 @@
           <el-tooltip
             :content="$formatScreenName(item.author.screen_name) + ((item.author.address === store.address) ? ' (you)' : '')"
             placement="bottom">
-            <chat-avatar
+            <echo-avatar
               class="template-list__item-avatar"
               :hash="item.author.address"
               :size="36"
               :src="item.author.avatar || ''">
-            </chat-avatar>
+            </echo-avatar>
           </el-tooltip>
         </div>
       </div>
       
-      <chat-footer
+      <echo-footer
         v-bind="$attrs"
         minimal>
-      </chat-footer>
+      </echo-footer>
     </div>
   </list-skeleton>
 </template>

@@ -6,13 +6,13 @@
       class="comment-item__avatar"
       @mouseenter="moreMenuVisible = true"
       @mouseleave="moreMenuVisible = false">
-      <chat-avatar
+      <echo-avatar
         class="comment-item__avatar-image"
         :alt="data.author.screen_name"
         :hash="data.author.address"
         :size="avatarSize"
         :src="data.author.avatar || ''">
-      </chat-avatar>
+      </echo-avatar>
     </div>
     
     <div
@@ -32,11 +32,11 @@
                 {{ $formatScreenName(data.author.screen_name) }}
               </span>
               
-              <chat-tag
+              <echo-tag
                 v-if="data.is_author"
                 class="comment-item__tag">
                 Author
-              </chat-tag>
+              </echo-tag>
             </div>
               
             <div

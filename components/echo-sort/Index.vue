@@ -8,9 +8,9 @@
     <template 
       #reference>
       <div
-        class="chat-sort">
+        class="echo-sort">
         <span
-          class="chat-sort__label">
+          class="echo-sort__label">
           {{ sortOptions.filter(item => {return item.value === currentSort })[0].label }}
         </span>
         
@@ -21,7 +21,7 @@
     </template>
     
     <div
-      class="chat-sort__list">
+      class="echo-sort__list">
       <menu-item
         v-for="item in sortOptions"
         :key="item.value"
@@ -71,7 +71,7 @@ const onClickSortOption = (value) => {
 </script>
 
 <style lang="scss">
-.chat-sort {
+.echo-sort {
   display: inline-flex;
   align-items: center;
   justify-content: flex-end;

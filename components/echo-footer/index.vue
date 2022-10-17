@@ -1,24 +1,24 @@
 <template>
   <footer
-    class="chat-footer"
+    class="echo-footer"
     :class="{
       'is-minimal': minimal
     }">
     <div
-      class="chat-footer__left">
+      class="echo-footer__left">
       <a
-        class="chat-footer__link"
+        class="echo-footer__link"
         href="https://0xecho.com/"
         target="_blank">
         <template v-if="!minimal">Powered by </template>ECHO 
-        <span class="chat-footer__beta-tag">beta</span> 
+        <span class="echo-footer__beta-tag">beta</span> 
       </a>
     </div>
     
     <div
-      class="chat-footer__right">
+      class="echo-footer__right">
       <a 
-        class="chat-footer__link"
+        class="echo-footer__link"
         v-if="!minimal"
         href="https://0xecho.com/privacy"
         target="_blank">
@@ -36,7 +36,7 @@
         <template 
           #reference>
           <i
-            class="ri-settings-3-line chat-footer__settings">
+            class="ri-settings-3-line echo-footer__settings">
           </i>
         </template>
         
@@ -98,7 +98,7 @@ export default {
 </script>
 
 <style lang="scss">
-.chat-footer {
+.echo-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -113,7 +113,7 @@ export default {
     justify-content: center;
     margin: 0;
     
-    .chat-footer__settings {
+    .echo-footer__settings {
       display: block;
     }
   }
@@ -172,7 +172,7 @@ export default {
   &__link {
     color: var(--text-color-muted);
     
-    & + .chat-footer__settings {
+    & + .echo-footer__settings {
       margin-left: 5px;
     }
   }
@@ -185,13 +185,13 @@ export default {
 }
 
 @media screen and (max-width: #{$tablet-width - 1px}) {
-  .chat-footer {
+  .echo-footer {
     padding-bottom: 0;
   }
 }
 
 @media screen and (max-width: $small-mobile-width - 1px) {
-  .chat-footer {
+  .echo-footer {
     &__settings {
       display: block;
     }

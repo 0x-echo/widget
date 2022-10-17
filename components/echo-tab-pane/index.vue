@@ -1,6 +1,6 @@
 <template>
   <div
-    class="chat-tab-pane"
+    class="echo-tab-pane"
     v-if="tabs.includes(value)"
     v-show="active">
     <slot></slot>

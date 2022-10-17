@@ -30,10 +30,10 @@
         @load-more-comments="loadMoreComments">
       </template-tabs>
 
-      <chat-footer
+      <echo-footer
         v-if="!loading"
         @logout="logout">
-      </chat-footer>
+      </echo-footer>
     </template>
     
     <section-toolbar
@@ -78,7 +78,7 @@
     <dialog-confirm
       confirm-button-text="Delete"
       confirm-button-type="danger"
-      icon="ri-close-circle-line"
+      title-icon="ri-close-circle-line"
       title="Delete Comment?"
       v-model="deleteDialogVisible"
       @submit="deleteComment">

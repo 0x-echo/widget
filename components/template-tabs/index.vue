@@ -16,7 +16,7 @@
     position="top">
   </reply-form>
   
-  <chat-tabs
+  <echo-tabs
     v-model="activeTab"
     :loading="loading"
     :tabs="tabs"
@@ -25,14 +25,14 @@
       #header-right>
       <div
         class="template-tabs__sort">
-        <chat-sort
+        <echo-sort
           v-if="activeTab === 'comment'"
           v-model="currentSort">
-        </chat-sort>
+        </echo-sort>
       </div>
     </template>
     
-    <chat-tab-pane
+    <echo-tab-pane
       value="comment">
       <empty-placeholder
         v-if="!loading && !data.comments.length">
@@ -44,9 +44,9 @@
         :data="data.comments"
         :loading="loading">
       </section-comment>
-    </chat-tab-pane>
+    </echo-tab-pane>
     
-    <chat-tab-pane
+    <echo-tab-pane
       value="like">
       <empty-placeholder
         v-if="!loading && !data.likes.length"
@@ -65,9 +65,9 @@
         :power-value="counts.like_power"
         tip="Estimated total value of all liking address">
       </section-vote>
-    </chat-tab-pane>
+    </echo-tab-pane>
     
-    <chat-tab-pane
+    <echo-tab-pane
       value="dislike">
       <empty-placeholder
         v-if="!loading && !data.dislikes.length">
@@ -82,9 +82,9 @@
         :power-value="counts.dislike_power"
         tip="Estimated total value of all disiking address">
       </section-vote>
-    </chat-tab-pane>
+    </echo-tab-pane>
     
-    <chat-tab-pane
+    <echo-tab-pane
       value="tip">
       <empty-placeholder
         v-if="!loading && !data.tips.length"
@@ -99,8 +99,8 @@
         :data="data.tips"
         :loading="loading">
       </section-tip>
-    </chat-tab-pane>
-  </chat-tabs>
+    </echo-tab-pane>
+  </echo-tabs>
 </template>
 
 <script setup>

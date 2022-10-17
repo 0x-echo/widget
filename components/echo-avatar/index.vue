@@ -1,6 +1,6 @@
 <template>
   <el-avatar
-    class="chat-avatar">
+    class="echo-avatar">
     <boring-avatar
       :colors="colors" 
       :name="hash"
@@ -27,7 +27,7 @@ const colors = ['#FFAD08', '#EDD75A', '#73B06F', '#0C8F8F', '#405059']
 </script>
 
 <style lang="scss">
-.chat-avatar {
+.echo-avatar {
   img {
     background: white;
   }

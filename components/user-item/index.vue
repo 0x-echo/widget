@@ -5,13 +5,13 @@
       class="user-item__badge"
       :hidden="!badge"
       :value="badge">
-      <chat-avatar
+      <echo-avatar
         class="user-item__avatar"
         :alt="title"
         :size="36"
         :hash="address"
         :src="avatar">
-      </chat-avatar>
+      </echo-avatar>
     </el-badge>
     
     <div

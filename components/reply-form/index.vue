@@ -14,12 +14,12 @@
           Avatar is synced from <br />your .bit or .eth records.
         </template>
         
-        <chat-avatar
+        <echo-avatar
           class="reply-form__avatar"
           :alt="store.screen_name"
           :hash="store.address"
           :src="store.avatar || ''">
-        </chat-avatar>
+        </echo-avatar>
       </el-tooltip>
       
       <div
@@ -64,9 +64,9 @@
               @click.stop="$emit('reply')">
               <template
                 #loading>
-                <chat-loader
+                <echo-loader
                   class="reply-form__send-button-loader">
-                </chat-loader>
+                </echo-loader>
               </template>
               
               Send

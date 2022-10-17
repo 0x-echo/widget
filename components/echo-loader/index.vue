@@ -1,6 +1,6 @@
 <template>
   <div
-    class="chat-loader"
+    class="echo-loader"
     :style="{
       width: `${size}px`,
       height: `${size}px`
@@ -18,7 +18,7 @@ const props = defineProps({
 </script>
 
 <style lang="scss">
-.chat-loader {
+.echo-loader {
   border-radius: 50%;
   border: 2px solid #fff;
   clip-path: inset(0 0 50% 0);

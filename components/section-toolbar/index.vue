@@ -41,13 +41,13 @@
             #reference>
             <div
               class="section-toolbar__user">
-              <chat-avatar
+              <echo-avatar
                 class="section-toolbar__user-wallet-icon"
                 :alt="loginInfo.screen_name"
                 size="small"
                 :hash="loginInfo.address"
                 :src="loginInfo.avatar || ''">
-              </chat-avatar>
+              </echo-avatar>
              
               <span
                 class="section-toolbar__user-name">

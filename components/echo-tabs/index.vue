@@ -1,18 +1,18 @@
 <template>
   <div
-    class="chat-tabs">
+    class="echo-tabs">
     <tabs-skeleton
       v-bind="$attrs">
       <div
-        class="chat-tabs__header"
+        class="echo-tabs__header"
         v-if="showHeader">
         <div
-          class="chat-tabs__nav"
+          class="echo-tabs__nav"
           :class="{
             'is-mobile': isMobile
           }">
           <div
-            class="chat-tabs__item"
+            class="echo-tabs__item"
             :class="{
               'active': item.value === activeTab
             }"
@@ -20,7 +20,7 @@
             :key="item.value"
             @click="onChangeTab(item.value)">
             <i
-              class="chat-tabs__item-icon"
+              class="echo-tabs__item-icon"
               :class="item.icon"
               v-if="isMobile">
             </i>
@@ -31,7 +31,7 @@
             </span>
             
             <span
-              class="chat-tabs__item-label"
+              class="echo-tabs__item-label"
               v-if="!isMobile">
               {{ item.count !== 1 ? item.plurLabel : item.label }}
             </span>
@@ -45,7 +45,7 @@
     </tabs-skeleton>
     
     <div
-      class="chat-tabs__content">
+      class="echo-tabs__content">
       <slot></slot>
     </div>
   </div>
@@ -120,7 +120,7 @@ export default {
 </script>
 
 <style lang="scss">
-.chat-tabs {
+.echo-tabs {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -146,7 +146,7 @@ export default {
     &.is-mobile {
       width: 100%;
       
-      .chat-tabs__item {
+      .echo-tabs__item {
         flex: 1;
         padding: 0 10px;
       }
