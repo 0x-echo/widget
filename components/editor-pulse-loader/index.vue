@@ -1,8 +1,8 @@
 <template>
   <div
-    class="pulse-loader">
+    class="echo-pulse-loader">
     <div
-      class="pulse-loader__dot"
+      class="echo-pulse-loader__dot"
       v-for="item in 3"
       :key="item"
       :style="{
@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style lang="scss">
-.pulse-loader {
+.echo-pulse-loader {
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,8 +1,8 @@
 <template>
   <div
-    class="load-more">
+    class="echo-load-more">
     <el-button
-      class="el-button--icon load-more__button"
+      class="el-button--icon echo-load-more__button"
       size="large">
       <i
         class="ri-more-line">
@@ -16,7 +16,7 @@ import { ElButton } from 'element-plus'
 </script>
 
 <style lang="scss">
-.load-more {
+.echo-load-more {
   margin-top: 15px;
   text-align: center;
   
