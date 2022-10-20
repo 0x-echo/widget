@@ -1,14 +1,14 @@
 <template>
   <echo-toolbar
     v-bind="$attrs"
-    :config="config"
     :loading="loading"
+    :modules="modules"
     @like="$emit('like')"
     @tip="$emit('tip')">
   </echo-toolbar>
   
   <echo-editor
-    v-if="config.modules.includes('comment')"
+    v-if="modules.includes('comment')"
     v-bind="$attrs"
     custom-class="echo-widget__editor"
     :disabled-tooltip="false"
@@ -120,6 +120,10 @@ const props = defineProps({
   },
   loading: {
     type: Boolean
+  },
+  modules: {
+    type: Array,
+    required: true
   }
 })
 
@@ -130,7 +134,7 @@ const emits = defineEmits([
   'tip'
 ])
 
-const activeTab = ref(props.config.modules[0])
+const activeTab = ref(props.modules[0])
 
 const tabs = computed(() => {
   const list = [{
@@ -161,7 +165,7 @@ const tabs = computed(() => {
   
   let newList = []
   list.forEach(item => {
-    if (props.config.modules.includes(item.value)) {
+    if (props.modules.includes(item.value)) {
       newList.push(item)
     }
   })

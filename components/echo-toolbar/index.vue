@@ -110,8 +110,8 @@ const loginInfo = computed(() => {
 })
 
 const props = defineProps({
-  config: {
-    type: Object,
+  modules: {
+    type: Array,
     required: true
   },
   user: {
@@ -135,7 +135,7 @@ const emitAction = (item) => {
 }
 
 const showWalletConnect = computed(() => {
-  if (props.config.modules.length === 1 && (props.config.modules.includes('like-lite') || props.config.modules.includes('dislike-lite'))) {
+  if (props.modules.length === 1 && (props.modules.includes('like-lite') || props.modules.includes('dislike-lite'))) {
     return false
   }
 
@@ -147,7 +147,7 @@ const toolbarConfig = computed(() => {
     active: true,
     icon: 'ri-thumb-up-line',
     value: 'like',
-    showLabel: !props.config.modules.includes('dislike') && !props.config.modules.includes('dislike-lite') && !props.config.modules.includes('tip') && !props.config.modules.includes('tip-lite'),
+    showLabel: !props.modules.includes('dislike') && !props.modules.includes('dislike-lite') && !props.modules.includes('tip') && !props.modules.includes('tip-lite'),
     count: store.counts.like_counts
   }, {
     active: false,
@@ -163,7 +163,7 @@ const toolbarConfig = computed(() => {
   
   let newList = []
   list.forEach(item => {
-    if (props.config.modules.includes(item.value) || props.config.modules.includes(`${item.value}-lite`)) {
+    if (props.modules.includes(item.value) || props.modules.includes(`${item.value}-lite`)) {
       newList.push(item)
     }
   })
@@ -172,7 +172,7 @@ const toolbarConfig = computed(() => {
 })
 
 const hasLogin = computed(() => {
-  const modules = props.config.modules
+  const modules = props.modules
   let count = 0
   modules.forEach(item => {
     if (item.endsWith('lite')) {
