@@ -1,31 +1,31 @@
 <template>
   <div
-    class="empty-placeholder">
+    class="echo-empty">
     <img 
-      class="empty-placeholder__image"
+      class="echo-empty__image"
       v-if="store.env.colorTheme === 'light'"
       :alt="message"
       :src="image" >
       
     <img 
-      class="empty-placeholder__image"
+      class="echo-empty__image"
       v-if="store.env.colorTheme === 'dark'"
       :alt="message"
       :src="defaultImageDark" >
     
     <div
-      class="empty-placeholder__message"
+      class="echo-empty__message"
       v-if="message">
       {{ message }}
     </div>
     
     <slot>
       <el-button
-        class="empty-placeholder__button"
+        class="echo-empty__button"
         v-if="buttonText"
         @click="$emit('on-click')">
         <i
-          class="empty-placeholder__button-icon"
+          class="echo-empty__button-icon"
           :class="buttonIcon"
           v-if="buttonIcon">
         </i>
@@ -73,7 +73,7 @@ const emits = defineEmits([
 </script>
 
 <style lang="scss">
-.empty-placeholder {
+.echo-empty {
   display: flex;
   flex-direction: column;
   align-items: center;

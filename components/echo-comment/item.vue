@@ -1,13 +1,13 @@
 <template>
   <div
-    class="comment-item"
+    class="echo-comment-item"
     :id="`_${data.id}`">
     <div
-      class="comment-item__avatar"
+      class="echo-comment-item__avatar"
       @mouseenter="moreMenuVisible = true"
       @mouseleave="moreMenuVisible = false">
       <echo-avatar
-        class="comment-item__avatar-image"
+        class="echo-comment-item__avatar-image"
         :alt="data.author.screen_name"
         :hash="data.author.address"
         :size="avatarSize"
@@ -16,31 +16,31 @@
     </div>
     
     <div
-      class="comment-item__body">
+      class="echo-comment-item__body">
       <div
         @mouseenter="moreMenuVisible = true"
         @mouseleave="moreMenuVisible = false">
         <div
-          class="comment-item__header">
+          class="echo-comment-item__header">
           <div
-            class="comment-item__header-content">
+            class="echo-comment-item__header-content">
             <div
-              class="comment-item__byline">
+              class="echo-comment-item__byline">
               <span
-                class="comment-item__author ellipsis"
+                class="echo-comment-item__author ellipsis"
                 :title="data.author.screen_name">
                 {{ $formatScreenName(data.author.screen_name) }}
               </span>
               
               <echo-tag
                 v-if="data.is_author"
-                class="comment-item__tag">
+                class="echo-comment-item__tag">
                 Author
               </echo-tag>
             </div>
               
             <div
-              class="comment-item__date">
+              class="echo-comment-item__date">
               <timeago 
                 :datetime="data.posted_at" 
                 :title="$formatDate(data.posted_at)" />
@@ -57,7 +57,7 @@
             <template 
               #reference>
               <el-button
-                class="el-button--icon comment-item__menu-button"
+                class="el-button--icon echo-comment-item__menu-button"
                 :class="{
                   'show': moreMenuVisible || moreMenuActive
                 }"
@@ -85,7 +85,7 @@
         </div>
       
         <div
-          class="comment-item__content"
+          class="echo-comment-item__content"
           :class="{
             'collapsed': hasMoreButton && collapsed
           }"
@@ -94,7 +94,7 @@
         </div>
         
         <div
-          class="comment-item__content-more"
+          class="echo-comment-item__content-more"
           v-if="hasMoreButton">
           <el-button
             text
@@ -105,36 +105,36 @@
         </div>
         
         <div
-          class="comment-item__control-bar">
-          <comment-action
+          class="echo-comment-item__control-bar">
+          <echo-comment-toolbar
             :active="data.has_liked && hasLogined"
             :count="data.like_counts"
             icon="ri-thumb-up-line"
             value="like"
             @click="$emit('like-comment', data)">
-          </comment-action>
+          </echo-comment-toolbar>
           
-          <comment-action
+          <echo-comment-toolbar
             v-if="store.widgetConfig.show_comment_dislike"
             :active="data.has_disliked && hasLogined"
             :count="data.dislike_counts"
             icon="ri-thumb-down-line"
             value="dislike"
             @click="$emit('dislike-comment', data)">
-          </comment-action>
+          </echo-comment-toolbar>
           
-          <comment-action
+          <echo-comment-toolbar
             icon="ri-chat-3-line"
             value="reply"
             @click="toggleReplyForm">
-          </comment-action>
+          </echo-comment-toolbar>
         </div>
         
         <el-collapse-transition>
           <div
-            class="comment-item__reply"
+            class="echo-comment-item__reply"
             v-show="showReply">
-            <reply-form
+            <echo-editor
               v-model="message"
               :is-focused="showReply"
               :loading="false"
@@ -142,7 +142,7 @@
               position="comment"
               show-toolbar
               @reply="reply">
-            </reply-form>
+            </echo-editor>
           </div>
         </el-collapse-transition>
       </div>
@@ -155,7 +155,6 @@
 
 <script setup>
 import { ElButton, ElCollapseTransition, ElMessage, ElPopover } from 'element-plus'
-import CommentAction from './comment-action'
 const { $bus, $formatAddress, $formatScreenName } = useNuxtApp()
 import { Timeago } from 'vue2-timeago'
 import { parseContent } from '../../libs/content-parser'
@@ -278,7 +277,7 @@ $bus.on('reset-reply-comment', (data) => {
 })
 const commentContent = computed(() => {
   if (props.data.replied_to) {
-    return `<span class="comment-item__meta-reply">@${$formatScreenName(props.data.replied_to.screen_name)}</span> ` + parseContent(props.data.content) 
+    return `<span class="echo-comment-item__meta-reply">@${$formatScreenName(props.data.replied_to.screen_name)}</span> ` + parseContent(props.data.content) 
   } else {
     return parseContent(props.data.content) 
   }
@@ -301,7 +300,7 @@ export default {
 </script>
 
 <style lang="scss">
-.comment-item {
+.echo-comment-item {
   position: relative;
   display: flex;
   
@@ -353,7 +352,7 @@ export default {
     align-items: center;
     
     &:hover {
-      .comment-item__copy-icon {
+      .echo-comment-item__copy-icon {
         opacity: 1;
       }
     }
@@ -586,23 +585,23 @@ export default {
     padding-top: 15px;
   }
   
-  .reply-list & {
-    .comment-item__header {
+  .echo-comment-reply-list & {
+    .echo-comment-item__header {
       margin-bottom: 2px;;
     }
     
-    .comment-item__header-content {
+    .echo-comment-item__header-content {
       display: flex;
       align-items: center;
     }
     
-    .comment-item__date {
+    .echo-comment-item__date {
       margin: 0 0 0 10px;
     }
   }
 }
 @media screen and (max-width: #{$tablet-width - 1px}) {
-  .comment-item {
+  .echo-comment-item {
     &.has-replies {
       &::before {
         height: calc(100% - 24px);
@@ -620,7 +619,7 @@ export default {
     }
     
     &__reply {
-      .reply-form__input {
+      .echo-editor__input {
         .el-textarea__inner {
           padding: 8px 12px;
         }

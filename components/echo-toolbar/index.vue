@@ -1,13 +1,13 @@
 <template>
-  <toolbar-skeleton
+  <echo-toolbar-skeleton
     v-bind="$attrs"
     :config="toolbarConfig"
     :show-right="showWalletConnect">
     <div
-      class="section-toolbar">
+      class="echo-toolbar">
       <div
-        class="section-toolbar__left">
-        <toolbar-item
+        class="echo-toolbar__left">
+        <echo-toolbar-item
           v-for="item in toolbarConfig"
           :key="item.value"
           :active="counts[`has_${item.value}d`] && hasLogined"
@@ -16,16 +16,16 @@
           :value="item.value"
           :show-label="item.showLabel"
           @on-click="emitAction(item)">
-        </toolbar-item>
+        </echo-toolbar-item>
       </div>
 
-      <toolbar-item
+      <echo-toolbar-item
         v-if="!hasLogined && showWalletConnect"
         :has-count="false"
         icon="ri-wallet-3-line"
         title="connect wallet"
         @click="$emit('connect-wallet')">
-      </toolbar-item>
+      </echo-toolbar-item>
       
       <template
         v-if="hasLogined && showWalletConnect">
@@ -33,16 +33,16 @@
           ref="userMenuRef"
           :offset="6"
           placement="bottom"
-          popper-class="section-toolbar__user-popover"
+          popper-class="echo-toolbar__user-popover"
           :show-arrow="false"
           trigger="click"
           :width="160">
           <template 
             #reference>
             <div
-              class="section-toolbar__user">
+              class="echo-toolbar__user">
               <echo-avatar
-                class="section-toolbar__user-wallet-icon"
+                class="echo-toolbar__user-wallet-icon"
                 :alt="loginInfo.screen_name"
                 size="small"
                 :hash="loginInfo.address"
@@ -50,12 +50,12 @@
               </echo-avatar>
              
               <span
-                class="section-toolbar__user-name">
+                class="echo-toolbar__user-name">
                 {{ $formatScreenName(loginInfo.screen_name || loginInfo.address) }}
               </span>
               
               <i
-                class="ri-arrow-drop-down-line section-toolbar__user-arrow-icon">
+                class="ri-arrow-drop-down-line echo-toolbar__user-arrow-icon">
               </i>
             </div>
           </template>
@@ -75,13 +75,11 @@
         </el-popover>
       </template>
     </div>
-  </toolbar-skeleton>
+  </echo-toolbar-skeleton>
 </template>
 
 <script setup>
 import { ElPopover } from 'element-plus'
-import ToolbarItem from './toolbar-item'
-import ToolbarSkeleton from './skeleton'
 import useStore from '~~/store'
 import useChain from '~~/compositions/chain'
 
@@ -211,7 +209,7 @@ const onClickUserMenu = (item) => {
 </script>
 
 <style lang="scss">
-.section-toolbar {
+.echo-toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -265,7 +263,7 @@ const onClickUserMenu = (item) => {
 }
 
 @media screen and (max-width: #{$tablet-width - 1px}) {
-  .section-toolbar {
+  .echo-toolbar {
     &__user {
       width: 40px;
       min-width: inherit;
@@ -281,7 +279,7 @@ const onClickUserMenu = (item) => {
 }
 
 @media screen and (max-width: $small-mobile-width - 1px) {
-  .section-toolbar {
+  .echo-toolbar {
     &__user {
       display: none;
     }

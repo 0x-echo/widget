@@ -69,7 +69,7 @@ export default (store) => {
 	}
 
   if (config.height) {
-    insertStyle(`.chat-widget {
+    insertStyle(`.echo-widget {
       height: ${config.height}px;
     }`)
   }

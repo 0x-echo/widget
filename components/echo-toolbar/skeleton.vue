@@ -1,21 +1,21 @@
 <template>
   <el-skeleton
-    class="toolbar-skeleton"
+    class="echo-toolbar-skeleton"
     v-bind="$attrs"
     animated>
     <template 
       #template>
       <div
-        class="toolbar-skeleton__left">
+        class="echo-toolbar-skeleton__left">
         <template
-          class="toolbar-skeleton__item"
+          class="echo-toolbar-skeleton__item"
           v-for="index in config"
           :key="index">
           <el-skeleton-item
             variant="button" />
           
           <el-skeleton-item
-            class="toolbar-skeleton__count"
+            class="echo-toolbar-skeleton__count"
             variant="text" />
         </template>
       </div>
@@ -48,7 +48,7 @@ const props = defineProps({
 </script>
 
 <style lang="scss">
-.toolbar-skeleton {
+.echo-toolbar-skeleton {
   display: flex;
   align-items: center;
   justify-content: space-between;

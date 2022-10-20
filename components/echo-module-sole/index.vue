@@ -1,12 +1,12 @@
 <template>
-  <list-skeleton
+  <echo-module-sole-skeleton
     v-bind="$attrs">
     <div
-      class="template-list">
+      class="echo-module-sole">
       <div
-        class="template-list__user">
+        class="echo-module-sole__user">
         <div
-          class="template-list__avatar">
+          class="echo-module-sole__avatar">
           <echo-avatar
             :alt="store.receiver.name"
             :size="80"
@@ -15,26 +15,26 @@
         </div>
         
         <div
-          class="template-list__user-name">
+          class="echo-module-sole__user-name">
           {{ store.receiver.displayName || route.query.receiver }}
         </div>
         
         <div
-          class="template-list__bio">
+          class="echo-module-sole__bio">
           {{ route.query.desc }}
         </div>
       </div>
       
       <div
-        class="template-list__action">
+        class="echo-module-sole__action">
         <el-button
-          class="el-button--xlarge el-button--icon template-list__action-button"
+          class="el-button--xlarge el-button--icon echo-module-sole__action-button"
           :class="{
             active: ((module === 'like' || module === 'dislike') && counts[`has_${module}d`] && store.hasLogined) || module === 'tip'
           }"
           @click="$emit(module, counts[`has_${module}d`])">
           <i
-            class="template-list__action-icon"
+            class="echo-module-sole__action-icon"
             :class="currentModule.icon">
           </i>
           <span>
@@ -54,16 +54,16 @@
       </div>
 
       <div
-        class="template-list__stat"
+        class="echo-module-sole__stat"
         v-if="(module === 'like' || module === 'dislike') && counts[`${module}_counts`]">
         <el-tooltip
           content="Estimated Total Value of all Liking Address"
           :disabled="module !== 'like'"
           placement="bottom">
           <div
-            class="template-list__stat-value">
+            class="echo-module-sole__stat-value">
             <i
-              class="ri-flashlight-fill template-list__stat-icon">
+              class="ri-flashlight-fill echo-module-sole__stat-icon">
             </i>
             
             <span>
@@ -74,16 +74,16 @@
       </div>
       
       <div
-        class="template-list__content">
+        class="echo-module-sole__content">
         <div
-          class="template-list__item"
+          class="echo-module-sole__item"
           v-for="item in data[`${module}s`]"
           :key="item.id">
           <el-tooltip
             :content="$formatScreenName(item.author.screen_name) + ((item.author.address === store.address) ? ' (you)' : '')"
             placement="bottom">
             <echo-avatar
-              class="template-list__item-avatar"
+              class="echo-module-sole__item-avatar"
               :hash="item.author.address"
               :size="36"
               :src="item.author.avatar || ''">
@@ -97,7 +97,7 @@
         minimal>
       </echo-footer>
     </div>
-  </list-skeleton>
+  </echo-module-sole-skeleton>
 </template>
 
 <script setup>
@@ -149,7 +149,7 @@ const currentModule = computed(() => {
 </script>
 
 <style lang="scss">
-.template-list {
+.echo-module-sole {
   
   &__user {
     display: flex;
@@ -196,7 +196,7 @@ const currentModule = computed(() => {
     margin-top: 15px;
     text-align: center;
 
-    & + .template-list__content {
+    & + .echo-module-sole__content {
       margin-top: 30px;
     }
   }

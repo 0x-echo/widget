@@ -1,5 +1,5 @@
 <template>
-  <section-template
+  <echo-module-tabs-template
     v-bind="$attrs"
     :show-list="data.length > 0">
     <user-item
@@ -15,12 +15,11 @@
         <!-- x {{ item.times }} -->
       <!-- </template> -->
     </user-item>
-  </section-template>
+  </echo-module-tabs-template>
 </template>
 
 <script setup>
 import { Timeago } from 'vue2-timeago'
-import SectionTemplate from '../section-template'
 import useStore from '~~/store'
 
 const store = useStore()

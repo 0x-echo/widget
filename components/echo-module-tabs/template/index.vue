@@ -1,8 +1,8 @@
 <template>
-  <template-skeleton
+  <echo-module-tabs-template-skeleton
     v-bind="$attrs">
     <div
-      class="section-template"
+      class="echo-module-tabs-template"
       v-if="showList">
       <div
         v-if="powerValue">
@@ -11,9 +11,9 @@
           :disabled="tip === ''"
           placement="top-start">
           <div
-            class="section-template__value">
+            class="echo-module-tabs-template__value">
             <i
-              class="ri-flashlight-fill section-template__value-icon">
+              class="ri-flashlight-fill echo-module-tabs-template__value-icon">
             </i>
 
             <span>
@@ -32,18 +32,17 @@
       </div>
 
       <div
-        class="section-template__list">
+        class="echo-module-tabs-template__list">
         <slot>
         </slot>
       </div>
     </div>
-  </template-skeleton>
+  </echo-module-tabs-template-skeleton>
 </template>
 
 <script setup>
 import Vue3Autocounter from 'vue3-autocounter'
 import { ElTooltip } from 'element-plus'
-import TemplateSkeleton from './skeleton'
 import useStore from '~~/store';
 
 const store = useStore()
@@ -78,7 +77,7 @@ watch(currentTab, (newVal, oldVal) => {
 </script>
 
 <style lang="scss">
-.section-template {
+.echo-module-tabs-template {
   padding: 0 20px 40px;
   
   &__value {
@@ -108,7 +107,7 @@ watch(currentTab, (newVal, oldVal) => {
 }
 
 @media screen and (max-width: #{$mobile-width - 1px}) {
-  .section-template {
+  .echo-module-tabs-template {
     &__list {
       grid-template-columns: repeat(auto-fit, minmax(36px, 1fr));
       gap: 16px 12px;

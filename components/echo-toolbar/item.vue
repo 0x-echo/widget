@@ -1,9 +1,9 @@
 <template>
   <div
-    class="toolbar-item">
+    class="echo-toolbar-item">
     <el-button
       :id="`${value}Button`"
-      class="el-button--icon toolbar-item__button"
+      class="el-button--icon echo-toolbar-item__button"
       :class="{
         'active': active,
         'activated': activated
@@ -18,10 +18,10 @@
     </el-button>
     
     <div
-      class="toolbar-item__count"
+      class="echo-toolbar-item__count"
       v-if="hasCount">
       <span
-        class="toolbar-item__count-number"
+        class="echo-toolbar-item__count-number"
         ref="countRef"
         v-show="count <= 9999">
       </span>
@@ -150,7 +150,7 @@ watch(() => props.active, (val, oldVal) => {
 
 <style lang="scss">
 // liking bubble credit https://codepen.io/ren_estep/pen/gOpdVOV
-.toolbar-item {
+.echo-toolbar-item {
   display: flex;
   align-items: center;
   

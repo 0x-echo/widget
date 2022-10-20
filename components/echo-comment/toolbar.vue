@@ -1,10 +1,10 @@
 <template>
   <div
-    class="comment-action"
+    class="echo-comment-toolbar"
     role="button">
     <span
-      class="comment-action__icon"
-      :class="[`comment-action__icon--${value}`, {
+      class="echo-comment-toolbar__icon"
+      :class="[`echo-comment-toolbar__icon--${value}`, {
         'active': active,
         'activated': activated
       }]">
@@ -15,19 +15,19 @@
     </span>
     
     <!-- <span
-      class="comment-action__count"
+      class="echo-comment-toolbar__count"
       v-if="count">
       {{ count ? $formatNumber(count) : '' }}
     </span> -->
 
     <span
-      class="comment-action__count"
+      class="echo-comment-toolbar__count"
       ref="commentCountRef"
       v-show="count <= 9999">
     </span>
     
     <span
-      class="comment-action__count"
+      class="echo-comment-toolbar__count"
       v-if="count > 9999">
       {{ $formatNumber(count) }}
     </span>
@@ -89,7 +89,7 @@ watch(() => props.active, (val, oldVal) => {
 </script>
 
 <style lang="scss">
-.comment-action {
+.echo-comment-toolbar {
   display: flex;
   align-items: center;
   width: 65px;

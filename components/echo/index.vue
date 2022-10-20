@@ -1,10 +1,10 @@
 <template>
   <div
     ref="widget"
-    class="chat-widget">
+    class="echo-widget">
     <template
       v-if="widgetType === 'mix-widget' || widgetType === 'comment-only'">
-      <template-tabs
+      <echo-module-tabs
         :config="config"
         :data="summary"
         :loading="loading"
@@ -28,7 +28,7 @@
         @tip="tip"
         @load-children="loadChildren"
         @load-more-comments="loadMoreComments">
-      </template-tabs>
+      </echo-module-tabs>
 
       <echo-footer
         v-if="!loading"
@@ -36,7 +36,7 @@
       </echo-footer>
     </template>
     
-    <section-toolbar
+    <echo-toolbar
       v-if="widgetType === 'lite-only'"
       :config="config"
       :loading="loading"
@@ -46,9 +46,9 @@
       @logout="logout"
       @like="like"
       @refresh-profile="refreshProfile">
-    </section-toolbar>
+    </echo-toolbar>
 
-    <template-list
+    <echo-module-sole
       v-if="['like-only', 'dislike-only', 'tip-only'].includes(widgetType)"
       :data="summary"
       :loading="loading"
@@ -57,7 +57,7 @@
       @like="like"
       @logout="logout"
       @tip="tip">
-    </template-list>
+    </echo-module-sole>
     
     <dialog-connect
       v-model="connectDialogVisible"
@@ -105,7 +105,7 @@ const props = defineProps({
 </script>
 
 <style lang="scss">
-.chat-widget {
+.echo-widget {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -119,13 +119,13 @@ const props = defineProps({
     padding-left: 30px;
   }
   
-  &__reply {
+  &__editor {
     margin-bottom: 30px;
   }
 }
 
 @media screen and (max-width: #{$tablet-width - 1px}) {
-  .chat-widget {
+  .echo-widget {
     padding: 30px 20px !important; 
     
     .no-padding-in-mobile & {

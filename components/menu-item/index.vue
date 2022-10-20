@@ -31,8 +31,6 @@
 </template>
 
 <script setup>
-import MenuItemInner from './menu-item-inner'
-
 const props = defineProps({
   danger: {
     type: Boolean,

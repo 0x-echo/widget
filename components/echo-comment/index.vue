@@ -1,54 +1,72 @@
 <template>
-  <comment-skeleton
+  <echo-comment-skeleton
     :loading="loading">
     <div
-      class="section-comment">
+      class="echo-comment">
       <div
         v-if="newPosts > 0"
-        class="section-comment__refresh"
+        class="echo-comment__refresh"
         @click="$emit('refresh-comments')">
         <i
-          class="ri-refresh-line section-comment__refresh-icon">
+          class="ri-refresh-line echo-comment__refresh-icon">
         </i>
         <span>
           {{ newPosts }} New {{ newPosts > 1 ? 'Comments' : 'Comment' }}
         </span>
       </div>
       
-      <comment-list
-        v-bind="$attrs">
-      </comment-list>
+      <div
+        class="echo-comment__list">
+        <echo-comment-item
+          :class="{
+            'has-replies': item.replies && item.replies.length
+          }"
+          v-bind="$attrs"
+          v-for="item in data"
+          :key="item.id"
+          :data="item">
+          <echo-comment-reply-list
+            v-if="item.replies.length"
+            v-bind="$attrs"
+            :parent-post="item"
+            :total="item.reply_counts"
+            :data="item.replies">
+          </echo-comment-reply-list>
+        </echo-comment-item>
+      </div>
       
       <div
-        class="section-comment__bottom"
+        class="echo-comment__bottom"
         v-if="(store.comment.hasMore && !store.comment.isLoadingMore) || store.comment.isLoadingMore">
         <el-button
           v-if="store.comment.hasMore && !store.comment.isLoadingMore"
-          class="section-comment__more-button"
+          class="echo-comment__more-button"
           size="small"
           type="info"
           @click="$emit('load-more-comments')">
           Load More
         </el-button>
         
-        <pulse-loader
+        <echo-pulse-loader
           v-if="store.comment.isLoadingMore">
-        </pulse-loader>
+        </echo-pulse-loader>
       </div>
     </div>
-  </comment-skeleton>
+  </echo-comment-skeleton>
 </template>
 
 <script setup>
 import { ElButton } from 'element-plus'
-import CommentList from './comment-list'
-import CommentSkeleton from './skeleton'
 import useStore from '~~/store'
 
 const store = useStore();
 const newPosts = computed(() => store.new_posts)
 
 const props = defineProps({
+  data: {
+    type: Array,
+    required: true
+  },
   loading: {
     type: Boolean
   },
@@ -75,7 +93,7 @@ export default {
 </script>
 
 <style lang="scss">
-.section-comment {
+.echo-comment {
   position: relative;
   
   &__refresh {

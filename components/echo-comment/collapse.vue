@@ -1,15 +1,15 @@
 <template>
   <div
-    class="comment-collapse">
+    class="echo-comment-collapse">
     <img 
-      class="comment-collapse__icon"
+      class="echo-comment-collapse__icon"
       alt="more"
       src="@/assets/arrow-go-forward-line.svg">
     
     <template
       v-if="hasAvatar">
       <echo-avatar
-        class="comment-collapse__avatar"
+        class="echo-comment-collapse__avatar"
         v-for="item in data"
         :key="item.id"
         :alt="item.author.screen_name"
@@ -19,14 +19,14 @@
       </echo-avatar>
 
       <div
-        class="comment-collapse__count"
+        class="echo-comment-collapse__count"
         v-if="data.length > 1">
         +{{ data.length - 1 }}
       </div>
     </template>
 
     <div
-      class="comment-collapse__more">
+      class="echo-comment-collapse__more">
       {{ label }}
     </div>
   </div>
@@ -48,7 +48,7 @@ const props = defineProps({
 </script>
 
 <style lang="scss">
-.comment-collapse {
+.echo-comment-collapse {
   display: flex;
   align-items: center;
   margin-top: 26px;
@@ -63,7 +63,7 @@ const props = defineProps({
       margin-left: 6px;
     }
     
-    & + .comment-collapse__more {
+    & + .echo-comment-collapse__more {
       margin-left: 12px;
     }
   }
@@ -81,7 +81,7 @@ const props = defineProps({
     background: var(--bg-color);
     color: var(--text-color-secondary);
     
-    & + .comment-collapse__more {
+    & + .echo-comment-collapse__more {
       margin-left: 12px;
     }
   }
@@ -98,11 +98,11 @@ const props = defineProps({
 }
 
 @media screen and (max-width: #{$tablet-width - 1px}) {
-  .comment-collapse {
+  .echo-comment-collapse {
     &__avatar {
       display: none;
       
-      & + .comment-collapse__more {
+      & + .echo-comment-collapse__more {
         margin-left: 0;
       }
     }

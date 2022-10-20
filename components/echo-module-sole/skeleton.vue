@@ -1,27 +1,27 @@
 <template>
   <el-skeleton
-    class="list-skeleton"
+    class="echo-module-sole-skeleton"
     v-bind="$attrs"
     animated>
     <template 
       #template>
       <div
-        class="list-skeleton__top">
+        class="echo-module-sole-skeleton__top">
         <el-skeleton-item
           class="el-skeleton__circle--large"
           variant="circle" />
       </div>
         
       <el-skeleton-item
-        class="list-skeleton__user-name"
+        class="echo-module-sole-skeleton__user-name"
         variant="h1" />
         
       <el-skeleton-item
-        class="list-skeleton__bio"
+        class="echo-module-sole-skeleton__bio"
         variant="text" />
       
       <el-skeleton-item
-        class="list-skeleton__action-button"
+        class="echo-module-sole-skeleton__action-button"
         variant="button" />
     </template>
     
@@ -37,7 +37,7 @@ import { ElSkeleton, ElSkeletonItem } from 'element-plus'
 </script>
 
 <style lang="scss">
-.list-skeleton {
+.echo-module-sole-skeleton {
   display: flex;
   flex-direction: column;
   align-items: center;

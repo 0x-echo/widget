@@ -1,9 +1,9 @@
 <template>
-  <form-skeleton
+  <echo-editor-skeleton
     v-bind="$attrs"
     :class="customClass">
     <div
-      class="reply-form"
+      class="echo-editor"
       :class="customClass">
       <el-tooltip
         :disabled="disabledTooltip"
@@ -15,7 +15,7 @@
         </template>
         
         <echo-avatar
-          class="reply-form__avatar"
+          class="echo-editor__avatar"
           :alt="store.screen_name"
           :hash="store.address"
           :src="store.avatar || ''">
@@ -23,9 +23,9 @@
       </el-tooltip>
       
       <div
-        class="reply-form__box">
+        class="echo-editor__box">
         <el-input
-          class="reply-form__input"
+          class="echo-editor__input"
           ref="replyInput"
           v-bind="$attrs"
           :autosize="{
@@ -41,10 +41,10 @@
         <transition
           name="slide-down">
           <div
-            class="reply-form__toolbar"
+            class="echo-editor__toolbar"
             v-show="showToolbarValue">
             <a 
-              class="reply-form__markdown-info"
+              class="echo-editor__markdown-info"
               href="https://guides.github.com/features/mastering-markdown/"
               target="_blank">
               <i
@@ -57,7 +57,7 @@
             </a>
             
             <el-button
-              class="reply-form__send-button"
+              class="echo-editor__send-button"
               :loading="position === 'comment' ? false : status.onSubmitingTargetComment"
               size="large"
               type="primary"
@@ -65,7 +65,7 @@
               <template
                 #loading>
                 <echo-loader
-                  class="reply-form__send-button-loader">
+                  class="echo-editor__send-button-loader">
                 </echo-loader>
               </template>
               
@@ -75,12 +75,11 @@
         </transition>
       </div>
     </div>
-  </form-skeleton>
+  </echo-editor-skeleton>
 </template>
 
 <script setup>
 import { ElButton, ElInput, ElTooltip } from 'element-plus'
-import FormSkeleton from './skeleton'
 import useStore from '~~/store'
 
 const store = useStore()
@@ -145,7 +144,7 @@ export default {
 </script>
 
 <style lang="scss">
-.reply-form {
+.echo-editor {
   display: flex;
   
   &__avatar {
@@ -197,7 +196,7 @@ export default {
 }
 
 @media screen and (max-width: #{$tablet-width - 1px}) {
-  .reply-form {
+  .echo-editor {
     &__avatar {
       display: none;
     }

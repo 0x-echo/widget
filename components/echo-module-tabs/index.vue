@@ -1,20 +1,20 @@
 <template>
-  <section-toolbar
+  <echo-toolbar
     v-bind="$attrs"
     :config="config"
     :loading="loading"
     @like="$emit('like')"
     @tip="$emit('tip')">
-  </section-toolbar>
+  </echo-toolbar>
   
-  <reply-form
+  <echo-editor
     v-if="config.modules.includes('comment')"
     v-bind="$attrs"
-    custom-class="chat-widget__reply"
+    custom-class="echo-widget__editor"
     :disabled-tooltip="false"
     :loading="loading"
     position="top">
-  </reply-form>
+  </echo-editor>
   
   <echo-tabs
     v-model="activeTab"
@@ -24,7 +24,7 @@
     <template
       #header-right>
       <div
-        class="template-tabs__sort">
+        class="echo-module-tabs__sort">
         <echo-sort
           v-if="activeTab === 'comment'"
           v-model="currentSort">
@@ -34,29 +34,29 @@
     
     <echo-tab-pane
       value="comment">
-      <empty-placeholder
+      <echo-empty
         v-if="!loading && !data.comments.length">
-      </empty-placeholder>
+      </echo-empty>
       
-      <section-comment
+      <echo-comment
         v-else
         v-bind="$attrs"
         :data="data.comments"
         :loading="loading">
-      </section-comment>
+      </echo-comment>
     </echo-tab-pane>
     
     <echo-tab-pane
       value="like">
-      <empty-placeholder
+      <echo-empty
         v-if="!loading && !data.likes.length"
         button-icon="ri-thumb-up-line"
         button-text="Be the First Liker"
         message=""
         @on-click="$emit('like')">
-      </empty-placeholder>
+      </echo-empty>
       
-      <section-vote
+      <echo-module-tabs-vote
         v-else
         :data="data.likes"
         :loading="loading"
@@ -64,16 +64,16 @@
         power-label="Liking Power"
         :power-value="counts.like_power"
         tip="Estimated total value of all liking address">
-      </section-vote>
+      </echo-module-tabs-vote>
     </echo-tab-pane>
     
     <echo-tab-pane
       value="dislike">
-      <empty-placeholder
+      <echo-empty
         v-if="!loading && !data.dislikes.length">
-      </empty-placeholder>
+      </echo-empty>
       
-      <section-vote
+      <echo-module-tabs-vote
         v-else
         :data="data.dislikes"
         :loading="loading"
@@ -81,31 +81,29 @@
         power-label="Disliking Power"
         :power-value="counts.dislike_power"
         tip="Estimated total value of all disiking address">
-      </section-vote>
+      </echo-module-tabs-vote>
     </echo-tab-pane>
     
     <echo-tab-pane
       value="tip">
-      <empty-placeholder
+      <echo-empty
         v-if="!loading && !data.tips.length"
         button-icon="ri-hand-heart-line"
         button-text="Be the First Supporter"
         message=""
         @on-click="$emit('tip')">
-      </empty-placeholder>
+      </echo-empty>
       
-      <section-tip
+      <echo-module-tabs-tip
         v-else
         :data="data.tips"
         :loading="loading">
-      </section-tip>
+      </echo-module-tabs-tip>
     </echo-tab-pane>
   </echo-tabs>
 </template>
 
 <script setup>
-import SectionTip from './section-tip'
-import SectionVote from './section-vote'
 import useStore from '~~/store'
 
 const store = useStore()
@@ -185,7 +183,7 @@ export default {
 
 <style lang="scss">
 @media screen and (max-width: #{$tablet-width - 1px}) {
-  .template-tabs {
+  .echo-module-tabs {
     &__sort {
       display: none;
     }

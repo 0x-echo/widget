@@ -1,43 +1,40 @@
 <template>
   <div
-    class="reply-list">
+    class="echo-comment-reply-list">
     <transition-group
       name="list">
-      <comment-item
+      <echo-comment-item
         v-bind="$attrs"
         v-for="item in replies"
         :key="item.id"
         avatar-size="small"
         :data="item">
-      </comment-item>
+      </echo-comment-item>
     </transition-group>
 
     <!-- when total page === 1  and has not loaded replies -->
-    <comment-collapse
+    <echo-comment-collapse
       v-if="total - maxDisplayReply > 0 && Math.ceil(parentPost.reply_counts / 10) === 1 && parentPost.current_reply_page === 0"
       :data="collapsedList"
       has-avatar
       :label="`View ${total - maxDisplayReply} more ${ total - maxDisplayReply === 1 ? 'reply' : 'replies'}`"
       @click="toggle">
-    </comment-collapse>
+    </echo-comment-collapse>
     
-    <!-- <comment-collapse
+    <!-- <echo-comment-collapse
       :label="`View ${collapsedList.length} replies`">
-    </comment-collapse> -->
+    </echo-comment-collapse> -->
     
     <!-- when current page >= 1 and has more replies-->
-    <comment-collapse
+    <echo-comment-collapse
       v-if="total - maxDisplayReply > 0 && Math.ceil(parentPost.reply_counts / 10) > 1 && parentPost.current_reply_page < Math.ceil(parentPost.reply_counts / 10)"
       label="Show more replies"
       @click="toggle">
-    </comment-collapse>
+    </echo-comment-collapse>
   </div>
 </template>
 
 <script setup>
-import CommentCollapse from './comment-collapse'
-import CommentItem from './comment-item'
-
 const props = defineProps({
   total: {
     type: Number,
@@ -79,7 +76,7 @@ const toggle = () => {
 </script>
 
 <style lang="scss">
-.reply-list {
+.echo-comment-reply-list {
   margin-top: 20px;
 }
 </style>
