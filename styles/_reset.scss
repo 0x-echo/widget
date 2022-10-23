@@ -32,10 +32,6 @@ body {
   &::-webkit-scrollbar {
     display: none;
   }
-  
-  &.dark.global-dark {
-    background: var(--theme-bg-color);
-  }
 }
 
 p {

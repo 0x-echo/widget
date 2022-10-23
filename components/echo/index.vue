@@ -1,7 +1,16 @@
 <template>
   <div
     ref="widget"
-    class="echo-widget">
+    class="echo-widget"
+    :class="{
+      'dark': colorTheme === 'dark',
+      'has-h-padding': hasHPadding,
+      'has-v-padding': hasVPadding,
+      'no-padding-in-mobile': noPaddingInMobile
+    }"
+    :style="{
+      height: `${height}px`
+    }">
     <template 
       v-if="widgetType === 'mix-widget' || widgetType === 'comment-only'">
       <echo-module-tabs
@@ -95,13 +104,52 @@
 
 <script setup>
 const props = defineProps({
+  colorTheme: {
+    type: String,
+    default: 'auto'
+  },
+  hasHPadding: {
+    type: Boolean,
+    default: false
+  },
+  hasVPadding: {
+    type: Boolean,
+    default: false
+  },
+  height: {
+    type: [String, Number]
+  },
   modules: {
     type: Array,
     default () {
       return ['comment', 'like', 'dislike', 'tip']
     }
+  },
+  noPaddingInMobile: {
+    type: Boolean,
+    default: false
   }
 })
+
+// TODO - @airyland 配置的处理
+// const modulesOrder = {
+// 	comment: 1,
+// 	like: 2,
+// 	'like-lite': 3,
+// 	dislike: 4,
+// 	'dislike-lite': 5,
+// 	tip: 6
+// }
+
+// const currentModules = computed(() => {
+//   props.modules.sort((a, b) => {
+// 		return modulesOrder[a] > modulesOrder[b] ? 1 : -1
+// 	})
+// })
+
+// const theme = computed(() => {
+  
+// })
 
 import configParser from '@/libs/config-parser'
 import { v4 as uuidv4 } from 'uuid'
@@ -1475,12 +1523,20 @@ init().then(() => {})
   display: flex;
   flex-direction: column;
   width: 100%;
+  color: var(--text-color-primary);
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
   
-  .has-v-padding & {
+  &.dark {
+    background: var(--theme-bg-color);
+  }
+  
+  &.has-v-padding {
     padding-top: 30px;
   }
   
-  .has-h-padding & {
+  &.has-h-padding {
     padding-right: 30px;
     padding-left: 30px;
   }
@@ -1494,7 +1550,7 @@ init().then(() => {})
   .echo-widget {
     padding: 30px 20px !important; 
     
-    .no-padding-in-mobile & {
+    &.no-padding-in-mobile {
       padding: 0 !important;
     }
   }

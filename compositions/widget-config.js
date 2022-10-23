@@ -53,34 +53,34 @@ export default (store) => {
 		setColorTheme(config['color-theme'])
 	}
 
-	setBodyClass('has-h-padding', config['has-h-padding'])
-	setBodyClass('has-v-padding', config['has-v-padding'])
+	// setBodyClass('has-h-padding', config['has-h-padding'])
+	// setBodyClass('has-v-padding', config['has-v-padding'])
 
 	if (config['target_site']) {
 		setBodyClass(`target_site_${config['target_site']}`, true)
 	}
 
-	if (config['dark-theme-color']) {
-		insertStyle(`
-  body.dark {
-    --theme-bg-color: ${config['dark-theme-color']};
-		background: ${config['dark-theme-color']};
-  }`)
-	}
+	// if (config['dark-theme-color']) {
+	// 	insertStyle(`
+  // body.dark {
+  //   --theme-bg-color: ${config['dark-theme-color']};
+	// 	background: ${config['dark-theme-color']};
+  // }`)
+	// }
 
-  if (config.height) {
-    insertStyle(`.echo-widget {
-      height: ${config.height}px;
-    }`)
-  }
+  // if (config.height) {
+  //   insertStyle(`.echo-widget {
+  //     height: ${config.height}px;
+  //   }`)
+  // }
 
-	// if not in iframe, but color-theme is dark, set a dark background
-	if (!store.env.inIframe) {
-		console.info('env: not in iframe')
-		if (store.env.colorTheme === 'dark') {
-			document.body.classList.add('global-dark')
-		}
-	}
+	// // if not in iframe, but color-theme is dark, set a dark background
+	// if (!store.env.inIframe) {
+	// 	console.info('env: not in iframe')
+	// 	if (store.env.colorTheme === 'dark') {
+	// 		document.body.classList.add('global-dark')
+	// 	}
+	// }
 
 	return {
 		config,

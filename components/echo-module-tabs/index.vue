@@ -110,10 +110,6 @@ const store = useStore()
 const counts = computed(() => store.counts)
 
 const props = defineProps({
-  config: {
-    type: Object,
-    required: true
-  },
   data: {
     type: Object,
     required: true
