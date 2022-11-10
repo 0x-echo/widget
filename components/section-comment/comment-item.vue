@@ -40,10 +40,24 @@
             </div>
               
             <div
-              class="comment-item__date">
+              class="comment-item__meta">
               <timeago 
                 :datetime="data.posted_at" 
                 :title="$formatDate(data.posted_at)" />
+               
+              <template
+                v-if="data.from_app">
+                <span>
+                  · 
+                </span>
+                
+                <a 
+                  :href="data.from_url"
+                  :title="data.from_app"
+                  target="_blank">
+                  {{ data.from_app }}
+                </a>
+              </template> 
             </div>
           </div>
           
@@ -278,7 +292,7 @@ $bus.on('reset-reply-comment', (data) => {
 })
 const commentContent = computed(() => {
   if (props.data.replied_to) {
-    return `<span class="comment-item__meta-reply">@${$formatScreenName(props.data.replied_to.screen_name)}</span> ` + parseContent(props.data.content) 
+    return `<span class="comment-item__reply-to">@${$formatScreenName(props.data.replied_to.screen_name)}</span> ` + parseContent(props.data.content) 
   } else {
     return parseContent(props.data.content) 
   }
@@ -374,13 +388,24 @@ export default {
     opacity: 0;
   }
   
-  &__date {
+  &__meta {
+    margin-top: 2px;
     flex-shrink: 0;
     font-size: 12px;
-    color: var(--text-color-muted);
+    
+    &,
+    a {
+      color: var(--text-color-muted);
+    }
+    
+    a {
+      &:hover {
+        color: var(--color-primary);
+      }
+    }
   }
   
-  &__meta-reply {
+  &__reply-to {
     color: var(--color-primary);
 
     & + p {
@@ -596,7 +621,7 @@ export default {
       align-items: center;
     }
     
-    .comment-item__date {
+    .comment-item__meta {
       margin: 0 0 0 10px;
     }
   }
