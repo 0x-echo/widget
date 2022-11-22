@@ -777,13 +777,20 @@ const doAccountLogin = async () => {
 
   try {
     let account
-    let accounts = await ethereum.request({ method: 'eth_accounts' })
+    let accounts = []
     let signature
 
-    // force reselect
-    // if (!accounts.length) {
-    accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-    // }
+    try {
+      const fullAccounts = await ethereum.request({
+        method: 'wallet_requestPermissions',
+        params: [{ eth_accounts: {} }]
+      })
+      accounts = fullAccounts[0].caveats[0].value
+    } catch (e) {
+      if (!accounts.length) {
+        accounts = await ethereum.request({ method: 'eth_accounts' })
+      }
+    }
 
     const { message, signKeys } = getAuthMessage('EVM', accounts[0])
     $bus.emit('show-connect-loading', `Connecting...`)
