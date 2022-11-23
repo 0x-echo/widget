@@ -1197,7 +1197,8 @@ const doReply = async (content, parentId, directParentId, successCallback, type 
       direct_parent_id: directParentId,
       content: parseContent(content, false),
       protocol_version: common.PROTOCOL_VERSION,
-      id: uuidv4()
+      id: uuidv4(),
+      from_uri: config.from_uri || null
     }
 
     const signed = sign.sign(body)
@@ -1310,7 +1311,8 @@ const doReact = async (subType, data) => {
       target_uri: TARGET_URI,
       parent_id: data ? data.id : null,
       protocol_version: common.PROTOCOL_VERSION,
-      id: uuidv4()
+      id: uuidv4(),
+      from_uri: config.from_uri || null
     }
 
     const signed = sign.sign(body)
