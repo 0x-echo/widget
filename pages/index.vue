@@ -1111,6 +1111,21 @@ const getList = async (page = 1, since, parentId) => {
           one.current_reply_page = 0
           one.is_expanded = false
         }
+
+        if (one.from_uri) {
+          if (/opensea\.io/i.test(one.from_uri)) {
+            one.from_app = 'OpenSea'
+          }
+          if (/looksrare\.org/i.test(one.from_uri)) {
+            one.from_app = 'LooksRare'
+          }
+          if (/x2y2\.io/i.test(one.from_uri)) {
+            one.from_app = 'X2Y2'
+          }
+          if (/element\.market/i.test(one.from_uri)) {
+            one.from_app = 'element'
+          }
+        }
       })
 
       summary.comments = comments
