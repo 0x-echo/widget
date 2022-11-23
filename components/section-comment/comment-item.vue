@@ -52,7 +52,7 @@
                 </span>
                 
                 <a 
-                  :href="data.from_url"
+                  :href="data.from_uri"
                   :title="data.from_app"
                   target="_blank">
                   {{ data.from_app }}
