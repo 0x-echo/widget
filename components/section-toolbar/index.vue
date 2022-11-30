@@ -186,12 +186,6 @@ const hasLogin = computed(() => {
 })
 
 const userMenu = [{
-  icon: 'ri-service-line',
-  isLink: true,
-  label: 'Donate',
-  url: 'https://gitcoin.co/grants/7554/echo-long-live-our-opinion',
-  value: 'Donate'
-}, {
   icon: 'ri-refresh-line',
   label: 'Refresh profile',
   value: 'refresh-profile'
