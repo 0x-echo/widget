@@ -27,7 +27,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 30px 0;
   
   &__dot {
     display: inline-block;
