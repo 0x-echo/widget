@@ -1527,6 +1527,8 @@ export default {
   flex-direction: column;
   width: 100%;
   
+  [class^="target_site_"] &,
+  [class*=" target_site_"] & {
     padding: 30px 20px;
   }
   
