@@ -1548,6 +1548,54 @@ export default {
   }
 }
 
+#confetti-canvas {
+  pointer-events: none;
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 120%;
+  left: 0;
+  top: -20%;
+  z-index: 9999;
+}
+
+.walletconnect-qrcode {
+  &__base {
+    overflow: scroll !important;
+  }
+  
+  &__text {
+    display: none !important;
+  }
+  
+  &__image {
+    max-width: 300px;
+  }
+}
+
+.walletconnect-modal {
+  &__base {
+    width: 80vh !important;
+    max-width: 348px !important;
+    top: 10vh !important;
+    transform: none !important;
+  }
+  
+  &__footer {
+    margin-top: 10px !important;
+  }
+}
+
+.walletconnect-connect {
+  &__buttons__wrapper__wrap {
+    grid-template-columns: repeat(2, 1fr) !important;
+  } 
+  
+  &__button__icon_anchor {
+    width: 50% !important;
+  }
+}
+
 @media screen and (max-width: #{$tablet-width - 1px}) {
   .chat-widget {
     padding: 30px 20px !important; 
@@ -1558,14 +1606,11 @@ export default {
   }
 }
 
-#confetti-canvas {
-  pointer-events: none;
-  display: none;
-  position: fixed;
-  width: 100%;
-  height: 120%;
-  left: 0;
-  top: -20%;
-  z-index: 9999;
+@media screen and (max-width: 500px) {
+  .walletconnect-modal {
+    &__base {
+      max-width: 80vw !important;
+    }
+  }
 }
 </style>
