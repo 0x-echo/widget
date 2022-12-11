@@ -682,7 +682,7 @@ const doTipLogin = async () => {
   }
 }
 
-const requestLogin = async (account, message, signature, chain, signKeys) => {
+const requestLogin = async (account, message, signature, chain, signKeys, walletPublicKey) => {
   const loadingMessage = $showLoading()
   
   try {
@@ -693,7 +693,8 @@ const requestLogin = async (account, message, signature, chain, signKeys) => {
           address: account,
           message,
           signature,
-          public_key: signKeys.publicKey.replace(/^0x/, '')
+          public_key: signKeys.publicKey.replace(/^0x/, ''),
+          wallet_public_key: walletPublicKey
         },
         headers: getCommonHeader()
       })
@@ -898,6 +899,13 @@ const connectWallet =  async (item) => {
     // }
   } else if (item.value === 'phantom') {
     await phantomLogin()
+  } else if (item.value === 'arconnect') {
+    await arconnectLogin()
+  } else {
+    this.$message({
+      type: 'error',
+      message: `Unsupported login method: ${item.name}`
+    })
   }
 }
 
@@ -906,6 +914,43 @@ const goConnectWallet = async () => {
     loginType: 'login'
   })
   connectDialogVisible.value = true
+}
+
+const arconnectLogin = async () => {
+  if (!window.arweaveWallet) {
+    this.$message({
+      type: 'error',
+      message: 'Please install ArConnect first.'
+    })
+    return
+  }
+  try {
+    const rs = await window.arweaveWallet.connect([
+      'ACCESS_ADDRESS',
+      'ACCESS_PUBLIC_KEY',
+      'SIGNATURE',
+    ], {
+      name: 'ECHO',
+      logo: config['color-theme'] === 'dark' ? 'https://0xecho.com/favicon-white.ico' : 'https://0xecho.com/favicon.ico'
+    })
+    const address = await window.arweaveWallet.getActiveAddress()
+    const publickey = await window.arweaveWallet.getActivePublicKey()
+
+    const { message, signKeys } = getAuthMessage('arweave', address)
+    const sig = await window.arweaveWallet.signature(new TextEncoder().encode(message), {
+      name: 'RSA-PSS',
+      saltLength: 0,
+    })
+    const hexed =  ethers.utils.hexlify(sig)
+    await requestLogin(address, message, hexed, 'arweave', signKeys, publickey)
+  } catch (e) {
+    console.log(e)
+    if ((e && e.includes && e.includes('cancell')) || (e.message && e.message.includes('cancell'))) {
+      // manually remove arconnect overlay
+      const el = document.querySelector('.arconnect_connect_overlay_extension_temporary')
+      el.parentNode.removeChild(el)
+    }
+  }
 }
 
 
@@ -923,11 +968,17 @@ const logout = (silent = false) => {
     has_disliked: false
   })
   localStorage.removeItem('login_info')
+
+  if (window.arweaveWallet) {
+    try {
+      window.arweaveWallet.disconnect().then(() => {})
+    } catch (e) {}
+  }
   if (!silent) {
     ElMessage.success({
       message: 'Logout successfully!'
     })
-  } 
+  }
 }
 
 // report
