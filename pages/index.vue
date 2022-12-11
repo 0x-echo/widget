@@ -902,10 +902,7 @@ const connectWallet =  async (item) => {
   } else if (item.value === 'arconnect') {
     await arconnectLogin()
   } else {
-    this.$message({
-      type: 'error',
-      message: `Unsupported login method: ${item.name}`
-    })
+    ElMessage.error(`Unsupported login method: ${item.name}`)
   }
 }
 
@@ -918,10 +915,7 @@ const goConnectWallet = async () => {
 
 const arconnectLogin = async () => {
   if (!window.arweaveWallet) {
-    this.$message({
-      type: 'error',
-      message: 'Please install ArConnect first.'
-    })
+    ElMessage.error('Please install ArConnect first.')
     return
   }
   try {
