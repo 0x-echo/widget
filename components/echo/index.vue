@@ -1531,8 +1531,14 @@ init().then(() => {})
   -webkit-font-smoothing: antialiased;
   line-height: 1.5;
   
+  // TODO - theme?
   &.dark {
     background: var(--theme-bg-color);
+  }
+  
+  [class^="target_site_"] &,
+  [class*=" target_site_"] & {
+    padding: 30px 20px;
   }
   
   &.has-v-padding {
