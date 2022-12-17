@@ -15,6 +15,8 @@
       v-if="widgetType === 'mix-widget' || widgetType === 'comment-only'">
       <echo-module-tabs
         :data="summary"
+        :has-more-likes="hasMoreLikes"
+        :is-loading-more-likes="isLoadingMoreLikes"
         :loading="loading"
         :modules="modules"
         v-model="message"
@@ -36,7 +38,8 @@
         @sort-change="sortChange"
         @tip="tip"
         @load-children="loadChildren"
-        @load-more-comments="loadMoreComments">
+        @load-more-comments="loadMoreComments"
+        @load-more-likes="loadMoreLikes">
       </echo-module-tabs>
 
       <echo-footer
