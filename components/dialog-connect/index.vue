@@ -45,6 +45,7 @@ import { ElLoading } from 'element-plus'
 import iconMatemask from '@/assets/metamask.svg'
 import iconWalletConnect from '@/assets/walletconnect.svg'
 import iconPhantom from '@/assets/phantom.png'
+import iconArconnect from '@/assets/arconnect.png'
 
 import useStore from '~~/store';
 
@@ -62,6 +63,10 @@ const emits = defineEmits([
 
 const list = computed(() => {
   const list = [{
+    label: 'ArConnect',
+    icon: iconArconnect,
+    value: 'arconnect'
+  }, {
     label: 'MetaMask',
     icon: iconMatemask,
     value: 'metamask',
