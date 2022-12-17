@@ -701,37 +701,44 @@ const doTipLogin = async () => {
     currentProvider = provider
   }
   
+  // const id =
+  let account
+  let accounts
+
   try {
-    let account
-    let accounts = []
-    let signature
-
-    try {
-      const fullAccounts = await ethereum.request({
-        method: 'wallet_requestPermissions',
-        params: [{ eth_accounts: {} }]
-      })
-      accounts = fullAccounts[0].caveats[0].value
-    } catch (e) {
-      if (!accounts.length) {
-        accounts = await ethereum.request({ method: 'eth_accounts' })
-      }
+    // force reselect
+    if (store.wallet.loginApp === 'metamask') {
+      // const rs = await currentProvider.request({
+      //   method: "wallet_requestPermissions",
+      //   params: [
+      //     {
+      //       eth_accounts: {}
+      //     }
+      //   ]
+      // })
+      accounts = await currentProvider.request({ method: 'eth_requestAccounts' })
+    } else if (store.wallet.loginApp === 'walletconnect') {
+      accounts = await ethereum.request({ method: 'eth_accounts' })
     }
-
-    const { message, signKeys } = getAuthMessage('EVM', accounts[0])
-    $bus.emit('show-connect-loading', `Connecting...`)
 
     if (accounts.length) {
       account = accounts[0]
-      signature = await ethereum.request({ method: 'personal_sign', params: [ message, account ] })
-      try {
-        await requestLogin(account, message, signature, 'EVM', signKeys)
-      } catch (e) {}
+      await sendTip({ currentProvider, account, chain: tipNetworkId })
+    } else {
+      $bus.emit('hide-connect-loading')
+      store.setStatus({
+        onTransactionProcessing: false
+      })
     }
   } catch (e) {
-    console.log('login error:', e)
-  } finally {
+    ElMessage.error({
+      message: e.message
+    })
+    console.log(e)
     $bus.emit('hide-connect-loading')
+    store.setStatus({
+      onTransactionProcessing: false
+    })
   }
 }
 
@@ -844,11 +851,19 @@ const doAccountLogin = async () => {
 
   try {
     let account
-    let accounts = await ethereum.request({ method: 'eth_accounts' })
+    let accounts = []
     let signature
 
-    if (!accounts.length) {
-      accounts = await ethereum.request({ method: 'eth_requestAccounts' })
+    try {
+      const fullAccounts = await ethereum.request({
+        method: 'wallet_requestPermissions',
+        params: [{ eth_accounts: {} }]
+      })
+      accounts = fullAccounts[0].caveats[0].value
+    } catch (e) {
+      if (!accounts.length) {
+        accounts = await ethereum.request({ method: 'eth_accounts' })
+      }
     }
 
     const { message, signKeys } = getAuthMessage('EVM', accounts[0])
