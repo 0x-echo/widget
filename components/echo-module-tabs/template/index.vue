@@ -36,18 +36,43 @@
         <slot>
         </slot>
       </div>
+      
+      <div
+        class="echo-module-tabs-template__bottom"
+        v-if="hasMore">
+        <el-button
+          class="echo-module-tabs-template__more-button"
+          v-if="!isLoadingMore"
+          size="small"
+          type="info"
+          @click="$emit('load-more')">
+          Load More
+        </el-button>
+        
+        <echo-pulse-loader
+          v-if="isLoadingMore">
+        </echo-pulse-loader>
+      </div>
     </div>
   </echo-module-tabs-template-skeleton>
 </template>
 
 <script setup>
 import Vue3Autocounter from 'vue3-autocounter'
-import { ElTooltip } from 'element-plus'
+import { ElButton, ElTooltip } from 'element-plus'
 import useStore from '~~/store';
 
 const store = useStore()
 
 const props = defineProps({
+  hasMore: {
+    type: Boolean,
+    default: false
+  },
+  isLoadingMore: {
+    type: Boolean,
+    default: false
+  },
   module: {
     type: String
   },
@@ -103,6 +128,25 @@ watch(currentTab, (newVal, oldVal) => {
     display: grid;
     grid-template-columns: repeat(auto-fit, 150px);
     gap: 16px 50px;
+  }
+  
+  &__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 28px 0;
+  }
+  
+  &__more-button {
+    .dark & {
+      &.active,
+      &:hover,
+      &:focus,
+      &:focus:not(.el-button:hover) {
+        color: white;
+        background-clip: padding-box;
+      }
+    }
   }
 }
 
