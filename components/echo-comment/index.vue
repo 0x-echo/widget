@@ -105,13 +105,13 @@ export default {
     border-radius: 10px;
     font-size: 14px;
     font-weight: 500;
-    background: rgba(var(--color-danger-rgb), .05);
-    color: var(--color-danger);
+    background: rgba(var(--echo-color-danger-rgb), .05);
+    color: var(--echo-color-danger);
     cursor: pointer;
     transition: all .3s ease;
     
     &:hover {
-      background: rgba(var(--color-danger-rgb), .08);
+      background: rgba(var(--echo-color-danger-rgb), .08);
     }
   }
   

@@ -65,15 +65,15 @@ const emits = defineEmits([
   height: 36px;
   padding: 0 10px;
   border-radius: 10px;
-  color: var(--text-color-secondary);
+  color: var(--echo-text-color-secondary);
   cursor: pointer;
   transition: all .3s ease;
   
   &:hover,
   &.is-selected {
     &:not(.is-disabled):not(.is-danger) {
-      background: var(--menu-item-bg-color);
-      color: var(--color-primary);
+      background: var(--echo-menu-item-bg-color);
+      color: var(--echo-color-primary);
     }
     
     .menu-item__icon {
@@ -87,10 +87,10 @@ const emits = defineEmits([
   }
   
   &.is-danger {
-    color: var(--color-danger);
+    color: var(--echo-color-danger);
       
     &:hover {
-      background: var(--menu-item-bg-color-danger);
+      background: var(--echo-menu-item-bg-color-danger);
     }
   }
   

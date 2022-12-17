@@ -136,7 +136,7 @@ const getLoading = (text) => {
     margin-top: 15px;
     font-size: 12px;
     text-align: center;
-    color: var(--text-color-secondary);
+    color: var(--echo-text-color-secondary);
   }
 }
 

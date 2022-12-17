@@ -162,7 +162,7 @@ export default {
       font-size: 14px;
       line-height: 24px;
       background: none;
-      color: var(--text-color-primary);
+      color: var(--echo-text-color-primary);
     }
   }
   
@@ -178,7 +178,7 @@ export default {
     display: flex;
     align-items: center;
     font-size: 12px;
-    color: var(--text-color-secondary);
+    color: var(--echo-text-color-secondary);
     
     i {
       margin-right: 5px;

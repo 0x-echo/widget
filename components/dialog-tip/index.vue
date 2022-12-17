@@ -149,13 +149,13 @@ const getLoading = () => {
     margin-bottom: 15px;
     border-radius: 12px;
     background: white;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--echo-border-color);
     cursor: pointer;
     transition: all .3s ease;
     
     &:hover {
-      border-color: var(--color-primary);
-      box-shadow: 0 0 4px rgba(var(--color-primary-rgb), .5);
+      border-color: var(--echo-color-primary);
+      box-shadow: 0 0 4px rgba(var(--echo-color-primary-rgb), .5);
     }
   }
   
@@ -169,7 +169,7 @@ const getLoading = () => {
     margin-top: 6px;
     font-size: 14px;
     font-weight: 500;
-    color: var(--text-color-secondary);
+    color: var(--echo-text-color-secondary);
   }
   
   &__item-tag {
@@ -187,7 +187,7 @@ const getLoading = () => {
   &__fee-tip {
     font-size: 12px;
     text-align: right;
-    color: var(--text-color-muted);
+    color: var(--echo-text-color-muted);
   }
 
   &__fee-tip {

@@ -221,8 +221,8 @@ const onClickUserMenu = (item) => {
     max-width: 160px;
     height: 40px;
     padding: 0 8px 0 12px;
-    border-radius: var(--border-radius);
-    background: var(--bg-color);
+    border-radius: var(--echo-border-radius);
+    background: var(--echo-bg-color);
     cursor: pointer;
   }
   
@@ -232,7 +232,7 @@ const onClickUserMenu = (item) => {
       border: 0;
       
       .dark & {
-        box-shadow: 0 0 0 1px var(--border-color);
+        box-shadow: 0 0 0 1px var(--echo-border-color);
       }
     }
   }
@@ -248,11 +248,11 @@ const onClickUserMenu = (item) => {
     flex: 1;
     margin: 0 6px 0 8px;
     font-size: 12px;
-    color: var(--text-color-primary);
+    color: var(--echo-text-color-primary);
   }
   
   &__user-arrow-icon {
-    color: var(--text-color-muted);
+    color: var(--echo-text-color-muted);
   }
 }
 

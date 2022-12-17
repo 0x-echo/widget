@@ -130,9 +130,9 @@ onMounted(async () => {
     color: rgba(146, 154, 178, .8);
     
     &:hover {
-      border-color: var(--border-color);
+      border-color: var(--echo-border-color);
       box-shadow: none;
-      color: var(--text-color-muted);
+      color: var(--echo-text-color-muted);
     }
   }
 }

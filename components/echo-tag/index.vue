@@ -17,7 +17,7 @@
   padding: 0 6px;
   border-radius: 6px;
   font-size: 12px;
-  background: var(--color-primary-light);
-  color: var(--color-primary);
+  background: var(--echo-color-primary-light);
+  color: var(--echo-color-primary);
 }
 </style>

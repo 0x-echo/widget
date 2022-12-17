@@ -93,7 +93,7 @@ watch(() => props.active, (val, oldVal) => {
   display: flex;
   align-items: center;
   width: 65px;
-  color: var(--text-color-muted);
+  color: var(--echo-text-color-muted);
   
   & + & {
     margin-left: 10px;
@@ -111,11 +111,11 @@ watch(() => props.active, (val, oldVal) => {
     transition: all .3s ease;
     
     &:hover {
-      background: var(--bg-color);  
+      background: var(--echo-bg-color);  
     }
     
     &.active {
-      color: var(--color-primary);
+      color: var(--echo-color-primary);
     }
     
     &.activated {
@@ -131,7 +131,7 @@ watch(() => props.active, (val, oldVal) => {
       top: 8px;
       z-index: 1;
       font-size: 14px;
-      color: var(--color-primary);
+      color: var(--echo-color-primary);
       transform: scale(0);
       transform-origin: center;
       opacity: 0;

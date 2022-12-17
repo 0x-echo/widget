@@ -152,14 +152,14 @@ const handleScroll = (el) => {
     &,
     &:focus:not(.el-button:hover) {
       border-color: white; 
-      background: var(--fill-color-blank);
-      color: var(--text-color-primary);
+      background: var(--echo-fill-color-blank);
+      color: var(--echo-text-color-primary);
     }
     
     &:hover,
     &:focus {
-      border-color: var(--color-primary);
-      background: var(--color-primary);
+      border-color: var(--echo-color-primary);
+      background: var(--echo-color-primary);
       color: white;
     }
   }

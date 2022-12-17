@@ -78,8 +78,8 @@ const props = defineProps({
     border-radius: 50%;
     font-size: 12px;
     font-weight: 500;
-    background: var(--bg-color);
-    color: var(--text-color-secondary);
+    background: var(--echo-bg-color);
+    color: var(--echo-text-color-secondary);
     
     & + .echo-comment-collapse__more {
       margin-left: 12px;
@@ -88,11 +88,11 @@ const props = defineProps({
   
   &__more {
     font-size: 12px;
-    color: var(--text-color-secondary);
+    color: var(--echo-text-color-secondary);
     transition: all .3s ease;
     
     &:hover {
-      color: var(--color-primary);
+      color: var(--echo-color-primary);
     }
   }
 }

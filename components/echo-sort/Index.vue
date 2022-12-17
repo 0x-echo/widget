@@ -77,7 +77,7 @@ const onClickSortOption = (value) => {
   justify-content: flex-end;
   height: 32px;
   font-size: 12px;
-  color: var(--text-color-secondary);
+  color: var(--echo-text-color-secondary);
   cursor: pointer;
   
   &__label {

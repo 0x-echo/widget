@@ -133,7 +133,7 @@ export default {
     align-items: center;
     margin-bottom: 28px;
     overflow-x: auto;
-    border-bottom: 1px solid var(--bg-color);
+    border-bottom: 1px solid var(--echo-bg-color);
     
     &::-webkit-scrollbar {
       display: none;
@@ -163,7 +163,7 @@ export default {
     padding: 0 20px;
     font-size: 14px;
     font-weight: 500;
-    color: var(--text-color-muted);
+    color: var(--echo-text-color-muted);
     cursor: pointer;
     transition: all .3s ease;
     
@@ -174,7 +174,7 @@ export default {
       left: 0;
       width: 100%;
       height: 2px;
-      background: var(--color-primary);
+      background: var(--echo-color-primary);
       opacity: 0;
       transform: scale3d(0, 1, 1);
       transition: all .3s ease;
@@ -182,7 +182,7 @@ export default {
     }
     
     &.active {
-      color: var(--text-color-primary);
+      color: var(--echo-text-color-primary);
       
       &::after {
         opacity: 1;
@@ -191,7 +191,7 @@ export default {
     }
     
     &:hover {
-      color: var(--text-color-primary);
+      color: var(--echo-text-color-primary);
     }
   }
   

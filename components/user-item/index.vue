@@ -75,12 +75,12 @@ const props = defineProps({
   &__title {
     font-size: 14px;
     font-weight: 500;
-    color: var(--text-color-primary);
+    color: var(--echo-text-color-primary);
   }
   
   &__subtitle {
     font-size: 12px;
-    color: var(--text-color-muted);
+    color: var(--echo-text-color-muted);
   }
 
   &__badge {

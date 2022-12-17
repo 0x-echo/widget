@@ -34,7 +34,7 @@ export default {
     height: 8px;
     width: 8px;
     border-radius: 50%;
-    background-color: var(--color-primary);
+    background-color: var(--echo-color-primary);
     animation-name: pulse;
     animation-fill-mode: both;
     animation-timing-function: cubic-bezier(0.2, 0.68, 0.18, 1.08);

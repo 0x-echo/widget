@@ -64,7 +64,7 @@ export default (store) => {
 	if (config['dark-theme-color']) {
 		insertStyle(`
   body.dark {
-    --theme-bg-color: ${config['dark-theme-color']};
+    --echo-theme-bg-color: ${config['dark-theme-color']};
 		background: ${config['dark-theme-color']};
   }`)
 	}

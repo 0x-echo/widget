@@ -103,10 +103,10 @@ export default {
   align-items: center;
   justify-content: space-between;
   padding: 15px 0;
-  border-top: 1px solid var(--bg-color);
+  border-top: 1px solid var(--echo-bg-color);
   font-size: 12px;
   line-height: 24px;
-  color: var(--text-color-muted);
+  color: var(--echo-text-color-muted);
   
   &.is-minimal {
     border: 0;
@@ -129,7 +129,7 @@ export default {
     font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
-    background: var(--color-primary);
+    background: var(--echo-color-primary);
     color: white;
     line-height: 1;
     display: inline-block;
@@ -170,7 +170,7 @@ export default {
   }
   
   &__link {
-    color: var(--text-color-muted);
+    color: var(--echo-text-color-muted);
     
     & + .echo-footer__settings {
       margin-left: 5px;

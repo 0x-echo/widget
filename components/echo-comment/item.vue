@@ -326,7 +326,7 @@ export default {
       left: 24px;
       width: 1px;
       height: calc(100% - 42px);
-      background: var(--bg-color);
+      background: var(--echo-bg-color);
     }
   }
   
@@ -394,18 +394,18 @@ export default {
     
     &,
     a {
-      color: var(--text-color-muted);
+      color: var(--echo-text-color-muted);
     }
     
     a {
       &:hover {
-        color: var(--color-primary);
+        color: var(--echo-color-primary);
       }
     }
   }
   
   &__reply-to {
-    color: var(--color-primary);
+    color: var(--echo-color-primary);
 
     & + p {
       display: inline;
@@ -413,7 +413,7 @@ export default {
   }
   
   &__menu-button {
-    border-color: var(--fill-color-blank);
+    border-color: var(--echo-fill-color-blank);
     font-size: 14px;
     opacity: 0;
     transition: all .3s ease;
@@ -422,9 +422,9 @@ export default {
     &:hover,
     &:focus,
     &:focus:not(.el-button:hover) {
-      border-color: var(--bg-color);
-      background: var(--bg-color);
-      color: var(--text-color-secondary);
+      border-color: var(--echo-bg-color);
+      background: var(--echo-bg-color);
+      color: var(--echo-text-color-secondary);
     }
     
     .dark & {
@@ -436,8 +436,8 @@ export default {
       &:focus,
       &:focus:not(.el-button:hover) {
         color: white;
-        border-color: var(--bg-color);
-        background: var(--bg-color);
+        border-color: var(--echo-bg-color);
+        background: var(--echo-bg-color);
         background-clip: padding-box;
       }
     }
@@ -450,12 +450,12 @@ export default {
   &__content {
     font-size: 14px;
     line-height: 1.625;
-    color: var(--text-color-primary);
+    color: var(--echo-text-color-primary);
     
     &.collapsed {
       max-height: 105px;
       overflow: hidden;
-      mask-image: linear-gradient(var(--theme-bg-color) 50%, transparent);
+      mask-image: linear-gradient(var(--echo-theme-bg-color) 50%, transparent);
     }
     
     > :first-child {
@@ -510,7 +510,7 @@ export default {
     
     hr {
       border: 0; 
-      border-top: 1px solid var(--bg-color);
+      border-top: 1px solid var(--echo-bg-color);
     }
     
     a {
@@ -531,8 +531,8 @@ export default {
     p { 
       code {
         padding: 3px 5px;
-        border-radius: var(--border-radius-small);
-        background: var(--bg-color);
+        border-radius: var(--echo-border-radius-small);
+        background: var(--echo-bg-color);
       }
       
       + p {
@@ -542,7 +542,7 @@ export default {
 
     blockquote {
       padding: 0 14px;
-      border-left: 3px solid var(--bg-color);
+      border-left: 3px solid var(--echo-bg-color);
       
       > :first-child {
         margin-top: 0;
@@ -560,8 +560,8 @@ export default {
     
     pre {
       padding: 12px 15px;
-      border-radius: var(--border-radius);
-      background: var(--bg-color);
+      border-radius: var(--echo-border-radius);
+      background: var(--echo-bg-color);
     }
     table {
       width: 100%;
@@ -572,7 +572,7 @@ export default {
     th,
     td {
       padding: 10px 15px;
-      border-bottom: 1px solid var(--bg-color);
+      border-bottom: 1px solid var(--echo-bg-color);
       min-width: 120px;
     }
     

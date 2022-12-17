@@ -152,17 +152,17 @@ const onBlurInput = (e) => {
     width: calc((100% - 60px) / 5);
     height: 50px;
     margin-bottom: 15px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
+    border: 1px solid var(--echo-border-color);
+    border-radius: var(--echo-border-radius);
     font-size: 13px;
-    background: var(--fill-color-blank);
+    background: var(--echo-fill-color-blank);
     cursor: pointer;
     transition: all .3s ease;
     
     &:hover,
     &.active {
-      border-color: var(--color-primary);
-      box-shadow: 0 0 4px rgba(var(--color-primary-rgb), .5);
+      border-color: var(--echo-color-primary);
+      box-shadow: 0 0 4px rgba(var(--echo-color-primary-rgb), .5);
     }
   }
   
@@ -173,12 +173,12 @@ const onBlurInput = (e) => {
     height: 50px;
     padding: 0 15px;
     margin-bottom: 15px;
-    border-radius: var(--border-radius);
-    border: 1px solid var(--border-color);
-    background: var(--fill-color-blank);
+    border-radius: var(--echo-border-radius);
+    border: 1px solid var(--echo-border-color);
+    background: var(--echo-fill-color-blank);
     
     &.active {
-      border-color: var(--color-primary);
+      border-color: var(--echo-color-primary);
     }
   }
   
@@ -195,7 +195,7 @@ const onBlurInput = (e) => {
       height: 48px;
       line-height: 48px;
       text-align: left;
-      color: var(--text-color-primary);
+      color: var(--echo-text-color-primary);
     }
   }
 }

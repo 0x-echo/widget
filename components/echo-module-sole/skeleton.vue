@@ -52,7 +52,7 @@ import { ElSkeleton, ElSkeletonItem } from 'element-plus'
       content: '';
       flex: 1;
       height: 1px;
-      background: var(--bg-color);
+      background: var(--echo-bg-color);
     }
     
     &::before {

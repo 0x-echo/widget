@@ -79,7 +79,7 @@ const emits = defineEmits([
   align-items: center;
   justify-content: center;
   padding: 30px 0;
-  color: var(--text-color-muted);
+  color: var(--echo-text-color-muted);
   opacity: .8;
   
   &__icon {

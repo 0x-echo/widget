@@ -1,37 +1,37 @@
 .el-button {
-  --el-button-text-color: var(--text-color-secondary);
-  --el-button-border-color: var(--border-color);
+  --el-button-text-color: var(--echo-text-color-secondary);
+  --el-button-border-color: var(--echo-border-color);
   --el-button-hover-bg-color: transparent;
-  --el-button-hover-border-color: var(--color-primary); 
+  --el-button-hover-border-color: var(--echo-color-primary); 
   background-clip: padding-box;
   transition: all .3s ease;
   
   &:focus:not(.el-button:hover) {
-    border-color: var(--border-color);
-    color: var(--text-color-secondary);
+    border-color: var(--echo-border-color);
+    color: var(--echo-text-color-secondary);
   }
   
   &--primary {
-    --el-button-hover-bg-color: var(--color-primary-dark);
-    --el-button-hover-border-color: var(--color-primary-dark);
-    --el-button-disabled-border-color: var(--color-primary-disabled);
-    --el-button-disabled-bg-color: var(--color-primary-disabled);
+    --el-button-hover-bg-color: var(--echo-color-primary-dark);
+    --el-button-hover-border-color: var(--echo-color-primary-dark);
+    --el-button-disabled-border-color: var(--echo-color-primary-disabled);
+    --el-button-disabled-bg-color: var(--echo-color-primary-disabled);
     
     &,
     &:focus:not(.el-button:hover) {
-      border-color: var(--color-primary);
-      background-color: var(--color-primary);
+      border-color: var(--echo-color-primary);
+      background-color: var(--echo-color-primary);
       color: white;
     }
     
     &.is-text {
       &:hover,
       &:focus {
-        color: var(--color-primary-dark);
+        color: var(--echo-color-primary-dark);
       }
       
       &:focus:not(.el-button:hover) {
-        color: var(--color-primary);
+        color: var(--echo-color-primary);
       }
     }
   }
@@ -39,8 +39,8 @@
   &--danger {
     &,
     &:focus:not(.el-button:hover) {
-      border-color: var(--color-danger);
-      background-color: var(--color-danger);
+      border-color: var(--echo-color-danger);
+      background-color: var(--echo-color-danger);
       color: white;
     }
     
@@ -52,9 +52,9 @@
   }
   
   &--info {
-    --el-button-hover-bg-color: var(--color-primary-light);
-    --el-button-hover-border-color: var(--color-primary-light);
-    --el-button-hover-text-color: var(--color-primary);
+    --el-button-hover-bg-color: var(--echo-color-primary-light);
+    --el-button-hover-border-color: var(--echo-color-primary-light);
+    --el-button-hover-text-color: var(--echo-color-primary);
     
     .dark & {
       --el-button-hover-bg-color: rgba(255, 255, 255, .25);
@@ -64,9 +64,9 @@
     
     &,
     &:focus:not(.el-button:hover) {
-      border-color: var(--bg-color);
-      background: var(--bg-color);
-      color: var(--text-color-secondary);
+      border-color: var(--echo-bg-color);
+      background: var(--echo-bg-color);
+      color: var(--echo-text-color-secondary);
       background-clip: padding-box;
     }
     
@@ -74,15 +74,15 @@
       &.active {
         &,
         &:focus:not(.el-button:hover) {
-          border-color: var(--color-primary);
-          background: var(--color-primary);
+          border-color: var(--echo-color-primary);
+          background: var(--echo-color-primary);
           color: white;
         }
         
         &:hover,
         &:focus {
-          border-color: var(--color-primary-dark);
-          background: var(--color-primary-dark);
+          border-color: var(--echo-color-primary-dark);
+          background: var(--echo-color-primary-dark);
         }  
       }
     }
@@ -123,29 +123,29 @@
 
 .el-input,
 .el-textarea {
-  --el-input-placeholder-color: var(--text-color-muted);
-  --el-input-border-color: var(--border-color);
+  --el-input-placeholder-color: var(--echo-text-color-muted);
+  --el-input-border-color: var(--echo-border-color);
 }
 
 .el-popover {
-  --el-box-shadow-light: var(--popover-box-shadow);
+  --el-box-shadow-light: var(--echo-popover-box-shadow);
   
   &.el-popper {
     min-width: 120px;
-    border-color: var(--bg-color);
-    border-radius: var(--border-radius);
-    background-color: var(--theme-bg-color);
+    border-color: var(--echo-bg-color);
+    border-radius: var(--echo-border-radius);
+    background-color: var(--echo-theme-bg-color);
     
     .el-popper__arrow:before {
-      border-color: var(--bg-color);
+      border-color: var(--echo-bg-color);
     }
     
     .dark & {
-      border-color: var(--border-color);
+      border-color: var(--echo-border-color);
       background-color: #26282d;
       
       .el-popper__arrow:before {
-        border-color: var(--border-color);
+        border-color: var(--echo-border-color);
         background-color: #26282d;
       }
     }
@@ -153,8 +153,8 @@
 }
 
 .el-dialog {
-  --el-dialog-bg-color: var(--theme-bg-color);
-  --el-dialog-border-radius: var(--border-radius-large);
+  --el-dialog-bg-color: var(--echo-theme-bg-color);
+  --el-dialog-border-radius: var(--echo-border-radius-large);
   max-width: 485px;
   
   .dark & {
@@ -168,11 +168,11 @@
   
   &__body {
     padding: 30px 35px 50px;
-    color: var(--text-color-primary);
+    color: var(--echo-text-color-primary);
   }
   
   .el-loading-mask {
-    border-radius: var(--border-radius-large);
+    border-radius: var(--echo-border-radius-large);
   }
 }
 
@@ -185,9 +185,9 @@
 .el-message {
   min-width: 0;
   padding: 12px 20px 12px 15px;
-  border-color: var(--theme-bg-color);
-  background-color: var(--theme-bg-color);
-  box-shadow: var(--popover-box-shadow);
+  border-color: var(--echo-theme-bg-color);
+  background-color: var(--echo-theme-bg-color);
+  box-shadow: var(--echo-popover-box-shadow);
   
   .dark & {
     box-shadow: 0 0 0 1px rgba(white, .2);
@@ -214,8 +214,8 @@
 
 .el-message-box {
   padding: 0;
-  border-radius: var(--border-radius);
-  background-color: var(--theme-bg-color);
+  border-radius: var(--echo-border-radius);
+  background-color: var(--echo-theme-bg-color);
   
   .dark & {
     border-color: rgba(white, .2);
@@ -226,12 +226,12 @@
   }
   
   &__title {
-    color: var(--text-color-primary);
+    color: var(--echo-text-color-primary);
   }
   
   &__content {
     padding: 15px 35px 35px;
-    color: var(--text-color-secondary);
+    color: var(--echo-text-color-secondary);
   }
   
   &__btns {
@@ -240,8 +240,8 @@
 }
 
 .el-skeleton {  
-  --el-skeleton-color: var(--bg-color);
-  --el-skeleton-to-color: var(--skeleton-to-color);
+  --el-skeleton-color: var(--echo-bg-color);
+  --el-skeleton-to-color: var(--echo-skeleton-to-color);
   
   &__item {
     display: block;
@@ -250,7 +250,7 @@
   &__button {
     width: 40px;
     height: 40px;
-    border-radius: var(--border-radius);
+    border-radius: var(--echo-border-radius);
   }
   
   &__circle {
@@ -281,7 +281,7 @@
 
 .el-select {
   .el-input__inner {
-    color: var(--text-color-primary); 
+    color: var(--echo-text-color-primary); 
   }
 }
 
@@ -291,8 +291,8 @@
   &__item {
     height: 36px;
     line-height: 36px;
-    border-radius: var(--border-radius-small);
-    color: var(--text-color-secondary);
+    border-radius: var(--echo-border-radius-small);
+    color: var(--echo-text-color-secondary);
   }
 }
 

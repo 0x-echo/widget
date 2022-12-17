@@ -9,12 +9,12 @@
 }
 
 a {
-  color: var(--color-primary);
+  color: var(--echo-color-primary);
   text-decoration: none;
   transition: color .3s;
   
   &:hover {
-    color: var(--color-primary-dark);
+    color: var(--echo-color-primary-dark);
   }
 }
 
@@ -24,8 +24,8 @@ li {
 
 body {
   background: transparent;
-  color: var(--text-color-primary);
-  font-family: var(--font-family);
+  color: var(--echo-text-color-primary);
+  font-family: var(--echo-font-family);
   -webkit-font-smoothing: antialiased;
   line-height: 1.5;
   

@@ -126,7 +126,7 @@ const submit = () => {
     
     &.is-border-bottom {
       padding-bottom: 25px;
-      border-bottom: 1px dashed var(--border-color);
+      border-bottom: 1px dashed var(--echo-border-color);
     }
   }
     

@@ -168,7 +168,7 @@ const currentModule = computed(() => {
       content: '';
       flex: 1;
       height: 1px;
-      background: var(--border-color);
+      background: var(--echo-border-color);
     }
     
     &::before {
@@ -189,7 +189,7 @@ const currentModule = computed(() => {
   &__bio {
     margin-top: 2px;
     font-size: 14px;
-    color: var(--text-color-secondary);
+    color: var(--echo-text-color-secondary);
   }
   
   &__action {
@@ -208,24 +208,24 @@ const currentModule = computed(() => {
     
     &,
     &:focus:not(.el-button:hover) {
-      border-color: var(--color-primary-light);
-      background: var(--color-primary-light);
-      color: var(--color-primary);
+      border-color: var(--echo-color-primary-light);
+      background: var(--echo-color-primary-light);
+      color: var(--echo-color-primary);
     }
     
     &.active,
     &.active:focus:not(.el-button:hover),
     &:hover,
     &:focus {
-      border-color: var(--color-primary);
-      background: var(--color-primary);
+      border-color: var(--echo-color-primary);
+      background: var(--echo-color-primary);
       color: white;
     }
     
     &.active {
       &:hover {
-        border-color: var(--color-primary-dark);
-        background: var(--color-primary-dark);
+        border-color: var(--echo-color-primary-dark);
+        background: var(--echo-color-primary-dark);
       }
     }
   }
@@ -242,14 +242,14 @@ const currentModule = computed(() => {
     justify-content: center;
     margin-top: 30px;
     font-size: 12px;
-    color: var(--text-color-muted);
+    color: var(--echo-text-color-muted);
     text-transform: capitalize;
     
     &::before,
     &::after {
       content: '';
       width: 15px;
-      border-top: 1px dashed var(--border-color);
+      border-top: 1px dashed var(--echo-border-color);
     }
     
     &::before {
@@ -269,7 +269,7 @@ const currentModule = computed(() => {
   &__stat-icon {
     margin-right: 5px;
     font-size: 14px;
-    color: var(--color-warning);
+    color: var(--echo-color-warning);
   }
   
   &__content {

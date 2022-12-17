@@ -29,14 +29,14 @@ import { ElButton } from 'element-plus'
     &:focus:not(.el-button:hover) {
       border-color: white;
       background: white;
-      color: var(--text-color-muted);
+      color: var(--echo-text-color-muted);
     }
     
     &:hover,
     &:focus {
-      border-color: var(--bg-color);
-      background: var(--bg-color);
-      color: var(--text-color-muted);
+      border-color: var(--echo-bg-color);
+      background: var(--echo-bg-color);
+      color: var(--echo-text-color-muted);
     }
   }
 }

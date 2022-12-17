@@ -53,15 +53,15 @@ const props = defineProps({
   width: calc((100% - 15px) / 2);
   padding: 15px 15px 12px;
   border-radius: 12px;
-  border: 1px solid var(--border-color);
-  background: var(--fill-color-blank);
+  border: 1px solid var(--echo-border-color);
+  background: var(--echo-fill-color-blank);
   cursor: pointer;
   transition: all .3s ease;
   
   &.active,
   &:hover {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 4px rgba(var(--color-primary-rgb), .5);
+    border-color: var(--echo-color-primary);
+    box-shadow: 0 0 4px rgba(var(--echo-color-primary-rgb), .5);
   }
   
   &.disabled {
@@ -69,7 +69,7 @@ const props = defineProps({
     cursor: not-allowed;
     
     &:hover {
-      border-color: var(--border-color);
+      border-color: var(--echo-border-color);
       box-shadow: none;
     }
   }
@@ -100,7 +100,7 @@ const props = defineProps({
     font-size: 13px;
     font-weight: 500;
     text-align: center;
-    color: var(--text-color-secondary);
+    color: var(--echo-text-color-secondary);
   }
 }
 

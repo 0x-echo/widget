@@ -1623,14 +1623,14 @@ init().then(() => {})
   display: flex;
   flex-direction: column;
   width: 100%;
-  color: var(--text-color-primary);
-  font-family: var(--font-family);
+  color: var(--echo-text-color-primary);
+  font-family: var(--echo-font-family);
   -webkit-font-smoothing: antialiased;
   line-height: 1.5;
   
   // TODO - theme?
   &.dark {
-    background: var(--theme-bg-color);
+    background: var(--echo-theme-bg-color);
   }
   
   [class^="target_site_"] &,

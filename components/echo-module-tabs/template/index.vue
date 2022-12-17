@@ -110,18 +110,18 @@ watch(currentTab, (newVal, oldVal) => {
     align-items: center;
     padding: 5px 15px 5px 10px;
     margin-bottom: 28px;
-    border-radius: var(--border-radius);
+    border-radius: var(--echo-border-radius);
     font-size: 14px;
     font-weight: bold;
-    background: rgba(var(--color-warning-rgb), .1);
-    color: var(--text-color-secondary);
+    background: rgba(var(--echo-color-warning-rgb), .1);
+    color: var(--echo-text-color-secondary);
   }
   
   &__value-icon {
     margin-right: 5px;
     font-size: 18px;
     font-weight: 400;
-    color: var(--color-warning);
+    color: var(--echo-color-warning);
   }
   
   &__list {

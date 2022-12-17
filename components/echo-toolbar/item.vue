@@ -221,7 +221,7 @@ watch(() => props.active, (val, oldVal) => {
     min-width: 40px;
     margin-left: 8px;
     font-size: 14px;
-    color: var(--text-color-primary);
+    color: var(--echo-text-color-primary);
   }
 }
 
@@ -235,13 +235,13 @@ watch(() => props.active, (val, oldVal) => {
 @keyframes mainExplosion {
   15% {
     transform: scale(1);
-    border-color: var(--color-primary);
+    border-color: var(--echo-color-primary);
     border-width: 2.25rem;
   }
   30%,
   100% {
     transform: scale(1);
-    border-color: var(--color-primary);
+    border-color: var(--echo-color-primary);
     border-width: 0;
   }
 }

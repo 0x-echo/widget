@@ -42,8 +42,8 @@ const emits = defineEmits([
   &__message {
     padding: 15px;
     border-radius: 10px;
-    background: var(--bg-color);
-    color: var(--text-color-secondary);
+    background: var(--echo-bg-color);
+    color: var(--echo-text-color-secondary);
   }
 }
 </style>
