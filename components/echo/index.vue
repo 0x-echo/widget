@@ -997,6 +997,7 @@ const like = async (data) => {
       })
       showConfetti()
     }
+    likePage = 1
     await getReactions('like')
   }
 }
@@ -1007,6 +1008,7 @@ const likeComment = async (data) => {
 
 // dislike
 const dislike = async (data) => {
+  dislikePage = 1
   await doReact((data ? '-' : '') + 'dislike')
 }
 
