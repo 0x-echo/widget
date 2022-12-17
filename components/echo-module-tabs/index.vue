@@ -59,11 +59,14 @@
       <echo-module-tabs-vote
         v-else
         :data="data.likes"
+        :has-more="hasMoreLikes"
+        :is-loading-more="isLoadingMoreLikes"
         :loading="loading"
         module="like"
         power-label="Liking Power"
         :power-value="counts.like_power"
-        tip="Estimated total value of all liking address">
+        tip="Estimated total value of all liking address"
+        @load-more="$emit('load-more-likes')">
       </echo-module-tabs-vote>
     </echo-tab-pane>
     
@@ -113,6 +116,14 @@ const props = defineProps({
   data: {
     type: Object,
     required: true
+  },
+  hasMoreLikes: {
+    type: Boolean,
+    default: false
+  },
+  isLoadingMoreLikes: {
+    type: Boolean,
+    default: false
   },
   loading: {
     type: Boolean
