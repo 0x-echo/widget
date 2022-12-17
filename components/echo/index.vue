@@ -353,14 +353,14 @@ const beforePost = () => {
     throw new Error('PLEASE LOGIN FIRST')
   }
 
-  if (process.env.NODE_ENV === 'production') {
-    if (store.balance.toString() === '0x0') {
-      ElMessage.error({
-        message: 'Sorry. Please make sure your balance is greater than 0.'
-      })
-      throw new Error('BALANCE SHOULD NOT BE ZERO')
-    }
-  }
+  // if (process.env.NODE_ENV === 'production') {
+  //   if (store.balance.toString() === '0x0') {
+  //     ElMessage.error({
+  //       message: 'Sorry. Please make sure your balance is greater than 0.'
+  //     })
+  //     throw new Error('BALANCE SHOULD NOT BE ZERO')
+  //   }
+  // }
 }
 
 const loadMoreComments = async () => {
