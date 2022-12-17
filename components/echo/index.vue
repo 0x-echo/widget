@@ -241,6 +241,10 @@ let summary = reactive({
   tips: []
 })
 
+let hasMoreLikes = ref(false)
+let isLoadingMoreLikes = ref(false)
+let likePage = 1
+let dislikePage = 1
 
 const viewArweaveInfo = (data) => {
   if (!data.ar_id) {
@@ -363,6 +367,11 @@ const loadMoreComments = async () => {
   if (!onFetch) {
     await getList(++page)
   }
+}
+
+const loadMoreLikes = async () => {
+  console.log('load more likes')
+  await getReactions('like')
 }
 
 let checkInterval = null
@@ -1124,23 +1133,40 @@ const getSummary = async () => {
   loading.value = false
 }
 
+const reactionLimit = 50
 const getReactions = async (subType) => {
+  const page = subType === 'like' ? likePage : dislikePage
   const params = {
     target_uri: TARGET_URI,
-    page: 1,
+    page,
+    limit: reactionLimit,
     sub_type: subType
   }
 
   try {
+    isLoadingMoreLikes.value = true
     const { data: rs }= await $fetch(commonConfig.api().GET_REACTIONS, {
       params,
       headers: getCommonHeader()
     })
-    summary[subType + 's'] = rs.list
+    console.log(rs)
+    if (page === 1) {
+      summary[subType + 's'] = rs.list
+    } else {
+      summary[subType + 's'].push(...rs.list)
+    }
+    const hasMore = ((page - 1) * reactionLimit + rs.list.length) < rs.total
+    hasMoreLikes.value = hasMore
     store.setCounts(rs.target_summary)
+    if (subType === 'like') {
+      likePage++
+    } else if (subType === 'dislike') {
+      dislikePage++
+    }
   } catch (e) {
     console.log(e)
   }
+  isLoadingMoreLikes.value = false
 }
 
 const getTips = async () => {
