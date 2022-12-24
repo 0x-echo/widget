@@ -13,8 +13,10 @@
       :src="icon" 
       :title="label">
     
-    <div v-if="type === 'link'">
-        <a target="_blank" :href="link">{{ label }}</a>
+    <div 
+      class="wallet-item__label"
+      v-if="type === 'link'">
+      <a target="_blank" :href="link">{{ label }}</a>
     </div>
 
     <div
@@ -112,7 +114,11 @@ const props = defineProps({
     font-size: 13px;
     font-weight: 500;
     text-align: center;
-    color: var(--text-color-secondary);
+    
+    &,
+    a {
+      color: var(--text-color-secondary);
+    }
   }
 }
 
