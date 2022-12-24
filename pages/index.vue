@@ -340,6 +340,11 @@ const handleStorageChange = () => {
 }
 
 onMounted(async () => {
+  // just for arconnect authorization
+  if (config.action === 'authorize_arconnect') {
+    await arconnectLogin()
+    return
+  }
 
   window.addEventListener('storage', handleStorageChange)
 
@@ -937,6 +942,11 @@ const arconnectLogin = async () => {
     })
     const hexed =  ethers.utils.hexlify(sig)
     await requestLogin(address, message, hexed, 'arweave', signKeys, publickey)
+
+    if (config.action === 'authorize_arconnect') {
+      window.close()
+      return
+    }
   } catch (e) {
     console.log(e)
     if ((e && e.includes && e.includes('cancell')) || (e.message && e.message.includes('cancell'))) {

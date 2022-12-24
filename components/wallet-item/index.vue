@@ -13,12 +13,18 @@
       :src="icon" 
       :title="label">
     
+    <div v-if="type === 'link'">
+        <a target="_blank" :href="link">{{ label }}</a>
+    </div>
+
     <div
+      v-else
       class="wallet-item__label">
       <slot>
         {{ label }}
       </slot>
     </div>
+
   </div>
 </template>
 
@@ -39,6 +45,12 @@ const props = defineProps({
     type: String
   },
   label: {
+    type: String
+  },
+  type: {
+    type: String
+  },
+  link: {
     type: String
   }
 })
