@@ -1,35 +1,16 @@
 <template>
   <div>
-    <div
-      @click="onClick">
-      hello world
-      <privacy>
-        hello world
-      </privacy>
-    </div>
-    
-    <dialog-confirm
-      icon="ri-error-warning-line"
-      message="Are you sure?"
-      title="Hello"
-      v-model="confirmDialogVisible"
-      @submit="uncoverMessage">
-    </dialog-confirm>
+   Just for iframe test
+   <iframe 
+   width="100%"
+   height="800"
+   src="http://localhost:3001/?target_uri=hello2&modules=comment,like&rpc_url=http://localhost:9000">
+   </iframe>
   </div>
 </template>
 
 <script setup>
-let confirmDialogVisible = ref(false)
 
-const onClick = (e) => {
-  if (e.target.nodeName === 'PRIVACY') {
-    confirmDialogVisible.value = true
-  }
-}
-
-const uncoverMessage = () => {
-  console.log('uncover')
-}
 </script>
 
 <style lang="scss">
