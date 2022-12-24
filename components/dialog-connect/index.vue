@@ -23,6 +23,8 @@
         :key="item.value"
         :icon="item.icon"
         :label="item.label"
+        :link="item.link"
+        :type="item.type"
         @click="connectWallet(item)">
       </wallet-item>
     </div>
@@ -76,7 +78,9 @@ const list = computed(() => {
   const list = [{
     label: 'ArConnect',
     icon: iconArconnect,
-    value: 'arconnect'
+    value: 'arconnect',
+    type: 'link',
+    link: document.location.href + '&action=authorize_arconnect'
   }, {
     label: 'MetaMask',
     icon: iconMatemask,
