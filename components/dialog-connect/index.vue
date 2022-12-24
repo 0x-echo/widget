@@ -24,7 +24,7 @@
         :icon="item.icon"
         :label="item.label"
         :link="item.link"
-        :type="item.type"
+        :tag="item.type === 'link' ? 'a' : 'div'"
         @click="connectWallet(item)">
       </wallet-item>
     </div>
@@ -55,6 +55,7 @@
 
 <script setup>
 import { ElDialog,  ElLoading } from 'element-plus'
+import useWidgetConfig from '~~/compositions/widget-config'
 import iconMatemask from '@/assets/metamask.svg'
 import iconWalletConnect from '@/assets/walletconnect.svg'
 import iconPhantom from '@/assets/phantom.png'
@@ -66,6 +67,7 @@ const { $bus } = useNuxtApp()
 
 const store = useStore()
 const status = computed((state) => state.status)
+const { config } = useWidgetConfig(store)
 
 const loading = ref(true)
 
@@ -79,7 +81,7 @@ const list = computed(() => {
     label: 'ArConnect',
     icon: iconArconnect,
     value: 'arconnect',
-    type: 'link',
+    type: config.action === 'authorize_arconnect' ? 'link' : '',
     link: document.location.href + '&action=authorize_arconnect'
   }, {
     label: 'MetaMask',
@@ -123,7 +125,9 @@ const close = () => {
 }
 
 const connectWallet = (item) => {
-  emits('connect-wallet', item)
+  if (item.type !== 'link') {
+    emits('connect-wallet', item) 
+  }
 }
 
 let loadingService

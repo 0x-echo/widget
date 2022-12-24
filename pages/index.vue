@@ -919,8 +919,14 @@ const goConnectWallet = async () => {
 }
 
 const arconnectLogin = async () => {
-  if (!window.arweaveWallet) {
+  if (!store.env.inIframe && !window.arweaveWallet) {
     ElMessage.error('Please install ArConnect first.')
+    
+    if (config.action === 'authorize_arconnect') {
+      setTimeout(() => {
+        window.close()
+      }, 2000)
+    }
     return
   }
   try {
