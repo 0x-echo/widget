@@ -55,7 +55,6 @@
 
 <script setup>
 import { ElDialog,  ElLoading } from 'element-plus'
-import useWidgetConfig from '~~/compositions/widget-config'
 import iconMatemask from '@/assets/metamask.svg'
 import iconWalletConnect from '@/assets/walletconnect.svg'
 import iconPhantom from '@/assets/phantom.png'
@@ -67,7 +66,6 @@ const { $bus } = useNuxtApp()
 
 const store = useStore()
 const status = computed((state) => state.status)
-const { config } = useWidgetConfig(store)
 
 const loading = ref(true)
 
@@ -81,7 +79,7 @@ const list = computed(() => {
     label: 'ArConnect',
     icon: iconArconnect,
     value: 'arconnect',
-    type: config.action === 'authorize_arconnect' ? 'link' : '',
+    type: store.env.inIframe ? 'link' : '',
     link: document.location.href + '&action=authorize_arconnect'
   }, {
     label: 'MetaMask',
