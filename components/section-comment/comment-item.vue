@@ -318,6 +318,7 @@ export default {
 .comment-item {
   position: relative;
   display: flex;
+  margin-bottom: 20px;
   
   &.has-replies {
     &::before {
@@ -329,10 +330,6 @@ export default {
       height: calc(100% - 42px);
       background: var(--bg-color);
     }
-  }
-  
-  & + & {
-    margin-top: 20px;
   }
   
   &__avatar {
