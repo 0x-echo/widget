@@ -1595,7 +1595,11 @@ export default {
   
   [class^="target_site_"] &,
   [class*=" target_site_"] & {
-    padding: 30px 20px;
+    padding: 25px 20px;
+    
+    .chat-footer {
+      padding-bottom: 0;
+    }
   }
   
   .has-v-padding & {
@@ -1662,7 +1666,7 @@ export default {
 
 @media screen and (max-width: #{$tablet-width - 1px}) {
   .chat-widget {
-    padding: 30px 20px !important; 
+    padding: 25px 20px !important; 
     
     .no-padding-in-mobile & {
       padding: 0 !important;
