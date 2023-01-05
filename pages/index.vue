@@ -790,10 +790,10 @@ const doAccountLogin = async () => {
     // if mumbai is supported
     if (network.toString() === '80001' && store.widgetConfig.support_mumbai) {
     } else {
-      ElMessage.error({
-        message: `Sorry. The network is not supported. Current supported networks are: ${Object.values(commonConfig.supportedNetworks).join(', ')}.`
-      })
-      return
+      // ElMessage.error({
+      //   message: `Sorry. The network is not supported. Current supported networks are: ${Object.values(commonConfig.supportedNetworks).join(', ')}.`
+      // })
+      // return
     }
   }
 
