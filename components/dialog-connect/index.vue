@@ -76,12 +76,6 @@ const emits = defineEmits([
 
 const list = computed(() => {
   const list = [{
-    label: 'ArConnect',
-    icon: iconArconnect,
-    value: 'arconnect',
-    type: store.env.inIframe ? 'link' : '',
-    link: document.location.href + '&action=authorize_arconnect'
-  }, {
     label: 'MetaMask',
     icon: iconMatemask,
     value: 'metamask',
@@ -106,6 +100,14 @@ const list = computed(() => {
       disabled: !window.solana
     })
   }
+
+  list.push({
+    label: 'ArConnect',
+    icon: iconArconnect,
+    value: 'arconnect',
+    type: store.env.inIframe ? 'link' : '',
+    link: document.location.href + '&action=authorize_arconnect'
+  })
 
   return list
 })
