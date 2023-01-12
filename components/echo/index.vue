@@ -498,6 +498,9 @@ const tryAutoLogin = () => {
       setTimeout(async () => {
         await store.syncBalance()
       }, 200)
+  
+      // if login from other tab, like arconnect
+      connectDialogVisible.value = false
     }
   } catch (e) {
     console.log('get login_info:', e)
