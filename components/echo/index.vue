@@ -400,7 +400,12 @@ const handleStorageChange = () => {
 }
 
 onMounted(async () => {
-
+  // just for arconnect authorization
+  if (config.action === 'authorize_arconnect') {
+    await arconnectLogin()
+    return
+  }
+  
   window.addEventListener('storage', handleStorageChange)
 
   if (props.modules.includes('comment')) {
@@ -974,8 +979,14 @@ const goConnectWallet = async () => {
 }
 
 const arconnectLogin = async () => {
-  if (!window.arweaveWallet) {
+  if (!store.env.inIframe && !window.arweaveWallet) {
     ElMessage.error('Please install ArConnect first.')
+    
+    if (config.action === 'authorize_arconnect') {
+      setTimeout(() => {
+        window.close()
+      }, 2000)
+    }
     return
   }
   try {
