@@ -191,6 +191,12 @@ const userMenu = [{
   icon: 'ri-logout-circle-r-line',
   label: 'Logout',
   value: 'logout'
+}, {
+  icon: 'ri-information-line',
+  isLink: true,
+  label: 'About ECHO',
+  value: 'about-echo',
+  url: 'https://0xecho.com/'
 }]
 
 const userMenuRef = ref(null)
