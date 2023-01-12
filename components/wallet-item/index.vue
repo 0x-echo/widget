@@ -1,25 +1,28 @@
 <template>
-  <div
+  <component
+    :is="tag"
     class="wallet-item"
     :class="{
       'active': active,
       'disabled': disabled,
       'wallet-item--row': direction === 'row'
-    }">
+    }"
+    :target="tag === 'a' ? '_blank' : undefined" 
+    :href="link">
     <img 
       v-if="icon"
       class="wallet-item__logo"
       :alt="label"
       :src="icon" 
       :title="label">
-    
+  
     <div
       class="wallet-item__label">
       <slot>
         {{ label }}
       </slot>
     </div>
-  </div>
+  </component>
 </template>
 
 <script setup>
@@ -39,6 +42,13 @@ const props = defineProps({
     type: String
   },
   label: {
+    type: String
+  },
+  tag: {
+    type: String,
+    default: 'div'
+  },
+  link: {
     type: String
   }
 })

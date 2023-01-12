@@ -63,10 +63,6 @@ const emits = defineEmits([
 
 const list = computed(() => {
   const list = [{
-    label: 'ArConnect',
-    icon: iconArconnect,
-    value: 'arconnect'
-  }, {
     label: 'MetaMask',
     icon: iconMatemask,
     value: 'metamask',
@@ -91,6 +87,14 @@ const list = computed(() => {
       disabled: !window.solana
     })
   }
+  
+  list.push({
+    label: 'ArConnect',
+    icon: iconArconnect,
+    value: 'arconnect',
+    type: store.env.inIframe ? 'link' : '',
+    link: document.location.href + '&action=authorize_arconnect'
+  })
 
   return list
 })
@@ -108,7 +112,9 @@ const close = () => {
 }
 
 const connectWallet = (item) => {
-  emits('connect-wallet', item)
+  if (item.type !== 'link') {
+    emits('connect-wallet', item) 
+  }
 }
 
 let loadingService
