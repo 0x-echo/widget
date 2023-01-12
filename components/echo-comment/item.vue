@@ -330,10 +330,6 @@ export default {
     }
   }
   
-  & + & {
-    margin-top: 20px;
-  }
-  
   &__avatar {
     flex-shrink: 0;
     margin-right: 16px;
