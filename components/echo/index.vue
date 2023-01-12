@@ -1655,6 +1655,10 @@ init().then(() => {})
   [class^="target_site_"] &,
   [class*=" target_site_"] & {
     padding: 25px 20px;
+    
+    .chat-footer {
+      padding-bottom: 0;
+    }
   }
   
   &.has-v-padding {
