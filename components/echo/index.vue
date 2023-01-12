@@ -1646,7 +1646,7 @@ init().then(() => {})
   
   [class^="target_site_"] &,
   [class*=" target_site_"] & {
-    padding: 30px 20px;
+    padding: 25px 20px;
   }
   
   &.has-v-padding {
@@ -1713,7 +1713,7 @@ init().then(() => {})
 
 @media screen and (max-width: #{$tablet-width - 1px}) {
   .echo-widget {
-    padding: 30px 20px !important; 
+    padding: 25px 20px !important; 
     
     &.no-padding-in-mobile {
       padding: 0 !important;
