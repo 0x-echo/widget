@@ -44,8 +44,7 @@
           class="section-template__more-button"
           v-if="!isLoadingMore"
           size="small"
-          type="info"
-          @click="$emit('load-more')">
+          type="info">
           Load More
         </el-button>
         

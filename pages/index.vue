@@ -29,8 +29,7 @@
         @sort-change="sortChange"
         @tip="tip"
         @load-children="loadChildren"
-        @load-more-comments="loadMoreComments"
-        @load-more-likes="loadMoreLikes">
+        @load-more="loadMore">
       </template-tabs>
 
       <chat-footer
@@ -304,8 +303,16 @@ const beforePost = () => {
   // }
 }
 
+const loadMore = async (activeTab) => {
+  if (activeTab.value === 'comment') {
+    await loadMoreComments()
+  } else if (activeTab.value === 'like') {
+    await loadMoreLikes()
+  }
+}
+
 const loadMoreComments = async () => {
-  if (!onFetch) {
+  if (!onFetch && store.comment.hasMore) {
     await getList(++page)
   }
 }

@@ -46,7 +46,8 @@
     </tabs-skeleton>
     
     <div
-      class="chat-tabs__content">
+      class="chat-tabs__content"
+      @scroll="onScroll">
       <slot></slot>
     </div>
   </div>
@@ -74,6 +75,7 @@ const props = defineProps({
 })
 
 const emits = defineEmits([
+  'load-more',
   'on-change-tab',
   'update:modelValue'
 ])
@@ -110,6 +112,13 @@ const checkIfMobile = () => {
     isMobile.value = true
   } else {
     isMobile.value = false
+  }
+}
+
+const onScroll = (e) => {
+  const { scrollTop, clientHeight, scrollHeight } = e.target
+  if (scrollTop + clientHeight + 100 >= scrollHeight) {
+    emits('load-more', activeTab)
   }
 }
 </script>
