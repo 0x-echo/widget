@@ -20,6 +20,7 @@
       </div>
 
       <toolbar-item
+        class="section-toolbar__connect-button"
         v-if="!hasLogined && showWalletConnect"
         :has-count="false"
         icon="ri-wallet-3-line"
@@ -280,11 +281,16 @@ const onClickUserMenu = (item) => {
   }
 }
 
-@media screen and (max-width: $small-mobile-width - 1px) {
+@media screen and (max-width: #{$small-mobile-width - 1px}) {
   .section-toolbar {
-    &__user {
+    &__user,
+    &__connect-button {
       display: none;
     }
+  }
+  
+  .toolbar-item + .toolbar-item {
+    margin-left: 8px;
   }
 }
 </style>
