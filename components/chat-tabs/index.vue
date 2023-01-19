@@ -26,6 +26,7 @@
             </i>
             
             <span
+              class="chat-tabs__item-count"
               v-if="item.count">
               {{ $formatNumber(item.count) }}
             </span>
@@ -147,7 +148,7 @@ export default {
       width: 100%;
       
       .chat-tabs__item {
-        flex: 1;
+        min-width: 25%;
         padding: 0 10px;
       }
     }
@@ -196,12 +197,17 @@ export default {
   }
   
   &__item-icon {
-    margin-right: 5px;
     font-size: 16px;
+    
+    + .chat-tabs__item-count {
+      margin-left: 5px;
+    }
   }
   
-  &__item-label {
-    margin-left: 5px;
+  &__item-count {
+    + .chat-tabs__item-label {
+      margin-left: 5px;
+    }
   }
   
   &__content {
