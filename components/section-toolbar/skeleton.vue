@@ -21,6 +21,7 @@
       </div>
       
       <el-skeleton-item
+        class="toolbar-skeleton__right"
         v-if="showRight"
         variant="button" />
     </template>
@@ -63,6 +64,14 @@ const props = defineProps({
     width: 15px;
     height: 22px;
     margin: 0 35px 0 8px;
+  }
+}
+
+@media screen and (max-width: #{$small-mobile-width - 1px}) {
+  .toolbar-skeleton {
+    &__right {
+      display: none;
+    }
   }
 }
 </style>
