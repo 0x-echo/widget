@@ -304,15 +304,16 @@ const beforePost = () => {
 }
 
 const loadMore = async (activeTab) => {
-  if (activeTab.value === 'comment') {
+  if (activeTab === 'comment') {
     await loadMoreComments()
-  } else if (activeTab.value === 'like') {
+  } else if (activeTab === 'like') {
     await loadMoreLikes()
   }
 }
 
 const loadMoreComments = async () => {
   if (!onFetch && store.comment.hasMore) {
+    console.log('world')
     await getList(++page)
   }
 }

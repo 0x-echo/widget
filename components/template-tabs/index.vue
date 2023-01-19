@@ -17,10 +17,10 @@
   </reply-form>
   
   <chat-tabs
-    v-bind="$attrs"
     v-model="activeTab"
     :loading="loading"
     :tabs="tabs"
+    @load-more="$emit('load-more', activeTab)"
     @on-change-tab="$emit('on-change-tab', activeTab)">
     <template
       #header-right>
@@ -138,6 +138,7 @@ const props = defineProps({
 
 const emits = defineEmits([
   'like',
+  'load-more',
   'on-change-tab',
   'sort-change',
   'tip'

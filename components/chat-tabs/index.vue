@@ -118,7 +118,7 @@ const checkIfMobile = () => {
 const onScroll = (e) => {
   const { scrollTop, clientHeight, scrollHeight } = e.target
   if (scrollTop + clientHeight + 100 >= scrollHeight) {
-    emits('load-more', activeTab)
+    emits('load-more')
   }
 }
 </script>
