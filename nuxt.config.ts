@@ -51,7 +51,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: config
   },
-  buildModules: [
+  modules: [
     '@pinia/nuxt',
   ],
   css: [
