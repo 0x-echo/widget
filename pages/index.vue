@@ -35,7 +35,8 @@
 
       <chat-footer
         v-if="!loading"
-        @logout="logout">
+        @logout="logout"
+        @refresh-profile="refreshProfile">
       </chat-footer>
     </template>
     
@@ -1666,7 +1667,14 @@ export default {
 
 @media screen and (max-width: #{$tablet-width - 1px}) {
   .chat-widget {
-    padding: 25px 20px !important; 
+    .has-v-padding & {
+      padding-top: 16px;
+    } 
+    
+    .has-h-padding & {
+      padding-right: 16px;
+      padding-left: 16px;
+    }
     
     .no-padding-in-mobile & {
       padding: 0 !important;
