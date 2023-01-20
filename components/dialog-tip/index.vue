@@ -26,15 +26,23 @@
     </section-network>
     
     <el-collapse-transition>
+      <section-everpay
+        v-if="store.tip_network === 'everpay'"
+        v-model:amount="data.everpayAmount"
+        v-model:token="data.everpayToken">
+      </section-everpay>
+    </el-collapse-transition>
+    
+    <el-collapse-transition>
       <section-amount
-        v-show="data.network && data.network !== 'everpay'"
+        v-if="data.network && data.network !== 'everpay'"
         v-model="data.amount">
       </section-amount>
     </el-collapse-transition>
     
     <el-collapse-transition>
       <section-wallet
-        v-if="data.amount"
+        v-if="data.amount || data.everpayAmount"
         v-model="data.wallet"
         @tip-reconnect="$emit('tip-reconnect')">
       </section-wallet>
@@ -63,6 +71,7 @@
 import { reactive } from 'vue'
 import { ElButton, ElCollapseTransition, ElDialog, ElLoading, ElMessage } from 'element-plus'
 import SectionAmount from './section-amount'
+import SectionEverpay from './section-everpay'
 import SectionNetwork from './section-network'
 import SectionUser from './section-user'
 import SectionWallet from './section-wallet'
@@ -88,7 +97,9 @@ const close = () => {
 const onCloseDialog = () => {
   $bus.emit('reset-tip-form', data.data)
   data.network = ''
-  data.amount = ''
+  data.everpayToken = '',
+  data.everpayAmount = undefined,
+  data.amount = undefined
 }
 
 
@@ -110,7 +121,9 @@ const user = computed(() => ({
 
 let data = reactive({
   network: '',
-  amount: '',
+  everpayToken: '',
+  everpayAmount: undefined,
+  amount: undefined,
   wallet: ''
 })
 

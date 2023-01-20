@@ -22,6 +22,12 @@
         {{ label }}
       </slot>
     </div>
+    
+    <sup
+      class="wallet-item__badge"
+      v-if="badge">
+      {{ badge }}
+    </sup>
   </component>
 </template>
 
@@ -30,6 +36,9 @@ const props = defineProps({
   active: {
     type: Boolean,
     default: false
+  },
+  badge: {
+    type: String
   },
   direction: {
     type: String
@@ -56,6 +65,7 @@ const props = defineProps({
 
 <style lang="scss">
 .wallet-item {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -111,6 +121,20 @@ const props = defineProps({
     font-weight: 500;
     text-align: center;
     color: var(--text-color-secondary);
+  }
+  
+  &__badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 6px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    background: var(--color-primary);
+    color: white;
+    transform: translate(20%, -50%);
   }
 }
 

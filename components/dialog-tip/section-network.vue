@@ -16,6 +16,7 @@
           v-for="item in list"
           :key="item.value"
           :active="item.value === activeOption"
+          :badge="item.badge"
           :icon="item.icon"
           :label="item.label"
           @click="changeOption(item)">
@@ -32,26 +33,6 @@
         </i>
       </el-button> -->
     </div>
-    
-  <template v-if="store.tip_network === 'everpay'">
-    <section-header
-      title="Choose Token">
-    </section-header>
-    <template v-if="onFetchingEverPay">
-      loading
-    </template>
-    <ul v-if="!onFetchingEverPay && store.tip.availableTokens.length">
-      <li v-for="token in store.tip.availableTokens" :key="token.tag">
-        {{ token.balance }}  {{  token.symbol  }}
-         <img width="40" style="background:#fff;border-radius:50%;" :src="'/token_assets/' + token.symbol.toLowerCase() + '.png'">
-      </li>
-    </ul>
-    <p v-if="!onFetchingEverPay && !store.tip.availableTokens.length">
-    no everpay assets available
-    </p>
-    
-  </template>
-
   </section>
 </template>
 
@@ -70,8 +51,6 @@ import useStore from '~~/store'
 const { logos } = useChain()
 const store = useStore()
 const everpay = new EverPay()
-
-let onFetchingEverPay = ref(false)
 
 const props = defineProps({
   modelValue: {
@@ -97,7 +76,9 @@ const changeOption = async (item) => {
   store.setTipNetwork(item.value)
 
   if (item.value === 'everpay') {
-    onFetchingEverPay.value = true
+    store.setData('tip', {
+      onFetchingEverPay: true
+    })
     try {
       const info = await everpay.info()
       const balances = await everpay.balances({
@@ -105,11 +86,13 @@ const changeOption = async (item) => {
         account: store.address
       })
       const finalList = balances.filter(one => one.balance !== '0')
-      store.setData('tip', { availableTokens: balances })
+      store.setData('tip', { availableTokens: finalList })
     } catch (e) {
      
     } finally {
-      onFetchingEverPay.value = false
+      store.setData('tip', {
+        onFetchingEverPay: false
+      })
     }
   } else {
     store.setData('tip', { availableTokens: [] })
@@ -121,7 +104,8 @@ const list = [{
   icon: logos['EVM/1'],
   value: 'ethereum'
 }, {
-  label: 'everpay(0 gas)',
+  badge: 'no gas',
+  label: 'everpay',
   icon: 'https://app.everpay.io/favicon.png',
   value: 'everpay'
 }, {
@@ -169,7 +153,7 @@ const handleScroll = (el) => {
   &__content-wrapper {
     display: flex;
     overflow-x: auto;
-    padding: 2px;
+    padding: 7px 2px 2px;
     margin: 0 -2px;
     
     &::-webkit-scrollbar {
