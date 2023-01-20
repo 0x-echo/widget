@@ -27,7 +27,7 @@
     
     <el-collapse-transition>
       <section-amount
-        v-show="data.network"
+        v-show="data.network && data.network !== 'everpay'"
         v-model="data.amount">
       </section-amount>
     </el-collapse-transition>

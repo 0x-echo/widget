@@ -69,6 +69,10 @@ const useStore = defineStore('global', {
 
     tip_amount: 0,
     tip_network: '',
+    tip: {
+      availableTokens: []
+    },
+
     currency:  {
       ethereum: {
         symbol: 'ETH',
