@@ -16,6 +16,7 @@
           v-for="item in list"
           :key="item.value"
           :active="item.value === activeOption"
+          :badge="item.badge"
           :icon="item.icon"
           :label="item.label"
           @click="changeOption(item)">
@@ -39,15 +40,17 @@
 import { ElButton } from 'element-plus'
 import SectionHeader from './section-header'
 import useChain from '@/compositions/chain'
+import EverPay from 'everpay'
 
 import ethLogo from '~~/assets/chains/ethereum.png'
 import polygonLogo from '~~/assets/chains/polygon.png'
 import opLogo from '~~/assets/chains/optimism.svg'
 
-import useStore from '~~/store';
+import useStore from '~~/store'
 
 const { logos } = useChain()
 const store = useStore()
+const everpay = new EverPay()
 
 const props = defineProps({
   modelValue: {
@@ -68,15 +71,43 @@ const activeOption = computed({
   }
 })
 
-const changeOption = (item) => {
+const changeOption = async (item) => {
   activeOption.value = item.value
   store.setTipNetwork(item.value)
+
+  if (item.value === 'everpay') {
+    store.setData('tip', {
+      onFetchingEverPay: true
+    })
+    try {
+      const info = await everpay.info()
+      const balances = await everpay.balances({
+        chainType: 'ethereum',
+        account: store.address
+      })
+      const finalList = balances.filter(one => one.balance !== '0')
+      store.setData('tip', { availableTokens: finalList })
+    } catch (e) {
+     
+    } finally {
+      store.setData('tip', {
+        onFetchingEverPay: false
+      })
+    }
+  } else {
+    store.setData('tip', { availableTokens: [] })
+  }
 }
 
 const list = [{
   label: 'Ethereum',
   icon: logos['EVM/1'],
   value: 'ethereum'
+}, {
+  badge: 'no gas',
+  label: 'everPay',
+  icon: 'https://app.everpay.io/favicon.png',
+  value: 'everpay'
 }, {
   label: 'Polygon',
   icon: logos['EVM/137'],
@@ -122,7 +153,7 @@ const handleScroll = (el) => {
   &__content-wrapper {
     display: flex;
     overflow-x: auto;
-    padding: 2px;
+    padding: 7px 2px 2px;
     margin: 0 -2px;
     
     &::-webkit-scrollbar {

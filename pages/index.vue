@@ -112,6 +112,8 @@ import useReceiver from '~~/compositions/receiver'
 import useSign from '~~/compositions/sign'
 import useWidgetConfig from '~~/compositions/widget-config'
 
+import EverPay from 'everpay'
+
 // whether login on this page or not
 let loginOnCurrentPage = false
 
@@ -617,7 +619,104 @@ const sendTip = async ({ currentProvider, account, chainId }) => {
 }
 
 let checkTipInterval = null
-const doTipLogin = async () => {
+const doTipLogin = async (data) => {
+  if (store.tip_network === 'everpay') {
+    const network = window.ethereum.networkVersion
+    if (network.toString() !== '1') {
+      ElMessage.error({
+        message: 'Only Ethereum is supported'
+      })
+      return
+    }
+    const accounts = await ethereum.request({ method: 'eth_accounts' })
+    if (!accounts.length) {
+      ElMessage.error({
+        message: 'No wallet is selected'
+      })
+      return
+    }
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = provider.getSigner()
+    const everpay = new EverPay({
+      account: window.ethereum.selectedAddress,
+      chainType: 'ethereum',
+      ethConnectedSigner: signer
+    })
+
+    const toAddress = store.receiver.address
+
+    store.setStatus({
+      onTransactionProcessing: true
+    })
+    $bus.emit('show-connect-loading', 'Please confirm the transaction...')
+
+    const tipData = {
+      type: 'tip',
+      target_uri: TARGET_URI,
+      protocol_version: common.PROTOCOL_VERSION,
+      id: uuidv4(),
+      meta: {
+        status: 'success',
+        from_address: accounts[0],
+        to_address: toAddress,
+        value: data.everpayAmount,
+        token: data.everpayToken,
+        chain: 'ethereum',
+        network: 'everpay'
+      }
+    }
+
+    await submitTip(tipData)
+
+    try {
+      const rs = await everpay.transfer({
+      tag: data.everpayToken,
+      amount: data.everpayAmount,
+      to: toAddress,
+      data: {
+        app: 'ECHO',
+        website: 'https://0xecho.com',
+        target_uri: config.target_uri
+      }
+    })
+
+    if (rs.status !== 'ok') {
+      ElMessage.error({
+        message: rs.status
+      })
+      return
+    }
+
+   
+    $bus.emit('hide-connect-loading')
+      ElMessage.success({
+        message: 'Thank you!'
+      })
+      store.setStatus({
+        onTransactionProcessing: false
+      })
+      showConfetti()
+      tipDialogVisible.value = false
+      connectDialogVisible.value = false
+
+      tipData.meta.tx_hash = rs.everHash
+      await submitTip(tipData)
+      await getTips()
+    } catch (e) {
+      console.log(e)
+      ElMessage.error({
+        message: e.message
+      })
+      return
+    } finally {
+      store.setStatus({
+        onTransactionProcessing: false
+      })
+      $bus.emit('hide-connect-loading')
+    }
+    return
+  }
   let currentProvider
   let tipNetworkId
   if (store.wallet.loginApp === 'metamask') {
@@ -1050,6 +1149,13 @@ const dislikeComment = async (data) => {
 const tipDialogVisible = ref(false)
 
 const tip = async () => {
+  if (!config.receiver) {
+    ElMessage.error({
+      message: 'Tip receiver is not specified.'
+    })
+    return
+  }
+
   try {
     beforePost()
     store.setWallet({

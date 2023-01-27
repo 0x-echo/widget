@@ -31,6 +31,7 @@
     "element-plus": "^2.2.13",
     "elliptic": "^6.5.4",
     "ethers": "^5.6.6",
+    "everpay": "^0.6.0",
     "highlight.js": "^11.6.0",
     "jump.js": "^1.0.2",
     "linkify-html": "^3.0.5",
