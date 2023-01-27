@@ -19,7 +19,7 @@
           <div
             class="section-everpay-token__item"
             :class="{
-              'active': token.chainType === activeToken
+              'active': token.tag === activeToken
             }"
             v-for="token in store.tip.availableTokens" 
             :key="token.tag"
@@ -38,7 +38,18 @@
         <div 
           class="section-everpay-token__tip"
           v-if="!store.tip.onFetchingEverPay && !store.tip.availableTokens.length">
-          No Available Everpay Assets 
+          No Available Assets. 
+          <a 
+            class="section-everpay-token__tip-link"
+            href="https://app.everpay.io/" 
+            target="_blank">
+            <span>
+              Deposit
+            </span>
+            <i 
+              class="ri-arrow-right-up-line">
+            </i>
+        </a>
         </div>
       </div>
     </section>
@@ -63,7 +74,7 @@
           @blur="onBlurAmountInput" />
           
         <span>
-          {{ store.tip.availableTokens.length ? store.tip.availableTokens.filter(item => { return item.chainType === activeToken })[0].symbol : '' }}
+          {{ store.tip.availableTokens.length ? store.tip.availableTokens.filter(item => { return item.tag === activeToken })[0].symbol : '' }}
         </span>
       </div>
     </section>
@@ -111,7 +122,7 @@ const activeToken = computed({
 })
 
 const changeToken = (token) => {
-  activeToken.value = token.chainType
+  activeToken.value = token.tag
 }
 
 const onChangeAmountInput = (value) => {
@@ -156,6 +167,8 @@ const onBlurAmountInput = (e) => {
   
   &__item-logo {
     width: 24px;
+    border-radius: 50%;
+    background: #fff;
     
     + .section-everpay-token__item-label {
       margin-left: 10px;
@@ -170,6 +183,15 @@ const onBlurAmountInput = (e) => {
     font-size: 12px;
     text-align: center;
     color: var(--text-color-secondary);
+  }
+
+  &__tip-link {
+    display: inline-flex;
+    align-items: center;
+
+    i {
+      margin-left: 3px;
+    }
   }
 }
 

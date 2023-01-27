@@ -105,7 +105,7 @@ const list = [{
   value: 'ethereum'
 }, {
   badge: 'no gas',
-  label: 'everpay',
+  label: 'everPay',
   icon: 'https://app.everpay.io/favicon.png',
   value: 'everpay'
 }, {
