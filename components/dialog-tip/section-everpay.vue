@@ -30,7 +30,7 @@
               
             <span
               class="section-everpay-token__item-label">
-              {{ (token.balance * 1).toFixed(2) }} {{ token.symbol }}
+              {{ convert(token.balance) }} {{ token.symbol }}
             </span>
           </div>
         </div>
@@ -88,6 +88,17 @@ import SectionHeader from './section-header'
 import useStore from '~~/store'
 
 const store = useStore()
+
+const convert = (balance) => {
+  if (!balance) {
+    return '0'
+  }
+  let val = (balance * 1).toFixed(2).toString().replace('.00', '')
+  if (val[val.length - 1] === '0' && val.includes('.')) {
+    val = val.slice(0, val.length - 1)
+  }
+  return val
+}
 
 const props = defineProps({
   amount: {
