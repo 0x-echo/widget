@@ -30,7 +30,7 @@
               
             <span
               class="section-everpay-token__item-label">
-              {{ (token.balance * 1).toFixed(6) }} {{ token.symbol }}
+              {{ (token.balance * 1).toFixed(2) }} {{ token.symbol }}
             </span>
           </div>
         </div>
@@ -131,7 +131,7 @@ const onBlurAmountInput = (e) => {
 .section-everpay-token {
   &__list {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 15px;
   }
   
@@ -205,6 +205,14 @@ const onBlurAmountInput = (e) => {
 }
 
 @media screen and (max-width: #{$tablet-width - 1px}) {
+  .section-everpay-token {
+    &__list {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+
+@media screen and (max-width: #{$mobile-width - 1px}) {
   .section-everpay-token {
     &__list {
       grid-template-columns: 1fr;
