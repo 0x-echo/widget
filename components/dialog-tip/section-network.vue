@@ -37,7 +37,7 @@
 </template>
 
 <script setup>
-import { ElButton } from 'element-plus'
+import { ElButton, ElMessage } from 'element-plus'
 import SectionHeader from './section-header'
 import useChain from '@/compositions/chain'
 import EverPay from 'everpay'
@@ -80,7 +80,6 @@ const changeOption = async (item) => {
       onFetchingEverPay: true
     })
     try {
-      const info = await everpay.info()
       const balances = await everpay.balances({
         chainType: 'ethereum',
         account: store.address
@@ -88,7 +87,7 @@ const changeOption = async (item) => {
       const finalList = balances.filter(one => one.balance !== '0')
       store.setData('tip', { availableTokens: finalList })
     } catch (e) {
-     
+     ElMessage.error('Fail to get everPay balances. Please try again later.')
     } finally {
       store.setData('tip', {
         onFetchingEverPay: false

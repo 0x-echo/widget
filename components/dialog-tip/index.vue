@@ -147,7 +147,7 @@ const goNext = () => {
   if (data.network === 'everpay') {
     const tokens = store.tip.availableTokens
     const matched = tokens.find(t => t.tag === data.everpayToken)
-    console.log('matched', matched)
+
     if (!matched) {
       ElMessage.error({
         message: 'Sorry, something went wrong.'
@@ -156,7 +156,7 @@ const goNext = () => {
     }
     if (data.everpayAmount * 1 > matched.balance * 1) {
       ElMessage.error({
-        message: 'insufficent balance'
+        message: `Insufficent balance. Max: ${matched.balance}`
       })
       return
     }
