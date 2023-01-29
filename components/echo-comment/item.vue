@@ -40,7 +40,7 @@
             </div>
               
             <div
-              class="comment-item__meta">
+              class="echo-comment-item__meta">
               <timeago 
                 :datetime="data.posted_at" 
                 :title="$formatDate(data.posted_at)" />
