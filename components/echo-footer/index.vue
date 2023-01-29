@@ -10,7 +10,7 @@
         class="echo-footer__link"
         href="https://0xecho.com/"
         target="_blank">
-        <template v-if="!minimal">Powered by </template>ECHO 
+        <span class="echo-footer__powerby-label" v-if="!minimal">Powered by </span>ECHO 
         <span class="echo-footer__beta-tag">beta</span> 
       </a>
     </div>
@@ -18,15 +18,15 @@
     <div
       class="echo-footer__right">
       <a 
-        class="echo-footer__link"
+        class="echo-footer__link echo-footer__privacy-link"
         v-if="!minimal"
         href="https://0xecho.com/privacy"
         target="_blank">
-        Privacy Policy
+        Privacy
       </a>
       
       <el-popover
-        ref="settingsPopover"
+        ref="userMenuRef"
         v-if="hasLogined || minimal"
         :placement="minimal ? 'top' : 'top-end'"
         trigger="click"
@@ -43,18 +43,13 @@
         <template 
           #default>
           <menu-item
-            v-if="minimal"
-            icon="ri-chat-private-line"
-            is-link
-            label="Privacy Policy"
-            url="https://0xecho.com/privacy/">
-          </menu-item>
-          
-          <menu-item
-            v-if="hasLogined"
-            icon="ri-logout-circle-r-line"
-            label="Logout"
-            @on-click="onClickLogout">
+            v-for="item in userMenu"
+            :key="item.value"
+            :icon="item.icon"
+            :is-link="item.isLink"
+            :label="item.label"
+            :url="item.url"
+            @on-click="onClickUserMenu(item)">
           </menu-item>
         </template>
       </el-popover>
@@ -81,13 +76,47 @@ const props = defineProps({
 })
 
 const emits = defineEmits([
+  'refresh-profile',
   'logout'
 ])
 
-const settingsPopover = ref(null)
-const onClickLogout = () => {
-  settingsPopover.value.hide()
-  emits('logout')
+const userMenuRef = ref(null)
+
+const userMenu = computed(() => {
+  let list = [{
+    icon: 'ri-refresh-line',
+    label: 'Refresh profile',
+    value: 'refresh-profile'
+  }, {
+    icon: 'ri-logout-circle-r-line',
+    label: 'Logout',
+    value: 'logout'
+  }, {
+    icon: 'ri-information-line',
+    isLink: true,
+    label: 'About ECHO',
+    value: 'about-echo',
+    url: 'https://0xecho.com/'
+  }, {
+    icon: 'ri-chat-private-line',
+    isLink: true,
+    label: 'Privacy Policy',
+    value: 'privacy-policy',
+    url: 'https://0xecho.com/privacy/'
+  }]
+  
+  if (!hasLogined.value) {
+    list.splice(0, 2)
+  }
+  
+  return list
+})
+
+const onClickUserMenu = (item) => {
+  if (!item.isLink) {
+    emits(item.value)
+  }
+  userMenuRef.value.hide()
 }
 </script>
 
@@ -196,6 +225,8 @@ export default {
       display: block;
     }
     
+    &__privacy-link,
+    &__powerby-label,
     &__gitcoin {
       display: none;
     }
