@@ -190,7 +190,7 @@ export default {
   }
 }
 
-@media screen and (max-width: $small-mobile-width - 1px) {
+@media screen and (max-width: #{$small-mobile-width - 1px}) {
   .echo-footer {
     &__settings {
       display: block;
