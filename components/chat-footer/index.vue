@@ -10,9 +10,37 @@
         class="chat-footer__link"
         href="https://0xecho.com/"
         target="_blank">
-        <span class="chat-footer__powerby-label" v-if="!minimal">Powered by </span>ECHO 
-        <span class="chat-footer__beta-tag">beta</span> 
+        <span 
+          class="chat-footer__powerby-label" 
+          v-if="!minimal">
+          Powered by
+        </span>
+        
+        <span
+          style="font-weight: 500;">
+          ECHO
+        </span>
       </a>
+      
+      <span
+        class="chat-footer__link-divider"
+        v-if="/mirror/.test(route.query.target_uri)">
+        ·
+      </span>
+      
+      <a
+        class="chat-footer__mirror-link"
+        v-if="/mirror/.test(route.query.target_uri)"
+        href="https://mirror.xyz/0x25f4400Bb5AFa58784F418105EAC61A3cED811Df/7EMVFR066Fq_sOhh6b2eQHkRUH7Dmw7HZy8yppKcrv0"
+        target="_blank">
+        <span>
+          Embed ECHO Widget to My Mirror Entry 
+        </span>
+          
+        <i
+          class="ri-arrow-right-up-line">
+        </i>
+      </a> 
     </div>
     
     <div
@@ -67,6 +95,7 @@ const setDarkMode = function () {
 
 const store = useStore()
 const hasLogined = computed(() => store.hasLogined)
+const route = useRoute()
 
 const props = defineProps({
   minimal: {
@@ -150,6 +179,15 @@ export default {
   &__left {
     display: flex;
     align-items: center;
+  }
+  
+  &__mirror-link {
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  &__link-divider {
+    margin: 0 5px;
   }
   
   &__beta-tag {
