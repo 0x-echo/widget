@@ -54,8 +54,6 @@
 </template>
 
 <script setup>
-import BaseTabsSkeleton from './skeleton'
-
 const props = defineProps({
   modelValue: {
     type: String
