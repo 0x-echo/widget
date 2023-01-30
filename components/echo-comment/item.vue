@@ -317,6 +317,7 @@ export default {
 .echo-comment-item {
   position: relative;
   display: flex;
+  margin-bottom: 20px;
   
   &.has-replies {
     &::before {
