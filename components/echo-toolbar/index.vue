@@ -42,13 +42,13 @@
             #reference>
             <div
               class="echo-toolbar__user">
-              <echo-avatar
+              <base-avatar
                 class="echo-toolbar__user-wallet-icon"
                 :alt="loginInfo.screen_name"
                 size="small"
                 :hash="loginInfo.address"
                 :src="loginInfo.avatar || ''">
-              </echo-avatar>
+              </base-avatar>
              
               <span
                 class="echo-toolbar__user-name">
@@ -63,7 +63,7 @@
           
           <template 
             #default>
-            <menu-item
+            <base-menu-item
               v-for="item in userMenu"
               :key="item.value"
               :icon="item.icon"
@@ -71,7 +71,7 @@
               :label="item.label"
               :url="item.url"
               @on-click="onClickUserMenu(item)">
-            </menu-item>
+            </base-menu-item>
           </template>
         </el-popover>
       </template>

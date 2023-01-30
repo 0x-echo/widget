@@ -14,12 +14,12 @@
           Avatar is synced from <br />your .bit or .eth records.
         </template>
         
-        <echo-avatar
+        <base-avatar
           class="echo-editor__avatar"
           :alt="store.screen_name"
           :hash="store.address"
           :src="store.avatar || ''">
-        </echo-avatar>
+        </base-avatar>
       </el-tooltip>
       
       <div
@@ -64,9 +64,9 @@
               @click.stop="$emit('reply')">
               <template
                 #loading>
-                <echo-loader-spin
+                <base-loader-spin
                   class="echo-editor__send-button-loader">
-                </echo-loader-spin>
+                </base-loader-spin>
               </template>
               
               Send

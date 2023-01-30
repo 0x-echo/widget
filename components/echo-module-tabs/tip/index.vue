@@ -2,7 +2,7 @@
   <echo-module-tabs-template
     v-bind="$attrs"
     :show-list="data.length > 0">
-    <user-item
+    <base-user-item
       v-for="item in data"
       :key="item.id"
       :avatar="item.author.avatar || ''"
@@ -14,7 +14,7 @@
         <!-- <Timeago :datetime="item.created_at" :title="$formatDate(data.created_at)" /> -->
         <!-- x {{ item.times }} -->
       <!-- </template> -->
-    </user-item>
+    </base-user-item>
   </echo-module-tabs-template>
 </template>
 

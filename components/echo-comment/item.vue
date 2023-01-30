@@ -6,13 +6,13 @@
       class="echo-comment-item__avatar"
       @mouseenter="moreMenuVisible = true"
       @mouseleave="moreMenuVisible = false">
-      <echo-avatar
+      <base-avatar
         class="echo-comment-item__avatar-image"
         :alt="data.author.screen_name"
         :hash="data.author.address"
         :size="avatarSize"
         :src="data.author.avatar || ''">
-      </echo-avatar>
+      </base-avatar>
     </div>
     
     <div
@@ -32,11 +32,11 @@
                 {{ $formatScreenName(data.author.screen_name) }}
               </span>
               
-              <echo-tag
+              <base-tag
                 v-if="data.is_author"
                 class="echo-comment-item__tag">
                 Author
-              </echo-tag>
+              </base-tag>
             </div>
               
             <div
@@ -84,7 +84,7 @@
             
             <template 
               #default>
-              <menu-item
+              <base-menu-item
                 v-for="item in moreMenu"
                 :key="item.value"
                 :danger="item.danger"
@@ -93,7 +93,7 @@
                 :label="item.label"
                 :url="item.url"
                 @on-click="onClickMenu(item.value)">
-              </menu-item>
+              </base-menu-item>
             </template>
           </el-popover>
         </div>

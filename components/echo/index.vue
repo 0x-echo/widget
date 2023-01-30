@@ -41,11 +41,11 @@
         @load-more="loadMore">
       </echo-module-tabs>
 
-      <echo-footer
+      <base-footer
         v-if="!loading"
         @logout="logout"
         @refresh-profile="refreshProfile">
-      </echo-footer>
+      </base-footer>
     </template>
     
     <echo-toolbar
@@ -71,23 +71,23 @@
       @tip="tip">
     </echo-module-sole>
     
-    <dialog-connect
+    <echo-dialog-connect
       v-model="connectDialogVisible"
       @connect-wallet="connectWallet">
-    </dialog-connect>
+    </echo-dialog-connect>
     
-    <dialog-tip
+    <echo-dialog-tip
       v-model="tipDialogVisible"
       @tip-reconnect="tipLogin"
       @do-tip="doTipLogin">
-    </dialog-tip>
+    </echo-dialog-tip>
     
-    <dialog-report
+    <echo-dialog-report
       v-model="reportDialogVisible"
       @submit="report">
-    </dialog-report>
+    </echo-dialog-report>
     
-    <dialog-confirm
+    <base-dialog-confirm
       confirm-button-text="Delete"
       confirm-button-type="danger"
       title="Delete Comment?"
@@ -101,7 +101,7 @@
       <p>
         The post cannot be deleted after it goes on-chain in about 5 minutes.
       </p>
-    </dialog-confirm>
+    </base-dialog-confirm>
   </div>
 </template>
 

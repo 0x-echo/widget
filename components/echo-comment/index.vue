@@ -38,8 +38,8 @@
       <div
         class="echo-comment__bottom"
         v-if="store.comment.isLoadingMore">
-        <echo-loader-pulse>
-        </echo-loader-pulse>
+        <base-loader-pulse>
+        </base-loader-pulse>
       </div>
     </div>
   </echo-comment-skeleton>

@@ -16,7 +16,7 @@
     position="top">
   </echo-editor>
   
-  <echo-tabs
+  <base-tabs
     v-model="activeTab"
     :loading="loading"
     :tabs="tabs"
@@ -26,18 +26,18 @@
       #header-right>
       <div
         class="echo-module-tabs__sort">
-        <echo-sort
+        <base-sort
           v-if="activeTab === 'comment'"
           v-model="currentSort">
-        </echo-sort>
+        </base-sort>
       </div>
     </template>
     
-    <echo-tab-pane
+    <base-tab-pane
       value="comment">
-      <echo-empty
+      <base-empty
         v-if="!loading && !data.comments.length">
-      </echo-empty>
+      </base-empty>
       
       <echo-comment
         v-else
@@ -45,17 +45,17 @@
         :data="data.comments"
         :loading="loading">
       </echo-comment>
-    </echo-tab-pane>
+    </base-tab-pane>
     
-    <echo-tab-pane
+    <base-tab-pane
       value="like">
-      <echo-empty
+      <base-empty
         v-if="!loading && !data.likes.length"
         button-icon="ri-thumb-up-line"
         button-text="Be the First Liker"
         message=""
         @on-click="$emit('like')">
-      </echo-empty>
+      </base-empty>
       
       <echo-module-tabs-vote
         v-else
@@ -68,13 +68,13 @@
         :power-value="counts.like_power"
         tip="Estimated total value of all liking address">
       </echo-module-tabs-vote>
-    </echo-tab-pane>
+    </base-tab-pane>
     
-    <echo-tab-pane
+    <base-tab-pane
       value="dislike">
-      <echo-empty
+      <base-empty
         v-if="!loading && !data.dislikes.length">
-      </echo-empty>
+      </base-empty>
       
       <echo-module-tabs-vote
         v-else
@@ -85,25 +85,25 @@
         :power-value="counts.dislike_power"
         tip="Estimated total value of all disiking address">
       </echo-module-tabs-vote>
-    </echo-tab-pane>
+    </base-tab-pane>
     
-    <echo-tab-pane
+    <base-tab-pane
       value="tip">
-      <echo-empty
+      <base-empty
         v-if="!loading && !data.tips.length"
         button-icon="ri-hand-heart-line"
         button-text="Be the First Supporter"
         message=""
         @on-click="$emit('tip')">
-      </echo-empty>
+      </base-empty>
       
       <echo-module-tabs-tip
         v-else
         :data="data.tips"
         :loading="loading">
       </echo-module-tabs-tip>
-    </echo-tab-pane>
-  </echo-tabs>
+    </base-tab-pane>
+  </base-tabs>
 </template>
 
 <script setup>

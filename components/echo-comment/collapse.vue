@@ -8,7 +8,7 @@
     
     <template
       v-if="hasAvatar">
-      <echo-avatar
+      <base-avatar
         class="echo-comment-collapse__avatar"
         v-for="item in data"
         :key="item.id"
@@ -16,7 +16,7 @@
         :hash="item.author.address"
         :size="24"
         :src="item.avatar || ''">
-      </echo-avatar>
+      </base-avatar>
 
       <div
         class="echo-comment-collapse__count"

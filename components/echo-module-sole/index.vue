@@ -7,11 +7,11 @@
         class="echo-module-sole__user">
         <div
           class="echo-module-sole__avatar">
-          <echo-avatar
+          <base-avatar
             :alt="store.receiver.name"
             :size="80"
             :src="store.receiver.avatar || ''">
-          </echo-avatar>
+          </base-avatar>
         </div>
         
         <div
@@ -82,20 +82,20 @@
           <el-tooltip
             :content="$formatScreenName(item.author.screen_name) + ((item.author.address === store.address) ? ' (you)' : '')"
             placement="bottom">
-            <echo-avatar
+            <base-avatar
               class="echo-module-sole__item-avatar"
               :hash="item.author.address"
               :size="36"
               :src="item.author.avatar || ''">
-            </echo-avatar>
+            </base-avatar>
           </el-tooltip>
         </div>
       </div>
       
-      <echo-footer
+      <base-footer
         v-bind="$attrs"
         minimal>
-      </echo-footer>
+      </base-footer>
     </div>
   </echo-module-sole-skeleton>
 </template>
