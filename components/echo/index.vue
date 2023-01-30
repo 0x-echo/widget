@@ -166,6 +166,7 @@ const GetWalletConnectProvider = () => import('@walletconnect/web3-provider/dist
 
 const { $bus, $showLoading } = useNuxtApp()
 const store = useStore()
+const route = useRoute()
 
 const { config } = useWidgetConfig(store)
 
@@ -402,7 +403,17 @@ const handleStorageChange = () => {
   onHandlingStorageChange = false
 }
 
+const handleBodyScroll = async () => {
+  if (!route.query.height) {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+      await loadMore(store.layout.currentTab)
+    }
+  }
+}
+
 onMounted(async () => {
+  window.addEventListener('scroll', handleBodyScroll);
+  
   // just for arconnect authorization
   if (config.action === 'authorize_arconnect') {
     await arconnectLogin()
@@ -463,6 +474,8 @@ const handleScroll = async (e) => {
 };
 
 onBeforeUnmount(() => {
+  window.removeEventListener('scroll', handleBodyScroll);
+  
   checkInterval && clearInterval(checkInterval)
   if (props.modules.includes('comment')) {
     // window.removeEventListener('storage', handleStorageChange)
