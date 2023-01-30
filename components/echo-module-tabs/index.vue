@@ -136,6 +136,7 @@ const props = defineProps({
 
 const emits = defineEmits([
   'like',
+  'load-more',
   'on-change-tab',
   'sort-change',
   'tip'
