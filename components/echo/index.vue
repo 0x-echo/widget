@@ -38,8 +38,7 @@
         @sort-change="sortChange"
         @tip="tip"
         @load-children="loadChildren"
-        @load-more-comments="loadMoreComments"
-        @load-more-likes="loadMoreLikes">
+        @load-more="loadMore">
       </echo-module-tabs>
 
       <echo-footer
@@ -135,26 +134,6 @@ const props = defineProps({
   }
 })
 
-// TODO - @airyland 配置的处理
-// const modulesOrder = {
-// 	comment: 1,
-// 	like: 2,
-// 	'like-lite': 3,
-// 	dislike: 4,
-// 	'dislike-lite': 5,
-// 	tip: 6
-// }
-
-// const currentModules = computed(() => {
-//   props.modules.sort((a, b) => {
-// 		return modulesOrder[a] > modulesOrder[b] ? 1 : -1
-// 	})
-// })
-
-// const theme = computed(() => {
-  
-// })
-
 import configParser from '@/libs/config-parser'
 import { v4 as uuidv4 } from 'uuid'
 import base58 from 'bs58'
@@ -196,6 +175,21 @@ if (!props.modules || !props.modules.length) {
 store.setWidgetConfig(config)
 
 const { showConfetti } = useConfetti()
+
+const modulesOrder = {
+	comment: 1,
+	like: 2,
+	'like-lite': 3,
+	dislike: 4,
+	'dislike-lite': 5,
+	tip: 6
+}
+
+const currentModules = computed(() => {
+  props.modules.sort((a, b) => {
+		return modulesOrder[a] > modulesOrder[b] ? 1 : -1
+	})
+})
 
 let currentTab = props.modules[0]
 store.setLayout({
@@ -364,8 +358,16 @@ const beforePost = () => {
   // }
 }
 
+const loadMore = async (activeTab) => {
+  if (activeTab === 'comment') {
+    await loadMoreComments()
+  } else if (activeTab === 'like') {
+    await loadMoreLikes()
+  }
+}
+
 const loadMoreComments = async () => {
-  if (!onFetch) {
+  if (!onFetch && store.comment.hasMore) {
     await getList(++page)
   }
 }

@@ -37,18 +37,8 @@
       
       <div
         class="echo-comment__bottom"
-        v-if="(store.comment.hasMore && !store.comment.isLoadingMore) || store.comment.isLoadingMore">
-        <el-button
-          v-if="store.comment.hasMore && !store.comment.isLoadingMore"
-          class="echo-comment__more-button"
-          size="small"
-          type="info"
-          @click="$emit('load-more-comments')">
-          Load More
-        </el-button>
-        
-        <echo-pulse-loader
-          v-if="store.comment.isLoadingMore">
+        v-if="store.comment.isLoadingMore">
+        <echo-pulse-loader>
         </echo-pulse-loader>
       </div>
     </div>
@@ -80,7 +70,6 @@ const props = defineProps({
 })
 
 const emits = defineEmits([
-  'load-more-comments',
   'refresh-comments',
   'update:modelValue'
 ])
@@ -126,18 +115,6 @@ export default {
     align-items: center;
     justify-content: center;
     margin: 10px 0 28px;
-  }
-  
-  &__more-button {
-    .dark & {
-      &.active,
-      &:hover,
-      &:focus,
-      &:focus:not(.el-button:hover) {
-        color: white;
-        background-clip: padding-box;
-      }
-    }
   }
 }
 </style>

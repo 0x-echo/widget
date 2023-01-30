@@ -20,6 +20,7 @@
     v-model="activeTab"
     :loading="loading"
     :tabs="tabs"
+    @load-more="$emit('load-more', activeTab)"
     @on-change-tab="$emit('on-change-tab', activeTab)">
     <template
       #header-right>
@@ -65,8 +66,7 @@
         module="like"
         power-label="Liking Power"
         :power-value="counts.like_power"
-        tip="Estimated total value of all liking address"
-        @load-more="$emit('load-more-likes')">
+        tip="Estimated total value of all liking address">
       </echo-module-tabs-vote>
     </echo-tab-pane>
     

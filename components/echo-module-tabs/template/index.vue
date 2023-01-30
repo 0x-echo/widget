@@ -39,18 +39,8 @@
       
       <div
         class="echo-module-tabs-template__bottom"
-        v-if="hasMore">
-        <el-button
-          class="echo-module-tabs-template__more-button"
-          v-if="!isLoadingMore"
-          size="small"
-          type="info"
-          @click="$emit('load-more')">
-          Load More
-        </el-button>
-        
-        <echo-pulse-loader
-          v-if="isLoadingMore">
+        v-if="isLoadingMore">
+        <echo-pulse-loader>
         </echo-pulse-loader>
       </div>
     </div>
@@ -135,18 +125,6 @@ watch(currentTab, (newVal, oldVal) => {
     align-items: center;
     justify-content: center;
     margin: 28px 0;
-  }
-  
-  &__more-button {
-    .dark & {
-      &.active,
-      &:hover,
-      &:focus,
-      &:focus:not(.el-button:hover) {
-        color: white;
-        background-clip: padding-box;
-      }
-    }
   }
 }
 
