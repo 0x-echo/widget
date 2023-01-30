@@ -13,7 +13,8 @@
     custom-class="echo-widget__editor"
     :disabled-tooltip="false"
     :loading="loading"
-    position="top">
+    :submit-loading="status.onSubmitingComment"
+    :user="store">
   </base-editor>
   
   <base-tabs
@@ -111,6 +112,7 @@ import useStore from '~~/store'
 
 const store = useStore()
 const counts = computed(() => store.counts)
+const status = computed(() => store.status)
 
 const props = defineProps({
   data: {

@@ -1371,20 +1371,22 @@ const submitTip = async (data) => {
   }
 }
 
-const doReply = async (content, parentId, directParentId, successCallback, type = 'comment') => {
+const doReply = async (content, directParentId, successCallback, type = 'comment') => {
    try {
     beforePost()
-
-    if (!parentId) {
+    if (!directParentId) {
       store.setStatus({
-        onSubmitingTargetComment: true
+        onSubmitingComment: true
+      })
+    } else {
+      store.setStatus({
+        onSubmitingReply: true
       })
     }
 
     const body = {
       type,
       target_uri: TARGET_URI,
-      parent_id: parentId,
       direct_parent_id: directParentId,
       content: parseContent(content, false),
       protocol_version: common.PROTOCOL_VERSION,
@@ -1432,9 +1434,15 @@ const doReply = async (content, parentId, directParentId, successCallback, type 
       })
     }
   } finally {
-    store.setStatus({
-      onSubmitingTargetComment: false
-    })
+    if (!directParentId) {
+      store.setStatus({
+        onSubmitingComment: false
+      })
+    } else {
+      store.setStatus({
+        onSubmitingReply: false
+      })
+    }
   }
 }
 
@@ -1553,7 +1561,7 @@ const reply = async () => {
     return
   }
 
-  await doReply(message.value, null, null, function () {
+  await doReply(message.value, null, function () {
     message.value = ''
     setDraft(TARGET_URI, '')
     store.setCounts({
@@ -1571,7 +1579,7 @@ const replyComment = async (data) => {
     return
   }
   
-  await doReply(data.message, null, data.data.id, null)
+  await doReply(data.message, data.data.id, null)
   $bus.emit('reset-reply-comment', data.data)
 }
 

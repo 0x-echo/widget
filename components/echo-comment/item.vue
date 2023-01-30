@@ -150,11 +150,12 @@
             v-show="showReply">
             <base-editor
               v-model="message"
-              :is-focused="showReply"
+              :autofocus="showReply"
               :loading="false"
               :placeholder="`Reply to ${ $formatScreenName(data.author.screen_name) }`"
-              position="comment"
-              show-toolbar
+              show-toolbar-on-init
+              :submit-loading="status.onSubmitingReply"
+              :user="store"
               @reply="reply">
             </base-editor>
           </div>
@@ -177,6 +178,7 @@ import { toClipboard } from '@soerenmartius/vue3-clipboard'
 import jump from 'jump.js'
 
 const store = useStore()
+const status = computed(() => store.status)
 const hasLogined = computed(() => store.hasLogined)
 onBeforeUnmount(() => {
   $bus.off('reset-reply-comment')

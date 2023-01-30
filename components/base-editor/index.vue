@@ -16,9 +16,9 @@
         
         <base-avatar
           class="base-editor__avatar"
-          :alt="store.screen_name"
-          :hash="store.address"
-          :src="store.avatar || ''">
+          :alt="user.screen_name"
+          :hash="user.address"
+          :src="user.avatar || ''">
         </base-avatar>
       </el-tooltip>
       
@@ -34,15 +34,15 @@
           :placeholder="placeholder"
           resize="none"
           type="textarea"
-          @focus="showToolbarValue = true"
-          @keydown.enter="enter">
+          @focus="showToolbar = true"
+          @keydown.enter="submit">
         </el-input>
         
         <transition
           name="slide-down">
           <div
             class="base-editor__toolbar"
-            v-show="showToolbarValue">
+            v-show="showToolbar">
             <a 
               class="base-editor__markdown-info"
               href="https://guides.github.com/features/mastering-markdown/"
@@ -55,10 +55,11 @@
                 Styling with Markdown is supported
               </span>
             </a>
+            {{ submitLoading }}
             
             <el-button
               class="base-editor__send-button"
-              :loading="position === 'comment' ? false : status.onSubmitingTargetComment"
+              :loading="submitLoading"
               size="large"
               type="primary"
               @click.stop="$emit('reply')">
@@ -80,13 +81,12 @@
 
 <script setup>
 import { ElButton, ElInput, ElTooltip } from 'element-plus'
-import useStore from '~~/store'
-
-const store = useStore()
-const avatar = computed(() => store.avatar)
-const status = computed(() => store.status)
 
 const props = defineProps({
+  autofocus: {
+    type: Boolean,
+    default: false
+  },
   customClass: {
     type: String
   },
@@ -94,11 +94,11 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
-  showToolbar: {
+  showToolbarOnInit: {
     type: Boolean,
     default: false
   },
-  isFocused: {
+  submitLoading: {
     type: Boolean,
     default: false
   },
@@ -106,8 +106,8 @@ const props = defineProps({
     type: String,
     default: 'Write a comment...'
   },
-  position: {
-    type: String
+  user: {
+    type: Object
   }
 })
 
@@ -115,26 +115,26 @@ const emits = defineEmits([
   'reply'
 ])
 
-const enter = (e) => {
-  if (e.metaKey) {
-    emits('reply')
-  }
-}
+let showToolbar = ref(props.showToolbarOnInit)
 
-let showToolbarValue = ref(props.showToolbar)
-
-const replyInput = ref(null)
-const focusInput = () => {
-  replyInput.value.focus()
-}
-
-watch(() => props.isFocused, (val) => {
+watch(() => props.autofocus, (val) => {
   if (val) {
     setTimeout(() => {
       focusInput()
     }, 150)
   }
 })
+
+const replyInput = ref(null)
+const focusInput = () => {
+  replyInput.value.focus()
+}
+
+const submit = (e) => {
+  if (e.metaKey) {
+    emits('reply')
+  }
+}
 </script>
 
 <script>

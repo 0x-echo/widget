@@ -15,7 +15,8 @@ const useStore = defineStore('global', {
 
     status: {
       onTransactionProcessing: false,
-      onSubmitingTargetComment: false
+      onSubmitingComment: false,
+      onSubmitingReply: false
     },
 
     widgetConfig: {
