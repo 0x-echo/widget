@@ -11,7 +11,6 @@
         href="https://0xecho.com/"
         target="_blank">
         <span class="base-footer__powerby-label" v-if="!minimal">Powered by </span>ECHO 
-        <span class="base-footer__beta-tag">beta</span> 
       </a>
     </div>
     
@@ -150,46 +149,6 @@ export default {
   &__left {
     display: flex;
     align-items: center;
-  }
-  
-  &__beta-tag {
-    padding: 2px 4px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    background: var(--echo-color-primary);
-    color: white;
-    line-height: 1;
-    display: inline-block;
-    transform: scale(0.8);
-  }
-  
-  &__gitcoin {
-    display: flex;
-    align-items: center;
-    padding: 3px 5px;
-    margin-left: 5px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 1;
-    background: #15EBB7;
-    color: #16171C;
-    
-    &:hover {
-      background: #14e6b3;
-      color: #16171C;
-    }
-  }
-  
-  &__gitcoin-logo {
-    height: 14px;
-    margin-right: 4px;
-  }
-  
-  &__gitcoin-label {
-    flex-shrink: 0;
   }
   
   &__right {
