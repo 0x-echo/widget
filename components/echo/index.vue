@@ -170,9 +170,9 @@ const route = useRoute()
 
 const { config } = useWidgetConfig(store)
 
-if (!props.modules || !props.modules.length) {
-  location.href = `/404?error=${encodeURIComponent('WRONG WIDGET CONFIGURATION')}`
-}
+// if (!props.modules || !props.modules.length) {
+//   location.href = `/404?error=${encodeURIComponent('WRONG WIDGET CONFIGURATION')}`
+// }
 store.setWidgetConfig(config)
 
 const { showConfetti } = useConfetti()
@@ -187,12 +187,15 @@ const modulesOrder = {
 }
 
 const currentModules = computed(() => {
-  props.modules.sort((a, b) => {
+  const modules = props.modules
+  modules && modules.sort((a, b) => {
 		return modulesOrder[a] > modulesOrder[b] ? 1 : -1
 	})
+  
+  return modules
 })
 
-let currentTab = props.modules[0]
+let currentTab = currentModules.value[0]
 store.setLayout({
   currentTab
 })
@@ -414,6 +417,8 @@ const handleBodyScroll = async () => {
 onMounted(async () => {
   window.addEventListener('scroll', handleBodyScroll);
   
+  const modules = currentModules.value
+  
   // just for arconnect authorization
   if (config.action === 'authorize_arconnect') {
     await arconnectLogin()
@@ -422,7 +427,7 @@ onMounted(async () => {
   
   window.addEventListener('storage', handleStorageChange)
 
-  if (props.modules.includes('comment')) {
+  if (modules.includes('comment')) {
     const draft = getDraft(TARGET_URI)
     if (draft) {
       message.value = draft
@@ -442,7 +447,7 @@ onMounted(async () => {
       } catch (e) {}
     }, CHECK_INTERVAL)
 
-    if (props.modules.includes('comment')) {
+    if (modules.includes('comment')) {
       // window.addEventListener("scroll", handleScroll)
     }
   } else {
@@ -477,7 +482,7 @@ onBeforeUnmount(() => {
   window.removeEventListener('scroll', handleBodyScroll);
   
   checkInterval && clearInterval(checkInterval)
-  if (props.modules.includes('comment')) {
+  if (currentModules.value.includes('comment')) {
     // window.removeEventListener('storage', handleStorageChange)
   }
 })
@@ -1581,7 +1586,7 @@ const refreshComments = async () => {
 }
 
 const widgetType = computed(() => {
-  const modules = props.modules
+  const modules = currentModules.value
   let liteCount = 0
   modules.forEach(item => {
     if (item.endsWith('lite')) {
@@ -1603,16 +1608,17 @@ const widgetType = computed(() => {
 let comments = reactive([])
 
 const init = async () => {
-  const firstModule = props.modules[0]
+  const modules = currentModules.value
+  const firstModule = currentModules.value[0]
   if (firstModule === 'comment') {
     await getList()
-    if (props.modules.includes('like')) {
+    if (modules.includes('like')) {
       await getReactions('like')
     }
-    if (props.modules.includes('dislike')) {
+    if (modules.includes('dislike')) {
       await getReactions('dislike')
     }
-    if (props.modules.includes('tip')) {
+    if (modules.includes('tip')) {
       await getTips()
     }
   }
