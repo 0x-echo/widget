@@ -1,9 +1,9 @@
 <template>
-  <echo-editor-skeleton
+  <base-editor-skeleton
     v-bind="$attrs"
     :class="customClass">
     <div
-      class="echo-editor"
+      class="base-editor"
       :class="customClass">
       <el-tooltip
         :disabled="disabledTooltip"
@@ -15,7 +15,7 @@
         </template>
         
         <base-avatar
-          class="echo-editor__avatar"
+          class="base-editor__avatar"
           :alt="store.screen_name"
           :hash="store.address"
           :src="store.avatar || ''">
@@ -23,9 +23,9 @@
       </el-tooltip>
       
       <div
-        class="echo-editor__box">
+        class="base-editor__box">
         <el-input
-          class="echo-editor__input"
+          class="base-editor__input"
           ref="replyInput"
           v-bind="$attrs"
           :autosize="{
@@ -41,10 +41,10 @@
         <transition
           name="slide-down">
           <div
-            class="echo-editor__toolbar"
+            class="base-editor__toolbar"
             v-show="showToolbarValue">
             <a 
-              class="echo-editor__markdown-info"
+              class="base-editor__markdown-info"
               href="https://guides.github.com/features/mastering-markdown/"
               target="_blank">
               <i
@@ -57,7 +57,7 @@
             </a>
             
             <el-button
-              class="echo-editor__send-button"
+              class="base-editor__send-button"
               :loading="position === 'comment' ? false : status.onSubmitingTargetComment"
               size="large"
               type="primary"
@@ -65,7 +65,7 @@
               <template
                 #loading>
                 <base-loader-spin
-                  class="echo-editor__send-button-loader">
+                  class="base-editor__send-button-loader">
                 </base-loader-spin>
               </template>
               
@@ -75,7 +75,7 @@
         </transition>
       </div>
     </div>
-  </echo-editor-skeleton>
+  </base-editor-skeleton>
 </template>
 
 <script setup>
@@ -144,7 +144,7 @@ export default {
 </script>
 
 <style lang="scss">
-.echo-editor {
+.base-editor {
   display: flex;
   
   &__avatar {
@@ -196,7 +196,7 @@ export default {
 }
 
 @media screen and (max-width: #{$tablet-width - 1px}) {
-  .echo-editor {
+  .base-editor {
     &__avatar {
       display: none;
     }

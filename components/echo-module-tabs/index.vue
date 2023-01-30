@@ -7,14 +7,14 @@
     @tip="$emit('tip')">
   </echo-toolbar>
   
-  <echo-editor
+  <base-editor
     v-if="modules.includes('comment')"
     v-bind="$attrs"
     custom-class="echo-widget__editor"
     :disabled-tooltip="false"
     :loading="loading"
     position="top">
-  </echo-editor>
+  </base-editor>
   
   <base-tabs
     v-model="activeTab"

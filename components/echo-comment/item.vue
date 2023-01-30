@@ -148,7 +148,7 @@
           <div
             class="echo-comment-item__reply"
             v-show="showReply">
-            <echo-editor
+            <base-editor
               v-model="message"
               :is-focused="showReply"
               :loading="false"
@@ -156,7 +156,7 @@
               position="comment"
               show-toolbar
               @reply="reply">
-            </echo-editor>
+            </base-editor>
           </div>
         </el-collapse-transition>
       </div>
@@ -641,7 +641,7 @@ export default {
     }
     
     &__reply {
-      .echo-editor__input {
+      .base-editor__input {
         .el-textarea__inner {
           padding: 8px 12px;
         }

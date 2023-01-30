@@ -1,17 +1,17 @@
 <template>
   <el-skeleton
-    class="echo-editor-skeleton"
+    class="base-editor-skeleton"
     :class="customClass"
     v-bind="$attrs"
     animated>
     <template 
       #template>
       <el-skeleton-item
-        class="echo-editor-skeleton__avatar"
+        class="base-editor-skeleton__avatar"
         variant="circle" />
         
       <el-skeleton-item
-        class="echo-editor-skeleton__input"
+        class="base-editor-skeleton__input"
         variant="rect" />
     </template>
     
@@ -33,7 +33,7 @@ const props = defineProps({
 </script>
 
 <style lang="scss">
-.echo-editor-skeleton {
+.base-editor-skeleton {
   display: flex;
   align-items: center;
   
@@ -49,7 +49,7 @@ const props = defineProps({
 }
 
 @media screen and (max-width: #{$tablet-width - 1px}) {
-  .echo-editor-skeleton {
+  .base-editor-skeleton {
     &__avatar {
       display: none;
     }
