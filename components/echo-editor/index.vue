@@ -64,9 +64,9 @@
               @click.stop="$emit('reply')">
               <template
                 #loading>
-                <echo-loader
+                <echo-loader-spin
                   class="echo-editor__send-button-loader">
-                </echo-loader>
+                </echo-loader-spin>
               </template>
               
               Send

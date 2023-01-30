@@ -1,6 +1,6 @@
 <template>
   <div
-    class="echo-loader"
+    class="echo-loader-spin"
     :style="{
       width: `${size}px`,
       height: `${size}px`
@@ -18,7 +18,7 @@ const props = defineProps({
 </script>
 
 <style lang="scss">
-.echo-loader {
+.echo-loader-spin {
   border-radius: 50%;
   border: 2px solid #fff;
   clip-path: inset(0 0 50% 0);
