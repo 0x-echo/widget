@@ -40,8 +40,8 @@
       <div
         class="echo-module-tabs-template__bottom"
         v-if="isLoadingMore">
-        <echo-pulse-loader>
-        </echo-pulse-loader>
+        <echo-loader-pulse>
+        </echo-loader-pulse>
       </div>
     </div>
   </echo-module-tabs-template-skeleton>
