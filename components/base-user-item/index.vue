@@ -21,14 +21,14 @@
         {{ title }}
       </div>
 
-        <div
-          class="user-item__subtitle"
-          v-if="subtitle || $slots.subtitle">
-          <slot
-            name="subtitle">
-            {{ subtitle }}
-          </slot>
-        </div>
+      <div
+        class="user-item__subtitle"
+        v-if="subtitle || $slots.subtitle">
+        <slot
+          name="subtitle">
+          {{ subtitle }}
+        </slot>
+      </div>
     </div>
   </div>
 </template>
