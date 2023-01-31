@@ -9,9 +9,40 @@
       <a
         class="base-footer__link"
         href="https://0xecho.com/"
-        target="_blank">
-        <span class="base-footer__powerby-label" v-if="!minimal">Powered by </span>ECHO 
+        target="_blank"
+        title="Powered by ECHO">
+        <span 
+          class="base-footer__powerby-label" 
+          v-if="!minimal">
+          Powered by 
+        </span>
+        
+        <strong>
+          ECHO
+        </strong>
       </a>
+      
+      <!-- <template
+        v-if="/mirror/.test(route.query.target_uri)"> -->
+        <span
+          class="base-footer__link-divider">
+          ·
+        </span>
+        
+        <a 
+          class="base-footer__mirror-link"
+          href="https://mirror.xyz/0x25f4400Bb5AFa58784F418105EAC61A3cED811Df/7EMVFR066Fq_sOhh6b2eQHkRUH7Dmw7HZy8yppKcrv0"
+          target="_blank"
+          title="Embed ECHO Widget to My Mirror Entry">
+          <span>
+            Embed ECHO Widget to My Mirror Entry
+          </span>
+          
+          <i
+            class="ri-arrow-right-up-line">
+          </i>
+        </a>
+      <!-- </template> -->
     </div>
     
     <div
@@ -163,6 +194,19 @@ export default {
     & + .base-footer__settings {
       margin-left: 5px;
     }
+    
+    strong {
+      font-weight: 500;
+    }
+  }
+  
+  &__mirror-link {
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  &__link-divider {
+    margin: 0 5px;
   }
   
   &__settings {
