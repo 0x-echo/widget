@@ -11,7 +11,7 @@
         class="base-sort">
         <span
           class="base-sort__label">
-          {{ sortOptions.filter(item => {return item.value === currentSort })[0].label }}
+          {{ options.filter(item => {return item.value === currentSort })[0].label }}
         </span>
         
         <i
@@ -23,7 +23,7 @@
     <div
       class="base-sort__list">
       <base-menu-item
-        v-for="item in sortOptions"
+        v-for="item in options"
         :key="item.value"
         :label="item.label"
         :selected="item.value === currentSort"
@@ -39,6 +39,18 @@ import { ElPopover } from 'element-plus'
 const props = defineProps({
   modelValue: {
     type: String
+  },
+  options: {
+    type: Array,
+    default () {
+      return [{
+        value: 'newest',
+        label: 'Newest'
+      }, {
+        value: 'best',
+        label: 'Recommended'
+      }]
+    }
   }
 })
 
@@ -54,14 +66,6 @@ let currentSort = computed({
     emits('update:modelValue', val)
   }
 })
-
-const sortOptions = [{
-  value: 'newest',
-  label: 'Newest'
-}, {
-  value: 'best',
-  label: 'Recommended'
-}]
 
 const sortPopover = ref(null)
 const onClickSortOption = (value) => {
