@@ -32,7 +32,9 @@ const props = defineProps({
     default: false
   },
   direction: {
-    type: String
+    type: String,
+    values: ['row', 'column'],
+    default: 'column'
   },
   disabled: {
     type: Boolean,
