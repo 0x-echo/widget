@@ -6,20 +6,21 @@
       v-for="item in 3"
       :key="item"
       :style="{
-        'animation-delay': `${0.12 * item}s`
+        'animation-delay': `${0.12 * item}s`,
+        width: `${size}px`,
+        height: `${size}px`
       }">
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  data () {
-    return {
-      
-    }
+<script setup>
+const props = defineProps({
+  size: {
+    type: [Number, String],
+    default: 8
   }
-}
+})
 </script>
 
 <style lang="scss">
@@ -31,8 +32,6 @@ export default {
   &__dot {
     display: inline-block;
     margin: 2px;
-    height: 8px;
-    width: 8px;
     border-radius: 50%;
     background-color: var(--echo-color-primary);
     animation-name: pulse;
