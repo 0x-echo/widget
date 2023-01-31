@@ -37,7 +37,8 @@
     <base-tab-pane
       value="comment">
       <base-empty
-        v-if="!loading && !data.comments.length">
+        v-if="!loading && !data.comments.length"
+        :color-theme="store.env.colorTheme">
       </base-empty>
       
       <echo-comment
@@ -54,6 +55,7 @@
         v-if="!loading && !data.likes.length"
         button-icon="ri-thumb-up-line"
         button-text="Be the First Liker"
+        :color-theme="store.env.colorTheme"
         message=""
         @on-click="$emit('like')">
       </base-empty>
@@ -74,7 +76,8 @@
     <base-tab-pane
       value="dislike">
       <base-empty
-        v-if="!loading && !data.dislikes.length">
+        v-if="!loading && !data.dislikes.length"
+        :color-theme="store.env.colorTheme">
       </base-empty>
       
       <echo-module-tabs-vote
@@ -94,6 +97,7 @@
         v-if="!loading && !data.tips.length"
         button-icon="ri-hand-heart-line"
         button-text="Be the First Supporter"
+        :color-theme="store.env.colorTheme"
         message=""
         @on-click="$emit('tip')">
       </base-empty>

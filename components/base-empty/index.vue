@@ -1,31 +1,24 @@
 <template>
   <div
-    class="echo-empty">
+    class="base-empty">
     <img 
-      class="echo-empty__image"
-      v-if="store.env.colorTheme === 'light'"
+      class="base-empty__image"
       :alt="message"
-      :src="image" >
-      
-    <img 
-      class="echo-empty__image"
-      v-if="store.env.colorTheme === 'dark'"
-      :alt="message"
-      :src="defaultImageDark" >
+      :src="currentImage">
     
     <div
-      class="echo-empty__message"
+      class="base-empty__message"
       v-if="message">
       {{ message }}
     </div>
     
     <slot>
       <el-button
-        class="echo-empty__button"
+        class="base-empty__button"
         v-if="buttonText"
         @click="$emit('on-click')">
         <i
-          class="echo-empty__button-icon"
+          class="base-empty__button-icon"
           :class="buttonIcon"
           v-if="buttonIcon">
         </i>
@@ -53,6 +46,10 @@ const props = defineProps({
   buttonText: {
     type: String
   },
+  colorTheme: {
+    type: String,
+    default: 'light'
+  },
   image: {
     type: String,
     default: defaultImage
@@ -70,10 +67,18 @@ const props = defineProps({
 const emits = defineEmits([
   'on-click'
 ])
+
+const currentImage = computed(() => {
+  if (props.colorTheme === 'light') {
+    return props.image
+  } else if (props.colorTheme === 'dark') {
+    return props.imageDark || props.image
+  }
+})
 </script>
 
 <style lang="scss">
-.echo-empty {
+.base-empty {
   display: flex;
   flex-direction: column;
   align-items: center;
