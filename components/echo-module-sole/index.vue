@@ -92,10 +92,10 @@
         </div>
       </div>
       
-      <base-footer
+      <echo-footer
         v-bind="$attrs"
         minimal>
-      </base-footer>
+      </echo-footer>
     </div>
   </echo-module-sole-skeleton>
 </template>

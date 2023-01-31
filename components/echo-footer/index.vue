@@ -1,18 +1,18 @@
 <template>
   <footer
-    class="base-footer"
+    class="echo-footer"
     :class="{
       'is-minimal': minimal
     }">
     <div
-      class="base-footer__left">
+      class="echo-footer__left">
       <a
-        class="base-footer__link"
+        class="echo-footer__link"
         href="https://0xecho.com/"
         target="_blank"
         title="Powered by ECHO">
         <span 
-          class="base-footer__powerby-label" 
+          class="echo-footer__powerby-label" 
           v-if="!minimal">
           Powered by 
         </span>
@@ -25,12 +25,12 @@
       <!-- <template
         v-if="/mirror/.test(route.query.target_uri)"> -->
         <span
-          class="base-footer__link-divider">
+          class="echo-footer__link-divider">
           ·
         </span>
         
         <a 
-          class="base-footer__mirror-link"
+          class="echo-footer__mirror-link"
           href="https://mirror.xyz/0x25f4400Bb5AFa58784F418105EAC61A3cED811Df/7EMVFR066Fq_sOhh6b2eQHkRUH7Dmw7HZy8yppKcrv0"
           target="_blank"
           title="Embed ECHO Widget to My Mirror Entry">
@@ -46,9 +46,9 @@
     </div>
     
     <div
-      class="base-footer__right">
+      class="echo-footer__right">
       <a 
-        class="base-footer__link base-footer__privacy-link"
+        class="echo-footer__link echo-footer__privacy-link"
         v-if="!minimal"
         href="https://0xecho.com/privacy"
         target="_blank">
@@ -66,7 +66,7 @@
         <template 
           #reference>
           <i
-            class="ri-settings-3-line base-footer__settings">
+            class="ri-settings-3-line echo-footer__settings">
           </i>
         </template>
         
@@ -157,7 +157,7 @@ export default {
 </script>
 
 <style lang="scss">
-.base-footer {
+.echo-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -172,7 +172,7 @@ export default {
     justify-content: center;
     margin: 0;
     
-    .base-footer__settings {
+    .echo-footer__settings {
       display: block;
     }
   }
@@ -191,7 +191,7 @@ export default {
   &__link {
     color: var(--echo-text-color-muted);
     
-    & + .base-footer__settings {
+    & + .echo-footer__settings {
       margin-left: 5px;
     }
     
@@ -217,13 +217,13 @@ export default {
 }
 
 @media screen and (max-width: #{$tablet-width - 1px}) {
-  .base-footer {
+  .echo-footer {
     padding-bottom: 0;
   }
 }
 
 @media screen and (max-width: #{$small-mobile-width - 1px}) {
-  .base-footer {
+  .echo-footer {
     &__settings {
       display: block;
     }

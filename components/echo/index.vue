@@ -41,11 +41,11 @@
         @load-more="loadMore">
       </echo-module-tabs>
 
-      <base-footer
+      <echo-footer
         v-if="!loading"
         @logout="logout"
         @refresh-profile="refreshProfile">
-      </base-footer>
+      </echo-footer>
     </template>
     
     <echo-toolbar
