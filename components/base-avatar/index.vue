@@ -14,9 +14,6 @@ import { ElAvatar } from 'element-plus'
 import BoringAvatar from '@third.chat/vue-boring-avatars'
 
 const props = defineProps({
-  alt: {
-    type: String
-  },
   hash: {
     type: String,
     default: 'Avatar'
