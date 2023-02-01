@@ -131,6 +131,9 @@ const props = defineProps({
   noPaddingInMobile: {
     type: Boolean,
     default: false
+  },
+  targetURI: {
+    type: String
   }
 })
 

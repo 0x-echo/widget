@@ -102,7 +102,7 @@ onUnmounted(() => {
 
 const checkIfMobile = () => {
   const tabs = document.querySelector('.base-tabs')
-  if (tabs.clientWidth < 500) {
+  if (tabs.clientWidth < 500 && props.tabs.length === 4) {
     isMobile.value = true
   } else {
     isMobile.value = false

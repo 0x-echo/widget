@@ -5,7 +5,8 @@
     :has-h-padding="$route.query['has-h-padding'] === 'true'"
     :height="$route.query.height"
     :modules="$route.query.modules.split(',')"
-    :no-padding-in-mobile="$route.query['no-padding-in-mobile'] === 'true'">
+    :no-padding-in-mobile="$route.query['no-padding-in-mobile'] === 'true'"
+    :target-uri="$route.query.target_uri">
   </echo>
 </template>
 
