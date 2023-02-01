@@ -257,6 +257,21 @@ export default {
   }
 }
 
+@media screen and (max-width: #{$mobile-width - 1px}) {
+  .chat-footer {
+    align-items: flex-start;
+    
+    &__link-divider {
+      display: none;
+    }
+    
+    &__left {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}
+
 @media screen and (max-width: #{$small-mobile-width - 1px}) {
   .chat-footer {
     &__settings {
