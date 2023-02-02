@@ -185,7 +185,7 @@ export default {
   &__right {
     display: flex;
     align-items: center;
-    margin-left: 5px;
+    margin-left: 16px;
   }
   
   &__link {
@@ -219,6 +219,21 @@ export default {
 @media screen and (max-width: #{$tablet-width - 1px}) {
   .echo-footer {
     padding-bottom: 0;
+  }
+}
+
+@media screen and (max-width: #{$mobile-width - 1px}) {
+  .echo-footer {
+    align-items: flex-start;
+    
+    &__left {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    &__link-divider {
+      display: none;
+    }
   }
 }
 
