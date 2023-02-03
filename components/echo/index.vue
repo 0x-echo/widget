@@ -3,13 +3,14 @@
     ref="widget"
     class="echo-widget"
     :class="{
-      'dark': colorTheme === 'dark',
-      'has-h-padding': hasHPadding,
-      'has-v-padding': hasVPadding,
-      'no-padding-in-mobile': noPaddingInMobile
+      'dark': config['color-theme'] === 'dark',
+      'has-h-padding': config['has-h-padding'],
+      'has-v-padding': config['has-v-padding'],
+      'no-padding-in-mobile': config['no-padding-in-mobile'],
+      [`target-site-${config['target-site']}`]: config['target-site'] !== ''
     }"
     :style="{
-      height: `${height}px`
+      height: `${config.height}px`
     }">
     <template 
       v-if="widgetType === 'mix-widget' || widgetType === 'comment-only'">
@@ -107,37 +108,12 @@
 
 <script setup>
 const props = defineProps({
-  colorTheme: {
-    type: String,
-    default: 'auto'
-  },
-  hasHPadding: {
-    type: Boolean,
-    default: false
-  },
-  hasVPadding: {
-    type: Boolean,
-    default: false
-  },
-  height: {
-    type: [String, Number]
-  },
-  modules: {
-    type: Array,
-    default () {
-      return ['comment', 'like', 'dislike', 'tip']
-    }
-  },
-  noPaddingInMobile: {
-    type: Boolean,
-    default: false
-  },
-  targetURI: {
-    type: String
+  config: {
+    type: Object,
+    required: true
   }
 })
 
-import configParser from '@/libs/config-parser'
 import { v4 as uuidv4 } from 'uuid'
 import base58 from 'bs58'
 
@@ -154,7 +130,6 @@ import { providers, ethers } from "ethers"
 import useConfetti from '~~/compositions/confetti'
 import useReceiver from '~~/compositions/receiver'
 import useSign from '~~/compositions/sign'
-import useWidgetConfig from '~~/compositions/widget-config'
 
 // whether login on this page or not
 let loginOnCurrentPage = false
@@ -171,12 +146,9 @@ const { $bus, $showLoading } = useNuxtApp()
 const store = useStore()
 const route = useRoute()
 
-const { config } = useWidgetConfig(store)
-
 // if (!props.modules || !props.modules.length) {
 //   location.href = `/404?error=${encodeURIComponent('WRONG WIDGET CONFIGURATION')}`
 // }
-store.setWidgetConfig(config)
 
 const { showConfetti } = useConfetti()
 
@@ -190,7 +162,7 @@ const modulesOrder = {
 }
 
 const currentModules = computed(() => {
-  const modules = props.modules
+  const modules = props.config.modules
   modules && modules.sort((a, b) => {
 		return modulesOrder[a] > modulesOrder[b] ? 1 : -1
 	})
@@ -423,10 +395,10 @@ onMounted(async () => {
   const modules = currentModules.value
   
   // just for arconnect authorization
-  if (config.action === 'authorize_arconnect') {
-    await arconnectLogin()
-    return
-  }
+  // if (config.action === 'authorize_arconnect') {
+  //   await arconnectLogin()
+  //   return
+  // }
   
   window.addEventListener('storage', handleStorageChange)
 
@@ -490,7 +462,7 @@ onBeforeUnmount(() => {
   }
 })
 
-const TARGET_URI = config.target_uri || 'demo'
+const TARGET_URI = props.targetUri || 'demo'
 
 // internal data
 let loading = ref(true)
@@ -1680,13 +1652,12 @@ init().then(() => {})
   -webkit-font-smoothing: antialiased;
   line-height: 1.5;
   
-  // TODO - theme?
   &.dark {
     background: var(--echo-theme-bg-color);
   }
   
-  [class^="target_site_"] &,
-  [class*=" target_site_"] & {
+  [class^="target-site-"] &,
+  [class*=" target-site-"] & {
     padding: 25px 20px;
     
     .chat-footer {

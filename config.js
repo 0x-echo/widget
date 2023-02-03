@@ -1,5 +1,4 @@
-// const baseURL = 'http://95.216.99.122:9000'
-import configParser from "./libs/config-parser"
+import qs from 'query-string'
 
 let baseURL = 'https://node1.0xecho.com'
 
@@ -15,13 +14,14 @@ export default {
     'EVM/56': 'bsc'
   },
 	api: () => {
-    const config = configParser()
-    if (config.rpc_url) {
+    const url = document.location.href.split('?')[1]
+    const query = qs.parse(url)
+    if (query.rpc_url) {
       // third.chat => sandbox
-      if (config.rpc_url.includes('third.chat')) {
-        config.rpc_url = 'https://sandbox.0xecho.com'
+      if (query.rpc_url.includes('third.chat')) {
+        query.rpc_url = 'https://sandbox.0xecho.com'
       }
-      baseURL = config.rpc_url.replace(/\/$/, '')
+      baseURL = query.rpc_url.replace(/\/$/, '')
     }
     return {
       BASE_URL: baseURL,

@@ -1,17 +1,83 @@
 <template>
   <echo
-    :color-theme="$route.query['color-theme']"
-    :has-v-padding="$route.query['has-v-padding'] === 'true'"
-    :has-h-padding="$route.query['has-h-padding'] === 'true'"
-    :height="$route.query.height"
-    :modules="$route.query.modules.split(',')"
-    :no-padding-in-mobile="$route.query['no-padding-in-mobile'] === 'true'"
-    :target-uri="$route.query.target_uri">
+    :config="config">
   </echo>
 </template>
 
 <script setup>
+import useStore from '~~/store'
 
+const store = useStore()
+const route = useRoute()
+
+onMounted(() => {
+  if (config['color-theme'] === 'auto') {
+		if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      store.setData('env', {
+        colorTheme: 'dark'
+      })
+		} else {
+      store.setData('env', {
+        colorTheme: 'light'
+      })
+    }
+
+		window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
+			const newColorScheme = event.matches ? 'dark' : 'light'
+      store.setData('env', {
+        colorTheme: newColorScheme
+      })
+		})
+	} else {
+    store.setData('env', {
+      colorTheme: config['color-theme']
+    })
+	}
+})
+
+const config = computed(() => {
+  const query = JSON.parse(JSON.stringify(route.query))
+  
+  for (const f in query) {
+    if (f.includes('_')) {
+      const prop = f.replace(/_/g, '-')
+      query[prop] = query[f]
+    }
+  }
+  
+  const booleanProps = [
+    'has-h-padding',
+    'h-v-padding',
+    'show-comment-dislike',
+    'support-mumbai',
+    'no-padding-in-mobile'
+  ]
+  
+  const stringProps = [
+    'height',
+    'target-site',
+    'target-uri'
+  ]
+
+  booleanProps.forEach(prop => {
+    query[prop] = query[prop] === null || query[prop] === 'true'
+  })
+  
+  stringProps.forEach(prop => {
+    query[prop] = query[prop] || ''
+  })
+  
+  query.modules = query.modules ? query.modules.split(',') : ['comment', 'like', 'dislike', 'tip']
+  
+  if (query['target-uri'].includes('mirror.xyz') && (!query['color-theme'] || query['color-theme'] === 'auto')) {
+    console.warn('ECHO: Mirror does not support color-theme:auto, set to light instead.')
+    query['color-theme'] = 'light'
+  } else {
+    query['color-theme'] = query['color-theme'] || 'auto'
+  }
+
+  return query
+})
 </script>
 
 <style lang="scss">
