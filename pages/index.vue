@@ -54,6 +54,7 @@ const config = computed(() => {
   ]
   
   const stringProps = [
+    'dark-theme-bg-color',
     'height',
     'target-site',
     'target-uri'
@@ -75,6 +76,14 @@ const config = computed(() => {
   } else {
     query['color-theme'] = query['color-theme'] || 'auto'
   }
+  
+  // if render index page individually, but color-theme is dark, set a dark background
+  if (!store.env.inIframe) {
+		console.info('env: not in iframe')
+		if (store.env.colorTheme === 'dark') {
+			query['dark-theme-bg-color'] = query['dark-theme-bg-color'] || '#0d0f17'
+		}
+	}
 
   return query
 })
