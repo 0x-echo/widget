@@ -55,7 +55,6 @@
                 Styling with Markdown is supported
               </span>
             </a>
-            {{ submitLoading }}
             
             <el-button
               class="base-editor__send-button"
