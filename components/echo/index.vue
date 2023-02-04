@@ -2,16 +2,8 @@
   <div
     ref="widget"
     class="echo-widget"
-    :class="{
-      'dark': config['color-theme'] === 'dark',
-      'has-h-padding': config['has-h-padding'],
-      'has-v-padding': config['has-v-padding'],
-      'no-padding-in-mobile': config['no-padding-in-mobile'],
-      [`target-site-${config['target-site']}`]: config['target-site'] !== ''
-    }"
-    :style="{
-      height: `${config.height}px`
-    }">
+    :class="widgetClass"
+    :style="widgetStyle">
     <template 
       v-if="widgetType === 'mix-widget' || widgetType === 'comment-only'">
       <echo-module-tabs
@@ -112,6 +104,34 @@ const props = defineProps({
     type: Object,
     required: true
   }
+})
+
+const widgetClass = computed(() => {
+  const config = props.config
+  
+  return {
+    'dark': config['color-theme'] === 'dark',
+    'has-h-padding': config['has-h-padding'],
+    'has-v-padding': config['has-v-padding'],
+    'no-padding-in-mobile': config['no-padding-in-mobile'],
+    [`target-site-${config['target-site']}`]: config['target-site'] !== ''
+  }
+})
+
+const widgetStyle = computed(() => {
+  let list = {}
+  const config = props.config
+  
+  if (config['color-theme'] === 'dark' && config['dark-theme-bg-color']) {
+    list['--echo-theme-bg-color'] = config['dark-theme-bg-color']
+    list.background = config['dark-theme-bg-color']
+  }
+  
+  if (config.height) {
+    list.height = `${config.height}px`
+  }
+
+  return list
 })
 
 import { v4 as uuidv4 } from 'uuid'
@@ -1651,10 +1671,6 @@ init().then(() => {})
   font-family: var(--echo-font-family);
   -webkit-font-smoothing: antialiased;
   line-height: 1.5;
-  
-  &.dark {
-    background: var(--echo-theme-bg-color);
-  }
   
   [class^="target-site-"] &,
   [class*=" target-site-"] & {
