@@ -25,11 +25,12 @@
 
 <script setup>
 import useStore from '~~/store'
-import useWidgetConfig from '~~/compositions/widget-config'
+// import useWidgetConfig from '~~/compositions/widget-config'
 
+// TODO - get color theme 
 const store = useStore()
-const { config } = useWidgetConfig(store)
-store.setWidgetConfig(config)
+// const { config } = useWidgetConfig(store)
+// store.setWidgetConfig(config)
 
 const props = defineProps({
   error: Object
