@@ -53,7 +53,7 @@ const showAllReplies = ref(props.total > 1)
 const maxDisplayReply = ref(2)
 
 const emits = defineEmits([
-  'load-children',
+  'load-reply-children',
 ])
 
 const replies = computed(() => {
@@ -71,7 +71,7 @@ const collapsedList = computed(() => {
 
 const toggle = () => {
   showAllReplies.value = !showAllReplies.value
-  emits('load-children', props.data[0].direct_parent_id, props.parentPost)
+  emits('load-reply-children', props.data[0].direct_parent_id, props.parentPost)
 }
 </script>
 
