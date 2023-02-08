@@ -190,7 +190,6 @@ const handleScroll = (el) => {
 @media screen and (max-width: #{$tablet-width - 1px}) {
   .section-network {
     &__content-wrapper {
-      grid-template-columns: 1fr 1fr;
       gap: 10px;
     }
     
@@ -206,6 +205,15 @@ const handleScroll = (el) => {
     
     .wallet-item__label {
       margin-top: 6px;
+    }
+  }
+}
+
+
+@media screen and (max-width: 480px) {
+  .section-network {
+    &__content-wrapper {
+      grid-template-columns: 1fr 1fr;
     }
     
     &__arrow-button {
