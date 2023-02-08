@@ -150,23 +150,15 @@ const handleScroll = (el) => {
   }
   
   &__content-wrapper {
-    display: flex;
-    overflow-x: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 15px;
     padding: 7px 2px 2px;
     margin: 0 -2px;
-    
-    &::-webkit-scrollbar {
-      display: none;
-    }
   }
   
   &__item {
-    flex: 1;
-    min-width: 150px;
-    
-    & + & {
-      margin-left: 15px;
-    }
+    width: 100%;
   }
   
   &__arrow-button {
@@ -197,10 +189,23 @@ const handleScroll = (el) => {
 
 @media screen and (max-width: #{$tablet-width - 1px}) {
   .section-network {
+    &__content-wrapper {
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    
     &__item {
-      & + & {
-        margin-left: 10px;
-      }
+      flex-direction: column;
+      justify-content: center;
+      padding: 12px;
+    }
+    
+    .wallet-item__logo {
+      margin-right: 0;
+    }
+    
+    .wallet-item__label {
+      margin-top: 6px;
     }
     
     &__arrow-button {

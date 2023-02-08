@@ -256,6 +256,7 @@ export default {
   }
 
   &__fee-tip {
+    margin-right: 10px;
     text-align: left;
   }
   
