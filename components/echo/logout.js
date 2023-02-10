@@ -10,9 +10,9 @@ export default (store) => {
       avatar: '',
       balance: ''
     })
-    store.setCounts({
-      has_liked: false,
-      has_disliked: false
+    this.setCounts({
+      hasLiked: false,
+      hasDisliked: false
     })
     localStorage.removeItem('login_info')
     

@@ -14,7 +14,7 @@ export default ({ store, reportDialogVisible }) => {
   
   const submitReport = async (reason) => {
     try {
-      beforePost()
+      checkLoginStatus()
       const rs = await $fetch(commonConfig.api().CREATE_POST, {
         method: 'POST',
         body: {

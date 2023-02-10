@@ -63,12 +63,11 @@
       <echo-module-tabs-vote
         v-else
         :data="data.likes"
-        :has-more="hasMoreLikes"
         :is-loading-more="isLoadingMoreLikes"
         :loading="loading"
         module="like"
         power-label="Liking Power"
-        :power-value="counts.like_power"
+        :power-value="store.like.power"
         tip="Estimated total value of all liking address">
       </echo-module-tabs-vote>
     </base-tab-pane>
@@ -86,7 +85,7 @@
         :loading="loading"
         module="dislike"
         power-label="Disliking Power"
-        :power-value="counts.dislike_power"
+        :power-value="store.dislike.power"
         tip="Estimated total value of all disiking address">
       </echo-module-tabs-vote>
     </base-tab-pane>
@@ -115,17 +114,12 @@
 import useStore from '~~/store'
 
 const store = useStore()
-const counts = computed(() => store.counts)
 const status = computed(() => store.status)
 
 const props = defineProps({
   data: {
     type: Object,
     required: true
-  },
-  hasMoreLikes: {
-    type: Boolean,
-    default: false
   },
   isLoadingMoreLikes: {
     type: Boolean,
@@ -156,25 +150,25 @@ const tabs = computed(() => {
     label: 'Comment',
     plurLabel: 'Comments',
     value: 'comment',
-    count: store.counts.comment_counts
+    count: store.comment.counts
   }, {
     icon: 'ri-thumb-up-line',
     label: 'Like',
     plurLabel: 'Likes',
     value: 'like',
-    count: store.counts.like_counts
+    count: store.like.counts
   }, {
     icon: 'ri-thumb-down-line',
     label: 'Dislike',
     plurLabel: 'Dislikes',
     value: 'dislike',
-    count: store.counts.dislike_counts
+    count: store.dislike.counts
   }, {
     icon: 'ri-money-dollar-circle-line',
     label: 'Supporter',
     plurLabel: 'Supporters',
     value: 'tip',
-    count: store.counts.uniq_supporter_counts
+    count: store.tip.uniqCounts
   }]
   
   let newList = []

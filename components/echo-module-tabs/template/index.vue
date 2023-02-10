@@ -55,10 +55,6 @@ import useStore from '~~/store';
 const store = useStore()
 
 const props = defineProps({
-  hasMore: {
-    type: Boolean,
-    default: false
-  },
   isLoadingMore: {
     type: Boolean,
     default: false

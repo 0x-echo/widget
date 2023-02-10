@@ -1,6 +1,7 @@
 import { ElMessage } from 'element-plus'
 import { ethers } from "ethers"
 import { v4 as uuidv4 } from 'uuid'
+const { $bus } = useNuxtApp()
 import useLibs from './libs'
 
 export default (store) => {
@@ -10,7 +11,7 @@ export default (store) => {
   
   const openTipDialog = async (tipDialogVisible) => {
     try {
-      beforePost()
+      checkLoginStatus()
       store.setWallet({
         loginType: 'tip'
       })
@@ -198,7 +199,7 @@ export default (store) => {
           connectWalletDialogVisible.value = false
           data.meta.status = 'success'
           await submitTip(data)
-          await getTips()
+          await getTipList()
         }
       }, commonConfig.wallet.transaction_check_interval)
     })
@@ -236,6 +237,7 @@ export default (store) => {
   
   return {
     openTipDialog,
-    doTipLogin
+    doTipLogin,
+    submitTip
   }
 }

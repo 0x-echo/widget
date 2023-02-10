@@ -16,6 +16,7 @@
 import useStore from '~~/store'
 
 const store = useStore()
+
 const props = defineProps({
   data: {
     type: Array,

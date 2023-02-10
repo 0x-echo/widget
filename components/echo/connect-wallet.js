@@ -1,6 +1,8 @@
 import { ElMessage } from 'element-plus'
 import { providers, ethers } from "ethers"
+const { $bus, $showLoading } = useNuxtApp()
 import useSign from '~~/compositions/sign'
+import base58 from 'bs58'
 
 const sign = useSign()
 const GetWalletConnectProvider = () => import('@walletconnect/web3-provider/dist/umd/index.min.js')
@@ -14,6 +16,13 @@ export default ({ store, connectWalletDialogVisible }) => {
       loginType: 'login'
     })
     connectWalletDialogVisible.value = true
+  }
+  
+  const checkLoginStatus = () => {
+    if (!store.hasLogined) {
+      connectWalletDialogVisible.value = true
+      throw new Error('PLEASE LOGIN FIRST')
+    }
   }
   
   const connectWallet =  async (item) => {
@@ -174,7 +183,7 @@ export default ({ store, connectWalletDialogVisible }) => {
         } catch (e) {}
       }
 
-      await getSummary()
+      await getWidgetData()
 
       // should not be too fast, so user can see it happen.
       setTimeout(async () => {
@@ -209,7 +218,7 @@ export default ({ store, connectWalletDialogVisible }) => {
   const afterLogin = async () => {
     if (store.login.beforeAction) {
       // if already did, ignore
-      if (!store.counts[`has_${store.login.beforeAction}d`]) {
+      if (!store.counts[`has${store.login.beforeAction.toUpperCase()}d`]) {
         try {
           await doReaction(store.login.beforeAction)
         } catch (e) {}
@@ -218,6 +227,26 @@ export default ({ store, connectWalletDialogVisible }) => {
       store.setData('login', {
         beforeAction: ''
       })
+    }
+  }
+  
+  // WalletConnect cannot reopen dialog, so recreate an instance each time dialog is closed.
+  const getProvider = async () => {
+    const { default: WalletConnectProvider } = await GetWalletConnectProvider()
+    const provider = new WalletConnectProvider ({
+      infuraId: "dda2473ca43f4555926534d427abc648",
+      qrcode: true,
+      rpc: {
+        10: 'https://mainnet.optimism.io',
+        137: 'https://matic-mainnet.chainstacklabs.com',
+        80001: 'https://matic-mumbai.chainstacklabs.com'
+      }
+    });
+    const web3provider =  new providers.Web3Provider(provider)
+
+    return {
+      provider,
+      web3provider
     }
   }
   

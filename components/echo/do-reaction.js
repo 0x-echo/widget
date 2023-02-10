@@ -1,4 +1,53 @@
+import commonConfig from '@/config'
+import { ElMessage } from 'element-plus'
+import useConfetti from '~~/compositions/confetti'
+import useLibs from './libs'
+import useGetList from './get-list'
+import useSign from '~~/compositions/sign'
+import { v4 as uuidv4 } from 'uuid'
+
+const { showConfetti } = useConfetti()
+const sign = useSign()
+
 export default (store) => {
+  const { getReactionList } = useGetList(store)
+  const { getCommonHeader } = useLibs(store)
+  
+  // like 
+  const like = async (data) => {
+    const type = (data ? '-' : '') + 'like'
+    const rs = await doReaction(type)
+    if (rs) {
+      if (type === 'like' && widgetType.value === 'like-only') {
+        ElMessage.success({
+          message: 'Thank you!'
+        })
+        showConfetti()
+      }
+      
+      store.setData('like', {
+        page: 1
+      })
+      await getReactionList('like')
+    }
+  }
+  
+  const likeComment = async (data) => {
+    await doReaction((data.has_liked ? '-' : '') + 'like', data)
+  }
+  
+  // dislike
+  const dislike = async (data) => {
+    store.setData('dislike', {
+      page: 1
+    })
+    await doReaction((data ? '-' : '') + 'dislike')
+  }
+  
+  const dislikeComment = async (data) => {
+    await doReaction((data.has_disliked ? '-' : '') + 'dislike', data)
+  }
+  
   const doReaction = async (subType, data) => {
     try {
       if (!data) {
@@ -6,7 +55,7 @@ export default (store) => {
           beforeAction: subType
         })
       }
-      beforePost()
+      checkLoginStatus()
 
       const body = {
         type: 'reaction',
@@ -39,10 +88,6 @@ export default (store) => {
       if (!data && rs.data.target_summary) {
         store.setCounts(rs.data.target_summary)
       }
-      // ElMessage.success({
-      //   message: 'Done!'
-      // })
-      // getCommentList()
       return true
     } catch (e) {
       console.log(e)
@@ -56,6 +101,10 @@ export default (store) => {
   }
 
   return {
+    like,
+    likeComment,
+    dislike,
+    dislikeComment,
     doReaction
   }
 }

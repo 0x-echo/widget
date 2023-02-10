@@ -10,7 +10,7 @@
         <echo-toolbar-item
           v-for="item in toolbarConfig"
           :key="item.value"
-          :active="counts[`has_${item.value}d`] && hasLogined"
+          :active="getActive(item)"
           :icon="item.icon"
           :count="item.count"
           :value="item.value"
@@ -99,7 +99,6 @@ import useChain from '~~/compositions/chain'
 const { logos, defaultLogo } = useChain()
 
 const store = useStore()
-const counts = computed(() => store.counts)
 const hasLogined = computed(() => store.hasLogined)
 const loginInfo = computed(() => {
   return {
@@ -149,17 +148,17 @@ const toolbarConfig = computed(() => {
     icon: 'ri-thumb-up-line',
     value: 'like',
     showLabel: !props.modules.includes('dislike') && !props.modules.includes('dislike-lite') && !props.modules.includes('tip') && !props.modules.includes('tip-lite'),
-    count: store.counts.like_counts
+    count: store.like.counts
   }, {
     active: false,
     icon: 'ri-thumb-down-line',
     value: 'dislike',
-    count: store.counts.dislike_counts
+    count: store.dislike.counts
   }, {
     active: false,
     icon: 'ri-money-dollar-circle-line',
     value: 'tip',
-    count: store.counts.uniq_supporter_counts
+    count: store.tip.uniqCounts
   }]
   
   let newList = []
@@ -172,17 +171,15 @@ const toolbarConfig = computed(() => {
   return newList
 })
 
-const hasLogin = computed(() => {
-  const modules = props.modules
-  let count = 0
-  modules.forEach(item => {
-    if (item.endsWith('lite')) {
-      count++
-    }
-  })
-  
-  return modules.length !== count
-})
+const getActive = (item) => {
+  if (item.value === 'like') {
+    return store.like.hasLiked && hasLogined
+  } else if (item.value === 'dislike') {
+    return store.dislike.hasDisliked && hasLogined
+  } else {
+    return false
+  }
+}
 
 const userMenu = [{
   icon: 'ri-refresh-line',

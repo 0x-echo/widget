@@ -2,11 +2,12 @@ import { ElMessage } from 'element-plus'
 import { setDraft } from '@/libs/helper'
 import { parseContent } from '@/libs/content-parser'
 import { v4 as uuidv4 } from 'uuid'
-const { $bus } = useNuxtApp()
-import useSign from '~~/compositions/sign'
+import useConfetti from '~~/compositions/confetti'
 import useLibs from './libs'
-const { showConfetti } = useConfetti()
+import useSign from '~~/compositions/sign'
 
+const { showConfetti } = useConfetti()
+const { $bus } = useNuxtApp()
 const sign = useSign()
 
 export default (store) => {
@@ -25,7 +26,7 @@ export default (store) => {
       message.value = ''
       setDraft(TARGET_URI, '')
       store.setCounts({
-        comment_counts: store.counts.comment_counts + 1
+        comment_counts: store.comment.counts + 1
       })
     })
   }
@@ -45,7 +46,7 @@ export default (store) => {
   
   const doReply = async (content, directParentId, successCallback, type = 'comment') => {
     try {
-     beforePost()
+     checkLoginStatus()
      if (!directParentId) {
        store.setStatus({
          onSubmitingComment: true
@@ -91,7 +92,7 @@ export default (store) => {
      if (successCallback) {
        successCallback()
      }
-     // getCommentList()
+
      if (!directParentId) {
        localUpdateCommentIds.push(rs.data.post.id)
        summary.comments.unshift(rs.data.post)

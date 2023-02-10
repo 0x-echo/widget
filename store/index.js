@@ -3,16 +3,11 @@
 import { defineStore } from 'pinia'
 import config from '../config'
 import axios from 'axios'
+import _ from 'lodash'
 // import solana from '../libs/sol'
 
 const useStore = defineStore('global', {
 	state: () => ({
-    counts: {
-      like_counts: 0,
-      dislike_counts: 0,
-      tip_counts: 0
-    },
-
     status: {
       onTransactionProcessing: false,
       onSubmitingComment: false,
@@ -21,7 +16,18 @@ const useStore = defineStore('global', {
 
     widgetConfig: {
       show_comment_dislike: false,
-      modules: []
+      modules: [],
+      target_uri: ''
+    },
+    
+    widgetData: {
+      name: '',
+      bio: '',
+      avatar: '',
+      comments: [],
+      likes: [],
+      dislikes: [],
+      tips: []
     },
 
     env: {
@@ -52,8 +58,31 @@ const useStore = defineStore('global', {
     },
 
     comment: {
+      counts: 0,
       hasMore: true,
-      isLoadingMore: false
+      isLoadingMore: false,
+      onFetchList: false,
+      orderBy: 'newest'
+    },
+    
+    like: {
+      counts: 0,
+      hasLiked: false,
+      isLoadingMore: false,
+      page: 1,
+      power: 0
+    },
+    
+    dislike: {
+      counts: 0,
+      hasDisliked: false,
+      page: 1,
+      power: 0
+    },
+    
+    tip: {
+      counts: 0,
+      uniqCounts: 0
     },
 
     hasLogined: false,
@@ -158,9 +187,37 @@ const useStore = defineStore('global', {
       }
     },
     setCounts (counts) {
-      for (let i in counts) {
-        this.counts[i] = counts[i]
+      for (const i in counts) {
+        const underlinedKey = _.kebabCase(i).replace(/-/g, '_')
+        if (i !== underlinedKey) {
+          counts[underlinedKey] = counts[i]
+        }
       }
+      
+      if (typeof counts['comment_counts'] !== 'undefined') {
+        this.comment.counts = counts['comment_counts']
+      }
+      
+      const likeFields = [['has_liked', 'hasLiked'], ['like_counts', 'counts'], ['like_power', 'power']]
+      likeFields.forEach(item => {
+        if (typeof counts[item[0]] !== 'undefined') {
+          this.like[item[1]] = counts[item[0]]
+        }
+      })
+      
+      const dislikeFields = [['has_disliked', 'hasDisliked'], ['dislike_counts', 'counts'], ['dislike_power', 'power']]
+      dislikeFields.forEach(item => {
+        if (typeof counts[item[0]] !== 'undefined') {
+          this.dislike[item[1]] = counts[item[0]]
+        }
+      })
+      
+      const tipFields = [['tip_counts', 'counts'], ['uniq_supporter_counts', 'uniqCounts']]
+      tipFields.forEach(item => {
+        if (typeof counts[item[0]] !== 'undefined') {
+          this.tip[item[1]] = counts[item[0]]
+        }
+      })
     },
     setLogined (val) {
       this.hasLogined = val
@@ -230,23 +287,6 @@ const useStore = defineStore('global', {
       } catch (e) {
         console.log('sync balance error:', e)
       }
-    },
-    async logout () {
-      this.setLogined(false)
-      this.setLoginInfo({
-        chain: '',
-        address: '',
-        screen_name: '',
-        avatar: '',
-        balance: ''
-      })
-      this.setCounts({
-        has_liked: false,
-        has_disliked: false
-      })
-      try {
-        localStorage.removeItem('login_info')
-      } catch (e) {}
     },
     async getScreenName (force) {
       if (!this.chain || !this.address) {

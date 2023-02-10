@@ -1,4 +1,18 @@
+import useGetList from './get-list'
+const route = useRoute()
+
 export default (store) => {
+  const { getCommentList, getReactionList } = useGetList(store)
+  
+  // load more when scroll to the bottom of body
+  const handleBodyScroll = async () => {
+    if (!route.query.height) {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        await loadMore(store.layout.currentTab)
+      }
+    }
+  }
+  
   const loadMore = async (activeTab) => {
     if (activeTab === 'comment') {
       await loadMoreComments()
@@ -8,14 +22,14 @@ export default (store) => {
   }
   
   const loadMoreComments = async () => {
-    if (!onFetch && store.comment.hasMore) {
+    if (!store.comment.onFetchList && store.comment.hasMore) {
       await getCommentList(++page)
     }
   }
   
   const loadMoreLikes = async () => {
     console.log('load more likes')
-    await getReactions('like')
+    await getReactionList('like')
   }
   
   const loadReplyChildren = async (id, parentPost) => {
@@ -25,6 +39,7 @@ export default (store) => {
   }
   
   return {
+    handleBodyScroll,
     loadMore,
     loadReplyChildren
   }

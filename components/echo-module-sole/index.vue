@@ -16,12 +16,12 @@
         
         <div
           class="echo-module-sole__user-name">
-          {{ store.receiver.displayName || route.query.receiver }}
+          {{ store.receiver.displayName || $route.query.receiver }}
         </div>
         
         <div
           class="echo-module-sole__bio">
-          {{ route.query.desc }}
+          {{ $route.query.desc }}
         </div>
       </div>
       
@@ -30,24 +30,36 @@
         <el-button
           class="el-button--xlarge el-button--icon echo-module-sole__action-button"
           :class="{
-            active: ((module === 'like' || module === 'dislike') && counts[`has_${module}d`] && store.hasLogined) || module === 'tip'
+            active: ((module === 'like' || module === 'dislike') && moduleData[`has${module.toUpperCase()}d`] && store.hasLogined) || module === 'tip'
           }"
-          @click="$emit(module, counts[`has_${module}d`])">
+          @click="$emit(module, moduleData[`has${module.toUpperCase()}d`])">
           <i
             class="echo-module-sole__action-icon"
             :class="currentModule.icon">
           </i>
+          
           <span>
             <template
-              v-if="counts[`${module}_counts`]">
-              {{ counts[`${module}_counts`] }} 
+              v-if="moduleData.counts">
+              {{ moduleData.counts }} 
             </template>
-            <template v-if="module !== 'tip'">
-              {{ counts[`${module}_counts`] === 1 ? module : ` ${module}s` }}
+            
+            <template 
+              v-if="module !== 'tip'">
+              {{ moduleData.counts === 1 ? module : ` ${module}s` }}
             </template>
-            <template v-else>
-              <template v-if="!counts[`${module}_counts`]">Support</template>
-              <template v-else>{{ counts[`${module}_counts`] === 1 ? ' Supporter' : ' Supporters' }}</template>
+            
+            <template 
+              v-else>
+              <template 
+                v-if="!moduleData.counts">
+                Support
+              </template>
+              
+              <template 
+                v-else>
+                {{ moduleData.counts === 1 ? ' Supporter' : ' Supporters' }}
+              </template>
             </template>
           </span>
         </el-button>
@@ -55,7 +67,7 @@
 
       <div
         class="echo-module-sole__stat"
-        v-if="(module === 'like' || module === 'dislike') && counts[`${module}_counts`]">
+        v-if="(module === 'like' || module === 'dislike') && moduleData.counts">
         <el-tooltip
           content="Estimated Total Value of all Liking Address"
           :disabled="module !== 'like'"
@@ -67,7 +79,7 @@
             </i>
             
             <span>
-              {{ ing(module) }} Power: ${{ counts[`${module}_power`] }}
+              {{ ing(module) }} Power: ${{ moduleData.power }}
             </span>
           </div>
         </el-tooltip>
@@ -105,9 +117,7 @@ import { ElButton, ElTooltip } from 'element-plus'
 import ListSkeleton from './skeleton'
 import useStore from '~~/store'
 
-const route = useRoute()
 const store = useStore()
-const counts = computed(() => store.counts)
 
 const props = defineProps({
   data: {
@@ -117,6 +127,16 @@ const props = defineProps({
   module: {
     type: String,
     required: true
+  }
+})
+
+const moduleData = computed(() => {
+  if (props.module === 'like') {
+    return store.like
+  } else if (props.module === 'dislike') {
+    return store.dislike
+  } else if (props.module === 'tip') {
+    return store.tip
   }
 })
 

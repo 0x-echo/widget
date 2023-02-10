@@ -1,19 +1,23 @@
 import { ElMessage } from 'element-plus'
+import commonConfig from '@/config'
+import useLibs from './libs'
 
 export default (store) => {
+  const { getCommonHeader } = useLibs(store)
+  
   let hasLoaded = ref(false)
-  let onFetch = false
-  let totalPage = 1
   let limit = 20
-  let orderBy = 'newest'
   const commentSize = 20
   let comments = reactive([])
 
   const getCommentList = async (page = 1, since, parentId) => {
-    if (onFetch) {
+    if (store.comment.onFetchList) {
       return
     } else {
-      onFetch = true
+      store.setData('comment', {
+        onFetchList: true
+      })
+      
       if (!parentId && !since) {
         if (page > 1) {
           store.setData('comment', {
@@ -24,10 +28,10 @@ export default (store) => {
     }
   
     const params = {
-      target_uri: TARGET_URI,
+      target_uri: store.widgetConfig.target_uri,
       since,
       page,
-      order_by: orderBy
+      order_by: store.comment.orderBy
     }
   
     if (parentId) {
@@ -43,13 +47,13 @@ export default (store) => {
       if (!parentId) {
         if (since) {
           for (let i in rs.list) {
-            comments = [...rs.list, ...summary.comments]
+            comments = [...rs.list, ...store.widgetData.comments]
           }
         } else {
           if (page === 1) {
             comments = rs.list
           } else {
-            comments = [...summary.comments, ...rs.list]
+            comments = [...store.widgetData.comments, ...rs.list]
           }
         }
   
@@ -76,8 +80,8 @@ export default (store) => {
           }
         })
   
-        summary.comments = comments
-        summary.counts = rs.target_summary
+        store.widgetData.comments = comments
+        store.widgetData.counts = rs.target_summary
   
         store.setCounts(rs.target_summary)
         if (page === 1) {
@@ -96,7 +100,7 @@ export default (store) => {
           })
         }
       } else {
-        summary.comments.forEach(one => {
+        store.widgetData.comments.forEach(one => {
           if (one.id === parentId) {
             if (page === 1) {
               one.replies = rs.list
@@ -122,10 +126,81 @@ export default (store) => {
         })
       }
     }
-    onFetch = false
+    
+    store.setData('comment', {
+      onFetchList: false
+    })
+  }
+  
+  const reactionLimit = 50
+  const getReactionList = async (subType) => {
+    const page = subType === 'like' ? store.like.page : store.dislike.page
+    const params = {
+      target_uri: store.widgetConfig.target_uri,
+      page,
+      limit: reactionLimit,
+      sub_type: subType
+    }
+
+    try {
+      store.setData('like', {
+        isLoadingMore: true
+      })
+      
+      const { data: rs }= await $fetch(commonConfig.api().GET_REACTIONS, {
+        params,
+        headers: getCommonHeader()
+      })
+      console.log(rs)
+      if (page === 1) {
+        store.widgetData[subType + 's'] = rs.list
+      } else {
+        store.widgetData[subType + 's'].push(...rs.list)
+      }
+      // const hasMore = ((page - 1) * reactionLimit + rs.list.length) < rs.total
+      // hasMoreLikes.value = hasMore
+      store.setCounts(rs.target_summary)
+      if (subType === 'like') {
+        let likePage = store.like.page + 1
+        store.setData('like', {
+          page: likePage
+        })
+      } else if (subType === 'dislike') {
+        let dislikePage = store.dislike.page + 1
+        store.setData('dislike', {
+          page: dislikePage
+        })
+      }
+    } catch (e) {
+      console.log(e)
+    }
+    
+    store.setData('like', {
+      isLoadingMore: false
+    })
+  }
+  
+  const getTipList = async () => {
+    const params = {
+      target_uri: store.widgetConfig.target_uri,
+      unique: true
+    }
+  
+    try {
+      const { data: rs }= await $fetch(commonConfig.api().GET_TIPS, {
+        params,
+        headers: getCommonHeader()
+      })
+      store.widgetData['tips'] = rs.list
+      store.setCounts(rs.target_summary)
+    } catch (e) {
+      console.log(e)
+    }
   }
   
   return {
-    getCommentList
+    getCommentList,
+    getReactionList,
+    getTipList
   }
 }
