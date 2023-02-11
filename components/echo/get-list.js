@@ -27,7 +27,7 @@ export default (store) => {
     }
   
     const params = {
-      target_uri: store.widgetConfig.target_uri,
+      target_uri: store.widgetConfig.targetUri,
       since,
       page,
       order_by: store.comment.orderBy
@@ -136,7 +136,7 @@ export default (store) => {
   const getReactionList = async (subType) => {
     const page = subType === 'like' ? store.like.page : store.dislike.page
     const params = {
-      target_uri: store.widgetConfig.target_uri,
+      target_uri: store.widgetConfig.targetUri,
       page,
       limit: reactionLimit,
       sub_type: subType
@@ -180,7 +180,7 @@ export default (store) => {
   
   const getTipList = async () => {
     const params = {
-      target_uri: store.widgetConfig.target_uri,
+      target_uri: store.widgetConfig.targetUri,
       unique: true
     }
   

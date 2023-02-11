@@ -24,7 +24,7 @@ export default (store) => {
   
     await doReply(message.value, null, function () {
       message.value = ''
-      setDraft(TARGET_URI, '')
+      setDraft(store.widgetConfig.targetUri, '')
       store.setData('comment', {
         counts: store.comment.counts + 1
       })
@@ -59,7 +59,7 @@ export default (store) => {
  
      const body = {
        type,
-       target_uri: TARGET_URI,
+       target_uri: store.widgetConfig.targetUri,
        direct_parent_id: directParentId,
        content: parseContent(content, false),
        protocol_version: common.PROTOCOL_VERSION,

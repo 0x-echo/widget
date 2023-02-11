@@ -10,15 +10,16 @@ const useStore = defineStore('global', {
 	state: () => ({
     status: {
       loading: false,
+      loginOnCurrentPage: false,
       onTransactionProcessing: false,
       onSubmitingComment: false,
       onSubmitingReply: false
     },
 
     widgetConfig: {
-      show_comment_dislike: false,
+      showCommentDislike: false,
       modules: [],
-      target_uri: ''
+      targetUri: ''
     },
     
     widgetData: {

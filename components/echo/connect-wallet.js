@@ -1,13 +1,18 @@
 import { ElMessage } from 'element-plus'
 import { providers, ethers } from "ethers"
+import commonConfig from '@/config'
 import useSign from '~~/compositions/sign'
 import base58 from 'bs58'
+import useLibs from './libs'
+import useGetWidgetData from './get-widget-data'
 
 const sign = useSign()
 const GetWalletConnectProvider = () => import('@walletconnect/web3-provider/dist/umd/index.min.js')
 
 export default ({ store, connectWalletDialogVisible }) => {
   const { $bus, $showLoading } = useNuxtApp()
+  const { getCommonHeader } = useLibs(store)
+  const { getWidgetData } = useGetWidgetData(store)
   let provider = null
   let web3provider = null
   
@@ -174,8 +179,10 @@ export default ({ store, connectWalletDialogVisible }) => {
       ElMessage.success({
         message: 'Sign in successfully!'
       })
-
-      loginOnCurrentPage = true
+      
+      store.setData('status', {
+        loginOnCurrentPage: true
+      })
 
       if (provider) {
         try {

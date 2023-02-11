@@ -19,7 +19,7 @@ export default ({ store, reportDialogVisible }) => {
         method: 'POST',
         body: {
           type: 'report',
-          target_uri: TARGET_URI,
+          target_uri: store.widgetConfig.targetUri,
           parent_id: null,
           direct_parent_id: currentReportPost.id,
           content: parseContent(reason, false),

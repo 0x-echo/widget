@@ -4,17 +4,16 @@ import commonConfig from '@/config'
 export default (store) => {
   const { getCommonHeader } = useLibs(store)
   
-  const getWidgetData = async (loading) => {
+  const getWidgetData = async () => {
     const { data: counts } = await $fetch(commonConfig.api().GET_TARGET_SUMMARY, {
       params: {
-        target_uri: TARGET_URI
+        target_uri: store.widgetConfig.targetUri
       },
       headers: getCommonHeader()
     })
     
     store.setCounts(counts)
-    console.log(counts)
-    loading.value = false
+    store.status.loading = false
   }
   
   return {

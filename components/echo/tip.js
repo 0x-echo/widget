@@ -162,7 +162,7 @@ export default (store) => {
       })
       const data = {
         type: 'tip',
-        target_uri: TARGET_URI,
+        target_uri: store.widgetConfig.targetUri,
         protocol_version: common.PROTOCOL_VERSION,
         id: uuidv4(),
         meta: {

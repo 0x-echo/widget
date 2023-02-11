@@ -10,7 +10,7 @@ export default (store) => {
       avatar: '',
       balance: ''
     })
-    this.setCounts({
+    store.setCounts({
       hasLiked: false,
       hasDisliked: false
     })

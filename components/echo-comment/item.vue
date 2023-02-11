@@ -129,7 +129,7 @@
           </echo-comment-toolbar>
           
           <echo-comment-toolbar
-            v-if="store.widgetConfig.show_comment_dislike"
+            v-if="store.widgetConfig.showCommentDislike"
             :active="data.has_disliked && hasLogined"
             :count="data.dislike_counts"
             icon="ri-thumb-down-line"
@@ -156,7 +156,7 @@
               show-toolbar-on-init
               :submit-loading="status.onSubmitingReply"
               :user="store"
-              @reply="reply">
+              @submit="reply">
             </base-editor>
           </div>
         </el-collapse-transition>

@@ -60,7 +60,7 @@ export default (store) => {
       const body = {
         type: 'reaction',
         sub_type: subType,
-        target_uri: TARGET_URI,
+        target_uri: store.widgetConfig.targetUri,
         parent_id: data ? data.id : null,
         protocol_version: common.PROTOCOL_VERSION,
         id: uuidv4(),
