@@ -7,10 +7,10 @@ import useLibs from './libs'
 import useSign from '~~/compositions/sign'
 
 const { showConfetti } = useConfetti()
-const { $bus } = useNuxtApp()
 const sign = useSign()
 
 export default (store) => {
+  const { $bus } = useNuxtApp()
   const { getCommonHeader } = useLibs(store)
   
   const comment = async (message) => {
@@ -25,8 +25,8 @@ export default (store) => {
     await doReply(message.value, null, function () {
       message.value = ''
       setDraft(TARGET_URI, '')
-      store.setCounts({
-        comment_counts: store.comment.counts + 1
+      store.setData('comment', {
+        counts: store.comment.counts + 1
       })
     })
   }
@@ -94,7 +94,9 @@ export default (store) => {
      }
 
      if (!directParentId) {
-       localUpdateCommentIds.push(rs.data.post.id)
+       store.setData('comment', {
+        localUpdateCommentIds: [...store.comment.localUpdateCommentIds, rs.data.post.id]
+      })
        summary.comments.unshift(rs.data.post)
      } else {
        summary.comments.find(one => one.id === rs.data.post.parent_id).replies.push(rs.data.post)

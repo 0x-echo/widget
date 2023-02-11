@@ -1,6 +1,5 @@
 import { ElMessage } from 'element-plus'
 import { providers, ethers } from "ethers"
-const { $bus, $showLoading } = useNuxtApp()
 import useSign from '~~/compositions/sign'
 import base58 from 'bs58'
 
@@ -8,6 +7,7 @@ const sign = useSign()
 const GetWalletConnectProvider = () => import('@walletconnect/web3-provider/dist/umd/index.min.js')
 
 export default ({ store, connectWalletDialogVisible }) => {
+  const { $bus, $showLoading } = useNuxtApp()
   let provider = null
   let web3provider = null
   

@@ -1,7 +1,7 @@
 import useGetList from './get-list'
-const { $showLoading } = useNuxtApp()
 
 export default (store) => {
+  const { $showLoading } = useNuxtApp()
   const { getCommentList } = useGetList(store)
   
   const refreshCommentList = async () => {

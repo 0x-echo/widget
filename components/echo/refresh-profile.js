@@ -1,8 +1,8 @@
 import { ElMessage } from 'element-plus'
-const { $showLoading } = useNuxtApp()
 
 export default (store) => {
   const refreshProfile = async () => {
+    const { $showLoading } = useNuxtApp()
     const loadingMessage = $showLoading()
     
     try {

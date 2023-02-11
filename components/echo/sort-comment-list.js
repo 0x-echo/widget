@@ -1,15 +1,15 @@
 import useGetList from './get-list'
-const { $showLoading } = useNuxtApp()
 
 export default (store) => {
+  const { $showLoading } = useNuxtApp()
   const { getCommentList } = useGetList(store)
   
   const sortCommentList = async (val) => {
     store.setData('comment', {
-      orderBy: val
+      orderBy: val,
+      page: 1
     })
     
-    page = 1
     const loadingMessage = $showLoading()
     try {
       await getCommentList(page)

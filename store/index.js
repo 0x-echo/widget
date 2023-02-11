@@ -9,6 +9,7 @@ import _ from 'lodash'
 const useStore = defineStore('global', {
 	state: () => ({
     status: {
+      loading: false,
       onTransactionProcessing: false,
       onSubmitingComment: false,
       onSubmitingReply: false
@@ -61,8 +62,10 @@ const useStore = defineStore('global', {
       counts: 0,
       hasMore: true,
       isLoadingMore: false,
+      localUpdateCommentIds: [],
       onFetchList: false,
-      orderBy: 'newest'
+      orderBy: 'newest',
+      page: 1
     },
     
     like: {

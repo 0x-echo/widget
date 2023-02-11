@@ -6,7 +6,6 @@ export default (store) => {
   const { getCommonHeader } = useLibs(store)
   
   let hasLoaded = ref(false)
-  let limit = 20
   const commentSize = 20
   let comments = reactive([])
 
@@ -85,13 +84,12 @@ export default (store) => {
   
         store.setCounts(rs.target_summary)
         if (page === 1) {
-          totalPage = Math.ceil(rs.total / limit)
           store.setLastGotTime(new Date().getTime())
           store.setNewPost(0)
-          localUpdateCommentIds = []
           store.setData('comment', {
             hasMore: rs.total > commentSize,
-            isLoadingMore: false
+            isLoadingMore: false,
+            localUpdateCommentIds: []
           })
         } else {
           store.setData('comment', {
@@ -113,7 +111,9 @@ export default (store) => {
   
       if (!hasLoaded.value) {
         hasLoaded.value = true
-        loading.value = false
+        store.setData('status', {
+          loading: false
+        })
       }
     } catch (e) {
       if (e.response && e.response._data) {
@@ -161,14 +161,12 @@ export default (store) => {
       // hasMoreLikes.value = hasMore
       store.setCounts(rs.target_summary)
       if (subType === 'like') {
-        let likePage = store.like.page + 1
         store.setData('like', {
-          page: likePage
+          page: store.like.page + 1
         })
       } else if (subType === 'dislike') {
-        let dislikePage = store.dislike.page + 1
         store.setData('dislike', {
-          page: dislikePage
+          page: store.dislike.page + 1
         })
       }
     } catch (e) {

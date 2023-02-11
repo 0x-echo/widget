@@ -1,10 +1,10 @@
 import { ElMessage } from 'element-plus'
 import { ethers } from "ethers"
 import { v4 as uuidv4 } from 'uuid'
-const { $bus } = useNuxtApp()
 import useLibs from './libs'
 
 export default (store) => {
+  const { $bus } = useNuxtApp()
   const { getCommonHeader } = useLibs(store)
   let web3provider = null
   let checkTipInterval = null
