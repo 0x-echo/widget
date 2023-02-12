@@ -1,5 +1,7 @@
+import { storeToRefs } from "pinia"
+
 export default (store) => {
-  const tryAutoLogin = (connectWalletDialogVisible) => {
+  const tryAutoLogin = () => {
     try {
       const info = localStorage.getItem('login_info')
       const _info = JSON.parse(info)
@@ -22,7 +24,7 @@ export default (store) => {
         }, 200)
     
         // if login from other tab, like arconnect
-        connectWalletDialogVisible.value = false
+        store.setData('connectWalletDialogVisible', false)
       }
     } catch (e) {
       console.log('get login_info:', e)

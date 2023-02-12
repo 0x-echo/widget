@@ -9,7 +9,7 @@ import _ from 'lodash'
 const useStore = defineStore('global', {
 	state: () => ({
     status: {
-      loading: false,
+      loading: true,
       loginOnCurrentPage: false,
       onTransactionProcessing: false,
       onSubmitingComment: false,
@@ -17,8 +17,9 @@ const useStore = defineStore('global', {
     },
 
     widgetConfig: {
-      showCommentDislike: false,
+      fromUri: '',
       modules: [],
+      showCommentDislike: false,
       targetUri: ''
     },
     
@@ -31,6 +32,8 @@ const useStore = defineStore('global', {
       dislikes: [],
       tips: []
     },
+    
+    widgetType: '',
 
     env: {
       colorTheme: 'light',
@@ -50,7 +53,10 @@ const useStore = defineStore('global', {
       connectedAccounts: [],
       tipWallet: ''
     },
-
+    
+    connectWalletDialogVisible: false,
+    tipDialogVisible: false,
+    
     layout: {
       currentTab: ''
     },
@@ -137,6 +143,7 @@ const useStore = defineStore('global', {
         return
       }
       if (typeof data !== 'object') {
+        this[module] = data
         return
       }
       for (let i in data) {

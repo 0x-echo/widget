@@ -5,11 +5,12 @@ import useSign from '~~/compositions/sign'
 import base58 from 'bs58'
 import useLibs from './libs'
 import useGetWidgetData from './get-widget-data'
+import _ from 'lodash'
 
 const sign = useSign()
 const GetWalletConnectProvider = () => import('@walletconnect/web3-provider/dist/umd/index.min.js')
 
-export default ({ store, connectWalletDialogVisible }) => {
+export default (store) => {
   const { $bus, $showLoading } = useNuxtApp()
   const { getCommonHeader } = useLibs(store)
   const { getWidgetData } = useGetWidgetData(store)
@@ -20,12 +21,13 @@ export default ({ store, connectWalletDialogVisible }) => {
     store.setWallet({
       loginType: 'login'
     })
-    connectWalletDialogVisible.value = true
+    
+    store.setData('connectWalletDialogVisible', true)
   }
   
   const checkLoginStatus = () => {
     if (!store.hasLogined) {
-      connectWalletDialogVisible.value = true
+      store.setData('connectWalletDialogVisible', true)
       throw new Error('PLEASE LOGIN FIRST')
     }
   }
@@ -74,7 +76,7 @@ export default ({ store, connectWalletDialogVisible }) => {
           tipWallet: accounts[0]
         })
       }
-      connectWalletDialogVisible.value = false
+      store.setData('connectWalletDialogVisible', false)
     }
   }
   
@@ -157,7 +159,7 @@ export default ({ store, connectWalletDialogVisible }) => {
         headers: getCommonHeader()
       })
 
-      connectWalletDialogVisible.value = false
+      store.setData('connectWalletDialogVisible', false)
 
       sign.save(signKeys.privateKey)
 
@@ -225,7 +227,7 @@ export default ({ store, connectWalletDialogVisible }) => {
   const afterLogin = async () => {
     if (store.login.beforeAction) {
       // if already did, ignore
-      if (!store.counts[`has${store.login.beforeAction.toUpperCase()}d`]) {
+      if (!store.counts[`has${_.capitalize(store.login.beforeAction)}d`]) {
         try {
           await doReaction(store.login.beforeAction)
         } catch (e) {}
@@ -398,6 +400,7 @@ export default ({ store, connectWalletDialogVisible }) => {
   
   return {
     openConnectWalletDialog,
-    connectWallet
+    connectWallet,
+    checkLoginStatus
   }
 }

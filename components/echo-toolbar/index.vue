@@ -10,7 +10,7 @@
         <echo-toolbar-item
           v-for="item in toolbarConfig"
           :key="item.value"
-          :active="getActive(item)"
+          :active="item.value === 'like' || item.value === 'dislike' ? store[item.value][`has${_.capitalize(item.value)}d`] && hasLogined : false"
           :icon="item.icon"
           :count="item.count"
           :value="item.value"
@@ -83,6 +83,7 @@
 import { ElPopover } from 'element-plus'
 import useStore from '~~/store'
 import useChain from '~~/compositions/chain'
+import _ from 'lodash'
 
 // import * as Dotbit from 'dotbit/lib/index'
 // console.log(Dotbit)
@@ -131,7 +132,7 @@ const emits = defineEmits([
 
 // @todo use ilike instead of like because there is a bug
 const emitAction = (item) => {
-  emits(item.value === 'like' ? 'ilike' : item.value, counts.value[`has_${item.value}d`])
+  emits(item.value === 'like' ? 'ilike' : item.value, store.like.hasLiked)
 }
 
 const showWalletConnect = computed(() => {
@@ -170,16 +171,6 @@ const toolbarConfig = computed(() => {
   
   return newList
 })
-
-const getActive = (item) => {
-  if (item.value === 'like') {
-    return store.like.hasLiked && hasLogined
-  } else if (item.value === 'dislike') {
-    return store.dislike.hasDisliked && hasLogined
-  } else {
-    return false
-  }
-}
 
 const userMenu = [{
   icon: 'ri-refresh-line',

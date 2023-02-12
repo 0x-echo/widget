@@ -3,15 +3,18 @@ import { setDraft } from '@/libs/helper'
 import { parseContent } from '@/libs/content-parser'
 import { v4 as uuidv4 } from 'uuid'
 import useConfetti from '~~/compositions/confetti'
+import useConnectWallet from './connect-wallet'
 import useLibs from './libs'
 import useSign from '~~/compositions/sign'
 
 const { showConfetti } = useConfetti()
 const sign = useSign()
+const { public: { common }} = useRuntimeConfig()
 
 export default (store) => {
-  const { $bus } = useNuxtApp()
+  const { checkLoginStatus } = useConnectWallet(store)
   const { getCommonHeader } = useLibs(store)
+  const { $bus } = useNuxtApp()
   
   const comment = async (message) => {
     if (!message.value) {
@@ -64,7 +67,7 @@ export default (store) => {
        content: parseContent(content, false),
        protocol_version: common.PROTOCOL_VERSION,
        id: uuidv4(),
-       from_uri: props.config.from_uri || null
+       from_uri: store.widgetConfig.fromUri || null
      }
  
      const signed = sign.sign(body)

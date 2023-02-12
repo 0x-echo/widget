@@ -30,9 +30,9 @@
         <el-button
           class="el-button--xlarge el-button--icon echo-module-sole__action-button"
           :class="{
-            active: ((module === 'like' || module === 'dislike') && moduleData[`has${module.toUpperCase()}d`] && store.hasLogined) || module === 'tip'
+            active: ((module === 'like' || module === 'dislike') && moduleData[`has${_.capitalize(module)}d`] && store.hasLogined) || module === 'tip'
           }"
-          @click="$emit(module, moduleData[`has${module.toUpperCase()}d`])">
+          @click="$emit(module, moduleData[`has${_.capitalize(module)}d`])">
           <i
             class="echo-module-sole__action-icon"
             :class="currentModule.icon">
@@ -116,6 +116,7 @@
 import { ElButton, ElTooltip } from 'element-plus'
 import ListSkeleton from './skeleton'
 import useStore from '~~/store'
+import _ from 'lodash'
 
 const store = useStore()
 

@@ -1,21 +1,24 @@
 import { ElMessage } from 'element-plus'
 import { ethers } from "ethers"
 import { v4 as uuidv4 } from 'uuid'
+import useConnectWallet from './connect-wallet'
 import useLibs from './libs'
+const { public: { common }} = useRuntimeConfig()
 
 export default (store) => {
+  const { checkLoginStatus } = useConnectWallet(store)
   const { $bus } = useNuxtApp()
   const { getCommonHeader } = useLibs(store)
   let web3provider = null
   let checkTipInterval = null
   
-  const openTipDialog = async (tipDialogVisible) => {
+  const openTipDialog = async () => {
     try {
       checkLoginStatus()
       store.setWallet({
         loginType: 'tip'
       })
-      tipDialogVisible.value = true
+      store.setData('tipDialogVisible', true)
       await store.getCurrency()    
     } catch (e) {
       console.log(e)
@@ -196,7 +199,7 @@ export default (store) => {
           })
           showConfetti()
           tipDialogVisible.value = false
-          connectWalletDialogVisible.value = false
+          store.setData('connectWalletDialogVisible', false)
           data.meta.status = 'success'
           await submitTip(data)
           await getTipList()

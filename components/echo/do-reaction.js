@@ -1,6 +1,7 @@
 import commonConfig from '@/config'
 import { ElMessage } from 'element-plus'
 import useConfetti from '~~/compositions/confetti'
+import useConnectWallet from './connect-wallet'
 import useLibs from './libs'
 import useGetList from './get-list'
 import useSign from '~~/compositions/sign'
@@ -8,8 +9,10 @@ import { v4 as uuidv4 } from 'uuid'
 
 const { showConfetti } = useConfetti()
 const sign = useSign()
+const { public: { common }} = useRuntimeConfig()
 
 export default (store) => {
+  const { checkLoginStatus } = useConnectWallet(store)
   const { getReactionList } = useGetList(store)
   const { getCommonHeader } = useLibs(store)
   
@@ -18,7 +21,7 @@ export default (store) => {
     const type = (data ? '-' : '') + 'like'
     const rs = await doReaction(type)
     if (rs) {
-      if (type === 'like' && widgetType.value === 'like-only') {
+      if (type === 'like' && store.widgetType === 'like-only') {
         ElMessage.success({
           message: 'Thank you!'
         })
@@ -64,7 +67,7 @@ export default (store) => {
         parent_id: data ? data.id : null,
         protocol_version: common.PROTOCOL_VERSION,
         id: uuidv4(),
-        from_uri: props.config.from_uri || null
+        from_uri: store.widgetConfig.fromUri || null
       }
 
       const signed = sign.sign(body)

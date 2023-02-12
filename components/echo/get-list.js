@@ -79,8 +79,9 @@ export default (store) => {
           }
         })
   
-        store.widgetData.comments = comments
-        store.widgetData.counts = rs.target_summary
+        store.setData('widgetData', {
+          comments: comments
+        })
   
         store.setCounts(rs.target_summary)
         if (page === 1) {

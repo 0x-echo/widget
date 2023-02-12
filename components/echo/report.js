@@ -1,9 +1,12 @@
 import { ElMessage } from 'element-plus'
 import { parseContent } from '@/libs/content-parser'
+import useConnectWallet from './connect-wallet'
 import useLibs from './libs'
 import { v4 as uuidv4 } from 'uuid'
+const { public: { common }} = useRuntimeConfig()
 
 export default ({ store, reportDialogVisible }) => {
+  const { checkLoginStatus } = useConnectWallet(store)
   const { getCommonHeader } = useLibs(store)
   let currentReportPost = null
   

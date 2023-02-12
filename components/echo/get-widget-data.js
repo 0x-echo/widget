@@ -13,7 +13,9 @@ export default (store) => {
     })
     
     store.setCounts(counts)
-    store.status.loading = false
+    store.setData('status', {
+      loading: false
+    })
   }
   
   return {
