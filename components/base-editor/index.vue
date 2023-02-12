@@ -61,7 +61,7 @@
               :loading="submitLoading"
               size="large"
               type="primary"
-              @click.stop="$emit('reply')">
+              @click.stop="$emit('submit')">
               <template
                 #loading>
                 <base-loader-spin
@@ -111,7 +111,7 @@ const props = defineProps({
 })
 
 const emits = defineEmits([
-  'reply'
+  'submit'
 ])
 
 let showToolbar = ref(props.showToolbarOnInit)
@@ -131,7 +131,7 @@ const focusInput = () => {
 
 const submit = (e) => {
   if (e.metaKey) {
-    emits('reply')
+    emits('submit')
   }
 }
 </script>

@@ -6,7 +6,7 @@
       <div
         v-if="newPosts > 0"
         class="echo-comment__refresh"
-        @click="$emit('refresh-comments')">
+        @click="$emit('refresh-comment-list')">
         <i
           class="ri-refresh-line echo-comment__refresh-icon">
         </i>
@@ -50,7 +50,7 @@ import { ElButton } from 'element-plus'
 import useStore from '~~/store'
 
 const store = useStore();
-const newPosts = computed(() => store.new_posts)
+const newPosts = computed(() => store.newPosts)
 
 const props = defineProps({
   data: {
@@ -70,7 +70,7 @@ const props = defineProps({
 })
 
 const emits = defineEmits([
-  'refresh-comments',
+  'refresh-comment-list',
   'update:modelValue'
 ])
 </script>

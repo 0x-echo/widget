@@ -126,13 +126,15 @@ const emits = defineEmits([
   'tip',
   'dislike',
   'logout',
-  'like',
-  'ilike'
+  'like'
 ])
 
-// @todo use ilike instead of like because there is a bug
 const emitAction = (item) => {
-  emits(item.value === 'like' ? 'ilike' : item.value, store.like.hasLiked)
+  if (item.value === 'like' || item.value === 'dislike') {
+    emits(item.value, store[item.value][`has${_.capitalize(item.value)}d`])
+  } else {
+    emits(item.value)
+  }
 }
 
 const showWalletConnect = computed(() => {

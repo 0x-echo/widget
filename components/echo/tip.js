@@ -198,7 +198,7 @@ export default (store) => {
             onTransactionProcessing: false
           })
           showConfetti()
-          tipDialogVisible.value = false
+          store.setData('tipDialogVisible', false)
           store.setData('connectWalletDialogVisible', false)
           data.meta.status = 'success'
           await submitTip(data)

@@ -2,6 +2,7 @@ import { ElMessage } from 'element-plus'
 import { setDraft } from '@/libs/helper'
 import { parseContent } from '@/libs/content-parser'
 import { v4 as uuidv4 } from 'uuid'
+import commonConfig from '@/config'
 import useConfetti from '~~/compositions/confetti'
 import useConnectWallet from './connect-wallet'
 import useLibs from './libs'
@@ -16,8 +17,8 @@ export default (store) => {
   const { getCommonHeader } = useLibs(store)
   const { $bus } = useNuxtApp()
   
-  const comment = async (message) => {
-    if (!message.value) {
+  const comment = async () => {
+    if (!store.comment.message) {
       ElMessage.error({
         message: 'Please type something'
       }) 
@@ -25,11 +26,11 @@ export default (store) => {
       return
     }
   
-    await doReply(message.value, null, function () {
-      message.value = ''
+    await doReply(store.comment.message, null, function () {
       setDraft(store.widgetConfig.targetUri, '')
       store.setData('comment', {
-        counts: store.comment.counts + 1
+        counts: store.comment.counts + 1,
+        message: ''
       })
     })
   }
@@ -100,9 +101,9 @@ export default (store) => {
        store.setData('comment', {
         localUpdateCommentIds: [...store.comment.localUpdateCommentIds, rs.data.post.id]
       })
-       summary.comments.unshift(rs.data.post)
+       store.widgetData.comments.unshift(rs.data.post)
      } else {
-       summary.comments.find(one => one.id === rs.data.post.parent_id).replies.push(rs.data.post)
+      store.widgetData.comments.find(one => one.id === rs.data.post.parent_id).replies.push(rs.data.post)
      }
    } catch (e) {
      console.log(e)

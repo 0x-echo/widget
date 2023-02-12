@@ -3,7 +3,7 @@
     v-bind="$attrs"
     :loading="loading"
     :modules="modules"
-    @like="$emit('like')"
+    @like="onLike"
     @tip="$emit('tip')">
   </echo-toolbar>
   
@@ -14,7 +14,8 @@
     :disabled-tooltip="false"
     :loading="loading"
     :submit-loading="status.onSubmitingComment"
-    :user="store">
+    :user="store"
+    @submit="$emit('comment')">
   </base-editor>
   
   <base-tabs
@@ -57,7 +58,7 @@
         button-text="Be the First Liker"
         :color-theme="store.env.colorTheme"
         message=""
-        @on-click="$emit('like')">
+        @on-click="onLike">
       </base-empty>
       
       <echo-module-tabs-vote
@@ -135,6 +136,7 @@ const props = defineProps({
 })
 
 const emits = defineEmits([
+  'comment',
   'like',
   'load-more',
   'on-change-tab',
@@ -185,6 +187,10 @@ let currentSort = ref('newest')
 watch(currentSort, (val) => {
   emits('sort-change', val)
 })
+
+const onLike = (data) => {
+  emits('like', data)
+}
 </script>
 
 <script>

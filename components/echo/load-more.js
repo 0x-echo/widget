@@ -23,7 +23,7 @@ export default (store) => {
   
   const loadMoreComments = async () => {
     if (!store.comment.onFetchList && store.comment.hasMore) {
-      await getCommentList(++page)
+      await getCommentList(++store.comment.page)
     }
   }
   

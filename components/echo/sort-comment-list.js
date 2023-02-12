@@ -12,7 +12,7 @@ export default (store) => {
     
     const loadingMessage = $showLoading()
     try {
-      await getCommentList(page)
+      await getCommentList(store.comment.page)
     } finally {
       loadingMessage.close()
     }

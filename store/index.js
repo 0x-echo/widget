@@ -70,6 +70,7 @@ const useStore = defineStore('global', {
       hasMore: true,
       isLoadingMore: false,
       localUpdateCommentIds: [],
+      message: '',
       onFetchList: false,
       orderBy: 'newest',
       page: 1
@@ -104,7 +105,7 @@ const useStore = defineStore('global', {
 
     balance: 0,
 
-    new_posts: 0,
+    newPosts: 0,
     last_got_time: 0,
 
     tip_amount: 0,
@@ -237,7 +238,7 @@ const useStore = defineStore('global', {
       this.last_got_time = val
     },
     setNewPost (val) {
-      this.new_posts = val
+      this.newPosts = val
     },
     setLoginInfo (val) {
       for (let i in val) {
