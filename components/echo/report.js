@@ -1,18 +1,19 @@
 import { ElMessage } from 'element-plus'
 import { parseContent } from '@/libs/content-parser'
-import useConnectWallet from './connect-wallet'
-import useLibs from './libs'
 import { v4 as uuidv4 } from 'uuid'
 const { public: { common }} = useRuntimeConfig()
+import commonConfig from '@/config'
+import useConnectWallet from './connect-wallet'
+import useLibs from './libs'
 
-export default ({ store, reportDialogVisible }) => {
+export default (store) => {
   const { checkLoginStatus } = useConnectWallet(store)
   const { getCommonHeader } = useLibs(store)
   let currentReportPost = null
   
   const openReportDialog = async (data) => {
     currentReportPost = data
-    reportDialogVisible.value = true
+    store.setData('reportDialogVisible', true)
   }
   
   const submitReport = async (reason) => {
@@ -36,7 +37,7 @@ export default ({ store, reportDialogVisible }) => {
         message: 'Thank you!'
       })
       
-      reportDialogVisible.value = false
+      store.setData('reportDialogVisible', false)
     } catch (e) {
       console.log(e)
       if (e.response && e.response._data) {

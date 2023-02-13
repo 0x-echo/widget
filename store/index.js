@@ -19,7 +19,7 @@ const useStore = defineStore('global', {
     widgetConfig: {
       fromUri: '',
       modules: [],
-      showCommentDislike: false,
+      showCommentDislike: true,
       targetUri: ''
     },
     
@@ -55,6 +55,7 @@ const useStore = defineStore('global', {
     },
     
     connectWalletDialogVisible: false,
+    reportDialogVisible: false,
     tipDialogVisible: false,
     
     layout: {

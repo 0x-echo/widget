@@ -1,11 +1,12 @@
 <template>
   <base-dialog
     class="echo-dialog-report"
+    :confirm-button-disabled="reason === ''"
     has-action-footer
     title="Report"
     title-icon="ri-alert-line"
     @cancel="$emit('update:modelValue', false)"
-    @close="reason.value = ''"
+    @close="reason = ''"
     @on-close="$emit('update:modelValue', false)"
     @submit="submit">
     <el-select
