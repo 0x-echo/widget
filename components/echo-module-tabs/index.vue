@@ -42,12 +42,12 @@
         :color-theme="store.env.colorTheme">
       </base-empty>
       
-      <echo-comment
+      <echo-list-comment
         v-else
         v-bind="$attrs"
         :data="data.comments.filter(item => { return item.is_deleted === false })"
         :loading="loading">
-      </echo-comment>
+      </echo-list-comment>
     </base-tab-pane>
     
     <base-tab-pane
@@ -61,7 +61,7 @@
         @on-click="onLike">
       </base-empty>
       
-      <echo-reaction-list
+      <echo-list-reaction
         v-else
         :data="data.likes"
         :is-loading-more="store.like.isLoadingMore"
@@ -70,7 +70,7 @@
         power-label="Liking Power"
         :power-value="store.like.power"
         tip="Estimated total value of all liking address">
-      </echo-reaction-list>
+      </echo-list-reaction>
     </base-tab-pane>
     
     <base-tab-pane
@@ -80,7 +80,7 @@
         :color-theme="store.env.colorTheme">
       </base-empty>
       
-      <echo-reaction-list
+      <echo-list-reaction
         v-else
         :data="data.dislikes"
         :is-loading-more="store.dislike.isLoadingMore"
@@ -89,7 +89,7 @@
         power-label="Disliking Power"
         :power-value="store.dislike.power"
         tip="Estimated total value of all disiking address">
-      </echo-reaction-list>
+      </echo-list-reaction>
     </base-tab-pane>
     
     <base-tab-pane
@@ -103,11 +103,11 @@
         @on-click="$emit('tip')">
       </base-empty>
       
-      <echo-reaction-list
+      <echo-list-reaction
         v-else
         :data="data.tips"
         :loading="loading">
-      </echo-reaction-list>
+      </echo-list-reaction>
     </base-tab-pane>
   </base-tabs>
 </template>

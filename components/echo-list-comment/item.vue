@@ -120,28 +120,28 @@
         
         <div
           class="echo-comment-item__control-bar">
-          <echo-comment-toolbar
+          <echo-list-comment-toolbar
             :active="data.has_liked && hasLogined"
             :count="data.like_counts"
             icon="ri-thumb-up-line"
             value="like"
             @click="$emit('like-comment', data)">
-          </echo-comment-toolbar>
+          </echo-list-comment-toolbar>
           
-          <echo-comment-toolbar
+          <echo-list-comment-toolbar
             v-if="store.widgetConfig.showCommentDislike"
             :active="data.has_disliked && hasLogined"
             :count="data.dislike_counts"
             icon="ri-thumb-down-line"
             value="dislike"
             @click="$emit('dislike-comment', data)">
-          </echo-comment-toolbar>
+          </echo-list-comment-toolbar>
           
-          <echo-comment-toolbar
+          <echo-list-comment-toolbar
             icon="ri-chat-3-line"
             value="reply"
             @click="toggleReplyForm">
-          </echo-comment-toolbar>
+          </echo-list-comment-toolbar>
         </div>
         
         <el-collapse-transition>
@@ -319,7 +319,10 @@ export default {
 .echo-comment-item {
   position: relative;
   display: flex;
-  margin-bottom: 20px;
+  
+  & + & {
+    margin-top: 20px;
+  }
   
   &.has-replies {
     &::before {

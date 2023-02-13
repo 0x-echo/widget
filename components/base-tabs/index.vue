@@ -135,7 +135,6 @@ export default {
     display: flex; 
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 28px;
     overflow-x: auto;
     border-bottom: 1px solid var(--echo-bg-color);
     
@@ -216,7 +215,7 @@ export default {
   &__content {
     flex: 1;
     overflow-y: auto;
-    padding: 2px 5px 0 0;
+    padding: 30px 5px 30px 0;
     
     &::-webkit-scrollbar {
       display: none;

@@ -1,5 +1,5 @@
 <template>
-  <echo-reaction-list-skeleton
+  <echo-list-reaction-skeleton
     v-bind="$attrs">
     <div
       class="echo-reaction-list">
@@ -27,7 +27,7 @@
       </el-tooltip>
 
       <div
-        class="echo-reaction-list__list">
+        class="echo-reaction-list__content">
         <base-user-item
           v-for="item in data"
           :key="item.id"
@@ -45,7 +45,7 @@
         </base-loader-pulse>
       </div>
     </div>
-  </echo-reaction-list-skeleton>
+  </echo-list-reaction-skeleton>
 </template>
 
 <script setup>
@@ -91,8 +91,6 @@ watch(currentTab, (newVal, oldVal) => {
 
 <style lang="scss">
 .echo-reaction-list {
-  padding: 0 20px 40px;
-  
   &__value {
     display: inline-flex;
     align-items: center;
@@ -112,7 +110,7 @@ watch(currentTab, (newVal, oldVal) => {
     color: var(--echo-color-warning);
   }
   
-  &__list {
+  &__content {
     display: grid;
     grid-template-columns: repeat(auto-fit, 150px);
     gap: 16px 50px;
@@ -128,7 +126,7 @@ watch(currentTab, (newVal, oldVal) => {
 
 @media screen and (max-width: #{$mobile-width - 1px}) {
   .echo-reaction-list {
-    &__list {
+    &__content {
       grid-template-columns: repeat(auto-fit, minmax(36px, 1fr));
       gap: 16px 12px;
     }

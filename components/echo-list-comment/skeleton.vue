@@ -1,34 +1,34 @@
 <template>
   <el-skeleton
-    class="echo-comment-skeleton"
+    class="echo-comment-list-skeleton"
     v-bind="$attrs"
     animated>
     <template 
       #template>
       <div
-        class="echo-comment-skeleton__item"
+        class="echo-comment-list-skeleton__item"
         v-for="index in 2"
         :key="index">
         <el-skeleton-item
-          class="echo-comment-skeleton__avatar"
+          class="echo-comment-list-skeleton__avatar"
           variant="circle" />
           
         <div
-          class="echo-comment-skeleton__body">
+          class="echo-comment-list-skeleton__body">
           <el-skeleton-item
-            class="echo-comment-skeleton__author"
+            class="echo-comment-list-skeleton__author"
             variant="h1" />
             
           <el-skeleton-item
-            class="echo-comment-skeleton__meta"
+            class="echo-comment-list-skeleton__meta"
             variant="text" />
             
           <el-skeleton-item
-            class="echo-comment-skeleton__content"
+            class="echo-comment-list-skeleton__content"
             variant="rect" />
             
           <el-skeleton-item
-            class="echo-comment-skeleton__action"
+            class="echo-comment-list-skeleton__action"
             variant="rect" />
         </div>
       </div>
@@ -46,7 +46,7 @@ import { ElSkeleton, ElSkeletonItem } from 'element-plus'
 </script>
 
 <style lang="scss">
-.echo-comment-skeleton {
+.echo-comment-list-skeleton {
   &__item {
     display: flex;
     
@@ -87,7 +87,7 @@ import { ElSkeleton, ElSkeletonItem } from 'element-plus'
 }
 
 @media screen and (max-width: #{$tablet-width - 1px}) {
-  .echo-comment-skeleton {
+  .echo-comment-list-skeleton {
     &__avatar {
       width: 30px;
       height: 30px;

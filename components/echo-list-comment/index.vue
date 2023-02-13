@@ -1,14 +1,14 @@
 <template>
-  <echo-comment-skeleton
+  <echo-list-comment-skeleton
     :loading="loading">
     <div
-      class="echo-comment">
+      class="echo-comment-list">
       <div
         v-if="newPosts > 0"
-        class="echo-comment__refresh"
+        class="echo-comment-list__refresh"
         @click="$emit('refresh-comment-list')">
         <i
-          class="ri-refresh-line echo-comment__refresh-icon">
+          class="ri-refresh-line echo-comment-list__refresh-icon">
         </i>
         <span>
           {{ newPosts }} New {{ newPosts > 1 ? 'Comments' : 'Comment' }}
@@ -16,8 +16,8 @@
       </div>
       
       <div
-        class="echo-comment__list">
-        <echo-comment-item
+        class="echo-comment-list__content">
+        <echo-list-comment-item
           :class="{
             'has-replies': item.replies && item.replies.length
           }"
@@ -25,24 +25,25 @@
           v-for="item in data"
           :key="item.id"
           :data="item">
-          <echo-comment-reply-list
+          <echo-list-comment-reply-list
+            class="echo-comment-list__reply-list"
             v-if="item.replies.length"
             v-bind="$attrs"
             :parent-post="item"
             :total="item.reply_counts"
             :data="item.replies">
-          </echo-comment-reply-list>
-        </echo-comment-item>
+          </echo-list-comment-reply-list>
+        </echo-list-comment-item>
       </div>
       
       <div
-        class="echo-comment__bottom"
+        class="echo-comment-list__bottom"
         v-if="store.comment.isLoadingMore">
         <base-loader-pulse>
         </base-loader-pulse>
       </div>
     </div>
-  </echo-comment-skeleton>
+  </echo-list-comment-skeleton>
 </template>
 
 <script setup>
@@ -82,7 +83,7 @@ export default {
 </script>
 
 <style lang="scss">
-.echo-comment {
+.echo-comment-list {
   position: relative;
   
   &__refresh {
@@ -108,6 +109,10 @@ export default {
     display: block;
     margin-right: 8px;
     font-size: 16px;
+  }
+  
+  &__reply-list {
+    margin-top: 20px;
   }
   
   &__bottom {

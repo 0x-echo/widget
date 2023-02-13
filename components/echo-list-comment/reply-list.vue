@@ -1,36 +1,35 @@
 <template>
-  <div
-    class="echo-comment-reply-list">
+  <div>
     <transition-group
       name="list">
-      <echo-comment-item
+      <echo-list-comment-item
         v-bind="$attrs"
         v-for="item in replies"
         :key="item.id"
         avatar-size="small"
         :data="item">
-      </echo-comment-item>
+      </echo-list-comment-item>
     </transition-group>
 
     <!-- when total page === 1  and has not loaded replies -->
-    <echo-comment-collapse
+    <echo-list-comment-collapse
       v-if="total - maxDisplayReply > 0 && Math.ceil(parentPost.reply_counts / 10) === 1 && parentPost.current_reply_page === 0"
       :data="collapsedList"
       has-avatar
       :label="`View ${total - maxDisplayReply} more ${ total - maxDisplayReply === 1 ? 'reply' : 'replies'}`"
       @click="toggle">
-    </echo-comment-collapse>
+    </echo-list-comment-collapse>
     
-    <!-- <echo-comment-collapse
+    <!-- <echo-list-comment-collapse
       :label="`View ${collapsedList.length} replies`">
-    </echo-comment-collapse> -->
+    </echo-list-comment-collapse> -->
     
     <!-- when current page >= 1 and has more replies-->
-    <echo-comment-collapse
+    <echo-list-comment-collapse
       v-if="total - maxDisplayReply > 0 && Math.ceil(parentPost.reply_counts / 10) > 1 && parentPost.current_reply_page < Math.ceil(parentPost.reply_counts / 10)"
       label="Show more replies"
       @click="toggle">
-    </echo-comment-collapse>
+    </echo-list-comment-collapse>
   </div>
 </template>
 
@@ -76,7 +75,4 @@ const toggle = () => {
 </script>
 
 <style lang="scss">
-.echo-comment-reply-list {
-  margin-top: 20px;
-}
 </style>
