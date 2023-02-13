@@ -1,5 +1,5 @@
 <template>
-  <echo-module-tabs-reaction-template-skeleton
+  <echo-module-tabs-reaction-skeleton
     v-bind="$attrs">
     <div
       class="echo-module-tabs-reaction-template"
@@ -40,7 +40,7 @@
         </base-loader-pulse>
       </div>
     </div>
-  </echo-module-tabs-reaction-template-skeleton>
+  </echo-module-tabs-reaction-skeleton>
 </template>
 
 <script setup>
