@@ -61,7 +61,7 @@
         @on-click="onLike">
       </base-empty>
       
-      <echo-module-tabs-reaction
+      <echo-reaction-list
         v-else
         :data="data.likes"
         :is-loading-more="store.like.isLoadingMore"
@@ -70,7 +70,7 @@
         power-label="Liking Power"
         :power-value="store.like.power"
         tip="Estimated total value of all liking address">
-      </echo-module-tabs-reaction>
+      </echo-reaction-list>
     </base-tab-pane>
     
     <base-tab-pane
@@ -80,7 +80,7 @@
         :color-theme="store.env.colorTheme">
       </base-empty>
       
-      <echo-module-tabs-reaction
+      <echo-reaction-list
         v-else
         :data="data.dislikes"
         :is-loading-more="store.dislike.isLoadingMore"
@@ -89,7 +89,7 @@
         power-label="Disliking Power"
         :power-value="store.dislike.power"
         tip="Estimated total value of all disiking address">
-      </echo-module-tabs-reaction>
+      </echo-reaction-list>
     </base-tab-pane>
     
     <base-tab-pane
@@ -103,11 +103,11 @@
         @on-click="$emit('tip')">
       </base-empty>
       
-      <echo-module-tabs-tip
+      <echo-reaction-list
         v-else
         :data="data.tips"
         :loading="loading">
-      </echo-module-tabs-tip>
+      </echo-reaction-list>
     </base-tab-pane>
   </base-tabs>
 </template>

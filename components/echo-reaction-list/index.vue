@@ -1,17 +1,16 @@
 <template>
-  <echo-module-tabs-reaction-skeleton
+  <echo-reaction-list-skeleton
     v-bind="$attrs">
     <div
-      class="echo-module-tabs-reaction-template"
-      v-if="showList">
+      class="echo-reaction-list">
       <el-tooltip
         :content="tip"
         :disabled="tip === ''"
         placement="top-start">
         <div
-          class="echo-module-tabs-reaction-template__value">
+          class="echo-reaction-list__value">
           <i
-            class="ri-flashlight-fill echo-module-tabs-reaction-template__value-icon">
+            class="ri-flashlight-fill echo-reaction-list__value-icon">
           </i>
 
           <span>
@@ -28,19 +27,25 @@
       </el-tooltip>
 
       <div
-        class="echo-module-tabs-reaction-template__list">
-        <slot>
-        </slot>
+        class="echo-reaction-list__list">
+        <base-user-item
+          v-for="item in data"
+          :key="item.id"
+          :avatar="item.author.avatar || ''"
+          :badge="item.times === undefined || item.times === 1 ? '' : `x${item.times}`"
+          :address="item.author.address"
+          :title="((item.author.address === store.address) ? 'you' : $formatScreenName(item.author.screen_name))">
+        </base-user-item>
       </div>
       
       <div
-        class="echo-module-tabs-reaction-template__bottom"
+        class="echo-reaction-list__bottom"
         v-if="isLoadingMore">
         <base-loader-pulse>
         </base-loader-pulse>
       </div>
     </div>
-  </echo-module-tabs-reaction-skeleton>
+  </echo-reaction-list-skeleton>
 </template>
 
 <script setup>
@@ -51,6 +56,10 @@ import useStore from '~~/store';
 const store = useStore()
 
 const props = defineProps({
+  data: {
+    type: Array,
+    required: true
+  },
   isLoadingMore: {
     type: Boolean,
     default: false
@@ -66,9 +75,6 @@ const props = defineProps({
   },
   tip: {
     type: String
-  },
-  showList: {
-    type: Boolean
   }
 })
 
@@ -84,7 +90,7 @@ watch(currentTab, (newVal, oldVal) => {
 </script>
 
 <style lang="scss">
-.echo-module-tabs-reaction-template {
+.echo-reaction-list {
   padding: 0 20px 40px;
   
   &__value {
@@ -121,7 +127,7 @@ watch(currentTab, (newVal, oldVal) => {
 }
 
 @media screen and (max-width: #{$mobile-width - 1px}) {
-  .echo-module-tabs-reaction-template {
+  .echo-reaction-list {
     &__list {
       grid-template-columns: repeat(auto-fit, minmax(36px, 1fr));
       gap: 16px 12px;

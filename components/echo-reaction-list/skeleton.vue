@@ -1,18 +1,18 @@
 <template>
   <el-skeleton
-    class="echo-module-tabs-reaction-skeleton"
+    class="echo-reaction-list-skeleton"
     v-bind="$attrs"
     animated>
     <template 
       #template>
       <el-skeleton-item
-        class="echo-module-tabs-reaction-skeleton__value"
+        class="echo-reaction-list-skeleton__value"
         variant="text" />
       
       <div
-        class="echo-module-tabs-reaction-skeleton__list">
+        class="echo-reaction-list-skeleton__list">
         <div
-          class="echo-module-tabs-reaction-skeleton__item"
+          class="echo-reaction-list-skeleton__item"
           v-for="item in 2"
           :key="item">
           <el-skeleton-item
@@ -20,13 +20,13 @@
             variant="circle" />
           
           <div
-            class="echo-module-tabs-reaction-skeleton__body">
+            class="echo-reaction-list-skeleton__body">
             <el-skeleton-item
-              class="echo-module-tabs-reaction-skeleton__title"
+              class="echo-reaction-list-skeleton__title"
               variant="h1" />
               
             <!-- <el-skeleton-item
-              class="echo-module-tabs-reaction-skeleton__subtitle"
+              class="echo-reaction-list-skeleton__subtitle"
               variant="text" /> -->
           </div>
         </div>
@@ -45,7 +45,7 @@ import { ElSkeleton, ElSkeletonItem } from 'element-plus'
 </script>
 
 <style lang="scss">
-.echo-module-tabs-reaction-skeleton {
+.echo-reaction-list-skeleton {
   padding: 0 20px;
   
   &__value {
