@@ -28,7 +28,6 @@ export default (store) => {
   }
   
   const loadMoreLikes = async () => {
-    console.log('load more likes')
     await getReactionList('like')
   }
   

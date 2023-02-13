@@ -45,6 +45,11 @@ export default (store) => {
     }
     
     await doReply(data.message, data.data.id, null)
+    store.widgetData.comments.forEach(item => {
+      if (item.id === data.data.id) {
+        item.can_delete = false
+      }
+    })
     $bus.emit('reset-reply-comment', data.data)
   }
   

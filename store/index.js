@@ -55,6 +55,7 @@ const useStore = defineStore('global', {
     },
     
     connectWalletDialogVisible: false,
+    deleteCommentDialogVisible: false,
     reportDialogVisible: false,
     tipDialogVisible: false,
     
@@ -80,6 +81,7 @@ const useStore = defineStore('global', {
     like: {
       counts: 0,
       hasLiked: false,
+      hasMore: true,
       isLoadingMore: false,
       page: 1,
       power: 0
@@ -87,6 +89,7 @@ const useStore = defineStore('global', {
     
     dislike: {
       counts: 0,
+      hasMore: true,
       hasDisliked: false,
       page: 1,
       power: 0

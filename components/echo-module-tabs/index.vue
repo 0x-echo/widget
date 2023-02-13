@@ -45,7 +45,7 @@
       <echo-comment
         v-else
         v-bind="$attrs"
-        :data="data.comments"
+        :data="data.comments.filter(item => { return item.is_deleted === false })"
         :loading="loading">
       </echo-comment>
     </base-tab-pane>
@@ -64,7 +64,7 @@
       <echo-module-tabs-vote
         v-else
         :data="data.likes"
-        :is-loading-more="isLoadingMoreLikes"
+        :is-loading-more="store.like.isLoadingMore"
         :loading="loading"
         module="like"
         power-label="Liking Power"
@@ -83,7 +83,7 @@
       <echo-module-tabs-vote
         v-else
         :data="data.dislikes"
-        :loading="loading"
+        :is-loading-more="store.dislike.isLoadingMore"
         module="dislike"
         power-label="Disliking Power"
         :power-value="store.dislike.power"
@@ -121,10 +121,6 @@ const props = defineProps({
   data: {
     type: Object,
     required: true
-  },
-  isLoadingMoreLikes: {
-    type: Boolean,
-    default: false
   },
   loading: {
     type: Boolean

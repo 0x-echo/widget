@@ -135,6 +135,10 @@ export default (store) => {
   
   const reactionLimit = 50
   const getReactionList = async (subType) => {
+    if ((subType === 'like' && !store.like.hasMore) || (subType === 'dislike' && !store.dislike.hasMore)) {
+      return
+    }
+    console.log('load more likes 2')
     const page = subType === 'like' ? store.like.page : store.dislike.page
     const params = {
       target_uri: store.widgetConfig.targetUri,
@@ -144,7 +148,7 @@ export default (store) => {
     }
 
     try {
-      store.setData('like', {
+      store.setData(subType, {
         isLoadingMore: true
       })
       
@@ -158,7 +162,10 @@ export default (store) => {
       } else {
         store.widgetData[subType + 's'].push(...rs.list)
       }
-      // const hasMore = ((page - 1) * reactionLimit + rs.list.length) < rs.total
+      const hasMore = ((page - 1) * reactionLimit + rs.list.length) < rs.total
+      store.setData(subType, {
+        hasMore
+      })
       // hasMoreLikes.value = hasMore
       store.setCounts(rs.target_summary)
       if (subType === 'like') {
@@ -174,7 +181,7 @@ export default (store) => {
       console.log(e)
     }
     
-    store.setData('like', {
+    store.setData(subType, {
       isLoadingMore: false
     })
   }

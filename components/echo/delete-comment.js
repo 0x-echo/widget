@@ -1,13 +1,14 @@
 import { ElMessage } from 'element-plus'
+import commonConfig from '@/config'
 import useLibs from './libs'
 
-export default ({ deleteCommentDialogVisible, store }) => {
+export default (store) => {
   const { getCommonHeader } = useLibs(store)
   let currentComment = null
   
-  const openDeleteCommentDialog = ({data}) => {
+  const openDeleteCommentDialog = (data) => {
     currentComment = data
-    deleteCommentDialogVisible.value = true
+    store.setData('deleteCommentDialogVisible', true)
   }
   
   const deleteComment = async () => {
@@ -17,8 +18,13 @@ export default ({ deleteCommentDialogVisible, store }) => {
         method: 'DELETE',
         headers: getCommonHeader()
       })
+      store.widgetData.comments.forEach(item => {
+        if (item.id === currentComment.id) {
+          item.is_deleted = true
+        }
+      })
       currentComment = null
-      deleteCommentDialogVisible.value = false
+      store.setData('deleteCommentDialogVisible', false)
       ElMessage.success({
         message: 'Done.'
       })

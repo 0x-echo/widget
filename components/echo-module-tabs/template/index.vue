@@ -4,32 +4,28 @@
     <div
       class="echo-module-tabs-template"
       v-if="showList">
-      <div
-        v-if="powerValue">
-        <el-tooltip
-          :content="tip"
-          :disabled="tip === ''"
-          placement="top-start">
-          <div
-            class="echo-module-tabs-template__value">
-            <i
-              class="ri-flashlight-fill echo-module-tabs-template__value-icon">
-            </i>
+      <el-tooltip
+        :content="tip"
+        :disabled="tip === ''"
+        placement="top-start">
+        <div
+          class="echo-module-tabs-template__value">
+          <i
+            class="ri-flashlight-fill echo-module-tabs-template__value-icon">
+          </i>
 
-            <span>
-              {{ powerLabel }}: $<vue3-autocounter
-                ref="counterRef"
-                autoinit
-                :duration="1"
-                :startAmount="store.widgetConfig.modules[0] === module ? powerValue : 0"
-                :endAmount="powerValue"
-                separator=",">
-              </vue3-autocounter>
-            </span>
-
-          </div>
-        </el-tooltip>
-      </div>
+          <span>
+            {{ powerLabel }}: $<vue3-autocounter
+              ref="counterRef"
+              autoinit
+              :duration="1"
+              :startAmount="store.widgetConfig.modules[0] === module ? powerValue : 0"
+              :endAmount="powerValue"
+              separator=",">
+            </vue3-autocounter>
+          </span>
+        </div>
+      </el-tooltip>
 
       <div
         class="echo-module-tabs-template__list">
