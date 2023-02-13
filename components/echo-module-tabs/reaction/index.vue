@@ -1,5 +1,5 @@
 <template>
-  <echo-module-tabs-template
+  <echo-module-tabs-reaction-template
     v-bind="$attrs"
     :show-list="data.length > 0">
     <base-user-item
@@ -9,7 +9,7 @@
       :address="item.author.address"
       :title="((item.author.address === store.address) ? 'you' : $formatScreenName(item.author.screen_name))">
     </base-user-item>
-  </echo-module-tabs-template>
+  </echo-module-tabs-reaction-template>
 </template>
 
 <script setup>

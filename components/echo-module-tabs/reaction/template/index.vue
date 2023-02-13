@@ -1,17 +1,17 @@
 <template>
-  <echo-module-tabs-template-skeleton
+  <echo-module-tabs-reaction-template-skeleton
     v-bind="$attrs">
     <div
-      class="echo-module-tabs-template"
+      class="echo-module-tabs-reaction-template"
       v-if="showList">
       <el-tooltip
         :content="tip"
         :disabled="tip === ''"
         placement="top-start">
         <div
-          class="echo-module-tabs-template__value">
+          class="echo-module-tabs-reaction-template__value">
           <i
-            class="ri-flashlight-fill echo-module-tabs-template__value-icon">
+            class="ri-flashlight-fill echo-module-tabs-reaction-template__value-icon">
           </i>
 
           <span>
@@ -28,19 +28,19 @@
       </el-tooltip>
 
       <div
-        class="echo-module-tabs-template__list">
+        class="echo-module-tabs-reaction-template__list">
         <slot>
         </slot>
       </div>
       
       <div
-        class="echo-module-tabs-template__bottom"
+        class="echo-module-tabs-reaction-template__bottom"
         v-if="isLoadingMore">
         <base-loader-pulse>
         </base-loader-pulse>
       </div>
     </div>
-  </echo-module-tabs-template-skeleton>
+  </echo-module-tabs-reaction-template-skeleton>
 </template>
 
 <script setup>
@@ -84,7 +84,7 @@ watch(currentTab, (newVal, oldVal) => {
 </script>
 
 <style lang="scss">
-.echo-module-tabs-template {
+.echo-module-tabs-reaction-template {
   padding: 0 20px 40px;
   
   &__value {
@@ -121,7 +121,7 @@ watch(currentTab, (newVal, oldVal) => {
 }
 
 @media screen and (max-width: #{$mobile-width - 1px}) {
-  .echo-module-tabs-template {
+  .echo-module-tabs-reaction-template {
     &__list {
       grid-template-columns: repeat(auto-fit, minmax(36px, 1fr));
       gap: 16px 12px;

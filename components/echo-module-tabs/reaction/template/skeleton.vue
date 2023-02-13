@@ -1,18 +1,18 @@
 <template>
   <el-skeleton
-    class="echo-module-tabs-template-skeleton"
+    class="echo-module-tabs-reaction-template-skeleton"
     v-bind="$attrs"
     animated>
     <template 
       #template>
       <el-skeleton-item
-        class="echo-module-tabs-template-skeleton__value"
+        class="echo-module-tabs-reaction-template-skeleton__value"
         variant="text" />
       
       <div
-        class="echo-module-tabs-template-skeleton__list">
+        class="echo-module-tabs-reaction-template-skeleton__list">
         <div
-          class="echo-module-tabs-template-skeleton__item"
+          class="echo-module-tabs-reaction-template-skeleton__item"
           v-for="item in 2"
           :key="item">
           <el-skeleton-item
@@ -20,13 +20,13 @@
             variant="circle" />
           
           <div
-            class="echo-module-tabs-template-skeleton__body">
+            class="echo-module-tabs-reaction-template-skeleton__body">
             <el-skeleton-item
-              class="echo-module-tabs-template-skeleton__title"
+              class="echo-module-tabs-reaction-template-skeleton__title"
               variant="h1" />
               
             <!-- <el-skeleton-item
-              class="echo-module-tabs-template-skeleton__subtitle"
+              class="echo-module-tabs-reaction-template-skeleton__subtitle"
               variant="text" /> -->
           </div>
         </div>
@@ -45,7 +45,7 @@ import { ElSkeleton, ElSkeletonItem } from 'element-plus'
 </script>
 
 <style lang="scss">
-.echo-module-tabs-template-skeleton {
+.echo-module-tabs-reaction-template-skeleton {
   padding: 0 20px;
   
   &__value {
