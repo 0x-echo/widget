@@ -167,7 +167,9 @@ const toolbarConfig = computed(() => {
   let newList = []
   list.forEach(item => {
     if (props.modules.includes(item.value) || props.modules.includes(`${item.value}-lite`)) {
-      newList.push(item)
+      if (item.value !== 'tip' || (item.value === 'tip' && store.widgetConfig.receiver)) {
+        newList.push(item) 
+      }
     }
   })
   

@@ -32,6 +32,7 @@ const config = computed(() => {
     'dark-theme-bg-color',
     'from-uri',
     'height',
+    'receiver',
     'target-site',
     'target-uri'
   ]
@@ -49,6 +50,7 @@ const config = computed(() => {
   store.setData('widgetConfig', {
     fromUri: query['from-uri'],
     modules: query.modules,
+    receiver: query.receiver,
     showCommentDislike: query['show-comment-dislike'],
     targetUri: query['target-uri'] || 'demo'
   })

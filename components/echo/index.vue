@@ -112,6 +112,10 @@ const { connectWallet, openConnectWalletDialog } = useConnectWallet(store)
 import useTryAutoLogin from './try-auo-login'
 const { tryAutoLogin } = useTryAutoLogin(store)
 
+// get widget data
+import useGetWidgetData from './get-widget-data'
+const { getWidgetData } = useGetWidgetData(store)
+
 // get list
 import useGetList from './get-list'
 const { getCommentList, getReactionList, getTipList } = useGetList(store)
@@ -243,10 +247,8 @@ watch(message, (val) => {
   setDraft(store.widgetConfig.targetUri, val)
 })
 
-const CHECK_INTERVAL = 60 * 1000
-let checkInterval = null
-
 let onHandlingStorageChange = false
+
 const handleStorageChange = () => {
   if (onHandlingStorageChange) {
     return
@@ -269,9 +271,8 @@ const handleStorageChange = () => {
   onHandlingStorageChange = false
 }
 
-
-import useGetWidgetData from './get-widget-data'
-const { getWidgetData } = useGetWidgetData(store)
+const CHECK_INTERVAL = 60 * 1000
+let checkInterval = null
 
 onMounted(async () => {
   window.addEventListener('scroll', handleBodyScroll)
