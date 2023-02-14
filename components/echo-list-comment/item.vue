@@ -169,7 +169,8 @@
 </template>
 
 <script setup>
-import { ElButton, ElCollapseTransition, ElMessage, ElPopover } from 'element-plus'
+import { ElButton, ElCollapseTransition, ElPopover } from 'element-plus'
+import { echoMessage } from "~~/libs/helper"
 const { $bus, $formatAddress, $formatScreenName } = useNuxtApp()
 import { Timeago } from 'vue2-timeago'
 import { parseContent } from '../../libs/content-parser'
@@ -262,7 +263,7 @@ const commentMenuRef = ref(null)
 const onClickMenu = async (value) => {
   if (value === 'copy-wallet-address') {
     await toClipboard($formatAddress(props.data.author.address))
-    ElMessage.success({
+    echoMessage.success({
       message: 'Copied!'
     })
   } else {

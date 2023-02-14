@@ -1,4 +1,4 @@
-import { ElMessage } from 'element-plus'
+import { echoMessage } from '~~/libs/helper'
 import { ethers } from "ethers"
 import { v4 as uuidv4 } from 'uuid'
 import useConnectWallet from './connect-wallet'
@@ -30,7 +30,7 @@ export default (store) => {
     let tipNetworkId
     if (store.wallet.loginApp === 'metamask') {
       if (!window.ethereum) {
-        ElMessage.error({
+        echoMessage.error({
           message: 'Please install MetaMask first.'
         })
         return
@@ -38,7 +38,7 @@ export default (store) => {
       currentProvider = window.ethereum
       const network = window.ethereum.networkVersion
       if (!network) {
-        ElMessage.error({
+        echoMessage.error({
           message: 'Seems MetaMask are swithing network. Wait a moment.'
         })
         return
@@ -46,7 +46,7 @@ export default (store) => {
       const tipNetwork = store.tip_network
       tipNetworkId = store.currency[tipNetwork].id
       if (network.toString() !== tipNetworkId.toString()) {
-        ElMessage.error({
+        echoMessage.error({
           message: `Your are on the wrong network. Please switch to ${tipNetwork}`
         })
         return
@@ -57,7 +57,7 @@ export default (store) => {
       const networkId = chain.chainId
       const tipNetworkId = store.currency[store.tip_network].id
       if (networkId.toString() !== tipNetworkId.toString()) {
-        ElMessage.error({
+        echoMessage.error({
           message: `Your are on the wrong network. Please switch to ${store.tip_network}`
         })
         return
@@ -96,7 +96,7 @@ export default (store) => {
         })
       }
     } catch (e) {
-      ElMessage.error({
+      echoMessage.error({
         message: e.message
       })
       console.log(e)
@@ -111,7 +111,7 @@ export default (store) => {
     let gotSuccess = false // may trigger more than once due to the slow network
     let toAddress = store.receiver.address
     if (!toAddress) {
-      ElMessage.error({
+      echoMessage.error({
         message: 'Fail to resolve receiver\'s address.'
       })
       return
@@ -119,7 +119,7 @@ export default (store) => {
     let value = store.tip_amount / (store.currency[store.tip_network].usd)
     console.log('value', value)
     if (value <= 0) {
-      ElMessage.error({
+      echoMessage.error({
         message: 'Something is wrong. Please try again later.'
       })
       return
@@ -129,7 +129,7 @@ export default (store) => {
     value = valueSplit[0] + '.' + valueSplit[1].slice(0, 18)
   
     if (ethers.utils.getAddress(toAddress) === ethers.utils.getAddress(account)) {
-      ElMessage.error({
+      echoMessage.error({
         message: 'Sorry. Cannot send to the same address.'
       })
       return
@@ -191,7 +191,7 @@ export default (store) => {
           $bus.emit('hide-connect-loading')
           clearInterval(checkTipInterval)
           checkTipInterval = null
-          ElMessage.success({
+          echoMessage.success({
             message: 'Thank you!'
           })
           store.setStatus({
@@ -212,7 +212,7 @@ export default (store) => {
         onTransactionProcessing: false
       })
       console.log('send tip error:', error)
-      ElMessage.error({
+      echoMessage.error({
         message: error.message
       })
       if (error.message.includes('unable to sign')) {
@@ -231,7 +231,7 @@ export default (store) => {
     } catch (e) {
       console.log(e)
       if (e.response && e.response._data) {
-        ElMessage.error({
+        echoMessage.error({
           message: e.response._data.msg
         })
       }

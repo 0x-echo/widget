@@ -1,4 +1,4 @@
-import { ElMessage } from 'element-plus'
+import { echoMessage } from '~~/libs/helper'
 
 export default (store) => {
   const refreshProfile = async () => {
@@ -7,7 +7,7 @@ export default (store) => {
     
     try {
       await store.getScreenName(true)
-      ElMessage.success({
+      echoMessage.success({
         message: 'Refreshing done!'
       })
     } finally {

@@ -1,6 +1,7 @@
 <template>
   <div
     ref="widget"
+    id="echo-widget"
     class="echo-widget"
     :class="widgetClass"
     :style="widgetStyle">

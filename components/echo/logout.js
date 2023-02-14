@@ -1,4 +1,4 @@
-import { ElMessage } from 'element-plus'
+import { echoMessage } from "~~/libs/helper"
 
 export default (store) => {
   const logout = (silent = false) => {
@@ -22,7 +22,7 @@ export default (store) => {
       } catch (e) {}
     }
     if (!silent) {
-      ElMessage.success({
+      echoMessage.success({
         message: 'Logout successfully!'
       })
     } 

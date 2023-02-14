@@ -1,4 +1,4 @@
-import { ElMessage } from 'element-plus'
+import { echoMessage } from '~~/libs/helper'
 import { parseContent } from '@/libs/content-parser'
 import { v4 as uuidv4 } from 'uuid'
 const { public: { common }} = useRuntimeConfig()
@@ -33,7 +33,7 @@ export default (store) => {
         headers: getCommonHeader()
       })
       
-      ElMessage.success({
+      echoMessage.success({
         message: 'Thank you!'
       })
       
@@ -41,7 +41,7 @@ export default (store) => {
     } catch (e) {
       console.log(e)
       if (e.response && e.response._data) {
-        ElMessage.error({
+        echoMessage.error({
           message: e.response._data.msg
         })
       }

@@ -1,7 +1,6 @@
 @@ -0,0 +1,105 @@
 <template>
   <el-dialog
-    append-to-body
     :close-on-click-modal="false"
     destroy-on-close
     :show-close="false"

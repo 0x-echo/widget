@@ -1,4 +1,4 @@
-import { ElMessage } from 'element-plus'
+import { echoMessage } from '~~/libs/helper'
 import commonConfig from '@/config'
 import useLibs from './libs'
 
@@ -25,16 +25,16 @@ export default (store) => {
       })
       currentComment = null
       store.setData('deleteCommentDialogVisible', false)
-      ElMessage.success({
+      echoMessage.success({
         message: 'Done.'
       })
     } catch (e) {
       if (e.response && e.response._data) {
-        ElMessage.error({
+        echoMessage.error({
           message: e.response._data.msg
         })
       } else {
-        ElMessage.error({
+        echoMessage.error({
           message: 'Indexer error.'
         })
       }

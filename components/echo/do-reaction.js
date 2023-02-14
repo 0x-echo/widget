@@ -1,5 +1,5 @@
 import commonConfig from '@/config'
-import { ElMessage } from 'element-plus'
+import { echoMessage } from '~~/libs/helper'
 import useConfetti from '~~/compositions/confetti'
 import useConnectWallet from './connect-wallet'
 import useLibs from './libs'
@@ -22,7 +22,7 @@ export default (store) => {
     const rs = await doReaction(type)
     if (rs) {
       if (type === 'like' && store.widgetType === 'like-only') {
-        ElMessage.success({
+        echoMessage.success({
           message: 'Thank you!'
         })
         showConfetti()
@@ -95,7 +95,7 @@ export default (store) => {
     } catch (e) {
       console.log(e)
       if (e.response && e.response._data) {
-        ElMessage.error({
+        echoMessage.error({
           message: e.response._data.msg
         })
       }

@@ -1,5 +1,4 @@
-import { ElMessage } from 'element-plus'
-import { setDraft } from '@/libs/helper'
+import { echoMessage, setDraft } from '@/libs/helper'
 import { parseContent } from '@/libs/content-parser'
 import { v4 as uuidv4 } from 'uuid'
 import commonConfig from '@/config'
@@ -19,7 +18,7 @@ export default (store) => {
   
   const comment = async () => {
     if (!store.comment.message) {
-      ElMessage.error({
+      echoMessage.error({
         message: 'Please type something'
       }) 
       
@@ -37,7 +36,7 @@ export default (store) => {
   
   const replyComment = async (data) => {
     if (!data.message) {
-      ElMessage.error({
+      echoMessage.error({
         message: 'Please type something'
       }) 
       
@@ -88,12 +87,12 @@ export default (store) => {
      })
  
      if (rs.data.is_first_comment) {
-       ElMessage.success({
+       echoMessage.success({
          message: 'Congrats on your first echo!'
        })
        showConfetti()
      } else {
-       ElMessage.success({
+       echoMessage.success({
          message: 'Echo Sent!'
        })
      }
@@ -113,7 +112,7 @@ export default (store) => {
    } catch (e) {
      console.log(e)
      if (e.response && e.response._data) {
-       ElMessage.error({
+       echoMessage.error({
          message: e.response._data.msg
        })
      }

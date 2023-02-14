@@ -71,6 +71,7 @@ function ellipsisInMiddle (str, length = 4) {
 
 function showLoading () {
   return ElMessage({
+    appendTo: document.getElementById('echo-widget'),
     customClass: 'el-message--no-icon',
     message: () => h('div', { class: 'base-loader-spin', style: 'width: 20px; height: 20px;border-color:#4E75F6;'}, ''),
     duration: 0

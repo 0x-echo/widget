@@ -1,3 +1,5 @@
+import { ElMessage } from 'element-plus'
+
 export function setColorTheme (theme) {
   if (theme === 'dark') {
     document.body.classList.add('dark')
@@ -34,3 +36,12 @@ export function getDraft (targetUri) {
     return localStorage.getItem(targetUri)
   } catch (e) {}
 }
+
+export const echoMessage = {}
+const echoMessageTypes = ['success', 'error', 'info', 'warning']
+echoMessageTypes.forEach(item => {
+  echoMessage[item] = function (options) {
+    options.appendTo = document.getElementById('echo-widget')
+    ElMessage[item](options)
+  }
+})

@@ -1,4 +1,4 @@
-import { ElMessage } from 'element-plus'
+import { echoMessage } from '~~/libs/helper'
 import { providers, ethers } from "ethers"
 import commonConfig from '@/config'
 import useSign from '~~/compositions/sign'
@@ -54,7 +54,9 @@ export default (store) => {
     } else if (item.value === 'arconnect') {
       await arconnectLogin()
     } else {
-      ElMessage.error(`Unsupported login method: ${item.name}`)
+      echoMessage.error({
+        mesage: `Unsupported login method: ${item.name}`
+      })
     }
   }
   
@@ -85,7 +87,7 @@ export default (store) => {
   const doMetamaskAccountLogin = async () => {
     if (store.wallet.loginApp === 'metamask') {
       if (!window.ethereum) {
-        ElMessage.error({
+        echoMessage.error({
           message: 'Please install MetaMask first.'
         })
         return
@@ -93,7 +95,7 @@ export default (store) => {
     }
     const network = window.ethereum.networkVersion
     if (!network) {
-      ElMessage.error({
+      echoMessage.error({
         message: 'Seems MetaMask are swithing network. Wait a moment.'
       })
       return
@@ -180,7 +182,7 @@ export default (store) => {
 
       loadingMessage.close()
 
-      ElMessage.success({
+      echoMessage.success({
         message: 'Sign in successfully!'
       })
       
@@ -212,11 +214,11 @@ export default (store) => {
       console.log(e)
       loadingMessage.close()
       if (e.response && e.response._data) {
-        ElMessage.error({
+        echoMessage.error({
           message: e.response._data.msg
         })
       } else {
-        ElMessage.error({
+        echoMessage.error({
           message: 'Unknown login error.'
         })
       }
@@ -287,7 +289,7 @@ export default (store) => {
           await requestLogin(account, message, signature, 'EVM', signKeys)
         } catch (e) {
           $bus.emit('hide-connect-loading')
-          ElMessage.error({
+          echoMessage.error({
             message: e.message
           })
         }
@@ -314,7 +316,7 @@ export default (store) => {
   const phantomLogin = async () => {
     const isPhantomInstalled = window.solana && window.solana.isPhantom
     if (!isPhantomInstalled) {
-      ElMessage.error({
+      echoMessage.error({
         message: 'Please install Phantom first.'
       })
       return
@@ -338,7 +340,7 @@ export default (store) => {
       await phantomSign(key)
     } catch (err) {
       console.log(err)
-      ElMessage.error({
+      echoMessage.error({
         message: err.message
       })
     } finally {
@@ -357,7 +359,9 @@ export default (store) => {
   // login with Arconnect
   const arconnectLogin = async () => {
     if (!store.env.inIframe && !window.arweaveWallet) {
-      ElMessage.error('Please install ArConnect first.')
+      echoMessage.error({
+        message: 'Please install ArConnect first.'
+      })
       
       if (config.action === 'authorize_arconnect') {
         setTimeout(() => {

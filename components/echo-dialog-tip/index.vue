@@ -48,7 +48,8 @@
 </template>
 
 <script setup>
-import { ElButton, ElCollapseTransition, ElLoading, ElMessage } from 'element-plus'
+import { ElButton, ElCollapseTransition, ElLoading } from 'element-plus'
+import { echoMessage } from "~~/libs/helper"
 import SectionAmount from './section-amount'
 import SectionNetwork from './section-network'
 import SectionUser from './section-user'
@@ -98,7 +99,7 @@ const close = () => {
 
 const goNext = () => {
   if (!store.currency[store.tip_network].usd) {
-    ElMessage.error({
+    echoMessage.error({
       message: 'Fail to get currency. Please try again later.'
     })
     return
