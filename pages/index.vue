@@ -30,6 +30,7 @@ const config = computed(() => {
   
   const stringProps = [
     'dark-theme-bg-color',
+    'from-uri',
     'height',
     'target-site',
     'target-uri'
@@ -44,6 +45,13 @@ const config = computed(() => {
   })
   
   query.modules = query.modules ? query.modules.split(',') : ['comment', 'like', 'dislike', 'tip']
+  
+  store.setData('widgetConfig', {
+    fromUri: query['from-uri'],
+    modules: query.modules,
+    showCommentDislike: query['show-comment-dislike'],
+    targetUri: query['target-uri'] || 'demo'
+  })
   
   // Mirror does not support color-theme:auto
   if (query['target-uri'].includes('mirror.xyz') && (!query['color-theme'] || query['color-theme'] === 'auto')) {
@@ -90,5 +98,9 @@ const config = computed(() => {
 </script>
 
 <style lang="scss">
-
+body {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
 </style>

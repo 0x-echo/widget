@@ -9,7 +9,9 @@ import _ from 'lodash'
 
 const sign = useSign()
 const GetWalletConnectProvider = () => import('@walletconnect/web3-provider/dist/umd/index.min.js')
-
+// window.addEventListener('beforeunload', (event) => {
+//   provider && provider.disconnect()
+// })
 export default (store) => {
   const { $bus, $showLoading } = useNuxtApp()
   const { getCommonHeader } = useLibs(store)

@@ -138,7 +138,6 @@ export default (store) => {
     if ((subType === 'like' && !store.like.hasMore) || (subType === 'dislike' && !store.dislike.hasMore)) {
       return
     }
-    console.log('load more likes 2')
     const page = subType === 'like' ? store.like.page : store.dislike.page
     const params = {
       target_uri: store.widgetConfig.targetUri,

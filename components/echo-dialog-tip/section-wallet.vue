@@ -48,7 +48,7 @@ const props = defineProps({
 
 const emits = defineEmits([
   'update:modelValue',
-  'tip-reconnect'
+  'choose-tip-wallet'
 ])
 
 const activeOption = computed({
@@ -71,7 +71,7 @@ const reSelectWallet = async () => {
   store.setWallet({
     loginType: 'reselect'
   })
-  emits('tip-reconnect')
+  emits('choose-tip-wallet')
   // const rs = await window.ethereum.request({
   //   method: "wallet_requestPermissions",
   //   params: [
@@ -128,6 +128,7 @@ onMounted(async () => {
     padding: 0;
     font-size: 20px;
     color: rgba(146, 154, 178, .8);
+    cursor: pointer;
     
     &:hover {
       border-color: var(--echo-border-color);

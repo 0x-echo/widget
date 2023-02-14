@@ -68,7 +68,7 @@
     
     <echo-dialog-tip
       v-model="store.tipDialogVisible"
-      @tip-reconnect="tipLogin"
+      @choose-tip-wallet="store.setData('connectWalletDialogVisible', true)"
       @do-tip="doTipLogin">
     </echo-dialog-tip>
     
@@ -97,10 +97,68 @@
 
 <script setup>
 import useStore from '~~/store'
+const store = useStore()
+
+// libs
 import { getDraft, setDraft } from '@/libs/helper'
 import commonConfig from '@/config'
+import useLibs from './libs'
+const { getCommonHeader } = useLibs(store)
 
-const store = useStore()
+// connect wallet / disconnect wallet
+import useConnectWallet from './connect-wallet'
+const { connectWallet, openConnectWalletDialog } = useConnectWallet(store)
+
+import useTryAutoLogin from './try-auo-login'
+const { tryAutoLogin } = useTryAutoLogin(store)
+
+// get list
+import useGetList from './get-list'
+const { getCommentList, getReactionList, getTipList } = useGetList(store)
+
+// load more 
+import useLoadMore from './load-more'
+const { handleBodyScroll, loadMore, loadReplyChildren } = useLoadMore(store)
+
+// refresh comment list
+import useRefreshCommentList from './refresh-comment-list'
+const { refreshCommentList } = useRefreshCommentList(store)
+
+// sort comment list 
+import useSortCommentList from './sort-comment-list'
+const { sortCommentList } = useSortCommentList(store)
+
+// comment 
+import useComment from './comment'
+const { comment, replyComment } = useComment(store)
+
+// delete comment 
+import useDeleteComment from './delete-comment'
+const { openDeleteCommentDialog, deleteComment } = useDeleteComment(store)
+
+// like + dislike
+import useDoReaction from './do-reaction'
+const { like, likeComment, dislike, dislikeComment } = useDoReaction(store)
+
+// tip
+import useTip from './tip'
+const { openTipDialog, doTipLogin, submitTip } = useTip(store)
+
+// report
+import useReport from './report'
+const { openReportDialog, submitReport } = useReport(store)
+
+// view arweave info
+import useViewArweaveInfo from './view-arweave-info'
+const { viewArweaveInfo } = useViewArweaveInfo()
+
+// refresh profile 
+import useRefreshProfile from './refresh-profile'
+const { refreshProfile } = useRefreshProfile(store)
+
+// logout 
+import useLogout from './logout'
+const { logout } = useLogout(store)
 
 const props = defineProps({
   config: {
@@ -180,63 +238,12 @@ const widgetType = computed(() => {
   return type
 })
 
-// connect wallet / disconnect wallet
-import useConnectWallet from './connect-wallet'
-const { connectWallet, openConnectWalletDialog } = useConnectWallet(store)
-
-// load more 
-import useLoadMore from './load-more'
-const { handleBodyScroll, loadMore, loadReplyChildren } = useLoadMore(store)
-
-// refresh comment list
-import useRefreshCommentList from './refresh-comment-list'
-const { refreshCommentList } = useRefreshCommentList(store)
-
-// sort comment list 
-import useSortCommentList from './sort-comment-list'
-const { sortCommentList } = useSortCommentList(store)
-// TODO - sortBy
-
-// comment 
-import useComment from './comment'
-const { comment, replyComment } = useComment(store)
-
-// delete comment 
-import useDeleteComment from './delete-comment'
-const { openDeleteCommentDialog, deleteComment } = useDeleteComment(store)
-
-// like + dislike
-import useDoReaction from './do-reaction'
-const { like, likeComment, dislike, dislikeComment } = useDoReaction(store)
-
-// tip
-import useTip from './tip'
-const { openTipDialog, doTipLogin, submitTip } = useTip(store)
-
-const tipLogin = (data) => {
-  store.setData('connectWalletDialogVisible', true)
-}
-
-// report
-import useReport from './report'
-const { openReportDialog, submitReport } = useReport(store)
-
-// view arweave info
-import useViewArweaveInfo from './view-arweave-info'
-const { viewArweaveInfo } = useViewArweaveInfo()
-
-// refresh profile 
-import useRefreshProfile from './refresh-profile'
-const { refreshProfile } = useRefreshProfile(store)
-
-// logout 
-import useLogout from './logout'
-const { logout } = useLogout(store)
-
+const message = computed(() => store.comment.message)
+watch(message, (val) => {
+  setDraft(store.widgetConfig.targetUri, val)
+})
 
 const CHECK_INTERVAL = 60 * 1000
-
-
 let checkInterval = null
 
 let onHandlingStorageChange = false
@@ -310,15 +317,6 @@ onBeforeUnmount(() => {
   checkInterval && clearInterval(checkInterval)
 })
 
-const message = computed(() => store.comment.message)
-watch(message, (val) => {
-  setDraft(store.widgetConfig.targetUri, val)
-})
-
-
-import useGetList from './get-list'
-const { getCommentList, getReactionList, getTipList } = useGetList(store)
-
 // init
 const init = async () => {
   const modules = currentModules.value
@@ -361,7 +359,6 @@ const initWallet = async () => {
 
 initWallet().then(() => {})
 
-
 // tab
 let currentTab = currentModules.value[0]
 store.setLayout({
@@ -387,13 +384,7 @@ const onChangeTab = async (val) => {
   }
 }
 
-import useTryAutoLogin from './try-auo-login'
-const { tryAutoLogin } = useTryAutoLogin(store)
 tryAutoLogin()
-
-window.addEventListener('beforeunload', (event) => {
-  provider && provider.disconnect()
-})
 </script>
 
 <style lang="scss">

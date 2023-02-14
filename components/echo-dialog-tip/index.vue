@@ -24,7 +24,7 @@
       <section-wallet
         v-if="data.amount"
         v-model="data.wallet"
-        @tip-reconnect="$emit('tip-reconnect')">
+        @choose-tip-wallet="$emit('choose-tip-wallet')">
       </section-wallet>
     </el-collapse-transition>
     
@@ -65,7 +65,7 @@ const emits = defineEmits([
   'go-next',
   'update:modelValue',
   'do-tip',
-  'tip-reconnect'
+  'choose-tip-wallet'
 ])
 
 const user = computed(() => ({
