@@ -32,9 +32,11 @@ export default (store) => {
   }
   
   const loadReplyChildren = async (id, parentPost) => {
+    store.setData('isLoadingReplyChildren', true)
     parentPost.current_reply_page++
     await getCommentList(parentPost.current_reply_page, null, id)
     parentPost.is_expanded = true
+    store.setData('isLoadingReplyChildren', false)
   }
   
   return {

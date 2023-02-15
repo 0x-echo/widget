@@ -26,7 +26,6 @@ const tabs = computed(() => {
 
 <style lang="scss">
 .base-tab-pane {
-  height: 100%;
   min-height: 102px;
 }
 </style>

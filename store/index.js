@@ -79,6 +79,8 @@ const useStore = defineStore('global', {
       page: 1
     },
     
+    isLoadingReplyChildren: false,
+    
     like: {
       counts: 0,
       hasLiked: false,

@@ -33,6 +33,13 @@
             :total="item.reply_counts"
             :data="item.replies">
           </echo-list-comment-reply-list>
+          
+          <div
+            class="echo-comment-list__content-bottom"
+            v-if="store.isLoadingReplyChildren">
+            <base-loader-pulse>
+            </base-loader-pulse>
+          </div>
         </echo-list-comment-item>
       </div>
       
@@ -115,11 +122,12 @@ export default {
     margin-top: 20px;
   }
   
+  &__content-bottom {
+    margin-top: 20px;
+  }
+  
   &__bottom {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 10px 0 28px;
+    padding: 10px 0 28px;
   }
 }
 </style>

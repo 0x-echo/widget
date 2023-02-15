@@ -22,8 +22,8 @@
         </strong>
       </a>
       
-      <!-- <template
-        v-if="/mirror/.test(route.query.target_uri)"> -->
+      <template
+        v-if="/mirror/.test($route.query.target_uri)">
         <span
           class="echo-footer__link-divider">
           ·
@@ -42,7 +42,7 @@
             class="ri-arrow-right-up-line">
           </i>
         </a>
-      <!-- </template> -->
+      </template>
     </div>
     
     <div

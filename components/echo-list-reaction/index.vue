@@ -117,10 +117,7 @@ watch(currentTab, (newVal, oldVal) => {
   }
   
   &__bottom {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 28px 0;
+    padding: 28px 0;
   }
 }
 

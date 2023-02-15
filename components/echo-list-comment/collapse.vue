@@ -51,7 +51,7 @@ const props = defineProps({
 .echo-comment-list-collapse {
   display: flex;
   align-items: center;
-  margin-top: 26px;
+  margin-top: 20px;
   cursor: pointer;
   
   &__icon {

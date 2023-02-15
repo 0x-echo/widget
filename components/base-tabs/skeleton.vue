@@ -27,7 +27,6 @@ import { ElSkeleton, ElSkeletonItem } from 'element-plus'
 .tabs-skeleton {
   display: flex;
   align-items: center;
-  margin-bottom: 30px;
   border-bottom: 1px solid var(--echo-bg-color);
   
   &__item {
