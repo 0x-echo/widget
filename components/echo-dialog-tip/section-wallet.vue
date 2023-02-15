@@ -116,6 +116,7 @@ onMounted(async () => {
   
   &__item {
     flex-shrink: 1;
+    justify-content: center;
     width: 150px;
     
     & + & {
@@ -131,6 +132,8 @@ onMounted(async () => {
     color: var(--echo-text-color-muted);
     
     &:hover {
+      border-color: var(--echo-border-color);
+      box-shadow: none;
       color: var(--echo-text-color-secondary);
     }
   }
