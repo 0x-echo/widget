@@ -135,7 +135,6 @@ export default {
     display: flex; 
     justify-content: space-between;
     align-items: center;
-    overflow-x: auto;
     border-bottom: 1px solid var(--echo-bg-color);
     
     &::-webkit-scrollbar {
@@ -219,6 +218,14 @@ export default {
     
     &::-webkit-scrollbar {
       display: none;
+    }
+  }
+}
+
+@media screen and (max-width: #{$tablet-width - 1px}) {
+  .base-tabs {
+    &__header {
+      overflow-x: auto;
     }
   }
 }

@@ -3,6 +3,7 @@
     :offset="2"
     placement="bottom-end"
     ref="sortPopover"
+    :teleported="false"
     trigger="click"
     :width="165">
     <template 

@@ -64,6 +64,7 @@
           <el-popover
             ref="commentMenuRef"
             placement="bottom-end"
+            :teleported="false"
             trigger="click"
             :width="190"
             @before-leave="moreMenuActive = false"

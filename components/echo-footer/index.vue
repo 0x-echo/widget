@@ -59,6 +59,7 @@
         ref="userMenuRef"
         v-if="hasLogined || minimal"
         :placement="minimal ? 'top' : 'top-end'"
+        :teleported="false"
         trigger="click"
         :width="166"
         @before-leave="moreMenuActive = false"

@@ -36,6 +36,7 @@
           placement="bottom"
           popper-class="echo-toolbar__user-popover"
           :show-arrow="false"
+          :teleported="false"
           trigger="click"
           :width="160">
           <template 
