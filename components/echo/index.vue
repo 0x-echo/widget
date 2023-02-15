@@ -147,7 +147,7 @@ const { like, likeComment, dislike, dislikeComment } = useDoReaction(store)
 
 // tip
 import useTip from './tip'
-const { openTipDialog, doTipLogin, submitTip } = useTip(store)
+const { openTipDialog, doTipLogin } = useTip(store)
 
 // report
 import useReport from './report'
@@ -292,7 +292,7 @@ onMounted(async () => {
         const { data } = await $fetch(commonConfig.api().CHECK_POST, {
           params: {
             target_uri: store.widgetConfig.targetUri,
-            since: store.last_got_time,
+            since: store.lastGotTime,
             exclude_ids: store.comment.localUpdateCommentIds.join(',')
           },
           headers: getCommonHeader()

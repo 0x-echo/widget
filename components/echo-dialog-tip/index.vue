@@ -3,7 +3,7 @@
     class="echo-dialog-tip"
     title="Tip"
     title-icon="ri-hand-heart-line"
-    @close="close"
+    @close="onCloseDialog"
     @on-close="$emit('update:modelValue', false)">
     <section-user
       :data="user">
@@ -13,20 +13,22 @@
       v-model="data.network">
     </section-network>
     
-    <el-collapse-transition>
-      <section-amount
-        v-show="data.network"
-        v-model="data.amount">
-      </section-amount>
-    </el-collapse-transition>
-    
-    <el-collapse-transition>
-      <section-wallet
-        v-if="data.amount"
-        v-model="data.wallet"
-        @choose-tip-wallet="$emit('choose-tip-wallet')">
-      </section-wallet>
-    </el-collapse-transition>
+    <section-everpay
+      v-if="store.tip.network === 'everpay'"
+      v-model:amount="data.everpayAmount"
+      v-model:token="data.everpayToken">
+    </section-everpay>
+
+    <section-amount
+      v-if="data.network && data.network !== 'everpay'"
+      v-model="data.amount">
+    </section-amount>
+  
+    <section-wallet
+      v-if="data.amount && data.network !== 'everpay'"
+      v-model="data.wallet"
+      @choose-tip-wallet="$emit('choose-tip-wallet')">
+    </section-wallet>
     
     <div
       class="echo-dialog-tip__footer">
@@ -37,7 +39,7 @@
 
       <el-button
         class="echo-dialog-tip__next-button"
-        :disabled="!(data.network && data.amount)"
+        :disabled="data.network === 'everpay' ? (!data.everpayToken || !data.everpayAmount) : (!data.network || !data.amount)"
         size="large"
         type="primary"
         @click="goNext">
@@ -51,11 +53,12 @@
 import { ElButton, ElCollapseTransition, ElLoading } from 'element-plus'
 import { echoMessage } from "~~/libs/helper"
 import SectionAmount from './section-amount'
+import SectionEverpay from './section-everpay'
 import SectionNetwork from './section-network'
 import SectionUser from './section-user'
 import SectionWallet from './section-wallet'
 
-import useStore from '~~/store';
+import useStore from '~~/store'
 
 const store = useStore()
 const { $bus } = useNuxtApp()
@@ -87,26 +90,60 @@ const user = computed(() => ({
 
 let data = reactive({
   network: '',
-  amount: '',
+  everpayToken: '',
+  everpayAmount: undefined,
+  amount: undefined,
   wallet: ''
 })
 
-const close = () => {
-  $bus.emit('reset-tip-form')
+watch(data, (n) => {
+  if (n.network !== 'everpay') {
+    data.everpayToken = ''
+    data.everpayAmount = undefined
+  }
+}, {
+  deep: true
+})
+
+const onCloseDialog = () => {
+  $bus.emit('reset-tip-form', data.data)
   data.network = ''
-  data.amount = ''
+  data.everpayToken = '',
+  data.everpayAmount = undefined,
+  data.amount = undefined
 }
 
 const goNext = () => {
-  if (!store.currency[store.tip_network].usd) {
-    echoMessage.error({
-      message: 'Fail to get currency. Please try again later.'
-    })
-    return
+  if (store.tip.network !== 'everpay') {
+    if (!store.currency[store.tip.network].usd) {
+      echoMessage.error({
+        message: 'Fail to get currency. Please try again later.'
+      })
+      return
+    }
+  }
+
+  // everpay max limit
+  if (data.network === 'everpay') {
+    const tokens = store.tip.availableTokens
+    const matched = tokens.find(t => t.tag === data.everpayToken)
+
+    if (!matched) {
+      echoMessage.error({
+        message: 'Sorry, something went wrong.'
+      })
+      return
+    }
+    if (data.everpayAmount * 1 > matched.balance * 1) {
+      echoMessage.error({
+        message: `Insufficent balance. Max: ${matched.balance}`
+      })
+      return
+    }
   }
 
   emits('do-tip', data)
-} 
+}
 
 const getLoading = () => {
   ElLoading.service({

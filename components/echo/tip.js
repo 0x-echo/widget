@@ -1,13 +1,18 @@
 import { echoMessage } from '~~/libs/helper'
 import { ethers } from "ethers"
 import { v4 as uuidv4 } from 'uuid'
+import EverPay from 'everpay'
 import useConnectWallet from './connect-wallet'
 import useLibs from './libs'
+import useGetList from './get-list'
+
 const { public: { common }} = useRuntimeConfig()
+const { showConfetti } = useConfetti()
 
 export default (store) => {
   const { checkLoginStatus } = useConnectWallet(store)
   const { $bus } = useNuxtApp()
+  const { getTipList } = useGetList(store)
   const { getCommonHeader } = useLibs(store)
   let web3provider = null
   let checkTipInterval = null
@@ -26,6 +31,103 @@ export default (store) => {
   }
   
   const doTipLogin = async () => {
+    if (store.tip.network === 'everpay') {
+      const network = window.ethereum.networkVersion
+      if (network.toString() !== '1') {
+        echoMessage.error({
+          message: 'Only Ethereum is supported'
+        })
+        return
+      }
+      const accounts = await ethereum.request({ method: 'eth_accounts' })
+      if (!accounts.length) {
+        echoMessage.error({
+          message: 'No wallet is selected'
+        })
+        return
+      }
+  
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      const signer = provider.getSigner()
+      const everpay = new EverPay({
+        account: window.ethereum.selectedAddress,
+        chainType: 'ethereum',
+        ethConnectedSigner: signer
+      })
+  
+      const toAddress = store.receiver.address
+  
+      store.setStatus({
+        onTransactionProcessing: true
+      })
+      $bus.emit('show-connect-loading', 'Please confirm the transaction...')
+  
+      const tipData = {
+        type: 'tip',
+        target_uri: TARGET_URI,
+        protocol_version: common.PROTOCOL_VERSION,
+        id: uuidv4(),
+        meta: {
+          status: 'success',
+          from_address: accounts[0],
+          to_address: toAddress,
+          value: data.everpayAmount,
+          token: data.everpayToken,
+          chain: 'ethereum',
+          network: 'everpay'
+        }
+      }
+  
+      await submitTip(tipData)
+  
+      try {
+        const rs = await everpay.transfer({
+          tag: data.everpayToken,
+          amount: data.everpayAmount,
+          to: toAddress,
+          data: {
+            app: 'ECHO',
+            website: 'https://0xecho.com',
+            target_uri: config.target_uri
+          }
+        })
+  
+        if (rs.status !== 'ok') {
+          echoMessage.error({
+            message: rs.status
+          })
+          return
+        }
+  
+        $bus.emit('hide-connect-loading')
+        echoMessage.success({
+          message: 'Thank you!'
+        })
+        store.setStatus({
+          onTransactionProcessing: false
+        })
+        showConfetti()
+        store.setData('tipDialogVisible', false)
+        store.setData('connectWalletDialogVisible', false)
+  
+        tipData.meta.tx_hash = rs.everHash
+        await submitTip(tipData)
+        await getTipList()
+      } catch (e) {
+        console.log(e)
+        echoMessage.error({
+          message: e.message
+        })
+        return
+      } finally {
+        store.setStatus({
+          onTransactionProcessing: false
+        })
+        $bus.emit('hide-connect-loading')
+      }
+      return
+    }
+    
     let currentProvider
     let tipNetworkId
     if (store.wallet.loginApp === 'metamask') {
@@ -43,7 +145,7 @@ export default (store) => {
         })
         return
       }
-      const tipNetwork = store.tip_network
+      const tipNetwork = store.tip.network
       tipNetworkId = store.currency[tipNetwork].id
       if (network.toString() !== tipNetworkId.toString()) {
         echoMessage.error({
@@ -55,10 +157,10 @@ export default (store) => {
   
       const chain = await web3provider.getNetwork()
       const networkId = chain.chainId
-      const tipNetworkId = store.currency[store.tip_network].id
+      const tipNetworkId = store.currency[store.tip.network].id
       if (networkId.toString() !== tipNetworkId.toString()) {
         echoMessage.error({
-          message: `Your are on the wrong network. Please switch to ${store.tip_network}`
+          message: `Your are on the wrong network. Please switch to ${store.tip.network}`
         })
         return
       }
@@ -116,7 +218,7 @@ export default (store) => {
       })
       return
     }
-    let value = store.tip_amount / (store.currency[store.tip_network].usd)
+    let value = store.tip.amount / (store.currency[store.tip.network].usd)
     console.log('value', value)
     if (value <= 0) {
       echoMessage.error({
@@ -171,12 +273,12 @@ export default (store) => {
         meta: {
           from_address: account,
           to_address: toAddress,
-          usd_value: store.tip_amount,
+          usd_value: store.tip.amount,
           value,
           chain: chainId,
           tx_hash: txHash,
-          currency: store.currency[store.tip_network].usd,
-          network: store.currency[store.tip_network]
+          currency: store.currency[store.tip.network].usd,
+          network: store.currency[store.tip.network]
         }
       }
       await submitTip(data)
@@ -240,7 +342,6 @@ export default (store) => {
   
   return {
     openTipDialog,
-    doTipLogin,
-    submitTip
+    doTipLogin
   }
 }

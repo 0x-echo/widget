@@ -16,6 +16,7 @@
           v-for="item in list"
           :key="item.value"
           :active="item.value === activeOption"
+          :badge="item.badge"
           :icon="item.icon"
           :label="item.label"
           @click="changeOption(item)">
@@ -37,17 +38,20 @@
 
 <script setup>
 import { ElButton } from 'element-plus'
+import { echoMessage } from '~~/libs/helper'
 import SectionHeader from './section-header'
 import useChain from '@/compositions/chain'
+import EverPay from 'everpay'
 
 import ethLogo from '~~/assets/chains/ethereum.png'
 import polygonLogo from '~~/assets/chains/polygon.png'
 import opLogo from '~~/assets/chains/optimism.svg'
 
-import useStore from '~~/store';
+import useStore from '~~/store'
 
 const { logos } = useChain()
 const store = useStore()
+const everpay = new EverPay()
 
 const props = defineProps({
   modelValue: {
@@ -59,24 +63,15 @@ const emits = defineEmits([
   'update:modelValue'
 ])
 
-const activeOption = computed({
-  get: () => {
-    return props.modelValue
-  },
-  set: (val) => {
-    emits('update:modelValue', val)
-  }
-})
-
-const changeOption = (item) => {
-  activeOption.value = item.value
-  store.setTipNetwork(item.value)
-}
-
 const list = [{
   label: 'Ethereum',
   icon: logos['EVM/1'],
   value: 'ethereum'
+}, {
+  badge: 'no gas',
+  label: 'everPay',
+  icon: 'https://app.everpay.io/favicon.png',
+  value: 'everpay'
 }, {
   label: 'Polygon',
   icon: logos['EVM/137'],
@@ -93,6 +88,42 @@ if (store.widgetConfig['support_mumbai']) {
     icon: logos['EVM/137'],
     value: 'mumbai'
   })
+}
+
+const activeOption = computed({
+  get: () => {
+    return props.modelValue
+  },
+  set: (val) => {
+    emits('update:modelValue', val)
+  }
+})
+
+const changeOption = async (item) => {
+  activeOption.value = item.value
+  store.setTipNetwork(item.value)
+
+  if (item.value === 'everpay') {
+    store.setData('tip', {
+      onFetchingEverPay: true
+    })
+    try {
+      const balances = await everpay.balances({
+        chainType: 'ethereum',
+        account: store.address
+      })
+      const finalList = balances.filter(one => one.balance !== '0')
+      store.setData('tip', { availableTokens: finalList })
+    } catch (e) {
+     echoMessage.error('Fail to get everPay balances. Please try again later.')
+    } finally {
+      store.setData('tip', {
+        onFetchingEverPay: false
+      })
+    }
+  } else {
+    store.setData('tip', { availableTokens: [] })
+  }
 }
 
 const networkBox = ref(null)
@@ -122,7 +153,7 @@ const handleScroll = (el) => {
   &__content-wrapper {
     display: flex;
     overflow-x: auto;
-    padding: 2px;
+    padding: 7px 2px 2px;
     margin: 0 -2px;
     
     &::-webkit-scrollbar {

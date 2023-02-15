@@ -8,7 +8,7 @@ export default (store) => {
     const loadingMessage = $showLoading()
   
     try {
-      await getCommentList(1, store.last_got_time)
+      await getCommentList(1, store.lastGotTime)
     } finally {
       loadingMessage.close()
     }

@@ -47,9 +47,9 @@
     <el-collapse-transition>
       <div 
         class="echo-dialog-tip__tip"
-        v-if="store.tip_amount">
-        <template v-if="store.currency[store.tip_network].usd">
-           ≈ {{ store.tip_amount / (store.currency[store.tip_network].usd) }} {{ store.currency[store.tip_network].symbol }}
+        v-if="store.tip.amount">
+        <template v-if="store.currency[store.tip.network].usd">
+           ≈ {{ store.tip.amount / (store.currency[store.tip.network].usd) }} {{ store.currency[store.tip.network].symbol }}
         </template>
         <template v-else>
           Fail to get currency. Please try again later.
@@ -86,10 +86,10 @@ $bus.on('reset-tip-form', () => {
 })
 
 const placeholder = computed(() => {
-  if (!store.tip_network) {
+  if (!store.tip.network) {
     return ''
   } else {
-    const currency = store.currency[store.tip_network]
+    const currency = store.currency[store.tip.network]
     if (currency && currency.usd) {
       return ` 1${currency.symbol} ≈ $${currency.usd}`
     }

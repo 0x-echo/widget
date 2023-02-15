@@ -100,7 +100,11 @@ const useStore = defineStore('global', {
     },
     
     tip: {
+      amount: 0,
+      availableTokens: [],
       counts: 0,
+      network: '',
+      onFetchingEverPay: false,
       uniqCounts: 0
     },
 
@@ -114,10 +118,8 @@ const useStore = defineStore('global', {
     balance: 0,
 
     newPosts: 0,
-    last_got_time: 0,
+    lastGotTime: 0,
 
-    tip_amount: 0,
-    tip_network: '',
     currency:  {
       ethereum: {
         symbol: 'ETH',
@@ -243,7 +245,7 @@ const useStore = defineStore('global', {
       this.hasLogined = val
     },
     setLastGotTime (val) {
-      this.last_got_time = val
+      this.lastGotTime = val
     },
     setNewPost (val) {
       this.newPosts = val
@@ -259,10 +261,10 @@ const useStore = defineStore('global', {
       } catch (e) {}
     },
     setTipNetwork (val) {
-      this.tip_network = val
+      this.tip.network = val
     },
     setTipAmount (val) {
-      this.tip_amount = val
+      this.tip.amount = val
     },
     async getCurrency () {
       const map = {
