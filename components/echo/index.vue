@@ -99,6 +99,7 @@
 <script setup>
 import useStore from '~~/store'
 const store = useStore()
+const route = useRoute()
 
 // libs
 import { getDraft, setDraft } from '@/libs/helper'
@@ -123,7 +124,7 @@ const { getCommentList, getReactionList, getTipList } = useGetList(store)
 
 // load more 
 import useLoadMore from './load-more'
-const { handleBodyScroll, loadMore, loadReplyChildren } = useLoadMore(store)
+const { loadMore, loadReplyChildren } = useLoadMore(store)
 
 // refresh comment list
 import useRefreshCommentList from './refresh-comment-list'
@@ -248,8 +249,16 @@ watch(message, (val) => {
   setDraft(store.widgetConfig.targetUri, val)
 })
 
-let onHandlingStorageChange = false
+// load more when scroll to the bottom of body
+const handleBodyScroll = async () => {
+  if (!route.query.height) {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+      await loadMore(store.layout.currentTab)
+    }
+  }
+}
 
+let onHandlingStorageChange = false
 const handleStorageChange = () => {
   if (onHandlingStorageChange) {
     return
@@ -274,7 +283,6 @@ const handleStorageChange = () => {
 
 const CHECK_INTERVAL = 60 * 1000
 let checkInterval = null
-
 onMounted(async () => {
   window.addEventListener('scroll', handleBodyScroll)
   window.addEventListener('storage', handleStorageChange)

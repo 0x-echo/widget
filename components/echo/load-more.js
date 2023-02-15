@@ -1,17 +1,8 @@
 import useGetList from './get-list'
-const route = useRoute()
+
 
 export default (store) => {
   const { getCommentList, getReactionList } = useGetList(store)
-  
-  // load more when scroll to the bottom of body
-  const handleBodyScroll = async () => {
-    if (!route.query.height) {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        await loadMore(store.layout.currentTab)
-      }
-    }
-  }
   
   const loadMore = async (activeTab) => {
     if (activeTab === 'comment') {
@@ -40,7 +31,6 @@ export default (store) => {
   }
   
   return {
-    handleBodyScroll,
     loadMore,
     loadReplyChildren
   }
