@@ -7,7 +7,7 @@
       #template>
       <div
         class="echo-comment-list-skeleton__item"
-        v-for="index in 2"
+        v-for="index in itemNum"
         :key="index">
         <el-skeleton-item
           class="echo-comment-list-skeleton__avatar"
@@ -29,6 +29,7 @@
             
           <el-skeleton-item
             class="echo-comment-list-skeleton__action"
+            v-if="store.widgetConfig.height >= 320"
             variant="rect" />
         </div>
       </div>
@@ -42,7 +43,18 @@
 </template>
 
 <script setup>
+import useStore from '~~/store'
 import { ElSkeleton, ElSkeletonItem } from 'element-plus'
+
+const store = useStore()
+
+const itemNum = computed(() => {
+  if (store.widgetConfig.height >= 440) {
+    return 2
+  } else {
+    return 1
+  }
+})
 </script>
 
 <style lang="scss">

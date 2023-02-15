@@ -18,6 +18,7 @@ const useStore = defineStore('global', {
 
     widgetConfig: {
       fromUri: '',
+      height: '',
       modules: [],
       receiver: '',
       showCommentDislike: true,

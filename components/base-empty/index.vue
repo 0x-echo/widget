@@ -79,11 +79,11 @@ const currentImage = computed(() => {
 
 <style lang="scss">
 .base-empty {
-  min-height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-height: 280px;
   color: var(--echo-text-color-muted);
   opacity: .8;
   

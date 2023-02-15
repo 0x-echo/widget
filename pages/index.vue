@@ -49,6 +49,7 @@ const config = computed(() => {
   
   store.setData('widgetConfig', {
     fromUri: query['from-uri'],
+    height: query.height,
     modules: query.modules,
     receiver: query.receiver,
     showCommentDislike: query['show-comment-dislike'],
