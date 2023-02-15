@@ -1,23 +1,23 @@
 <template>
   <component
     :is="tag"
-    class="wallet-item"
+    class="base-wallet-item"
     :class="{
       'active': active,
       'disabled': disabled,
-      'wallet-item--row': direction === 'row'
+      'base-wallet-item--row': direction === 'row'
     }"
     :target="tag === 'a' ? '_blank' : undefined" 
     :href="link">
     <img 
       v-if="icon"
-      class="wallet-item__logo"
+      class="base-wallet-item__logo"
       :alt="label"
       :src="icon" 
       :title="label">
   
     <div
-      class="wallet-item__label">
+      class="base-wallet-item__label">
       <slot>
         {{ label }}
       </slot>
@@ -57,7 +57,7 @@ const props = defineProps({
 </script>
 
 <style lang="scss">
-.wallet-item {
+.base-wallet-item {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -91,11 +91,11 @@ const props = defineProps({
     justify-content: flex-start;
     padding: 12px 20px;
     
-    .wallet-item__logo {
+    .base-wallet-item__logo {
       margin-right: 10px;
     }
     
-    .wallet-item__label {
+    .base-wallet-item__label {
       margin-top: 0;
       font-size: 12px;
     }
@@ -117,7 +117,7 @@ const props = defineProps({
 }
 
 @media screen and (max-width: #{$tablet-width - 1px}) {
-  .wallet-item {
+  .base-wallet-item {
     flex-direction: row;
     justify-content: flex-start;
     padding: 12px 20px;

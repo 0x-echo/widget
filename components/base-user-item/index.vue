@@ -1,12 +1,12 @@
 <template>
   <div
-    class="user-item">
+    class="base-user-item">
     <el-badge 
-      class="user-item__badge"
+      class="base-user-item__badge"
       :hidden="!badge"
       :value="badge">
       <base-avatar
-        class="user-item__avatar"
+        class="base-user-item__avatar"
         :alt="title"
         :size="36"
         :hash="address"
@@ -15,14 +15,14 @@
     </el-badge>
     
     <div
-      class="user-item__body">
+      class="base-user-item__body">
       <div
-        class="user-item__title ellipsis">
+        class="base-user-item__title ellipsis">
         {{ title }}
       </div>
 
       <div
-        class="user-item__subtitle"
+        class="base-user-item__subtitle"
         v-if="subtitle || $slots.subtitle">
         <slot
           name="subtitle">
@@ -58,7 +58,7 @@ const props = defineProps({
 </script>
 
 <style lang="scss">
-.user-item {
+.base-user-item {
   display: flex;
   align-items: center;
   
@@ -89,7 +89,7 @@ const props = defineProps({
 }
 
 @media screen and (max-width: #{$mobile-width - 1px}) {
-  .user-item {
+  .base-user-item {
     &__body {
       display: none;
     }

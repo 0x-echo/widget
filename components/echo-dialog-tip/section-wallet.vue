@@ -23,9 +23,9 @@
         <div
           v-if="store.wallet.loginApp === 'metamask'"
           class="base-wallet-item section-wallet__item section-wallet__add"
-          @click="reSelectWallet">
+          @click="reselectWallet">
           <i
-            class="ri-edit-line">
+            class="ri-edit-2-line">
           </i>
         </div>
       </div>
@@ -67,7 +67,7 @@ const changeOption = (item) => {
   })
 }
 
-const reSelectWallet = async () => {
+const reselectWallet = async () => {
   store.setWallet({
     loginType: 'reselect'
   })
@@ -124,16 +124,14 @@ onMounted(async () => {
   }
   
   &__add {
-    justify-content: center;
+    width: 44px;
+    height: 44px;
     padding: 0;
-    font-size: 20px;
-    color: rgba(146, 154, 178, .8);
-    cursor: pointer;
+    font-size: 16px;
+    color: var(--echo-text-color-muted);
     
     &:hover {
-      border-color: var(--echo-border-color);
-      box-shadow: none;
-      color: var(--echo-text-color-muted);
+      color: var(--echo-text-color-secondary);
     }
   }
 }
