@@ -164,14 +164,6 @@ watch(() => props.active, (val, oldVal) => {
     
     &:hover {
       background-color: #f6f7fe;
-      
-      [class^="ri-"] {
-        transform: scale(1.1); 
-      }
-    }
-    
-    [class^="ri-"] {
-      transition: all .3s ease;
     }
   }
 
