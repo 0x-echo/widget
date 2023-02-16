@@ -161,10 +161,6 @@ watch(() => props.active, (val, oldVal) => {
   &__button {
     width: 40px;
     height: 40px;
-    
-    &:hover {
-      background-color: #f6f7fe;
-    }
   }
 
   .ri-money-dollar-circle-line {
