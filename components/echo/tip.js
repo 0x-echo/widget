@@ -2,6 +2,7 @@ import { echoMessage } from '~~/libs/helper'
 import { ethers } from "ethers"
 import { v4 as uuidv4 } from 'uuid'
 import EverPay from 'everpay'
+import useConfetti from '~~/compositions/confetti'
 import useConnectWallet from './connect-wallet'
 import useLibs from './libs'
 import useGetList from './get-list'

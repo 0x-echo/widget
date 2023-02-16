@@ -157,11 +157,7 @@ const handleScroll = (el) => {
     padding: 7px 2px 2px;
     margin: 0 -2px;
   }
-  
-  &__item {
-    width: 100%;
-  }
-  
+ 
   &__arrow-button {
     position: absolute;
     top: 27px;

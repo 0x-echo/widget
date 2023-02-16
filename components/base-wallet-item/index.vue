@@ -72,7 +72,6 @@ const props = defineProps({
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: calc((100% - 15px) / 2);
   padding: 15px 15px 12px;
   border-radius: 12px;
   border: 1px solid var(--echo-border-color);
@@ -134,7 +133,7 @@ const props = defineProps({
     font-size: 10px;
     font-weight: 500;
     text-transform: uppercase;
-    background: var(--color-primary);
+    background: var(--echo-color-primary);
     color: white;
     transform: translate(20%, -50%);
   }

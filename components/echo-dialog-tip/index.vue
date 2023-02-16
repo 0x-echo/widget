@@ -159,11 +159,11 @@ const getLoading = () => {
   }
   
   section + section {
-    margin-top: 30px;
+    margin-top: 25px;
   }
   
   &__section-header {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
   
   &__section-title {

@@ -129,17 +129,13 @@ const getLoading = (text) => {
 <style lang="scss">
 .echo-dialog-connect {
   &__list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  
-  &__item {
-    margin-bottom: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
   }
   
   &__tip {
-    margin-top: 15px;
+    margin-top: 30px;
     font-size: 12px;
     text-align: center;
     color: var(--echo-text-color-secondary);
@@ -148,8 +144,8 @@ const getLoading = (text) => {
 
 @media screen and (max-width: #{$tablet-width - 1px}) {
   .echo-dialog-connect {
-    &__item {
-      width: 100%;
+    &__list {
+      grid-template-columns: 1fr;
     }
   }
 }

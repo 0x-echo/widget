@@ -18,10 +18,6 @@ a {
   }
 }
 
-li {
-  list-style: none;
-}
-
 body {
   background: transparent;
   color: var(--echo-text-color-primary);
@@ -31,11 +27,5 @@ body {
   
   &::-webkit-scrollbar {
     display: none;
-  }
-}
-
-p {
-  & + & {
-    margin-top: 10px;
   }
 }

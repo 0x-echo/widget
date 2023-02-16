@@ -9,9 +9,9 @@
       
       <div
         class="section-everpay-token__content">
-        <pulse-loader
+        <base-loader-pulse
           v-if="store.tip.onFetchingEverPay">
-        </pulse-loader>
+        </base-loader-pulse>
         
         <div
           class="section-everpay-token__list"
@@ -162,17 +162,17 @@ const onBlurAmountInput = (e) => {
     align-items: center;
     height: 50px;
     padding: 0 20px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
+    border: 1px solid var(--echo-border-color);
+    border-radius: var(--echo-border-radius);
     font-size: 13px;
-    background: var(--fill-color-blank);
+    background: var(--echo-fill-color-blank);
     cursor: pointer;
     transition: all .3s ease;
     
     &:hover,
     &.active {
-      border-color: var(--color-primary);
-      box-shadow: 0 0 4px rgba(var(--color-primary-rgb), .5);
+      border-color: var(--echo-color-primary);
+      box-shadow: 0 0 4px rgba(var(--echo-color-primary-rgb), .5);
     }
   }
   
@@ -193,7 +193,7 @@ const onBlurAmountInput = (e) => {
   &__tip {
     font-size: 12px;
     text-align: center;
-    color: var(--text-color-secondary);
+    color: var(--echo-text-color-secondary);
   }
 
   &__tip-link {
@@ -214,9 +214,9 @@ const onBlurAmountInput = (e) => {
     height: 50px;
     padding: 0 15px;
     margin-bottom: 15px;
-    border-radius: var(--border-radius);
-    border: 1px solid var(--border-color);
-    background: var(--fill-color-blank);
+    border-radius: var(--echo-border-radius);
+    border: 1px solid var(--echo-border-color);
+    background: var(--echo-fill-color-blank);
   }
   
   &__input-inner {
@@ -232,7 +232,7 @@ const onBlurAmountInput = (e) => {
       height: 48px;
       line-height: 48px;
       text-align: left;
-      color: var(--text-color-primary);
+      color: var(--echo-text-color-primary);
     }
   }
 }
