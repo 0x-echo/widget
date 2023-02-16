@@ -210,10 +210,10 @@ export default {
     
     &__send-button {
       width: 100px;
-      height: 32px;
+      height: 36px;
       font-size: 14px;
-      padding-top: 8px;
-      padding-bottom: 8px;
+      padding-top: 10px;
+      padding-bottom: 10px;
     }
   }
 }
