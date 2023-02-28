@@ -33,10 +33,29 @@
               </span>
               
               <chat-tag
-                v-if="data.is_author"
+                v-if="isAuthor"
                 class="comment-item__tag">
                 Author
               </chat-tag>
+
+              <span
+                v-if="data.is_pinned"
+                class="comment-item__pin">
+                <el-tooltip
+                  effect="dark"
+                  placement="top">
+                  <template 
+                    #content> 
+                    Pinned at 
+                    <timeago 
+                      :datetime="data.pinned_at" 
+                      :title="$formatDate(data.pinned_at)" />
+                  </template>
+                
+                  <i class="ri-pushpin-2-fill"></i>
+                </el-tooltip>
+                
+              </span>
             </div>
               
             <div
@@ -168,7 +187,7 @@
 </template>
 
 <script setup>
-import { ElButton, ElCollapseTransition, ElMessage, ElPopover } from 'element-plus'
+import { ElButton, ElCollapseTransition, ElMessage, ElPopover, ElTooltip } from 'element-plus'
 import CommentAction from './comment-action'
 const { $bus, $formatAddress, $formatScreenName } = useNuxtApp()
 import { Timeago } from 'vue2-timeago'
@@ -198,7 +217,9 @@ const emits = defineEmits([
   'reply-comment',
   'report',
   'like-comment',
-  'view-arweave-info'
+  'view-arweave-info',
+  'pin-comment',
+  'unpin-comment'
 ])
 
 const commentContentRef = ref(null)
@@ -209,6 +230,15 @@ onMounted(() => {
   if (commentContentRef.value.clientHeight > 105) {
     hasMoreButton.value = true
   }
+})
+
+const isAuthor = computed(() => {
+  if (store.authorship.fullAddress) {
+    if (store.chain.toLowerCase() + '/' + store.address.toLowerCase() === store.authorship.fullAddress.toLowerCase()) {
+      return true
+    }
+  }
+  return false
 })
 
 const moreMenuVisible = ref(false)
@@ -243,6 +273,17 @@ const moreMenu = computed(() => {
     label: 'Copy Wallet Address',
     value: 'copy-wallet-address'
   })
+
+  if (store.authorship.fullAddress) {
+    if (store.chain.toLowerCase() + '/' + store.address.toLowerCase() === store.authorship.fullAddress.toLowerCase()) {
+      menus.push({
+        danger: false,
+        icon: props.data.is_pinned ? 'ri-pushpin-line' : 'ri-pushpin-2-line',
+        label: props.data.is_pinned ? 'Unpin Comment' : 'Pin Comment',
+        value: props.data.is_pinned ? 'unpin-comment' : 'pin-comment'
+      })
+    }
+  }
 
   if (props.data.can_delete) {
     menus.push({
@@ -377,6 +418,11 @@ export default {
   
   &__tag {
     margin-left: 8px;
+  }
+
+  &__pin {
+    margin-left: 10px;
+    color: orange;
   }
   
   &__copy-icon {

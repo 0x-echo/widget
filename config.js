@@ -37,7 +37,10 @@ export default {
       TIP: baseURL + '/api/v1/tips',
       GET_TIPS: baseURL + '/api/v1/tips',
       CURRENCY: baseURL + '/api/v1/common/currency',
-      DELETE_POST: baseURL + '/api/v1/posts/'
+      DELETE_POST: baseURL + '/api/v1/posts/',
+      GET_AUTHORSHIP: baseURL + '/api/v1/authorships',
+      PIN_COMMENT: baseURL + '/api/v1/pins',
+      UNPIN_COMMENT: baseURL + '/api/v1/unpins'
     }
   },
 	types: {

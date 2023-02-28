@@ -12,6 +12,8 @@
         :loading="loading"
         v-model="message"
         @delete-comment="goDeleteComment"
+        @pin-comment="pinComment"
+        @unpin-comment="unpinComment"
         @connect-wallet="goConnectWallet"
         @dislike="dislike"
         @dislike-comment="dislikeComment"
@@ -1192,6 +1194,91 @@ const goDeleteComment = (data) => {
   currentComment = data
   deleteDialogVisible.value = true
 }
+
+const pinComment = async (item) => {
+  const loadingMessage = $showLoading()
+  
+  try {
+    
+    try {
+      const rs = await $fetch(commonConfig.api().PIN_COMMENT, {
+        method: 'POST',
+        headers: getCommonHeader(),
+        body: {
+          target_uri: config.target_uri,
+          id: item.id
+        }
+      })
+      currentComment = null
+      deleteDialogVisible.value = false
+    } catch (e) {
+      if (e.response && e.response._data) {
+        ElMessage.error({
+          message: e.response._data.msg
+        })
+      } else {
+        ElMessage.error({
+          message: 'Indexer error.'
+        })
+      }
+    }
+
+    summary.comments.forEach(one => {
+      if (one.id === item.id) {
+        item.is_pinned = true
+        item.pinned_at = new Date()
+      }
+    })
+    ElMessage.success({
+      message: 'Pinned!'
+    })
+  } finally {
+    loadingMessage.close()
+  }
+}
+
+const unpinComment = async (item) => {
+  const loadingMessage = $showLoading()
+  
+  try {
+    
+    try {
+      const rs = await $fetch(commonConfig.api().UNPIN_COMMENT, {
+        method: 'POST',
+        headers: getCommonHeader(),
+        body: {
+          target_uri: config.target_uri,
+          id: item.id
+        }
+      })
+      currentComment = null
+      deleteDialogVisible.value = false
+    } catch (e) {
+      if (e.response && e.response._data) {
+        ElMessage.error({
+          message: e.response._data.msg
+        })
+      } else {
+        ElMessage.error({
+          message: 'Indexer error.'
+        })
+      }
+    }
+
+    summary.comments.forEach(one => {
+      if (one.id === item.id) {
+        item.is_pinned = false
+        item.pinned_at = null
+      }
+    })
+    ElMessage.success({
+      message: 'unpinned!'
+    })
+  } finally {
+    loadingMessage.close()
+  }
+}
+
 const deleteComment = async () => {
   console.log('go delete', currentComment, currentComment.id)
   try {
@@ -1676,6 +1763,26 @@ const init = async () => {
   }
   if (firstModule === 'tip') {
     await getTips()
+  }
+
+  await getAuthorship()
+}
+
+const getAuthorship = async () => {
+  try {
+    const rs = await $fetch(commonConfig.api().GET_AUTHORSHIP, {
+      params: {
+        target_uri: config.target_uri
+      },
+      headers: getCommonHeader()
+    })
+    if (rs.data && rs.data.full_address) {
+      store.setData('authorship', {
+        fullAddress: rs.data.full_address
+      })
+    }
+  } catch (e) {
+    console.error('authorship:', e)
   }
 }
 
