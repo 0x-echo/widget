@@ -13,6 +13,10 @@ const useStore = defineStore('global', {
       tip_counts: 0
     },
 
+    authorship: {
+      fullAddress: ''
+    },
+
     status: {
       onTransactionProcessing: false,
       onSubmitingTargetComment: false
