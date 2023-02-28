@@ -234,7 +234,7 @@ onMounted(() => {
 
 const isAuthor = computed(() => {
   if (store.authorship.fullAddress) {
-    if (store.chain.toLowerCase() + '/' + store.address.toLowerCase() === store.authorship.fullAddress.toLowerCase()) {
+    if (props.data.author.chain.toLowerCase() + '/' + props.data.author.address.toLowerCase() === store.authorship.fullAddress.toLowerCase()) {
       return true
     }
   }
