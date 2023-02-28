@@ -46,8 +46,8 @@
                   placement="top">
                   <template 
                     #content> 
-                    Pinned at 
-                    <timeago 
+                    Pinned 
+                    <timeago
                       :datetime="data.pinned_at" 
                       :title="$formatDate(data.pinned_at)" />
                   </template>
