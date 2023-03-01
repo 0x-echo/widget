@@ -55,7 +55,6 @@
       
       <el-popover
         ref="userMenuRef"
-        v-if="hasLogined || minimal"
         :placement="minimal ? 'top' : 'top-end'"
         trigger="click"
         :width="166"
