@@ -224,6 +224,7 @@ const onClickUserMenu = (item) => {
   }
   
   &__user {
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     min-width: 140px;
@@ -271,7 +272,8 @@ const onClickUserMenu = (item) => {
       width: 40px;
       min-width: inherit;
       max-width: inherit;
-      padding: 0 10px;
+      padding:  0;
+      justify-content: center;
     }
     
     &__user-name,
@@ -283,9 +285,21 @@ const onClickUserMenu = (item) => {
 
 @media screen and (max-width: #{$small-mobile-width - 1px}) {
   .section-toolbar {
-    &__user,
-    &__connect-button {
-      display: none;
+    &__user {
+      width: 36px;
+      height: 36px;
+    }
+  }
+  
+  .toolbar-item {
+    &__button {
+      width: 36px;
+      height: 36px;
+    }
+    
+    &__count {
+      margin-left: 6px;
+      min-width: 38px;
     }
   }
   

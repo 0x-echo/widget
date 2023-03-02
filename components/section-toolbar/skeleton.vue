@@ -8,10 +8,10 @@
       <div
         class="toolbar-skeleton__left">
         <template
-          class="toolbar-skeleton__item"
           v-for="index in config"
           :key="index">
           <el-skeleton-item
+            class="toolbar-skeleton__button"
             variant="button" />
           
           <el-skeleton-item
@@ -21,7 +21,7 @@
       </div>
       
       <el-skeleton-item
-        class="toolbar-skeleton__right"
+        class="toolbar-skeleton__right toolbar-skeleton__button"
         v-if="showRight"
         variant="button" />
     </template>
@@ -65,12 +65,22 @@ const props = defineProps({
     height: 22px;
     margin: 0 35px 0 8px;
   }
+  
+  &__right {
+    flex-shrink: 0;
+  }
 }
 
 @media screen and (max-width: #{$small-mobile-width - 1px}) {
   .toolbar-skeleton {
-    &__right {
-      display: none;
+    &__button {
+      width: 36px;
+      height: 36px;
+    }
+    
+    &__count {
+      width: 15px;
+      margin: 0 31px 0 6px;
     }
   }
 }

@@ -159,8 +159,12 @@ watch(() => props.active, (val, oldVal) => {
   }
   
   &__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 40px;
     height: 40px;
+    padding: 0 !important;
   }
 
   .ri-money-dollar-circle-line {
