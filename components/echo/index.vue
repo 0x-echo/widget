@@ -13,6 +13,7 @@
         :modules="currentModules"
         v-model="store.comment.message"
         @delete-comment="openDeleteCommentDialog"
+        @check-notification="openNotificationDialog"
         @connect-wallet="openConnectWalletDialog"
         @dislike="dislike"
         @dislike-comment="dislikeComment"
@@ -43,6 +44,7 @@
       v-if="widgetType === 'lite-only'"
       :loading="store.status.loading"
       :modules="currentModules"
+      @check-notification="openNotificationDialog"
       @connect-wallet="store.setData('connectWalletDialogVisible', true)"
       @tip="openTipDialog"
       @dislike="dislike"
@@ -77,6 +79,10 @@
       v-model="store.reportDialogVisible"
       @submit="submitReport">
     </echo-dialog-report>
+    
+    <echo-dialog-notification
+      v-model="notificationDialogVisible">
+    </echo-dialog-notification>
     
     <base-dialog-confirm
       confirm-button-text="Delete"
@@ -172,6 +178,11 @@ const props = defineProps({
     required: true
   }
 })
+
+const notificationDialogVisible = ref(false)
+const openNotificationDialog = () => {
+  notificationDialogVisible.value = true
+}
 
 const widgetClass = computed(() => {
   const config = props.config
