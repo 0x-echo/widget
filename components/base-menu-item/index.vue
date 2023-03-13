@@ -104,8 +104,21 @@ const emits = defineEmits([
   }
   
   &__label {
+    flex: 1;
     text-align: left;
     font-size: 12px;
+  }
+  
+  &__count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    font-size: 10px;
+    background: var(--echo-color-danger);
+    color: white;
   }
 }
 </style>
