@@ -31,7 +31,7 @@ export default defineNuxtConfig({
       href: '/favicon.ico',
       type: 'image/x-icon'
     }, {
-      ref: 'apple-touch-icon',
+      rel: 'apple-touch-icon',
       sizes: '180x180',
       href: '/apple-touch-icon.png'
     }
