@@ -38,18 +38,22 @@
           :show-arrow="false"
           :teleported="false"
           trigger="click"
-          :width="160">
+          :width="180">
           <template 
             #reference>
             <div
               class="echo-toolbar__user">
-              <base-avatar
-                class="echo-toolbar__user-wallet-icon"
-                :alt="loginInfo.screen_name"
-                size="small"
-                :hash="loginInfo.address"
-                :src="loginInfo.avatar || ''">
-              </base-avatar>
+              <el-badge 
+                class="echo-toolbar__user-badge"
+                is-dot>
+                <base-avatar
+                  class="echo-toolbar__user-avatar"
+                  :alt="loginInfo.screen_name"
+                  size="small"
+                  :hash="loginInfo.address"
+                  :src="loginInfo.avatar || ''">
+                </base-avatar>
+              </el-badge>
              
               <span
                 class="echo-toolbar__user-name">
@@ -67,6 +71,7 @@
             <base-menu-item
               v-for="item in userMenu"
               :key="item.value"
+              :count="item.count"
               :icon="item.icon"
               :is-link="item.isLink"
               :label="item.label"
@@ -81,24 +86,9 @@
 </template>
 
 <script setup>
-import { ElPopover } from 'element-plus'
+import { ElBadge, ElPopover } from 'element-plus'
 import useStore from '~~/store'
-import useChain from '~~/compositions/chain'
 import _ from 'lodash'
-
-// import * as Dotbit from 'dotbit/lib/index'
-// console.log(Dotbit)
-// const { createInstance, ProviderSigner, BitNetwork } = Dotbit
-// const signer = new ProviderSigner(window.ethereum)
-// const dotbit = createInstance({
-//   network: BitNetwork.testnet,
-//   signer
-// })
-
-// const bitAccount = dotbit.account('ec009.imac.bit')
-// console.log(bitAccount)
-
-const { logos, defaultLogo } = useChain()
 
 const store = useStore()
 const hasLogined = computed(() => store.hasLogined)
@@ -178,6 +168,11 @@ const toolbarConfig = computed(() => {
 })
 
 const userMenu = [{
+  icon: 'ri-notification-3-line',
+  label: 'Notification',
+  value: 'check-notification',
+  count: '8'
+}, {
   icon: 'ri-refresh-line',
   label: 'Refresh profile',
   value: 'refresh-profile'
@@ -226,6 +221,14 @@ const onClickUserMenu = (item) => {
     cursor: pointer;
   }
   
+  &__user-badge {
+    display: flex;
+    
+    .el-badge__content.is-dot {
+      top: 1px;
+    }
+  }
+  
   &__user-popover {
     &.el-popper {
       box-shadow: 0 10px 10px rgba(0, 0, 0, .08);
@@ -237,7 +240,7 @@ const onClickUserMenu = (item) => {
     }
   }
   
-  &__user-wallet-icon {
+  &__user-avatar {
     width: 20px;
     height: 20px;
     object-fit: contain;
