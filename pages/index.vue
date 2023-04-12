@@ -463,9 +463,13 @@ const tryAutoLogin = () => {
         try {
           await store.getScreenName()
           await store.updateBalance(_info.address)
-          await filter.checkEligible()
         } catch (e) {
           console.log(e)
+        }
+        try {
+          await filter.checkEligible()
+        } catch (e) {
+          console.log('check error', e)
         }
       }, 100)
 
