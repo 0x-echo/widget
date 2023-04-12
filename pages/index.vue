@@ -384,10 +384,12 @@ onMounted(async () => {
         getAuthMessage
       }
     })
-    await requestLogin(...params)
-    setTimeout(() => {
-      window.close()
-    }, 2000)
+    if (params) {
+      await requestLogin(...params)
+      setTimeout(() => {
+        window.close()
+      }, 2000)
+    }
     return
   }
 
@@ -1072,10 +1074,12 @@ const connectWallet =  async (item) => {
         getAuthMessage
       }
     })
-    await requestLogin(...params)
-    if (config.action && config.action.includes('particle')) {
-      window.close()
-      return
+    if (params) {
+      await requestLogin(...params)
+      if (config.action && config.action.includes('particle')) {
+        window.close()
+        return
+      }
     }
   } else {
     ElMessage.error(`Unsupported login method: ${item.name}`)

@@ -1,11 +1,23 @@
-import { ParticleNetwork, WalletEntryPosition } from '@particle-network/auth'
-import { ParticleProvider } from '@particle-network/provider'
+// import { ParticleNetwork, WalletEntryPosition } from '@particle-network/auth'
+// import { ParticleProvider } from '@particle-network/provider'
 import { ethers } from 'ethers'
 import { particle } from '../config'
+import { ElMessage } from 'element-plus'
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 const { projectId, clientKey, appId } = particle
 
 const particleLogin = async ({ provider, context: { getAuthMessage } }) => {
+  while(!window.particleAuth || !window.particleProvider) {
+    await sleep(1000)
+  }
+
+  const ParticleNetwork = window.particleAuth.ParticleNetwork
+  const ParticleProvider = window.particleProvider.ParticleProvider
+
 	const pn = new ParticleNetwork({
 		projectId,
 		clientKey,
@@ -14,8 +26,8 @@ const particleLogin = async ({ provider, context: { getAuthMessage } }) => {
 		chainId: 1, //optional: current chain id, default 1.
 		wallet: {
 			//optional: by default, the wallet entry is displayed in the bottom right corner of the webpage.
-			displayWalletEntry: true, //show wallet entry when connect particle.
-			defaultWalletEntryPosition: WalletEntryPosition.BR, //wallet entry position
+			displayWalletEntry: false, //show wallet entry when connect particle.
+			// defaultWalletEntryPosition: WalletEntryPosition.BR, //wallet entry position
 			supportChains: [ { id: 1, name: 'Ethereum' } ], // optional: web wallet support chains.
 			customStyle: {} //optional: custom wallet style
 		}
@@ -23,6 +35,16 @@ const particleLogin = async ({ provider, context: { getAuthMessage } }) => {
 
 	const particleProvider = new ParticleProvider(pn.auth)
 	const ethersProvider = new ethers.providers.Web3Provider(particleProvider, 'any')
+
+  // logout first
+  if (pn.auth.isLogin()) {
+    try {
+      const logout = await pn.auth.logout()
+      console.log('logout', logout)
+    } catch (e) {
+      console.log('logout', e)
+    }
+  }
 
 	try {
 		const rs = await pn.auth.login({

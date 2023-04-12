@@ -22,7 +22,16 @@ export default defineNuxtConfig({
       name: 'description',
       content: 'ECHO',
     }],
-    script: [{
+    script: [
+      {
+        src: '/particle.js'
+      },
+      /**{
+      src: 'https://static.particle.network/sdks/web/auth/0.12.2/auth.min.js'
+    }, {
+      src: 'https://static.particle.network/sdks/web/provider/0.12.2/provider.min.js'
+    }, **/
+    {
       src: 'https://analytics.0xecho.com/js/plausible.js',
       'data-domain': 'embed.0xecho.com',
       defer: true
