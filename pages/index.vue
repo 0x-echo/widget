@@ -1261,6 +1261,16 @@ const pinComment = async (item) => {
       })
       currentComment = null
       deleteDialogVisible.value = false
+
+      summary.comments.forEach(one => {
+        if (one.id === item.id) {
+          item.is_pinned = true
+          item.pinned_at = new Date()
+        }
+      })
+      ElMessage.success({
+        message: 'Pinned!'
+      })
     } catch (e) {
       if (e.response && e.response._data) {
         ElMessage.error({
@@ -1272,16 +1282,6 @@ const pinComment = async (item) => {
         })
       }
     }
-
-    summary.comments.forEach(one => {
-      if (one.id === item.id) {
-        item.is_pinned = true
-        item.pinned_at = new Date()
-      }
-    })
-    ElMessage.success({
-      message: 'Pinned!'
-    })
   } finally {
     loadingMessage.close()
   }
