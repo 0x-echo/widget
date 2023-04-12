@@ -32,7 +32,7 @@
     <div
       v-if="store.wallet.loginType === 'login'"
       class="dialog-connect__tip">
-      By connecting your wallet and signing a message, you agree to 0xecho's
+      By connecting your wallet and signing a message, you agree to ECHO's
       <a
         href="https://0xecho.com/tos" 
         target="_blank">
