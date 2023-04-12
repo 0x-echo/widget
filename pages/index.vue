@@ -361,7 +361,7 @@ const handleStorageChange = () => {
 
 const handleBodyScroll = async () => {
   if (!route.query.height) {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
       await loadMore(store.layout.currentTab)
     }
   }
