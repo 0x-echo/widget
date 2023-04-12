@@ -28,7 +28,7 @@
         @click="connectWallet(item)">
       </wallet-item>
     </div>
-    
+
     <div
       v-if="store.wallet.loginType === 'login'"
       class="dialog-connect__tip">

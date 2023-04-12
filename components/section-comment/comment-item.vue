@@ -244,7 +244,7 @@ onMounted(() => {
 
 const isAuthor = computed(() => {
   if (store.authorship.fullAddress) {
-    if (props.data.author.chain.toLowerCase() + '/' + props.data.author.address.toLowerCase() === store.authorship.fullAddress.toLowerCase()) {
+    if (store.authorship.fullAddress.split(',').map(one => one.toLowerCase()).includes(props.data.author.chain.toLowerCase() + '/' + props.data.author.address.toLowerCase())) {
       return true
     }
   }
@@ -285,7 +285,7 @@ const moreMenu = computed(() => {
   })
 
   if (store.authorship.fullAddress) {
-    if (store.chain.toLowerCase() + '/' + store.address.toLowerCase() === store.authorship.fullAddress.toLowerCase()) {
+    if (store.authorship.fullAddress.split(',').map(one => one.toLowerCase()).includes(store.chain.toLowerCase() + '/' + store.address.toLowerCase())) {
       menus.push({
         danger: false,
         icon: props.data.is_pinned ? 'ri-pushpin-line' : 'ri-pushpin-2-line',
