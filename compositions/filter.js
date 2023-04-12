@@ -1,6 +1,5 @@
 import configParser from '~~/libs/config-parser'
 import config from '../config'
-import axios from 'axios'
 
 export default (store) => {
   const parsed = configParser()
@@ -25,16 +24,16 @@ export default (store) => {
     if (!store.filter.did) {
       return
     }
-    const rs = await axios.get(config.api().GET_SUBDIDS, {
+    const rs = await $fetch(config.api().GET_SUBDIDS, {
       params: {
         address: store.chain + '/' + store.address,
         did
       }
     })
-    if (rs.data.data.subdids && rs.data.data.subdids.length) {
+    if (rs.data.subdids && rs.data.subdids.length) {
       store.setData('filter', {
         eligible: true,
-        subdids: rs.data.data.subdids
+        subdids: rs.data.subdids
       })
     } else {
       store.setData('filter', {
