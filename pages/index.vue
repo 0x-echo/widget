@@ -1420,7 +1420,8 @@ const getList = async (page = 1, since, parentId) => {
     // filter by subdid, just in case server doesn't filter
     if (store.filter.did) {
       rs.list = rs.list.filter(one => {
-        return one.subdids && one.subdids.length && one.subdids.find(sub => !!sub.includes(store.filter.did))
+        const author = one.author
+        return author.subdids && author.subdids.length && !!author.subdids.find(sub => !!sub.includes(store.filter.did))
       })
     }
 
