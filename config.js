@@ -40,7 +40,8 @@ export default {
       DELETE_POST: baseURL + '/api/v1/posts/',
       GET_AUTHORSHIP: baseURL + '/api/v1/authorships',
       PIN_COMMENT: baseURL + '/api/v1/pins',
-      UNPIN_COMMENT: baseURL + '/api/v1/unpins'
+      UNPIN_COMMENT: baseURL + '/api/v1/unpins',
+      GET_SUBDIDS: baseURL + '/api/v1/users/subdids'
     }
   },
 	types: {

@@ -29,7 +29,7 @@
               <span
                 class="comment-item__author ellipsis"
                 :title="data.author.screen_name">
-                {{ $formatScreenName(data.author.screen_name) }}
+                {{ store.filter.did && store.filter.eligible && store.filter.displaySubdid ? store.filter.subdids[0] : $formatScreenName(data.author.screen_name) }}
               </span>
               
               <chat-tag

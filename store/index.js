@@ -7,6 +7,13 @@ import axios from 'axios'
 
 const useStore = defineStore('global', {
 	state: () => ({
+    filter: {
+      did: '',
+      subdids: [],
+      eligible: false,
+      displaySubdid: false
+    },
+
     counts: {
       like_counts: 0,
       dislike_counts: 0,

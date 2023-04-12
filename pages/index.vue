@@ -113,6 +113,7 @@ import useConfetti from '~~/compositions/confetti'
 import useReceiver from '~~/compositions/receiver'
 import useSign from '~~/compositions/sign'
 import useWidgetConfig from '~~/compositions/widget-config'
+import useFilter from '~~/compositions/filter'
 
 import EverPay from 'everpay'
 
@@ -130,6 +131,8 @@ const GetWalletConnectProvider = () => import('@walletconnect/web3-provider/dist
 const { $bus, $showLoading } = useNuxtApp()
 const store = useStore()
 const route = useRoute()
+
+const filter = useFilter(store)
 
 const { config } = useWidgetConfig(store)
 
@@ -456,8 +459,14 @@ const tryAutoLogin = () => {
         avatar: _info.avatar
       })
       setTimeout(async () => {
-        await store.getScreenName()
-        await store.updateBalance(_info.address)
+        console.log('auto login')
+        try {
+          await store.getScreenName()
+          await store.updateBalance(_info.address)
+          await filter.checkEligible()
+        } catch (e) {
+          console.log(e)
+        }
       }, 100)
 
       setTimeout(async () => {
@@ -845,6 +854,7 @@ const requestLogin = async (account, message, signature, chain, signKeys, wallet
       })
 
       await store.updateBalance(account)
+      await filter.checkEligible()
 
       loadingMessage.close()
 
@@ -1392,6 +1402,11 @@ const getList = async (page = 1, since, parentId) => {
     order_by: orderBy
   }
 
+  if (store.filter.did) {
+    params.filter_by = 'did'
+    params.filter_did = store.filter.did
+  }
+
   if (parentId) {
     params.parent_id = parentId
   }
@@ -1401,7 +1416,14 @@ const getList = async (page = 1, since, parentId) => {
       params,
       headers: getCommonHeader()
     })
-    
+
+    // filter by subdid, just in case server doesn't filter
+    if (store.filter.did) {
+      rs.list = rs.list.filter(one => {
+        return one.subdids && one.subdids.length && one.subdids.find(sub => !!sub.includes(store.filter.did))
+      })
+    }
+
     if (!parentId) {
       if (since) {
         for (let i in rs.list) {

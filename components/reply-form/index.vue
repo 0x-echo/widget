@@ -21,17 +21,18 @@
           :src="store.avatar || ''">
         </chat-avatar>
       </el-tooltip>
-      
+
       <div
         class="reply-form__box">
         <el-input
           class="reply-form__input"
+          :disabled="!!store.filter.did && !store.filter.eligible"
           ref="replyInput"
           v-bind="$attrs"
           :autosize="{
             minRows: 1
           }"
-          :placeholder="placeholder"
+          :placeholder="!!store.filter.did && store.filter.eligible ? placeholder : `To write a comment, a subdid of ${store.filter.did} is required.`"
           resize="none"
           type="textarea"
           @focus="showToolbarValue = true"
