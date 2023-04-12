@@ -66,3 +66,9 @@ export default {
     transaction_check_interval: 3000
   }
 }
+
+export const particle = {
+  projectId: '45b31d03-425f-4b23-b5bd-3398f69576cb',
+  clientKey: 'cyM4hyK1z2tnkWxthzQrp5xH2JCPNOzr6ibZdNbX',
+  appId: '915d1c29-9452-4be5-a13f-c414da4cc285'
+}

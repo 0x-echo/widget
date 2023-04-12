@@ -17,6 +17,8 @@
   "dependencies": {
     "@0xecho/highlight.js": "^11.6.1",
     "@nuxtjs/composition-api": "^0.32.0",
+    "@particle-network/auth": "^0.11.6",
+    "@particle-network/provider": "^0.11.6",
     "@pinia/nuxt": "^0.1.9",
     "@soerenmartius/vue3-clipboard": "^0.1.2",
     "@solana/web3.js": "^1.43.4",

@@ -115,6 +115,8 @@ import useSign from '~~/compositions/sign'
 import useWidgetConfig from '~~/compositions/widget-config'
 import useFilter from '~~/compositions/filter'
 
+import particle from '~~/compositions/particle'
+
 import EverPay from 'everpay'
 
 // whether login on this page or not
@@ -122,6 +124,8 @@ let loginOnCurrentPage = false
 
 const sign = useSign()
 const receiver = useReceiver()
+
+const { particleLogin } = particle()
 
 const { public: { api, common, thirdParty }} = useRuntimeConfig()
 
@@ -132,9 +136,9 @@ const { $bus, $showLoading } = useNuxtApp()
 const store = useStore()
 const route = useRoute()
 
-const filter = useFilter(store)
-
 const { config } = useWidgetConfig(store)
+
+const filter = useFilter(store)
 
 if (!config.modules || !config.modules.length) {
   location.href = `/404?error=${encodeURIComponent('WRONG WIDGET CONFIGURATION')}`
@@ -369,6 +373,21 @@ onMounted(async () => {
   // just for arconnect authorization
   if (config.action === 'authorize_arconnect') {
     await arconnectLogin()
+    return
+  }
+
+  if (config.action === 'authorize_twitter' || config.action === 'authorize_google') {
+    const name = config.action.split('_')[1]
+    const params = await particleLogin({
+      provider: name,
+      context: {
+        getAuthMessage
+      }
+    })
+    await requestLogin(...params)
+    setTimeout(() => {
+      window.close()
+    }, 2000)
     return
   }
 
@@ -825,7 +844,7 @@ const doTipLogin = async (data) => {
   }
 }
 
-const requestLogin = async (account, message, signature, chain, signKeys, walletPublicKey) => {
+const requestLogin = async (account, message, signature, chain, signKeys, walletPublicKey, extra = {}) => {
   const loadingMessage = $showLoading()
   
   try {
@@ -837,7 +856,8 @@ const requestLogin = async (account, message, signature, chain, signKeys, wallet
           message,
           signature,
           public_key: signKeys.publicKey.replace(/^0x/, ''),
-          wallet_public_key: walletPublicKey
+          wallet_public_key: walletPublicKey,
+          ...extra
         },
         headers: getCommonHeader()
       })
@@ -1045,6 +1065,18 @@ const connectWallet =  async (item) => {
     await phantomLogin()
   } else if (item.value === 'arconnect') {
     await arconnectLogin()
+  } else if (item.value === 'twitter' || item.value === 'google') {
+    const params = await particleLogin({
+      provider: item.value,
+      context: {
+        getAuthMessage
+      }
+    })
+    await requestLogin(...params)
+    if (config.action && config.action.includes('particle')) {
+      window.close()
+      return
+    }
   } else {
     ElMessage.error(`Unsupported login method: ${item.name}`)
   }

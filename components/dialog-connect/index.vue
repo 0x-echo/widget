@@ -59,6 +59,8 @@ import iconMatemask from '@/assets/metamask.svg'
 import iconWalletConnect from '@/assets/walletconnect.svg'
 import iconPhantom from '@/assets/phantom.png'
 import iconArconnect from '@/assets/arconnect.png'
+import iconTwitter from '@/assets/twitter.svg'
+import iconGmail from '@/assets/gmail.svg'
 
 import useStore from '~~/store';
 
@@ -107,6 +109,20 @@ const list = computed(() => {
     value: 'arconnect',
     type: store.env.inIframe ? 'link' : '',
     link: document.location.href + '&action=authorize_arconnect'
+  })
+
+  list.push({
+    label: 'Twitter',
+    icon: iconTwitter,
+    value: 'twitter',
+    type: store.env.inIframe ? 'link' : '',
+    link: document.location.href + '&action=authorize_twitter'
+  }, {
+    label: 'Gmail',
+    icon: iconGmail,
+    value: 'google',
+    type: store.env.inIframe ? 'link' : '',
+    link: document.location.href + '&action=authorize_google'
   })
 
   return list

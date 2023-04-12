@@ -32,7 +32,7 @@
           :autosize="{
             minRows: 1
           }"
-          :placeholder="!!store.filter.did && store.filter.eligible ? placeholder : `To write a comment, a subdid of ${store.filter.did} is required.`"
+          :placeholder="store.filter.did && !store.filter.eligible ? `To write a comment, a subdid of ${store.filter.did} is required.` : placeholder"
           resize="none"
           type="textarea"
           @focus="showToolbarValue = true"

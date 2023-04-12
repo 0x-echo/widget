@@ -31,6 +31,16 @@
                 :title="data.author.screen_name">
                 {{ store.filter.did && store.filter.eligible && store.filter.displaySubdid ? store.filter.subdids[0] : $formatScreenName(data.author.screen_name) }}
               </span>
+
+              <img
+                class="comment-item__author-icon"
+                v-if="data.author.login_provider && data.author.login_provider.includes('twitter')"
+                src="@/assets/twitter.svg" />
+
+              <img
+                class="comment-item__author-icon"
+                v-if="data.author.login_provider && data.author.login_provider.includes('google')"
+                src="@/assets/gmail.svg" />
               
               <chat-tag
                 v-if="isAuthor"
@@ -414,6 +424,11 @@ export default {
   &__author {
     font-size: 14px;
     font-weight: 500;
+  }
+
+  &__author-icon {
+    width: 12px;
+    margin-left: 8px;
   }
   
   &__tag {
