@@ -22,6 +22,9 @@ export default (store) => {
   }
 
   async function checkEligible () {
+    if (!store.filter.did) {
+      return
+    }
     const rs = await axios.get(config.api().GET_SUBDIDS, {
       params: {
         address: store.chain + '/' + store.address,
